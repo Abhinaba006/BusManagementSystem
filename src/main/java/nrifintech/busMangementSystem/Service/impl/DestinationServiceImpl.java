@@ -2,39 +2,52 @@ package nrifintech.busMangementSystem.Service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import nrifintech.busMangementSystem.Service.DestinationService;
 import nrifintech.busMangementSystem.entities.Destination;
+import nrifintech.busMangementSystem.exception.ResouceNotFound;
+import nrifintech.busMangementSystem.repositories.DestinationRepo;
 
+@Service
 public class DestinationServiceImpl implements DestinationService {
+
+	@Autowired
+	private DestinationRepo destinationRepo;
 
 	@Override
 	public Destination createDestination(Destination destination) {
-		// TODO Auto-generated method stub
-		return null;
+		return destinationRepo.save(destination);
 	}
 
 	@Override
-	public Destination updateDestination(Destination destination, int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Destination updateDestination(Destination updatedDestination, int id) {
+		Destination destination = destinationRepo.findById(id)
+			.orElseThrow(() -> new ResouceNotFound("Destination", "id", id));
+		destination.setName(updatedDestination.getName());
+		destination.setLattitude(updatedDestination.getLattitude());
+		destination.setLongitude(updatedDestination.getLongitude());
+		return destinationRepo.save(destination);
 	}
 
 	@Override
 	public Destination getDestination(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return destinationRepo.findById(id)
+			.orElseThrow(() -> new ResouceNotFound("Destination", "id", id));
 	}
 
 	@Override
 	public List<Destination> getDestination() {
-		// TODO Auto-generated method stub
-		return null;
+		return destinationRepo.findAll();
 	}
 
 	@Override
 	public void deleteDestination(int id) {
-		// TODO Auto-generated method stub
-
+		Destination destination = destinationRepo.findById(id)
+			.orElseThrow(() -> new ResouceNotFound("Destination", "id", id));
+		destinationRepo.delete(destination);	
 	}
+	
 
 }
