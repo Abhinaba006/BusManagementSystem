@@ -1,4 +1,4 @@
-package nrifintech.busMangementSystem.Controllers;
+package nrifintech.busMangementSystem.Service;
 
 import java.util.List;
 

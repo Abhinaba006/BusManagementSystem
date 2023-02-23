@@ -1,8 +1,8 @@
-package nrifintech.busMangementSystem.Controllers.impl;
+package nrifintech.busMangementSystem.Service.impl;
 
 import java.util.List;
 
-import nrifintech.busMangementSystem.Controllers.TicketService;
+import nrifintech.busMangementSystem.Service.TicketService;
 import nrifintech.busMangementSystem.entities.Ticket;
 
 public class TicketServiceImpl implements TicketService {

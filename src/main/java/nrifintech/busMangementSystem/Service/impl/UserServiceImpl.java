@@ -1,8 +1,8 @@
-package nrifintech.busMangementSystem.Controllers.impl;
+package nrifintech.busMangementSystem.Service.impl;
 
 import java.util.List;
 
-import nrifintech.busMangementSystem.Controllers.UserService;
+import nrifintech.busMangementSystem.Service.UserService;
 import nrifintech.busMangementSystem.entities.User;
 
 public class UserServiceImpl implements UserService{

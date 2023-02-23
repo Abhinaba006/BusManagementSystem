@@ -1,8 +1,8 @@
-package nrifintech.busMangementSystem.Controllers.impl;
+package nrifintech.busMangementSystem.Service.impl;
 
 import java.util.List;
 
-import nrifintech.busMangementSystem.Controllers.DestinationService;
+import nrifintech.busMangementSystem.Service.DestinationService;
 import nrifintech.busMangementSystem.entities.Destination;
 
 public class DestinationServiceImpl implements DestinationService {
