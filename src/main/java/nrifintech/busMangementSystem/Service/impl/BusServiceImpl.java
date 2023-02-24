@@ -2,8 +2,9 @@ package nrifintech.busMangementSystem.Service.impl;
 
 import java.util.List;
 
-import nrifintech.busMangementSystem.Service.BusService;
+import nrifintech.busMangementSystem.Service.interfaces.*;
 import nrifintech.busMangementSystem.entities.Bus;
+
 
 public class BusServiceImpl implements BusService {
 

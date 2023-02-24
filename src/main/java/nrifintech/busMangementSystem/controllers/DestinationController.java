@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import nrifintech.busMangementSystem.Service.DestinationService;
+import nrifintech.busMangementSystem.Service.interfaces.DestinationService;
 import nrifintech.busMangementSystem.entities.Destination;
 import nrifintech.busMangementSystem.payloads.ApiResponse;
 

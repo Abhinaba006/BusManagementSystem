@@ -1,8 +1,8 @@
 package nrifintech.busMangementSystem.Service.impl;
 
+import nrifintech.busMangementSystem.Service.interfaces.*;
 import java.util.List;
 
-import nrifintech.busMangementSystem.Service.RouteService;
 import nrifintech.busMangementSystem.entities.Route;
 
 public class RouteServiceImpl implements RouteService {

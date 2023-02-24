@@ -5,11 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import nrifintech.busMangementSystem.Service.UserService;
 import nrifintech.busMangementSystem.entities.User;
 import nrifintech.busMangementSystem.exception.ResouceNotFound;
 import nrifintech.busMangementSystem.repositories.UserRepo;
-
+import nrifintech.busMangementSystem.Service.interfaces.*;
 @Service
 public class UserServiceImpl implements UserService{
 
