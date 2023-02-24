@@ -2,10 +2,12 @@ package nrifintech.busMangementSystem.Service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import nrifintech.busMangementSystem.Service.interfaces.*;
 import nrifintech.busMangementSystem.entities.Bus;
 
-
+@Service
 public class BusServiceImpl implements BusService {
 
 	@Override

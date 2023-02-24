@@ -1,5 +1,7 @@
 package nrifintech.busMangementSystem.entities;
 
+import javax.persistence.Id;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,6 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Ticket {
+	@Id
 	int id;
 	int Bus_id;
 	int Route_id;
