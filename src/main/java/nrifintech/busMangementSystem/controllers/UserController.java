@@ -20,36 +20,36 @@ import nrifintech.busMangementSystem.entities.User;
 import nrifintech.busMangementSystem.payloads.ApiResponse;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/v1/user")
 public class UserController {
 	@Autowired
 	UserService userService;
 	 
 	//get
-	@GetMapping("/")
+	@GetMapping("/get")
 	public ResponseEntity<List<User>> getAlluser(){
 		return ResponseEntity.ok(this.userService.getUser());
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/get/{id}")
 	public ResponseEntity<User> getUserById(@PathVariable("id") int uid){
 		return ResponseEntity.ok(this.userService.getUser(uid));
 	}
 	//post
 	
-	@PostMapping("/")
+	@PostMapping("/create")
 	ResponseEntity<User> createUser(@Valid @RequestBody User user){
 		User createdUser = userService.createUser(user);
 		return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
 	}
 	//update
-	@PostMapping("/{userId}")
+	@PostMapping("/update/{userId}")
 	ResponseEntity<User> createUser(@RequestBody User user, @PathVariable("userId") int userId){
 		User updatedUser = userService.updateUser(user, userId);
 		return ResponseEntity.ok(updatedUser);
 	}
 	//delete
-	@DeleteMapping("/{userId}")
+	@DeleteMapping("/delete/{userId}")
 	public ResponseEntity<?> deleteUser(@PathVariable("userId") int userId){
 		userService.deleteUser(userId);
 		return new ResponseEntity(new ApiResponse("user deleted", true), HttpStatus.OK);

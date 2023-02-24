@@ -20,38 +20,38 @@ import nrifintech.busMangementSystem.entities.Destination;
 import nrifintech.busMangementSystem.payloads.ApiResponse;
 
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api/v1/")
 public class DestinationController {
     @Autowired
     DestinationService destinationService;
     
     //get
-    @GetMapping("/destination")
+    @GetMapping("/destination/get")
     public ResponseEntity<List<Destination>> getAllDestination(){
         return ResponseEntity.ok(this.destinationService.getDestination());
     }
     
-    @GetMapping("/destination/{id}")
+    @GetMapping("/destination/get/{id}")
     public ResponseEntity<Destination> getDestinationById(@PathVariable("id") int destinationId){
         return ResponseEntity.ok(this.destinationService.getDestination(destinationId));
     }
     
     //post
-    @PostMapping("/destination")
+    @PostMapping("/destination/create")
     public ResponseEntity<Destination> createDestination(@Valid @RequestBody Destination destination){
         Destination createdDestination = destinationService.createDestination(destination);
         return new ResponseEntity<>(createdDestination, HttpStatus.CREATED);
     }
     
     //update
-    @PostMapping("/destination/{destinationId}")
+    @PostMapping("/destination/update/{destinationId}")
     public ResponseEntity<Destination> updateDestination(@RequestBody Destination destination, @PathVariable("destinationId") int destinationId){
         Destination updatedDestination = destinationService.updateDestination(destination, destinationId);
         return ResponseEntity.ok(updatedDestination);
     }
     
     //delete
-    @DeleteMapping("/destination/{destinationId}")
+    @DeleteMapping("/destination/delete/{destinationId}")
     public ResponseEntity<?> deleteDestination(@PathVariable("destinationId") int destinationId){
         destinationService.deleteDestination(destinationId);
         return new ResponseEntity(new ApiResponse("destination deleted", true), HttpStatus.OK);
