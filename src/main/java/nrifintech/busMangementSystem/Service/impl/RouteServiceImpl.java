@@ -26,7 +26,7 @@ public class RouteServiceImpl implements RouteService{
 		// TODO Auto-generated method stub
 		Route  route = routeRepo.findById(id).orElseThrow(() -> new ResouceNotFound("Route", "id", id));
 		route.setId(newRoute.getId());
-		route.setListOfDestinations(newRoute.getListOfDestinations());
+		route.setDestinations(newRoute.getDestinations());
 		
 		return this.routeRepo.save(route);
 	}
