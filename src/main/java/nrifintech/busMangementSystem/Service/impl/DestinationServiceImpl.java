@@ -1,5 +1,6 @@
 package nrifintech.busMangementSystem.Service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,5 +50,18 @@ public class DestinationServiceImpl implements DestinationService {
 		destinationRepo.delete(destination);	
 	}
 	
+	@Override
+	public List<Destination> getDestinationByName(String name) {
+	    try {
+	        List<Destination> destinations = destinationRepo.findByName(name);
+	        for(Destination d : destinations) {
+	        	System.out.println("Here is " + d.getName());
+	        }
+	        return destinations;
+	    } catch(Exception error) {
+	        throw new ResouceNotFound("Destination", "id", 2);
+	    }
+	}
+
 
 }

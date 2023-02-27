@@ -6,5 +6,5 @@ import nrifintech.busMangementSystem.entities.Bus;
 
 
 public interface BusRepo extends  JpaRepository<Bus, Integer>{
-
+	Bus findByName(String name);
 }

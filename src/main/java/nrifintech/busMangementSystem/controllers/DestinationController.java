@@ -56,4 +56,11 @@ public class DestinationController {
         destinationService.deleteDestination(destinationId);
         return new ResponseEntity(new ApiResponse("destination deleted", true), HttpStatus.OK);
     }
+    
+    //custom
+    @GetMapping("/destination/getbyname/{name}")
+    public ResponseEntity<?> getDestinationByName(@PathVariable("name") String name){
+    	System.out.println(name);
+    	return ResponseEntity.ok( destinationService.getDestinationByName(name));
+    }
 }
