@@ -2,43 +2,52 @@ package nrifintech.busMangementSystem.Service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import nrifintech.busMangementSystem.Service.interfaces.*;
+import nrifintech.busMangementSystem.Service.interfaces.BusService;
 import nrifintech.busMangementSystem.entities.Bus;
+import nrifintech.busMangementSystem.exception.ResouceNotFound;
+import nrifintech.busMangementSystem.repositories.BusRepo;
 
 @Service
 public class BusServiceImpl implements BusService {
 
+	@Autowired
+	private BusRepo busRepo;
+
 	@Override
 	public Bus createBus(Bus bus) {
-		// TODO Auto-generated method stub
-		return null;
+		return busRepo.save(bus);
 	}
 
 	@Override
-	public Bus updateBus(Bus bus, int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Bus updateBus(Bus updatedBus, int id) {
+		Bus bus = busRepo.findById(id)
+			.orElseThrow(() -> new ResouceNotFound("Bus", "id", id));
+		bus.setName(updatedBus.getName());
+		bus.setNumberOfSeats(updatedBus.getNumberOfSeats());
+		return busRepo.save(bus);
 	}
 
 	@Override
 	public Bus getBus(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return busRepo.findById(id)
+			.orElseThrow(() -> new ResouceNotFound("Bus", "id", id));
 	}
 
 	@Override
 	public List<Bus> getBus() {
-		// TODO Auto-generated method stub
-		return null;
+		return busRepo.findAll();
 	}
 
 	@Override
 	public void deleteBus(int id) {
-		// TODO Auto-generated method stub
-
+		Bus bus = busRepo.findById(id)
+			.orElseThrow(() -> new ResouceNotFound("Bus", "id", id));
+		busRepo.delete(bus);
 	}
 	
+
 
 }

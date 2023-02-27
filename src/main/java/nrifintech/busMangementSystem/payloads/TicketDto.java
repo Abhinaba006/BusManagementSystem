@@ -1,4 +1,4 @@
-package nrifintech.busMangementSystem.entities;
+package nrifintech.busMangementSystem.payloads;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,22 +6,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import nrifintech.busMangementSystem.entities.Bus;
+import nrifintech.busMangementSystem.entities.Route;
+import nrifintech.busMangementSystem.entities.User;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity
-public class Ticket {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+@AllArgsConstructor
+class TicketDto {
 	int id;
-	@ManyToOne
 	Bus bus;
-	@ManyToOne
 	Route route;
-	@ManyToOne
 	User user;
 }
