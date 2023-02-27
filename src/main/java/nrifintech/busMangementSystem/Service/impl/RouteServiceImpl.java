@@ -38,7 +38,6 @@ public class RouteServiceImpl implements RouteService{
 		Route  route = routeRepo.findById(id).orElseThrow(() -> new ResouceNotFound("Route", "id", id));
 		route.setId(newRoute.getId());
 		route.setListOfDestinations(newRoute.getListOfDestinations());
-		
 		return this.routeRepo.save(route);
 	}
 
