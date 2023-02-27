@@ -26,9 +26,12 @@ public class TicketServiceImpl implements TicketService{
 		// TODO Auto-generated method stub
 		Ticket  ticket = ticketRepo.findById(id).orElseThrow(() -> new ResouceNotFound("Ticket", "id", id));
 		ticket.setId(newTicket.getId());
-		ticket.setBus_id(newTicket.getBus_id());
-		ticket.setRoute_id(newTicket.getRoute_id());
-		ticket.setUser_id(newTicket.getUser_id());
+		// fetch the bus and add it
+		
+		// fetch the route and add it
+		
+		// fetch the user and add it
+		
 		
 		return this.ticketRepo.save(ticket);
 	}
