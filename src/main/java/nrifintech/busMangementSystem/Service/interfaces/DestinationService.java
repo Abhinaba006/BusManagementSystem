@@ -2,8 +2,10 @@ package nrifintech.busMangementSystem.Service.interfaces;
 
 import java.util.List;
 
-import nrifintech.busMangementSystem.entities.Destination;
+import org.springframework.stereotype.Service;
 
+import nrifintech.busMangementSystem.entities.Destination;
+@Service
 public interface DestinationService {
 	Destination createDestination(Destination destination);
 	Destination updateDestination(Destination destination, int id);

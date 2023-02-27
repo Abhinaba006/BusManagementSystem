@@ -2,8 +2,10 @@ package nrifintech.busMangementSystem.Service.interfaces;
 
 import java.util.List;
 
-import nrifintech.busMangementSystem.entities.User;
+import org.springframework.stereotype.Service;
 
+import nrifintech.busMangementSystem.entities.User;
+@Service
 public interface UserService {
 	User createUser(User user);
 	User updateUser(User user, int id);

@@ -1,8 +1,9 @@
 package nrifintech.busMangementSystem.entities;
 
+import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,13 +19,19 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Destination {
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	int id;
-	String name;
-	float lattitude;
-	float longitude;
-	@ManyToMany
-	Set <Route> routes = new TreeSet<>();
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @Column(name = "name")
+    private String name;
+
+    @ManyToMany(mappedBy = "destinations")
+    private Set<Route> routes = new HashSet<>();
+    
+    float latitude;
+    float longitude;
+
+    // other fields, constructors, getters and setters
 }

@@ -3,8 +3,13 @@ package nrifintech.busMangementSystem.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import lombok.Getter;
@@ -17,10 +22,17 @@ import lombok.Setter;
 @Entity
 public class Route {
 	@Id
-	int id;
-	@ManyToMany
-	Set<Destination> listOfDestinations = new HashSet<>();
-	@ManyToMany
-	Set<Ticket> tickets = new HashSet<>();
-	String name;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    
+    @Column(name = "name")
+    private String name;
+
+    @ManyToMany
+    @JoinTable(
+        name = "route_destination",
+        joinColumns = @JoinColumn(name = "route_id"),
+        inverseJoinColumns = @JoinColumn(name = "destination_id")
+    )
+    private Set<Destination> destinations = new HashSet<>();
 }
