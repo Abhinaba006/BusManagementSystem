@@ -22,14 +22,14 @@ public class RouteServiceImpl implements RouteService{
 	private DestinationRepo destinationRepo;
 	
 	@Override
-	public Route createRoute(Route route) {
-	    Set<Destination> destinations = new HashSet<>();
-	    for (Destination destination : route.getDestinations()) {
-	        Destination existingDestination = destinationRepo.findById(destination.getId())
-	                .orElseThrow(() -> new ResouceNotFound("Destination", "id", destination.getId()));
-	        destinations.add(existingDestination);
-	    }
-	    route.setDestinations(destinations);
+	public Route createRoute(List<String> destinations) {
+//	    Set<Destination> destinations = new HashSet<>();
+//	    for (Destination destination : route.getDestinations()) {
+//	        Destination existingDestination = destinationRepo.findById(destination.getId())
+//	                .orElseThrow(() -> new ResouceNotFound("Destination", "id", destination.getId()));
+//	        destinations.add(existingDestination);
+//	    }
+//	    route.setDestinations(destinations);
 	    return routeRepo.save(route);
 	}
 	@Override
@@ -37,7 +37,7 @@ public class RouteServiceImpl implements RouteService{
 		// TODO Auto-generated method stub
 		Route  route = routeRepo.findById(id).orElseThrow(() -> new ResouceNotFound("Route", "id", id));
 		route.setId(newRoute.getId());
-		route.setDestinations(newRoute.getDestinations());
+//		route.setDestinations(newRoute.getDestinations());
 		
 		return this.routeRepo.save(route);
 	}

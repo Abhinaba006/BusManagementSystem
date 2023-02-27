@@ -38,10 +38,14 @@ public class RouteController {
 	//post
 	
 	@PostMapping("/create")
-	ResponseEntity<Route> createRoute(@Valid @RequestBody Route route){
-		Route createdRoute = routeService.createRoute(route);
+	ResponseEntity<Route> createRoute(List<String> destinations){
+		Route createdRoute = routeService.createRoute(destinations);
 		return new ResponseEntity<>(createdRoute, HttpStatus.CREATED);
 	}
+//	{
+//		name:
+//			id
+//	}
 	//update
 	@PostMapping("/update/{routeId}")
 	ResponseEntity<Route> createRoute(@RequestBody Route route, @PathVariable("routeId") int routeId){

@@ -23,14 +23,11 @@ import lombok.Setter;
 public class Destination {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     
-    @Column(name = "name")
     private String name;
 
-    @ManyToMany(mappedBy = "destinations")
-    private Set<Route> routes = new HashSet<>();
     
     float latitude;
     float longitude;
