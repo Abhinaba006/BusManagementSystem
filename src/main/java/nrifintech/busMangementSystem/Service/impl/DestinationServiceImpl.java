@@ -25,9 +25,9 @@ public class DestinationServiceImpl implements DestinationService {
 	public Destination updateDestination(Destination updatedDestination, int id) {
 		Destination destination = destinationRepo.findById(id)
 			.orElseThrow(() -> new ResouceNotFound("Destination", "id", id));
-		destination.setName(updatedDestination.getName());
-		destination.setLatitude(updatedDestination.getLatitude());
-		destination.setLongitude(updatedDestination.getLongitude());
+		if(updatedDestination.getName()!=null) destination.setName(updatedDestination.getName());
+		if(updatedDestination.getLatitude()!=0.0) destination.setLatitude(updatedDestination.getLatitude());
+		if(updatedDestination.getLongitude()!=0.0) destination.setLongitude(updatedDestination.getLongitude());
 		return destinationRepo.save(destination);
 	}
 

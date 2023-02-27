@@ -25,9 +25,9 @@ public class UserServiceImpl implements UserService{
 	public User updateUser(User newUser, int id) {
 		// TODO Auto-generated method stub
 		User  user = userRepo.findById(id).orElseThrow(() -> new ResouceNotFound("User", "id", id));
-		user.setName(newUser.getName());
-		user.setEmail(newUser.getEmail());
-		user.setPassword(newUser.getPassword());
+		if(newUser.getName()!=null) user.setName(newUser.getName());
+		if(newUser.getEmail()!=null) user.setEmail(newUser.getEmail());
+		if(newUser.getPassword()!=null) user.setPassword(newUser.getPassword());
 		
 		return this.userRepo.save(user);
 	}

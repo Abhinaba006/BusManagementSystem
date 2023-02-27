@@ -25,8 +25,8 @@ public class BusServiceImpl implements BusService {
 	public Bus updateBus(Bus updatedBus, int id) {
 		Bus bus = busRepo.findById(id)
 			.orElseThrow(() -> new ResouceNotFound("Bus", "id", id));
-		bus.setName(updatedBus.getName());
-		bus.setNumberOfSeats(updatedBus.getNumberOfSeats());
+		if(updatedBus.getName()!=null) bus.setName(updatedBus.getName());
+		if(updatedBus.getNumberOfSeats()>0) bus.setNumberOfSeats(updatedBus.getNumberOfSeats());
 		return busRepo.save(bus);
 	}
 

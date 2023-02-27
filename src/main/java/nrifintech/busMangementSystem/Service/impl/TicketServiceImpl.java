@@ -61,9 +61,9 @@ public class TicketServiceImpl implements TicketService {
         ticket.setRoute(route);
         
         // Fetch and add the user
-        User user = userRepo.findById(newTicket.getUser().getId())
-                .orElseThrow(() -> new ResouceNotFound("User", "id", newTicket.getUser().getId()));
-        ticket.setUser(user);
+//        User user = userRepo.findById(newTicket.getUser().getId())
+//                .orElseThrow(() -> new ResouceNotFound("User", "id", newTicket.getUser().getId()));
+//        ticket.setUser(user);
         
         return ticketRepo.save(ticket);
     }
