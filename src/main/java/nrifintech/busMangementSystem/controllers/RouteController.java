@@ -44,7 +44,7 @@ public class RouteController {
 	}
 	//update
 	@PostMapping("/update/{routeId}")
-	ResponseEntity<Route> createRoute(@RequestBody Route route, @PathVariable("routeId") int routeId){
+	ResponseEntity<Route> createRoute(@Valid @RequestBody Route route, @PathVariable("routeId") int routeId){
 		Route updatedRoute = routeService.updateRoute(route, routeId);
 		return ResponseEntity.ok(updatedRoute);
 	}

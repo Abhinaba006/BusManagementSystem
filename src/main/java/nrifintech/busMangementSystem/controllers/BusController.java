@@ -44,7 +44,7 @@ public class BusController {
 	}
 	//update
 	@PostMapping("/update/{busId}")
-	ResponseEntity<Bus> createBus(@RequestBody Bus bus, @PathVariable("busId") int busId){
+	ResponseEntity<Bus> createBus(@Valid @RequestBody Bus bus, @PathVariable("busId") int busId){
 		Bus updatedBus = busService.updateBus(bus, busId);
 		return ResponseEntity.ok(updatedBus);
 	}

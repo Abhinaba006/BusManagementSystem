@@ -45,7 +45,7 @@ public class DestinationController {
     
     //update
     @PostMapping("/destination/update/{destinationId}")
-    public ResponseEntity<Destination> updateDestination(@RequestBody Destination destination, @PathVariable("destinationId") int destinationId){
+    public ResponseEntity<Destination> updateDestination(@Valid @RequestBody Destination destination, @PathVariable("destinationId") int destinationId){
         Destination updatedDestination = destinationService.updateDestination(destination, destinationId);
         return ResponseEntity.ok(updatedDestination);
     }
