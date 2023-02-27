@@ -48,7 +48,7 @@ public class TicketServiceImpl implements TicketService {
 	@Override
     public Ticket updateTicket(Ticket newTicket, int id) {
         Ticket ticket = ticketRepo.findById(id).orElseThrow(() -> new ResouceNotFound("Ticket", "id", id));
-        ticket.setId(newTicket.getId());
+        //ticket.setId(newTicket.getId());
 
         // Fetch and add the bus
         Bus bus = busRepo.findById(newTicket.getBus().getId())
