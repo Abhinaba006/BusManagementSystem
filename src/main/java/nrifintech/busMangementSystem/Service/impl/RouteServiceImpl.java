@@ -24,12 +24,12 @@ public class RouteServiceImpl implements RouteService{
 	@Override
 	public Route createRoute(Route route) {
 	    Set<Destination> destinations = new HashSet<>();
-	    for (Destination destination : route.getListOfDestinations()) {
+	    for (Destination destination : route.getDestinations()) {
 	        Destination existingDestination = destinationRepo.findById(destination.getId())
 	                .orElseThrow(() -> new ResouceNotFound("Destination", "id", destination.getId()));
 	        destinations.add(existingDestination);
 	    }
-	    route.setListOfDestinations(destinations);
+	    route.setDestinations(destinations);
 	    return routeRepo.save(route);
 	}
 	@Override
