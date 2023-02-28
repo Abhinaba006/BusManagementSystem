@@ -21,6 +21,14 @@ public class GlobalExceptionHandler {
 		ApiResponse apiResponse = new ApiResponse(msg, false);
 		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.NOT_FOUND);
 	}
+	
+	@ExceptionHandler(UnauthorizedAction.class)
+	public ResponseEntity<ApiResponse> UnauthorizedActionHandler(UnauthorizedAction ex){
+		String msg = ex.getMessage();
+		ApiResponse apiResponse = new ApiResponse(msg, false);
+		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.UNAUTHORIZED);
+	}
+	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Map<String, String>> argumentMethodException(MethodArgumentNotValidException ex){
 		Map<String, String> resp = new HashMap<>();

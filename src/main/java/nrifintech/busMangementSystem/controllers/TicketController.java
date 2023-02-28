@@ -6,6 +6,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,7 +26,9 @@ import nrifintech.busMangementSystem.entities.Route;
 import nrifintech.busMangementSystem.entities.Ticket;
 import nrifintech.busMangementSystem.entities.User;
 import nrifintech.busMangementSystem.exception.ResouceNotFound;
+import nrifintech.busMangementSystem.exception.UnauthorizedAction;
 import nrifintech.busMangementSystem.payloads.ApiResponse;
+import nrifintech.busMangementSystem.repositories.TicketRepo;
 import nrifintech.busMangementSystem.payloads.*;
 
 @RestController
@@ -42,6 +45,9 @@ public class TicketController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	TicketRepo ticketRepo;
 
 	// get
 	@GetMapping("/ticket/get")
@@ -57,7 +63,7 @@ public class TicketController {
 
 	// post
 	@PostMapping("/ticket/create")
-	public ResponseEntity<Ticket> createTicket(@Valid @RequestBody TicketDto ticketDto) {
+	public ResponseEntity<Ticket> createTicket(@Valid @RequestBody TicketDto ticketDto) throws Exception {
 
 		// Get the route ID from the ticket and fetch the route, if not found give error
 		int routeId = ticketDto.getRouteId();
@@ -67,6 +73,15 @@ public class TicketController {
 		// Get the user ID from the ticket and fetch the user, if not found give error
 		int userId = ticketDto.getUserId();
 		User user = userService.getUser(userId);
+		
+		System.out.println(ticketRepo.findConfirmedTicketByUser(user).size());
+	    if(ticketRepo.findConfirmedTicketByUser(user).size()>=1)
+	    {
+	    	
+	    	//need to create custom excepiton for user creating multiple tickets
+	    	throw new UnauthorizedAction("Creating multiple ticket", user.getName());
+	    }
+	    	
 
 		// Add the user to the ticket
 
