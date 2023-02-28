@@ -42,7 +42,7 @@ public class TicketServiceImpl implements TicketService {
 	            .orElseThrow(() -> new ResouceNotFound("Ticket", "id", id));
 	    
 	    updatedTicket.setBus(ticket.getBus());
-	    updatedTicket.setRoute(ticket.getRoute());
+//	    updatedTicket.setRoute(ticket.getRoute());
 	    updatedTicket.setUser(ticket.getUser());
 	    updatedTicket.setStatus(ticket.getStatus());
 	    updatedTicket.setCreatedAt(new Date());

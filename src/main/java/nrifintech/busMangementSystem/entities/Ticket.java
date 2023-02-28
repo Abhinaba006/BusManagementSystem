@@ -23,8 +23,8 @@ public class Ticket {
 	String status;
 	@ManyToOne
 	Bus bus;
-	@ManyToOne
-	Route route;
+//	@ManyToOne
+//	Route route;
 	@ManyToOne
 	User user;
 	Date createdAt;

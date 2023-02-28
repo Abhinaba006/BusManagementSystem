@@ -1,5 +1,6 @@
 package nrifintech.busMangementSystem.controllers;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -74,7 +75,7 @@ public class TicketController {
 		int userId = ticketDto.getUserId();
 		User user = userService.getUser(userId);
 		
-		System.out.println(ticketRepo.findConfirmedTicketByUser(user).size());
+	
 	    if(ticketRepo.findConfirmedTicketByUser(user).size()>=1)
 	    {
 	    	
@@ -82,13 +83,26 @@ public class TicketController {
 	    	throw new UnauthorizedAction("Creating multiple ticket", user.getName());
 	    }
 	    	
+	    
+	    //change the status for all the tickets before current day
+        
+        //get all dates from ticket
+        //fetched_date = format it to java date time format
+        //curent_date =todays date in midnight time format.
+        //if fetched_date < current_date :
+        	//update status of ticket:
+        		//waiting -> expired
+        		//confirmed -> availed.
+        		//cancelled -> cancelled.
 
+	    Date current_date = new Date();
+	    System.out.println(this.ticketRepo.findByCreatedAtBefore(current_date));
+        
+        
 		// Add the user to the ticket
 
 		// Create the ticket
 		Ticket ticket = new Ticket();
-
-		ticket.setRoute(route);
 		ticket.setUser(user);
 
 		// Get the bus ID from the ticket and fetch the bus, if not found give error
