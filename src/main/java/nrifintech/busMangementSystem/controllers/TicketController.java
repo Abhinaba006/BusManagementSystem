@@ -117,11 +117,18 @@ public class TicketController {
 		ticket.setStatus("cancelled");
 		ticketService.updateTicket(ticket, ticketId);
 		Bus bus = ticket.getBus();
+		bus.setNumberOfSeats(bus.getNumberOfSeats() + 1);
 		if (bus.getNumberOfSeats() == 0) {
 			Ticket waitingTicket = ticketService.getMostRecentWaitingTicket(bus.getId());
+			System.out.println(waitingTicket);
 			if (waitingTicket != null) {
 				waitingTicket.setStatus("confirmed");
+				bus.setNumberOfSeats(bus.getNumberOfSeats() - 1);
+				busService.updateBus(bus, bus.getId());
 				ticketService.updateTicket(waitingTicket, waitingTicket.getId());
+			}else {
+				
+				busService.updateBus(bus, bus.getId());
 			}
 		} else {
 			bus.setNumberOfSeats(bus.getNumberOfSeats() + 1);
