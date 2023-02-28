@@ -6,5 +6,5 @@ import nrifintech.busMangementSystem.entities.User;
 
 
 public interface UserRepo extends  JpaRepository<User, Integer>{
-
+	
 }

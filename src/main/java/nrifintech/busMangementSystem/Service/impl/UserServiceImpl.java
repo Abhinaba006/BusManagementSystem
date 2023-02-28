@@ -1,6 +1,7 @@
 package nrifintech.busMangementSystem.Service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,5 +51,5 @@ public class UserServiceImpl implements UserService{
 		User user = this.userRepo.findById(id).orElseThrow(() -> new ResouceNotFound("User", "id", id));
 		userRepo.delete(user);	
 	}
-
+	
 }
