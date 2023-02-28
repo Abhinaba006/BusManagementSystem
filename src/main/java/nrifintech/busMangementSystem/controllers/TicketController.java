@@ -1,5 +1,9 @@
 package nrifintech.busMangementSystem.controllers;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -76,28 +80,24 @@ public class TicketController {
 		User user = userService.getUser(userId);
 		
 	
+	  LocalDateTime dateTime = LocalDateTime.now().with(LocalTime.MIDNIGHT);
+	    Date current_Date = Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
+	    for(Ticket t:this.ticketRepo.findByCreatedAtBefore(current_Date))
+	    {
+	    	if(t.getStatus().equals("waiting"))
+	    		t.setStatus("expired");
+	    	else if(t.getStatus().equals("confirmed"))
+	    		t.setStatus("availed");
+	    	this.ticketRepo.save(t);
+	    }
+	
 	    if(ticketRepo.findConfirmedTicketByUser(user).size()>=1)
 	    {
 	    	
-	    	//need to create custom excepiton for user creating multiple tickets
+	    	//need to create custom exception for user creating multiple tickets
 	    	throw new UnauthorizedAction("Creating multiple ticket", user.getName());
 	    }
-	    	
 	    
-	    //change the status for all the tickets before current day
-        
-        //get all dates from ticket
-        //fetched_date = format it to java date time format
-        //curent_date =todays date in midnight time format.
-        //if fetched_date < current_date :
-        	//update status of ticket:
-        		//waiting -> expired
-        		//confirmed -> availed.
-        		//cancelled -> cancelled.
-
-	    Date current_date = new Date();
-	    System.out.println(this.ticketRepo.findByCreatedAtBefore(current_date));
-        
         
 		// Add the user to the ticket
 
