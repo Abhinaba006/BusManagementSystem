@@ -1,5 +1,6 @@
 package nrifintech.busMangementSystem.Service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import nrifintech.busMangementSystem.entities.Route;
 import nrifintech.busMangementSystem.entities.Ticket;
 import nrifintech.busMangementSystem.entities.User;
 import nrifintech.busMangementSystem.exception.ResouceNotFound;
+import nrifintech.busMangementSystem.payloads.TicketDto;
 import nrifintech.busMangementSystem.repositories.BusRepo;
 import nrifintech.busMangementSystem.repositories.RouteRepo;
 import nrifintech.busMangementSystem.repositories.TicketRepo;
@@ -29,44 +31,25 @@ public class TicketServiceImpl implements TicketService {
 	private UserRepo userRepo;
 
 	@Override
-	public Ticket createTicket(Ticket ticket) {
-		Bus bus = busRepo.findById(ticket.getBus().getId())
-				.orElseThrow(() -> new ResouceNotFound("Bus", "id", ticket.getBus().getId()));
-		ticket.setBus(bus);
-
-		Route route = routeRepo.findById(ticket.getRoute().getId())
-				.orElseThrow(() -> new ResouceNotFound("Route", "id", ticket.getRoute().getId()));
-		ticket.setRoute(route);
-
-		User user = userRepo.findById(ticket.getUser().getId())
-				.orElseThrow(() -> new ResouceNotFound("User", "id", ticket.getUser().getId()));
-		ticket.setUser(user);
-
-		return ticketRepo.save(ticket);
+	public Ticket createTicket(Ticket Ticket) {
+		return ticketRepo.save(Ticket);
 	}
 
-	@Override
-    public Ticket updateTicket(Ticket newTicket, int id) {
-        Ticket ticket = ticketRepo.findById(id).orElseThrow(() -> new ResouceNotFound("Ticket", "id", id));
-        //ticket.setId(newTicket.getId());
 
-        // Fetch and add the bus
-        Bus bus = busRepo.findById(newTicket.getBus().getId())
-                .orElseThrow(() -> new ResouceNotFound("Bus", "id", newTicket.getBus().getId()));
-        ticket.setBus(bus);
-        
-        // Fetch and add the route
-        Route route = routeRepo.findById(newTicket.getRoute().getId())
-                .orElseThrow(() -> new ResouceNotFound("Route", "id", newTicket.getRoute().getId()));
-        ticket.setRoute(route);
-        
-        // Fetch and add the user
-//        User user = userRepo.findById(newTicket.getUser().getId())
-//                .orElseThrow(() -> new ResouceNotFound("User", "id", newTicket.getUser().getId()));
-//        ticket.setUser(user);
-        
-        return ticketRepo.save(ticket);
-    }
+	@Override
+	public Ticket updateTicket(Ticket ticket, int id) {
+	    Ticket updatedTicket = ticketRepo.findById(id)
+	            .orElseThrow(() -> new ResouceNotFound("Ticket", "id", id));
+	    
+	    updatedTicket.setBus(ticket.getBus());
+	    updatedTicket.setRoute(ticket.getRoute());
+	    updatedTicket.setUser(ticket.getUser());
+	    updatedTicket.setStatus(ticket.getStatus());
+	    updatedTicket.setCreatedAt(new Date());
+	    
+	    return ticketRepo.save(updatedTicket);
+	}
+
 	@Override
 	public Ticket getTicket(int id) {
 	    return this.ticketRepo.findById(id).orElseThrow(() -> new ResouceNotFound("Ticket", "id", id));
@@ -83,5 +66,12 @@ public class TicketServiceImpl implements TicketService {
 	    this.ticketRepo.delete(ticket);
 	}
 
+	public Ticket getMostRecentWaitingTicket(int busId) {
+	    // Create a list of all waiting tickets for the given bus ID, ordered by creation time in descending order
+	    List<Ticket> waitingTickets = ticketRepo.findByBusIdAndStatusOrderByCreatedAtDesc(busId, "waiting");
+
+	    // Return the first waiting ticket in the list, or null if the list is empty
+	    return waitingTickets.isEmpty() ? null : waitingTickets.get(0);
+	}
 
 }
