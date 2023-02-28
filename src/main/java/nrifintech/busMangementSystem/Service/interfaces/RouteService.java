@@ -4,12 +4,15 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import nrifintech.busMangementSystem.entities.Destination;
 import nrifintech.busMangementSystem.entities.Route;
 @Service
 public interface RouteService {
-	Route createRoute(Route route);
-	Route updateRoute(Route route, int id);
+	Route updateRoute(List<String> destinations, int id);
 	Route getRoute(int id);
 	List<Route> getRoute();
 	void deleteRoute(int id);
+	Route createRoute(List<String> destinations);
+	List<Route> getRoutesBySourceAndDestination(int source, int destination);
+	List<Destination> getRouteDestinations(int routeId);
 }

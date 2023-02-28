@@ -51,4 +51,19 @@ public class UserServiceImpl implements UserService{
 		userRepo.delete(user);	
 	}
 
+	@Override
+	public boolean checkUser(String email, String password) {
+		User user = userRepo.findByEmail(email,0);
+		System.out.println(user.getPassword());
+		if(user.getPassword().equals(password)) return true;
+		else return false;
+	}
+
+	@Override
+	public boolean checkAdmin(String email, String password) {
+		User admin = userRepo.findByEmail(email,1);
+		if(admin.getPassword().equals(password)) return true;
+		else return false;
+	}
+
 }

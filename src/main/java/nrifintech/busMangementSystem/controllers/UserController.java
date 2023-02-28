@@ -54,4 +54,21 @@ public class UserController {
 		userService.deleteUser(userId);
 		return new ResponseEntity(new ApiResponse("user deleted", true), HttpStatus.OK);
 	}
+	@GetMapping("/employee/login/{email}/{password}")
+	public ResponseEntity<?> userLogin(@PathVariable("email") String email, @PathVariable("password") String password){
+		System.out.println(email);
+		boolean isAuthenticated = userService.checkUser(email,password);
+		if(isAuthenticated) return new ResponseEntity(new ApiResponse("Authenticated success",true), HttpStatus.OK);
+		else {
+			return new ResponseEntity(new ApiResponse("User not found or password is incorrect!",false), HttpStatus.BAD_REQUEST);
+		}
+	}
+	@GetMapping("/admin/login/{email}/{password}")
+	public ResponseEntity<?> adminLogin(@PathVariable("email") String email, @PathVariable("password") String password){
+		boolean isAuthenticated = userService.checkAdmin(email,password);
+		if(isAuthenticated) return new ResponseEntity(new ApiResponse("Authenticated success",true), HttpStatus.OK);
+		else {
+			return new ResponseEntity(new ApiResponse("User not found or password is incorrect!",false), HttpStatus.BAD_REQUEST);
+		}
+	}
 }

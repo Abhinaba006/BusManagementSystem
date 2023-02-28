@@ -26,6 +26,9 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int id;
+	
+	//0 for user and 1 for admin
+	int type;
 	@NotEmpty
 	String name;
 	@Email(message = "enter a valid mail")
@@ -34,5 +37,5 @@ public class User {
 	String password;
 	@OneToMany
 	Set<Ticket> tickets = new HashSet<>();
-
+	
 }

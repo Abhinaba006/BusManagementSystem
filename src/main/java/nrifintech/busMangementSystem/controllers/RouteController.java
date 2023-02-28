@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import nrifintech.busMangementSystem.Service.interfaces.RouteService;
+import nrifintech.busMangementSystem.entities.Destination;
 import nrifintech.busMangementSystem.entities.Route;
 import nrifintech.busMangementSystem.payloads.ApiResponse;
 
@@ -25,31 +26,32 @@ public class RouteController {
 	@Autowired
 	RouteService routeService;
 	 
-	//get
+	//get Not required currently
 	@GetMapping("/get")
 	public ResponseEntity<List<Route>> getAllroute(){
 		return ResponseEntity.ok(this.routeService.getRoute());
 	}
 	
+	//Not required currently
 	@GetMapping("/get/{id}")
 	public ResponseEntity<Route> getRouteById(@PathVariable("id") int uid){
 		return ResponseEntity.ok(this.routeService.getRoute(uid));
 	}
 	//post
-	
 	@PostMapping("/create")
-	ResponseEntity<Route> createRoute(List<String> destinations){
+	ResponseEntity<Route> createRoute(@RequestBody List<String> destinations){
 		Route createdRoute = routeService.createRoute(destinations);
 		return new ResponseEntity<>(createdRoute, HttpStatus.CREATED);
 	}
-//	{
-//		name:
-//			id
-//	}
+	@GetMapping("/getBySrcDest/{source}/{destination}")
+	public ResponseEntity<List<Route>> getRoutesBySourceAndDestination(@PathVariable int source, @PathVariable int destination) {
+	    List<Route> queryRoutes = routeService.getRoutesBySourceAndDestination(source, destination);
+	    return ResponseEntity.ok(queryRoutes);
+	}
 	//update
 	@PostMapping("/update/{routeId}")
-	ResponseEntity<Route> createRoute(@RequestBody Route route, @PathVariable("routeId") int routeId){
-		Route updatedRoute = routeService.updateRoute(route, routeId);
+	ResponseEntity<Route> createRoute(@RequestBody List<String> destinations, @PathVariable("routeId") int routeId){
+		Route updatedRoute = routeService.updateRoute(destinations, routeId);
 		return ResponseEntity.ok(updatedRoute);
 	}
 	//delete
@@ -57,5 +59,12 @@ public class RouteController {
 	public ResponseEntity<?> deleteRoute(@PathVariable("routeId") int routeId){
 		routeService.deleteRoute(routeId);
 		return new ResponseEntity(new ApiResponse("route deleted", true), HttpStatus.OK);
+	}
+	
+	//getDestinationsbyId
+	@GetMapping("/getDestinations/{routeId}")
+	public ResponseEntity<?> getRouteDestinations(@PathVariable("routeId") int routeId){
+		List<Destination>destinations = routeService.getRouteDestinations(routeId);
+		return ResponseEntity.ok(destinations);
 	}
 }
