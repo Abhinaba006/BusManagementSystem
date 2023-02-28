@@ -45,7 +45,7 @@ public class TicketController {
     
     //update
     @PostMapping("/ticket/update/{ticketId}")
-    public ResponseEntity<Ticket> updateTicket(@RequestBody Ticket ticket, @PathVariable("ticketId") int ticketId){
+    public ResponseEntity<Ticket> updateTicket(@Valid @RequestBody Ticket ticket, @PathVariable("ticketId") int ticketId){
         Ticket updatedTicket = ticketService.updateTicket(ticket, ticketId);
         return ResponseEntity.ok(updatedTicket);
     }

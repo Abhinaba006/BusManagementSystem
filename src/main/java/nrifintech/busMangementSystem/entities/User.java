@@ -28,9 +28,11 @@ public class User {
 	int id;
 	@NotEmpty
 	String name;
+	@NotEmpty
 	@Email(message = "enter a valid mail")
 	String email;
-	@Size(min=4)
+	@Size(min=4,message="password should be of atleast 4 characaters")
+	@NotEmpty(message="password cant be empty")
 	String password;
 	@OneToMany
 	Set<Ticket> tickets = new HashSet<>();
