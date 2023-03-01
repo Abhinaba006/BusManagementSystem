@@ -1,30 +1,43 @@
 package nrifintech.busMangementSystem.Service.impl;
 
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+
+import java.util.HashSet;
+import java.util.List;
+
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import org.springframework.transaction.annotation.Transactional;
+
 
 
 import nrifintech.busMangementSystem.Service.interfaces.RouteService;
 import nrifintech.busMangementSystem.entities.Destination;
 import nrifintech.busMangementSystem.entities.Route;
+
 import nrifintech.busMangementSystem.entities.RouteMap;
 import nrifintech.busMangementSystem.exception.ResouceNotFound;
 import nrifintech.busMangementSystem.payloads.ApiResponse;
 import nrifintech.busMangementSystem.repositories.DestinationRepo;
 import nrifintech.busMangementSystem.repositories.RouteMapRepo;
+
+import nrifintech.busMangementSystem.exception.ResouceNotFound;
+import nrifintech.busMangementSystem.repositories.DestinationRepo;
+
 import nrifintech.busMangementSystem.repositories.RouteRepo;
 @Service
 public class RouteServiceImpl implements RouteService{
 
 	@Autowired
 	private RouteRepo routeRepo;
+
 
 	@Autowired
 	private RouteMapRepo routeMapRepo;
@@ -109,8 +122,31 @@ public class RouteServiceImpl implements RouteService{
 			routeMapRepo.save(rm);
 		}
 		return createdRoute;
-		
 	}
+		
+	@Autowired
+	private DestinationRepo destinationRepo;
+	
+//	@Override
+//	public Route createRoute(Route route) {
+//	    Set<Destination> destinations = new HashSet<>();
+//	    for (Destination destination : route.getDestinations()) {
+//	        Destination existingDestination = destinationRepo.findById(destination.getId())
+//	                .orElseThrow(() -> new ResouceNotFound("Destination", "id", destination.getId()));
+//	        destinations.add(existingDestination);
+//	    }
+//	    route.setDestinations(destinations);
+//	    return routeRepo.save(route);
+//	}
+//	@Override
+//	public Route updateRoute(Route newRoute, int id) {
+//		// TODO Auto-generated method stub
+//		Route  route = routeRepo.findById(id).orElseThrow(() -> new ResouceNotFound("Route", "id", id));
+//		route.setDestinations(newRoute.getDestinations());
+//		
+//		return this.routeRepo.save(route);
+//>>>>>>> 4674ab9e20101f282f987640f6f2f04f021b0c90
+//	}
 
 	@Override
 	public Route getRoute(int id) {
@@ -153,5 +189,6 @@ public class RouteServiceImpl implements RouteService{
 		}
 		return response;
 	}
-
 }
+
+

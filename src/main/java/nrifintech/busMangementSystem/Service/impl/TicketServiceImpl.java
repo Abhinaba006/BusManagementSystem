@@ -1,9 +1,11 @@
 package nrifintech.busMangementSystem.Service.impl;
 
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
+
 import java.util.Date;
 import java.util.List;
 
@@ -14,12 +16,17 @@ import nrifintech.busMangementSystem.Service.interfaces.BusService;
 import nrifintech.busMangementSystem.Service.interfaces.RouteService;
 import nrifintech.busMangementSystem.Service.interfaces.TicketService;
 import nrifintech.busMangementSystem.Service.interfaces.UserService;
+
+import nrifintech.busMangementSystem.Service.interfaces.TicketService;
+
 import nrifintech.busMangementSystem.entities.Bus;
 import nrifintech.busMangementSystem.entities.Route;
 import nrifintech.busMangementSystem.entities.Ticket;
 import nrifintech.busMangementSystem.entities.User;
 import nrifintech.busMangementSystem.exception.ResouceNotFound;
+
 import nrifintech.busMangementSystem.exception.UnauthorizedAction;
+
 import nrifintech.busMangementSystem.payloads.TicketDto;
 import nrifintech.busMangementSystem.repositories.BusRepo;
 import nrifintech.busMangementSystem.repositories.RouteRepo;
@@ -37,6 +44,7 @@ public class TicketServiceImpl implements TicketService {
 	private RouteRepo routeRepo;
 	@Autowired
 	private UserRepo userRepo;
+
 	@Autowired
 	RouteService routeService;
 	@Autowired
@@ -129,6 +137,9 @@ public class TicketServiceImpl implements TicketService {
 		return ticketRepo.save(updatedTicket);
 	}
 
+
+
+
 	@Override
 	public Ticket getTicket(int id) {
 		return this.ticketRepo.findById(id).orElseThrow(() -> new ResouceNotFound("Ticket", "id", id));
@@ -136,7 +147,8 @@ public class TicketServiceImpl implements TicketService {
 
 	@Override
 	public List<Ticket> getTicket() {
-		return this.ticketRepo.findAll();
+
+	    return this.ticketRepo.findAll();
 	}
 
 	@Override
@@ -159,5 +171,13 @@ public class TicketServiceImpl implements TicketService {
 		// TODO Auto-generated method stub
 		return ticketRepo.findByUserId(userId);
 	}
+
+//	public Ticket getMostRecentWaitingTicket(int busId) {
+//	    // Create a list of all waiting tickets for the given bus ID, ordered by creation time in descending order
+//	    List<Ticket> waitingTickets = ticketRepo.findByBusIdAndStatusOrderByCreatedAtDesc(busId, "waiting");
+//
+//	    // Return the first waiting ticket in the list, or null if the list is empty
+//	    return waitingTickets.isEmpty() ? null : waitingTickets.get(0);
+//	}
 
 }

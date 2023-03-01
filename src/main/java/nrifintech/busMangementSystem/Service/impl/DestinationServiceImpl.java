@@ -9,7 +9,10 @@ import org.springframework.stereotype.Service;
 import nrifintech.busMangementSystem.Service.interfaces.DestinationService;
 import nrifintech.busMangementSystem.entities.Destination;
 import nrifintech.busMangementSystem.exception.ResouceNotFound;
+
 import nrifintech.busMangementSystem.exception.UnauthorizedAction;
+
+
 import nrifintech.busMangementSystem.repositories.DestinationRepo;
 
 @Service
@@ -27,6 +30,9 @@ public class DestinationServiceImpl implements DestinationService {
 		}
 		else
 			throw new UnauthorizedAction("similiar destination create","Admin");
+
+//		return destinationRepo.save(destination);
+
 	}
 
 	@Override
@@ -56,6 +62,7 @@ public class DestinationServiceImpl implements DestinationService {
 			.orElseThrow(() -> new ResouceNotFound("Destination", "id", id));
 		destinationRepo.delete(destination);	
 	}
+	
 	
 	@Override
 	public List<Destination> getDestinationByName(String name) {

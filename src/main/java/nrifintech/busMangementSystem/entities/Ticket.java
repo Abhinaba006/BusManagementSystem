@@ -28,4 +28,12 @@ public class Ticket {
 	@ManyToOne
 	User user;
 	Date createdAt;
+
+	@Override
+	public String toString() {
+		return "Ticket [id=" + id + ", status=" + status + ", bus=" + bus + ", user=" + user + ", createdAt="
+				+ createdAt + "]";
+	}
+	
+
 }

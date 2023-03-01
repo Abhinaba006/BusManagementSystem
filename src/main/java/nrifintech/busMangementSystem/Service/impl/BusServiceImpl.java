@@ -47,7 +47,6 @@ public class BusServiceImpl implements BusService {
 			.orElseThrow(() -> new ResouceNotFound("Bus", "id", id));
 		busRepo.delete(bus);
 	}
-	
 
 
 }

@@ -2,8 +2,14 @@ package nrifintech.busMangementSystem.Service.impl;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import nrifintech.busMangementSystem.entities.User;
@@ -30,6 +36,7 @@ public class UserServiceImpl implements UserService{
 		}
 		else
 			throw new UnauthorizedAction("similiar user create","Admin");
+//		return userRepo.save(user);
 	}
 
 	@Override
@@ -38,7 +45,11 @@ public class UserServiceImpl implements UserService{
 		User  user = userRepo.findById(id).orElseThrow(() -> new ResouceNotFound("User", "id", id));
 		if(newUser.getName()!=null) user.setName(newUser.getName());
 		if(newUser.getEmail()!=null) user.setEmail(newUser.getEmail());
+
 		if(newUser.getPassword()!=null) user.setPassword(passwordEncoder.encode(newUser.getPassword()));
+
+//		if(newUser.getPassword()!=null) user.setPassword(newUser.getPassword());
+
 		
 		return this.userRepo.save(user);
 	}
@@ -62,6 +73,7 @@ public class UserServiceImpl implements UserService{
 		userRepo.delete(user);	
 	}
 
+
 	@Override
 	public boolean checkUser(String email, String password) {
 		User user = userRepo.findByEmail(email,0);
@@ -80,5 +92,7 @@ public class UserServiceImpl implements UserService{
 //		if(admin.getPassword().equals(password)) return true;
 //		else return false;
 	}
+
+
 
 }

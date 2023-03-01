@@ -56,6 +56,7 @@ public class DestinationController {
         destinationService.deleteDestination(destinationId);
         return new ResponseEntity(new ApiResponse("destination deleted", true), HttpStatus.OK);
     }
+
     
     //custom
     @GetMapping("/destination/getbyname/{name}")
@@ -63,4 +64,5 @@ public class DestinationController {
     	System.out.println(name);
     	return ResponseEntity.ok( destinationService.getDestinationByName(name));
     }
+
 }

@@ -21,6 +21,8 @@ import lombok.Setter;
 public class DestinationDto {
 	int id;
 	String name;
-	float latitude;
+
+	float lattitude;
+
 	float longitude;
 }

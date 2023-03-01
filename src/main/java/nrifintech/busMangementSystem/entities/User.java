@@ -29,6 +29,7 @@ public class User {
 	
 	//0 for user and 1 for admin
 	int type;
+
 	@NotEmpty
 	String name;
 	@NotEmpty
@@ -39,5 +40,5 @@ public class User {
 	String password;
 	@OneToMany
 	Set<Ticket> tickets = new HashSet<>();
-	
+
 }

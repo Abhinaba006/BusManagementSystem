@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+
 import nrifintech.busMangementSystem.entities.Destination;
 import nrifintech.busMangementSystem.entities.Route;
 @Service
@@ -16,3 +17,4 @@ public interface RouteService {
 	List<Route> getRoutesBySourceAndDestination(int source, int destination);
 	List<Destination> getRouteDestinations(int routeId);
 }
+

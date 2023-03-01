@@ -15,5 +15,6 @@ public interface TicketService {
 	Ticket createTicket(TicketDto ticketDto);
 	Ticket updateTicket(Ticket ticket, int id);
 	List<Ticket> getTicketByUserId(int userId);
+
 		
 }
