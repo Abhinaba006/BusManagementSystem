@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface RouteMapService {
-	void addRouteMap(int route_id,int destination_id,int index,String time);
+	
 }

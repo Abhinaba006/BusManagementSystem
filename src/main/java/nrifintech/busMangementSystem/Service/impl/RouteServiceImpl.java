@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+import nrifintech.busMangementSystem.Service.interfaces.BusMapService;
 import nrifintech.busMangementSystem.Service.interfaces.RouteService;
 import nrifintech.busMangementSystem.entities.Destination;
 import nrifintech.busMangementSystem.entities.Route;
@@ -31,9 +31,12 @@ public class RouteServiceImpl implements RouteService{
 	
 	@Autowired
 	private DestinationServiceImpl destinationService;
+	
+	@Autowired
+	private BusMapService busMapService;
 	@Override
 	@Transactional
-	public Route createRoute(List<String> destinations) {
+	public Route createRoute(List<String> destinations,int bus_id) {
 		int start = 0,end = 0;
 		for(int i = 0;i<destinations.size();i++) {
 			String dest = destinations.get(i);
@@ -62,20 +65,13 @@ public class RouteServiceImpl implements RouteService{
 			rm.setTime(dest_id_time[2]);
 			routeMapRepo.save(rm);
 		}
+		busMapService.addBusMap(createdRoute.getId(), bus_id);
 		return createdRoute;
 	}
 	@Override
 	@Transactional
-	public Route updateRoute(List<String> destinations, int id) {
-//		// TODO Auto-generated method stub
-//		Route  route = routeRepo.findById(id).orElseThrow(() -> new ResouceNotFound("Route", "id", id));
-//		route.setId(newRoute.getId());
-////		route.setDestinations(newRoute.getDestinations());
-//		
-//		return this.routeRepo.save(route);
+	public Route updateRoute(List<String> destinations, int id,int bus_id) {
 		Route  route = routeRepo.findById(id).orElseThrow(() -> new ResouceNotFound("Route", "id", id));
-		
-		//Delete all entries from routeMap
 		routeMapRepo.deleteFromRepoByRouteId(route.getId());
 		
 		//Update the route
@@ -107,6 +103,7 @@ public class RouteServiceImpl implements RouteService{
 			rm.setTime(dest_id_time[2]);
 			routeMapRepo.save(rm);
 		}
+		busMapService.updateBusByRoute(id, bus_id);
 		return createdRoute;
 		
 	}
@@ -132,7 +129,10 @@ public class RouteServiceImpl implements RouteService{
 		//Delete from the routeMap entry
 		routeMapRepo.deleteFromRepoByRouteId(id);
 		
+		//Delete from busMap entry
+		busMapService.deleteByRouteId(id);
 		
+		//Delete the route
 		routeRepo.delete(route);	
 	}
 
@@ -152,5 +152,6 @@ public class RouteServiceImpl implements RouteService{
 		}
 		return response;
 	}
+	
 
 }

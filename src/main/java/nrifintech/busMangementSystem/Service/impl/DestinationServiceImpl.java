@@ -31,7 +31,7 @@ public class DestinationServiceImpl implements DestinationService {
 		destination.setLongitude(updatedDestination.getLongitude());
 		return destinationRepo.save(destination);
 	}
-
+	
 	@Override
 	public Destination getDestination(int id) {
 		return destinationRepo.findById(id)

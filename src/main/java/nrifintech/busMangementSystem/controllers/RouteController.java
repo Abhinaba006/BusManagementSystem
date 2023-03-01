@@ -39,8 +39,8 @@ public class RouteController {
 	}
 	//post
 	@PostMapping("/create")
-	ResponseEntity<Route> createRoute(@RequestBody List<String> destinations){
-		Route createdRoute = routeService.createRoute(destinations);
+	ResponseEntity<Route> createRoute(@RequestBody List<String> destinations,@RequestBody int bus_id){
+		Route createdRoute = routeService.createRoute(destinations,bus_id);
 		return new ResponseEntity<>(createdRoute, HttpStatus.CREATED);
 	}
 	@GetMapping("/getBySrcDest/{source}/{destination}")
@@ -50,8 +50,8 @@ public class RouteController {
 	}
 	//update
 	@PostMapping("/update/{routeId}")
-	ResponseEntity<Route> createRoute(@RequestBody List<String> destinations, @PathVariable("routeId") int routeId){
-		Route updatedRoute = routeService.updateRoute(destinations, routeId);
+	ResponseEntity<Route> updateRoute(@RequestBody List<String> destinations, @RequestBody int busId, @PathVariable("routeId") int routeId){
+		Route updatedRoute = routeService.updateRoute(destinations, routeId,busId);
 		return ResponseEntity.ok(updatedRoute);
 	}
 	//delete
@@ -67,4 +67,5 @@ public class RouteController {
 		List<Destination>destinations = routeService.getRouteDestinations(routeId);
 		return ResponseEntity.ok(destinations);
 	}
+
 }

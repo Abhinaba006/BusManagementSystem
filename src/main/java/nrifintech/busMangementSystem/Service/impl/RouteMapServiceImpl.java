@@ -8,8 +8,7 @@ import nrifintech.busMangementSystem.repositories.RouteMapRepo;
 public class RouteMapServiceImpl implements RouteMapService {
 	@Autowired
 	private RouteMapRepo routeMapRepo;
-	@Override
-	public void addRouteMap(int route_id, int destination_id, int index, String time) {
-	}
+
+	
 	
 }
