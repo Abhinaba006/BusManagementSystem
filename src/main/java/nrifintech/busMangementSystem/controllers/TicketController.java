@@ -17,13 +17,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import nrifintech.busMangementSystem.Service.interfaces.BusService;
+import nrifintech.busMangementSystem.Service.interfaces.RouteInfoService;
 import nrifintech.busMangementSystem.Service.interfaces.RouteService;
 import nrifintech.busMangementSystem.Service.interfaces.TicketService;
 import nrifintech.busMangementSystem.Service.interfaces.UserService;
 import nrifintech.busMangementSystem.entities.Bus;
 import nrifintech.busMangementSystem.entities.Ticket;
+import nrifintech.busMangementSystem.exception.ResouceNotFound;
 import nrifintech.busMangementSystem.payloads.ApiResponse;
 import nrifintech.busMangementSystem.payloads.TicketDto;
+import nrifintech.busMangementSystem.repositories.BusMapRepo;
 import nrifintech.busMangementSystem.repositories.TicketRepo;
 
 @RestController
@@ -40,9 +43,15 @@ public class TicketController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	RouteInfoService routeInfoService;
 
 	@Autowired
 	TicketRepo ticketRepo;
+	
+	@Autowired
+	BusMapRepo busMapRepo;
 
 
 	// get
@@ -152,6 +161,11 @@ public class TicketController {
 		Ticket ticket = ticketService.getTicket(ticketId);
 		ticket.setStatus("cancelled");
 
+		//Update route_info when ticket is cancelled.
+		int bus_id = ticketRepo.findById(ticketId).orElseThrow(()-> new ResouceNotFound("Ticket","Id",ticketId)).getBus().getId();	
+		int route_id = this.busMapRepo.findByBusId(bus_id).getRoute_id();
+		this.routeInfoService.createRouteInfo(route_id, 0); //0 means create ticket and 1 means cancel ticket.
+		
 //		Bus bus = ticket.getBus();
 //		if (bus.getNumberOfSeats() == 0) {
 //			Ticket waitingTicket = ticketService.getMostRecentWaitingTicket(bus.getId());

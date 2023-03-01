@@ -44,7 +44,7 @@ public class DestinationServiceImpl implements DestinationService {
 		if(updatedDestination.getLongitude()!=0.0) destination.setLongitude(updatedDestination.getLongitude());
 		return destinationRepo.save(destination);
 	}
-
+	
 	@Override
 	public Destination getDestination(int id) {
 		return destinationRepo.findById(id)
@@ -63,7 +63,7 @@ public class DestinationServiceImpl implements DestinationService {
 		destinationRepo.delete(destination);	
 	}
 	
-	
+
 	@Override
 	public List<Destination> getDestinationByName(String name) {
 	    try {

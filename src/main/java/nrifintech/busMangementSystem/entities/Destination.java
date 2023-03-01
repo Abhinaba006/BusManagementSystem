@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 
+
 import lombok.Data;
 
 import lombok.Getter;
@@ -33,6 +34,9 @@ public class Destination {
     
     float latitude;
     float longitude;
+
+    // other fields, constructors, getters and setters
+
 }
 
 //public class Destination {

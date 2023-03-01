@@ -74,6 +74,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 
+
 	@Override
 	public boolean checkUser(String email, String password) {
 		User user = userRepo.findByEmail(email,0).orElseThrow(()->new ResouceNotFound("User","Email",0));
@@ -83,7 +84,7 @@ public class UserServiceImpl implements UserService{
 		
 //		if(user.getPassword().equals(password)) return true;
 //		else return false;
-	}
+}
 
 	@Override
 	public boolean checkAdmin(String email, String password) {
@@ -92,7 +93,5 @@ public class UserServiceImpl implements UserService{
 //		if(admin.getPassword().equals(password)) return true;
 //		else return false;
 	}
-
-
 
 }

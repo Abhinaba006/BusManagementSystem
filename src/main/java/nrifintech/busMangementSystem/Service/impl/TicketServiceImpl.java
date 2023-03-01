@@ -8,11 +8,13 @@ import java.time.ZoneId;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import nrifintech.busMangementSystem.Service.interfaces.BusService;
+import nrifintech.busMangementSystem.Service.interfaces.RouteInfoService;
 import nrifintech.busMangementSystem.Service.interfaces.RouteService;
 import nrifintech.busMangementSystem.Service.interfaces.TicketService;
 import nrifintech.busMangementSystem.Service.interfaces.UserService;
@@ -28,7 +30,9 @@ import nrifintech.busMangementSystem.exception.ResouceNotFound;
 import nrifintech.busMangementSystem.exception.UnauthorizedAction;
 
 import nrifintech.busMangementSystem.payloads.TicketDto;
+import nrifintech.busMangementSystem.repositories.BusMapRepo;
 import nrifintech.busMangementSystem.repositories.BusRepo;
+import nrifintech.busMangementSystem.repositories.RouteInfoRepo;
 import nrifintech.busMangementSystem.repositories.RouteRepo;
 import nrifintech.busMangementSystem.repositories.TicketRepo;
 import nrifintech.busMangementSystem.repositories.UserRepo;
@@ -44,6 +48,10 @@ public class TicketServiceImpl implements TicketService {
 	private RouteRepo routeRepo;
 	@Autowired
 	private UserRepo userRepo;
+	@Autowired
+	private RouteInfoRepo routeInfoRepo;
+	@Autowired
+	private BusMapRepo busMapRepo;
 
 	@Autowired
 	RouteService routeService;
@@ -51,13 +59,18 @@ public class TicketServiceImpl implements TicketService {
 	UserService userService;
 	@Autowired
 	BusService busService;
+	@Autowired
+	RouteInfoService routeInfoService;
 
 	@Override
 	public Ticket createTicket(TicketDto ticketDto) {
-		int routeId = ticketDto.getRouteId();
-		Route route = routeService.getRoute(routeId);
+//		int routeId = ticketDto.getRouteId();
+//		Route route = routeService.getRoute(routeId);
 //		// Add the route to the ticket
 //
+		
+		
+		
 //		// Get the user ID from the ticket and fetch the user, if not found give error
 		int userId = ticketDto.getUserId();
 		User user = userService.getUser(userId);
@@ -119,6 +132,11 @@ public class TicketServiceImpl implements TicketService {
 			ticket.setStatus("waiting");
 		} else {
 			ticket.setStatus("confirmed");
+			//Update route_info when ticket is created
+			int bus_id = ticketDto.getBusId();		
+			//get route from bus_map: relation bw bus_id and route_id
+			int route_id = this.busMapRepo.findByBusId(bus_id).getRoute_id();
+			this.routeInfoService.createRouteInfo(route_id, 0); //0 means create ticket and 1 means cancel ticket.
 		}
 		ticket.setCreatedAt(new Date());
 		return ticketRepo.save(ticket);

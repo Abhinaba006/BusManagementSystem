@@ -14,12 +14,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-
-public class BusMap {
+public class RouteInfo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	int id;	
-	int bus_id;
+	int id;
 	int route_id;
-
+	String date;
+	int total_seats;
+    int total_bookings;
+    int total_cancellations;
 }

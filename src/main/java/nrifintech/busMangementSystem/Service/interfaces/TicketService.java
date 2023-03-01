@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import nrifintech.busMangementSystem.entities.Ticket;
 import nrifintech.busMangementSystem.payloads.TicketDto;
+
 @Service
 public interface TicketService {
 	Ticket getTicket(int id);
