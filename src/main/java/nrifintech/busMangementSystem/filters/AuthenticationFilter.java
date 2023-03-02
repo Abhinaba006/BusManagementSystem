@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import nrifintech.busMangementSystem.Service.interfaces.UserService;
+import nrifintech.busMangementSystem.exception.ResouceNotFound;
 import nrifintech.busMangementSystem.exception.UnauthorizedAction;
 import nrifintech.busMangementSystem.repositories.UserRepo;
 
@@ -25,31 +26,28 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 	UserService userService;
 
 	@Override
-  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-      throws ServletException, IOException {
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+			throws ServletException, IOException {
+		// Get the custom header from the request
+		String userName = request.getHeader("email");
+		String password = request.getHeader("password");
 
-    // Get the custom header from the request
-    String userName = request.getHeader("email");
-    String password = request.getHeader("password");
- 
-    String url = request.getRequestURI();
-    if(url.equals(new String("/api/v1/user/create"))) {
-    	filterChain.doFilter(request, response);
-    	return;
-    }
-    int userType = 0;
-    
-    System.out.println(userType);
-    if (url.contains("/admin")) userType=1;
-    try {
-    	if((userType==0 && !userService.checkUser(userName, password))) throw new UnauthorizedAction("Missing or invalid Custom-Header header", "undefiened user");
-        if((userType==1 && !userService.checkAdmin(userName, password))) throw new UnauthorizedAction("Missing or invalid Custom-Header header", "undefiened user");
-    } catch(Exception ex) {
-    	throw new UnauthorizedAction("Missing or invalid Custom-Header header", "undefiened user");
-    }
-   
+		String url = request.getRequestURI();
+		if (url.equals(new String("/api/v1/user/create"))) {
+			filterChain.doFilter(request, response);
+			return;
+		}
+		int userType = 0;
 
+		System.out.println(userType);
+		if (url.contains("/admin"))
+			userType = 1;
 
-    filterChain.doFilter(request, response);
-  }
+		if ((userType == 0 && !userService.checkUser(userName, password)))
+			throw new UnauthorizedAction("Missing or invalid Custom-Header header", "undefiened user");
+		if ((userType == 1 && !userService.checkAdmin(userName, password)))
+			throw new UnauthorizedAction("Missing or invalid Custom-Header header", "undefiened user");
+
+		filterChain.doFilter(request, response);
+	}
 }

@@ -3,16 +3,11 @@ package nrifintech.busMangementSystem.Service.impl;
 
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
-
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 
 import nrifintech.busMangementSystem.Service.interfaces.BusMapService;
 import nrifintech.busMangementSystem.Service.interfaces.RouteService;
@@ -20,11 +15,7 @@ import nrifintech.busMangementSystem.entities.Destination;
 import nrifintech.busMangementSystem.entities.Route;
 import nrifintech.busMangementSystem.entities.RouteMap;
 import nrifintech.busMangementSystem.exception.ResouceNotFound;
-import nrifintech.busMangementSystem.payloads.ApiResponse;
-import nrifintech.busMangementSystem.repositories.DestinationRepo;
-
 import nrifintech.busMangementSystem.repositories.RouteMapRepo;
-
 import nrifintech.busMangementSystem.repositories.RouteRepo;
 @Service
 public class RouteServiceImpl implements RouteService{
@@ -36,12 +27,12 @@ public class RouteServiceImpl implements RouteService{
 	@Autowired
 	private RouteMapRepo routeMapRepo;
 	
+	
 	@Autowired
 	private DestinationServiceImpl destinationService;
 	
 	@Autowired
 	private BusMapService busMapService;
-	
 	@Override
 	@Transactional
 	public Route createRoute(List<String> destinations,int bus_id) {

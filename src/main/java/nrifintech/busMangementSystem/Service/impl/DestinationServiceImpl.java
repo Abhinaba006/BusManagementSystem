@@ -62,7 +62,8 @@ public class DestinationServiceImpl implements DestinationService {
 			.orElseThrow(() -> new ResouceNotFound("Destination", "id", id));
 		destinationRepo.delete(destination);	
 	}
-	
+
+
 
 	@Override
 	public List<Destination> getDestinationByName(String name) {

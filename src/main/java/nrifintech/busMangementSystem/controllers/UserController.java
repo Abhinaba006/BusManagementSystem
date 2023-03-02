@@ -72,5 +72,4 @@ public class UserController {
 			return new ResponseEntity(new ApiResponse("User not found or password is incorrect!",false), HttpStatus.BAD_REQUEST);
 		}
 	}
-
 }

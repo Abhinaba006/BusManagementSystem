@@ -34,7 +34,7 @@ public class Destination {
     
     float latitude;
     float longitude;
-
+    
     // other fields, constructors, getters and setters
 
 }
