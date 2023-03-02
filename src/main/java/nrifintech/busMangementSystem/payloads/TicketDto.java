@@ -21,4 +21,10 @@ public class TicketDto {
 	int busId;
 	int routeId;
 	int userId;
+	@Override
+	public String toString() {
+		return "TicketDto [busId=" + busId + ", routeId=" + routeId + ", userId=" + userId + "]";
+	}
+	
+	
 }

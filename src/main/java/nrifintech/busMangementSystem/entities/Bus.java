@@ -30,7 +30,6 @@ public class Bus {
 	String name;
 	@NotEmpty
 	String bus_number;
-	@Min(1)
 	int numberOfSeats;
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "route_id")

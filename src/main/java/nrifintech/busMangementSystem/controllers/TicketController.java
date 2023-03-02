@@ -164,7 +164,7 @@ public class TicketController {
 		//Update route_info when ticket is cancelled.
 		int bus_id = ticketRepo.findById(ticketId).orElseThrow(()-> new ResouceNotFound("Ticket","Id",ticketId)).getBus().getId();	
 		int route_id = this.busMapRepo.findByBusId(bus_id).getRoute_id();
-		this.routeInfoService.createRouteInfo(route_id, 0); //0 means create ticket and 1 means cancel ticket.
+		this.routeInfoService.createRouteInfo(route_id, 1); //0 means create ticket and 1 means cancel ticket.
 		
 //		Bus bus = ticket.getBus();
 //		if (bus.getNumberOfSeats() == 0) {

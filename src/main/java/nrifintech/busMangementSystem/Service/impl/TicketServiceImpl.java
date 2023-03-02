@@ -69,7 +69,7 @@ public class TicketServiceImpl implements TicketService {
 //		// Add the route to the ticket
 //
 		
-		
+		System.out.println(ticketDto);
 		
 //		// Get the user ID from the ticket and fetch the user, if not found give error
 		int userId = ticketDto.getUserId();

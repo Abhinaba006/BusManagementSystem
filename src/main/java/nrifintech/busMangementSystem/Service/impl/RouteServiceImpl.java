@@ -50,6 +50,7 @@ public class RouteServiceImpl implements RouteService{
 			String dest = destinations.get(i);
 			String [] dest_id_time = dest.split("_");
 			System.out.println(dest_id_time[1]);
+			//System.out.println("Testing: "+dest_id_time[0]);
 			if(i == 0) {
 				start = Integer.parseInt(dest_id_time[0]);
 			}
