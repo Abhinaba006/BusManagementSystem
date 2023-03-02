@@ -38,8 +38,8 @@ public class RouteController {
 		return ResponseEntity.ok(this.routeService.getRoute(uid));
 	}
 	//post
-	@PostMapping("/create")
-	ResponseEntity<Route> createRoute(@RequestBody List<String> destinations,@RequestBody int bus_id){
+	@PostMapping("/create/{bus_id}")
+	ResponseEntity<Route> createRoute(@RequestBody List<String> destinations,@PathVariable int bus_id){
 		Route createdRoute = routeService.createRoute(destinations,bus_id);
 		return new ResponseEntity<>(createdRoute, HttpStatus.CREATED);
 	}

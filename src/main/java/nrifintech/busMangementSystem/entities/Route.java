@@ -1,6 +1,12 @@
 package nrifintech.busMangementSystem.entities;
 
+
+
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,3 +41,20 @@ public class Route {
     int end_destination_id;
     
 }
+//@Entity
+//public class Route {
+//	@Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private int id;
+//    
+//    @Column(name = "name")
+//    private String name;
+//
+//    @ManyToMany
+//    @JoinTable(
+//        name = "route_destination",
+//        joinColumns = @JoinColumn(name = "route_id"),
+//        inverseJoinColumns = @JoinColumn(name = "destination_id")
+//    )
+//    private Set<Destination> destinations = new HashSet<>();
+//}

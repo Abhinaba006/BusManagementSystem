@@ -1,10 +1,9 @@
 package nrifintech.busMangementSystem.Service.impl;
 
+
+
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +15,6 @@ import nrifintech.busMangementSystem.entities.Destination;
 import nrifintech.busMangementSystem.entities.Route;
 import nrifintech.busMangementSystem.entities.RouteMap;
 import nrifintech.busMangementSystem.exception.ResouceNotFound;
-import nrifintech.busMangementSystem.payloads.ApiResponse;
-import nrifintech.busMangementSystem.repositories.DestinationRepo;
 import nrifintech.busMangementSystem.repositories.RouteMapRepo;
 import nrifintech.busMangementSystem.repositories.RouteRepo;
 @Service
@@ -26,8 +23,10 @@ public class RouteServiceImpl implements RouteService{
 	@Autowired
 	private RouteRepo routeRepo;
 
+
 	@Autowired
 	private RouteMapRepo routeMapRepo;
+	
 	
 	@Autowired
 	private DestinationServiceImpl destinationService;
@@ -42,6 +41,7 @@ public class RouteServiceImpl implements RouteService{
 			String dest = destinations.get(i);
 			String [] dest_id_time = dest.split("_");
 			System.out.println(dest_id_time[1]);
+			//System.out.println("Testing: "+dest_id_time[0]);
 			if(i == 0) {
 				start = Integer.parseInt(dest_id_time[0]);
 			}
@@ -68,6 +68,8 @@ public class RouteServiceImpl implements RouteService{
 		busMapService.addBusMap(createdRoute.getId(), bus_id);
 		return createdRoute;
 	}
+	
+	
 	@Override
 	@Transactional
 	public Route updateRoute(List<String> destinations, int id,int bus_id) {
@@ -108,6 +110,7 @@ public class RouteServiceImpl implements RouteService{
 		
 	}
 
+
 	@Override
 	public Route getRoute(int id) {
 		// TODO Auto-generated method stub
@@ -128,7 +131,6 @@ public class RouteServiceImpl implements RouteService{
 		
 		//Delete from the routeMap entry
 		routeMapRepo.deleteFromRepoByRouteId(id);
-		
 		//Delete from busMap entry
 		busMapService.deleteByRouteId(id);
 		
@@ -152,6 +154,7 @@ public class RouteServiceImpl implements RouteService{
 		}
 		return response;
 	}
-	
 
 }
+
+

@@ -12,7 +12,14 @@ import nrifintech.busMangementSystem.entities.Destination;
 
 public interface DestinationRepo extends JpaRepository<Destination, Integer>{
 
+
+
 	@Query("SELECT d FROM Destination d WHERE d.name LIKE %?1%")
 	public List<Destination> findByName(String name);
+	
+	@Query("SELECT d FROM Destination d WHERE d.name = ?1")
+	public Destination checkIfExistsByName(String name);
+
+
 
 }

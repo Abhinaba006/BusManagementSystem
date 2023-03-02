@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 import nrifintech.busMangementSystem.Service.interfaces.DestinationService;
 import nrifintech.busMangementSystem.entities.Destination;
 import nrifintech.busMangementSystem.exception.ResouceNotFound;
+
+import nrifintech.busMangementSystem.exception.UnauthorizedAction;
+
+
 import nrifintech.busMangementSystem.repositories.DestinationRepo;
 
 @Service
@@ -19,16 +23,25 @@ public class DestinationServiceImpl implements DestinationService {
 
 	@Override
 	public Destination createDestination(Destination destination) {
-		return destinationRepo.save(destination);
+		//return destinationRepo.save(destination);
+		if(destinationRepo.checkIfExistsByName(destination.getName()) == null)
+		{
+			return destinationRepo.save(destination);
+		}
+		else
+			throw new UnauthorizedAction("similiar destination create","Admin");
+
+//		return destinationRepo.save(destination);
+
 	}
 
 	@Override
 	public Destination updateDestination(Destination updatedDestination, int id) {
 		Destination destination = destinationRepo.findById(id)
 			.orElseThrow(() -> new ResouceNotFound("Destination", "id", id));
-		destination.setName(updatedDestination.getName());
-		destination.setLatitude(updatedDestination.getLatitude());
-		destination.setLongitude(updatedDestination.getLongitude());
+		if(updatedDestination.getName()!=null) destination.setName(updatedDestination.getName());
+		if(updatedDestination.getLatitude()!=0.0) destination.setLatitude(updatedDestination.getLatitude());
+		if(updatedDestination.getLongitude()!=0.0) destination.setLongitude(updatedDestination.getLongitude());
 		return destinationRepo.save(destination);
 	}
 	
@@ -49,7 +62,9 @@ public class DestinationServiceImpl implements DestinationService {
 			.orElseThrow(() -> new ResouceNotFound("Destination", "id", id));
 		destinationRepo.delete(destination);	
 	}
-	
+
+
+
 	@Override
 	public List<Destination> getDestinationByName(String name) {
 	    try {

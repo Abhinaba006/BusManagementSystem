@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import nrifintech.busMangementSystem.entities.BusMap;
 import nrifintech.busMangementSystem.entities.Destination;
+import java.util.List;
 
 public interface BusMapRepo extends JpaRepository<BusMap, Integer> {
 	
@@ -21,9 +22,10 @@ public interface BusMapRepo extends JpaRepository<BusMap, Integer> {
 	@Query(value = "DELETE FROM bus_map WHERE route_id = :routeId",nativeQuery = true)
 	void deleteByRouteId(@Param("routeId") int routeId);
 	
-	@Query(value = "SELET * FROM bus_map WHERE bus_id = :busId")
+	@Query(value = "SELECT * FROM bus_map WHERE bus_id = :busId",nativeQuery = true)
 	BusMap findByBusId(@Param("busId") int busId);
 	
-	@Query(value = "SELECT * FROM route_map WHERE route_id = :routeId")
+	@Query(value = "SELECT * FROM bus_map WHERE route_id = :routeId",nativeQuery = true)
 	BusMap findByRouteId(@Param("routeId") int routeId);
+	
 }
