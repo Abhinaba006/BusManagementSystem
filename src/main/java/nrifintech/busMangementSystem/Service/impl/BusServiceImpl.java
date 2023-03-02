@@ -18,6 +18,7 @@ public class BusServiceImpl implements BusService {
 
 	@Override
 	public Bus createBus(Bus bus) {
+		bus.setNumberOfSeats(bus.getTotalNumberOfseats());
 		return busRepo.save(bus);
 	}
 

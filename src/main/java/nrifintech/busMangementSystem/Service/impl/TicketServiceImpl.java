@@ -69,7 +69,9 @@ public class TicketServiceImpl implements TicketService {
 //		// Add the route to the ticket
 //
 		
-		System.out.println(ticketDto);
+//		// Get the bus ID from the ticket and fetch the bus, if not found give error
+		int busId = ticketDto.getBusId();
+		Bus bus = busService.getBus(busId);
 		
 //		// Get the user ID from the ticket and fetch the user, if not found give error
 		int userId = ticketDto.getUserId();
@@ -80,7 +82,12 @@ public class TicketServiceImpl implements TicketService {
 		LocalDateTime now = LocalDateTime.now();
         LocalDateTime midnight = now.toLocalDate().atStartOfDay();
         Date current_date = Date.from(midnight.atZone(ZoneId.systemDefault()).toInstant());
-		for(Ticket t:this.ticketRepo.findByCreatedAtBefore(current_date))
+        List<Ticket> ticketsCreatedYesterDay = this.ticketRepo.findByCreatedAtBefore(current_date);
+        List<Ticket> ticketsCreatedToday = this.ticketRepo.findByCreatedToday(current_date);
+        // check if it is the first ticket of the day
+        if(ticketsCreatedYesterDay.size()==0)  	bus.resetNumberOfSeats();   
+        
+		for(Ticket t:ticketsCreatedYesterDay)
 		{
 			if(t.getStatus().equals("waiting"))
 				t.setStatus("expired");
@@ -118,12 +125,8 @@ public class TicketServiceImpl implements TicketService {
 		Ticket ticket = new Ticket();
 		ticket.setUser(user);
 //
-//		// Get the bus ID from the ticket and fetch the bus, if not found give error
-		int busId = ticketDto.getBusId();
-		Bus bus = busService.getBus(busId);
-//		if (bus == null) {
-//			throw new ResouceNotFound("Bus", "bus id", (long) (busId));
-//		}
+
+
 		bus.setNumberOfSeats(bus.getNumberOfSeats() - 1);
 		busService.updateBus(bus, busId);
 		ticket.setBus(bus);
@@ -135,8 +138,8 @@ public class TicketServiceImpl implements TicketService {
 			//Update route_info when ticket is created
 			int bus_id = ticketDto.getBusId();		
 			//get route from bus_map: relation bw bus_id and route_id
-			int route_id = this.busMapRepo.findByBusId(bus_id).getRoute_id();
-			this.routeInfoService.createRouteInfo(route_id, 0); //0 means create ticket and 1 means cancel ticket.
+//			int route_id = this.busMapRepo.findByBusId(bus_id).getRoute_id();
+//			this.routeInfoService.createRouteInfo(route_id, 0); //0 means create ticket and 1 means cancel ticket.
 		}
 		ticket.setCreatedAt(new Date());
 		return ticketRepo.save(ticket);

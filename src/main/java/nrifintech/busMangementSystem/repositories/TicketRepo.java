@@ -33,6 +33,11 @@ public interface TicketRepo extends JpaRepository<Ticket, Integer> {
 
 
 
+    @Query("SELECT t FROM Ticket t WHERE t.createdAt >= ?1")
+	List<Ticket> findByCreatedToday(Date current_date);
+
+
+
     
     
  

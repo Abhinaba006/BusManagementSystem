@@ -34,5 +34,10 @@ public class Bus {
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "route_id")
     private Route route;
+	int totalNumberOfseats;
+	public void resetNumberOfSeats() {
+		numberOfSeats = totalNumberOfseats;
+		
+	}
 
 }
