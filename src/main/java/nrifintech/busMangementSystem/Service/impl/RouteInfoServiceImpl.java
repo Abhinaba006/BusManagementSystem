@@ -36,6 +36,7 @@ public class RouteInfoServiceImpl implements RouteInfoService {
 	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
 	    String currentDate = today.format(formatter);
 	    RouteInfo routeInfo = this.routeInfoRepo.getRouteByPresentDate(routeId, currentDate);
+	    System.out.println("Testing:      "+routeId);
 	    System.out.println(routeInfo);
 		if(routeInfo !=null)
 		{
@@ -60,7 +61,7 @@ public class RouteInfoServiceImpl implements RouteInfoService {
 			int total_seats = 0;
 			int busId = busMapRepo.findByRouteId(routeId).getBus_id();
 			Bus bus = busRepo.findById(busId).orElseThrow(()-> new ResouceNotFound("Bus", "BusId", routeId));
-			total_seats = bus.getNumberOfSeats();
+			total_seats = bus.getTotalNumberOfseats();
 			
 			RouteInfo currentDate_RouteInfo = new RouteInfo();
 			currentDate_RouteInfo.setDate(currentDate);

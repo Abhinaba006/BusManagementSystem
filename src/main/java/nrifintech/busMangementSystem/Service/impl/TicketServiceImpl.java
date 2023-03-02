@@ -138,8 +138,8 @@ public class TicketServiceImpl implements TicketService {
 			//Update route_info when ticket is created
 			int bus_id = ticketDto.getBusId();		
 			//get route from bus_map: relation bw bus_id and route_id
-//			int route_id = this.busMapRepo.findByBusId(bus_id).getRoute_id();
-//			this.routeInfoService.createRouteInfo(route_id, 0); //0 means create ticket and 1 means cancel ticket.
+			int route_id = this.busMapRepo.findByBusId(bus_id).getRoute_id();
+			this.routeInfoService.createRouteInfo(route_id, 0); //0 means create ticket and 1 means cancel ticket.
 		}
 		ticket.setCreatedAt(new Date());
 		return ticketRepo.save(ticket);
