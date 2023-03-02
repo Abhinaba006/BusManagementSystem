@@ -10,9 +10,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.UniqueElements;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +26,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,6 +38,7 @@ public class User {
 	String name;
 	@NotEmpty
 	@Email(message = "enter a valid mail")
+	
 	String email;
 	@Size(min=4,message="password should be of atleast 4 characaters")
 	@NotEmpty(message="password cant be empty")

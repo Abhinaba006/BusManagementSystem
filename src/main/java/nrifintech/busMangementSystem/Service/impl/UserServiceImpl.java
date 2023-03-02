@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService{
 	public User createUser(User user) {
 		// TODO Auto-generated method stub
 		//same user can't be created multiple times for each role type.
-		if(true || userRepo.findByEmail(user.getEmail(), user.getType()) == null)
+		if(userRepo.findByOnlyEmail(user.getEmail()) == null)
 		{
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
 			return userRepo.save(user);
@@ -43,6 +43,7 @@ public class UserServiceImpl implements UserService{
 	public User updateUser(User newUser, int id) {
 		// TODO Auto-generated method stub
 		User  user = userRepo.findById(id).orElseThrow(() -> new ResouceNotFound("User", "id", id));
+		if(userRepo.findByOnlyEmail(user.getEmail()) != null) throw new UnauthorizedAction("similiar user create","user");
 		if(newUser.getName()!=null) user.setName(newUser.getName());
 		if(newUser.getEmail()!=null) user.setEmail(newUser.getEmail());
 
@@ -77,6 +78,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public boolean checkUser(String email, String password) {
+		
 		User user = userRepo.findByEmail(email,0).orElseThrow(()->new ResouceNotFound("User","Email",0));
 		System.out.println(user.getPassword());
 		return  passwordEncoder.matches(password, user.getPassword());
