@@ -102,12 +102,12 @@ public class TicketServiceImpl implements TicketService {
 //		
 //		System.out.println(ticketRepo.findConfirmedTicketByUser(user.getId()).size());
 //	
-//	    if(ticketRepo.findConfirmedTicketByUser(user.getId()).size()>=1)
-//	    {
-//	    	
-//	    	//need to create custom excepiton for user creating multiple tickets
-//	    	throw new UnauthorizedAction("Creating multiple ticket", user.getName());
-//	    }
+	    if(ticketRepo.findConfirmedTicketByUser(user.getId()).size()>=1)
+	    {
+	    	
+	    	//need to create custom excepiton for user creating multiple tickets
+	    	throw new UnauthorizedAction("Creating multiple ticket", user.getName());
+	    }
 
 		// change the status for all the tickets before current day
 
