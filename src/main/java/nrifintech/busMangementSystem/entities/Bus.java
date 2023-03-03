@@ -21,7 +21,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Data
 public class Bus {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,6 +37,11 @@ public class Bus {
 	public void resetNumberOfSeats() {
 		numberOfSeats = totalNumberOfseats;
 		
+	}
+	@Override
+	public String toString() {
+		return "Bus [id=" + id + ", name=" + name + ", bus_number=" + bus_number + ", numberOfSeats=" + numberOfSeats
+				+ ", route=" + route + ", totalNumberOfseats=" + totalNumberOfseats + "]";
 	}
 
 }
