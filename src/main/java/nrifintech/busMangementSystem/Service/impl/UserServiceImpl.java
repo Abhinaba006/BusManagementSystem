@@ -29,14 +29,15 @@ public class UserServiceImpl implements UserService{
 	public User createUser(User user) {
 		// TODO Auto-generated method stub
 		//same user can't be created multiple times for each role type.
-		if(userRepo.findByOnlyEmail(user.getEmail()) == null)
+		System.out.println(userRepo.findByOnlyEmail(user.getEmail()));
+		if(userRepo.findByOnlyEmail(user.getEmail())==null)
 		{
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
 			return userRepo.save(user);
 		}
-		else
+		else 
 			throw new UnauthorizedAction("similiar user create","Admin");
-		//return userRepo.save(user);
+//		return userRepo.save(user);
 	}
 
 	@Override

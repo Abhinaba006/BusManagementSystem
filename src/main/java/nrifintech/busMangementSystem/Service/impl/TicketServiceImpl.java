@@ -82,10 +82,13 @@ public class TicketServiceImpl implements TicketService {
 		LocalDateTime now = LocalDateTime.now();
         LocalDateTime midnight = now.toLocalDate().atStartOfDay();
         Date current_date = Date.from(midnight.atZone(ZoneId.systemDefault()).toInstant());
+        System.out.println("today morning date is "+current_date);
         List<Ticket> ticketsCreatedYesterDay = this.ticketRepo.findByCreatedAtBefore(current_date);
+        
         List<Ticket> ticketsCreatedToday = this.ticketRepo.findByCreatedToday(current_date);
+        System.out.println("size iss " + ticketsCreatedToday.size());
         // check if it is the first ticket of the day
-        if(ticketsCreatedYesterDay.size()==0)  	bus.resetNumberOfSeats();   
+        if(ticketsCreatedToday.size()==0)  	bus.resetNumberOfSeats();   
         
 		for(Ticket t:ticketsCreatedYesterDay)
 		{
@@ -125,10 +128,10 @@ public class TicketServiceImpl implements TicketService {
 		Ticket ticket = new Ticket();
 		ticket.setUser(user);
 //
-
-
-		bus.setNumberOfSeats(bus.getNumberOfSeats() - 1);
-		busService.updateBus(bus, busId);
+		int numberOfSeat = bus.getNumberOfSeats();
+		bus.setNumberOfSeats(numberOfSeat-1);
+		System.out.println(busId+ " now have seats " +numberOfSeat*2);
+		bus = busService.updateBus(bus, busId);
 		ticket.setBus(bus);
 //		// if bus is full logic
 		if (bus.getNumberOfSeats() < 0) {
