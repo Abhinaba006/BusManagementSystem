@@ -43,10 +43,10 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 		if (url.contains("/admin"))
 			userType = 1;
 
-		if ((userType == 0 && !userService.checkUser(userName, password)))
+		/*if ((userType == 0 && !userService.checkUser(userName, password)))
 			throw new UnauthorizedAction("Missing or invalid Custom-Header header", "undefiened user");
 		if ((userType == 1 && !userService.checkAdmin(userName, password)))
-			throw new UnauthorizedAction("Missing or invalid Custom-Header header", "undefiened user");
+			throw new UnauthorizedAction("Missing or invalid Custom-Header header", "undefiened user");*/
 
 		filterChain.doFilter(request, response);
 	}
