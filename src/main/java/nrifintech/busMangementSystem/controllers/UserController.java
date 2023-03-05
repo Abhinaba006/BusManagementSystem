@@ -54,6 +54,7 @@ public class UserController {
 		userService.deleteUser(userId);
 		return new ResponseEntity(new ApiResponse("user deleted", true), HttpStatus.OK);
 	}
+
 	@GetMapping("/employee/login/{email}/{password}")
 	public ResponseEntity<?> userLogin(@PathVariable("email") String email, @PathVariable("password") String password){
 		System.out.println(email);

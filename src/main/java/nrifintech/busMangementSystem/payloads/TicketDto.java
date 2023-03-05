@@ -17,9 +17,14 @@ import nrifintech.busMangementSystem.entities.User;
 @Getter
 @Setter
 @AllArgsConstructor
-class TicketDto {
-	int id;
-	Bus bus;
-	Route route;
-	User user;
+public class TicketDto {
+	int busId;
+	int routeId;
+	int userId;
+	@Override
+	public String toString() {
+		return "TicketDto [busId=" + busId + ", routeId=" + routeId + ", userId=" + userId + "]";
+	}
+	
+	
 }

@@ -18,9 +18,9 @@ public class RouteInfo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int id;
-	String route_id;
+	int route_id;
 	String date;
-	String total_seats;
+	int total_seats;
     int total_bookings;
     int total_cancellations;
 }

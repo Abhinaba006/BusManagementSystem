@@ -1,6 +1,8 @@
 package nrifintech.busMangementSystem.Service.impl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import nrifintech.busMangementSystem.Service.interfaces.BusMapService;
 import nrifintech.busMangementSystem.Service.interfaces.BusService;
 import nrifintech.busMangementSystem.entities.Bus;
@@ -8,6 +10,7 @@ import nrifintech.busMangementSystem.entities.BusMap;
 import nrifintech.busMangementSystem.entities.RouteMap;
 import nrifintech.busMangementSystem.repositories.BusMapRepo;
 import nrifintech.busMangementSystem.repositories.RouteMapRepo;
+@Service
 public class BusMapServiceImpl implements BusMapService{
 	@Autowired
 	private BusMapRepo busMapRepo;

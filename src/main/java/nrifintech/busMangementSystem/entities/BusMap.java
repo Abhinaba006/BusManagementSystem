@@ -18,9 +18,8 @@ import lombok.Setter;
 public class BusMap {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	int id;
-	
+	int id;	
 	int bus_id;
-	
 	int route_id;
+
 }
