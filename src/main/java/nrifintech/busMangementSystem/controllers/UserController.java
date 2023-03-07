@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import nrifintech.busMangementSystem.Service.interfaces.UserService;
 import nrifintech.busMangementSystem.entities.User;
 import nrifintech.busMangementSystem.payloads.ApiResponse;
 
+@CrossOrigin(origins = "http://localhost:5500")
 @RestController
 @RequestMapping("/api/v1/user")
 public class UserController {
@@ -36,12 +38,12 @@ public class UserController {
 		return ResponseEntity.ok(this.userService.getUser(uid));
 	}
 	//post
-	
-	@PostMapping("/create")
+	@PostMapping(path = "/create", consumes = "application/json", produces = "application/json")
 	ResponseEntity<User> createUser(@Valid @RequestBody User user){
 		User createdUser = userService.createUser(user);
 		return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
 	}
+
 	//update
 	@PostMapping("/update/{userId}")
 	ResponseEntity<User> createUser(@RequestBody User user, @PathVariable("userId") int userId){
@@ -58,6 +60,7 @@ public class UserController {
 	@GetMapping("/employee/login/{email}/{password}")
 	public ResponseEntity<?> userLogin(@PathVariable("email") String email, @PathVariable("password") String password){
 		System.out.println(email);
+		System.out.println(password);
 		boolean isAuthenticated = userService.checkUser(email,password);
 		if(isAuthenticated) return new ResponseEntity(new ApiResponse("Authenticated success",true), HttpStatus.OK);
 		else {

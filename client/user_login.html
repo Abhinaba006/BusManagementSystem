@@ -1,17 +1,4 @@
 
-<!--
-
-	@author: Arijit Saha
-	@desc: Html file for user login page
-	@file path from root: Ex ./user_login.html/
-
--->
-
-
-
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./user_login.css" />
     <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </head>
 <body>
     
@@ -46,7 +34,7 @@
                 <div class="login-text"> LOGIN</div>
                 <div class="login-inputs" >
                     
-                    <div> <input type="email" placeholder="Email"></div>
+                    <div> <input type="email" placeholder="Email" id="email"></div>
                     <div>
                         <input type="password" placeholder="Password" id="mypassword">  
                         <img class="hidden-eye" id="mypassword-icon" src="./public/eye-icon.svg" alt="" onclick="togglepassword()">
@@ -60,7 +48,7 @@
                         </a>
                        
 
-                        <a href="" class="submit-div-login" type="submit">
+                        <a href="" class="submit-div-login">
                                 <div class="normal-login-text">Login</div>    
                         </a>
 
@@ -73,6 +61,19 @@
     </div>
 
     <script src="./index.js">
+    </script>
+    <script>
+       $(".submit-div-login").on("click",function(event){
+            event.preventDefault();
+            const email = $("#email").val();
+            const password = $("#mypassword").val();
+            $.get("http://localhost:8080/api/v1/user/employee/login/" + email + "/" + password,function(data,status){
+                console.log(data);
+            }).fail(function(){
+                alert("Invalid credentials!");
+            })
+            
+       })
     </script>
 </body>
 </html>

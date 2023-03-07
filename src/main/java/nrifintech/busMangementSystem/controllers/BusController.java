@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import nrifintech.busMangementSystem.Service.interfaces.BusService;
 import nrifintech.busMangementSystem.entities.Bus;
 import nrifintech.busMangementSystem.payloads.ApiResponse;
 
+@CrossOrigin(origins = "http://localhost:5500")
 @RestController
 @RequestMapping("/api/v1/bus")
 public class BusController {

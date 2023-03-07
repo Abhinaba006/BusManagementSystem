@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="./admin_homepage.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <title>Admin</title>
 </head>
 
@@ -78,27 +78,31 @@
                         <form>
                             <h1>Add an employee</h1>
 
-                            <input type="text" id="name" name="name" placeholder="Name">
+                            <input type="text" id="add-employee-name" name="name" placeholder="Name">
 
 
-                            <input type="email" id="email" name="email" placeholder="Email">
+                            <input type="email" id="add-employee-email" name="email" placeholder="Email">
 
 
-                            <input type="password" id="id_password" name="password" placeholder="Password"><br>
+                            <input type="password" id="add-employee-password" name="password" placeholder="Password"><br>
 
-                            <input type="submit" value="+ Add Employee">
+                            <input type="submit" value="+ Add Employee" onclick="addEmployee(event)">
 
                             <h1>Search/edit an employee</h1>
 
-                            <input type="text" placeholder="Enter employee email or id">
+                            <input type="text" id = "search-email" placeholder="Enter employee email">
 
-                            
-
-
+                        
 
                         </form>
                         <button class="search-btn" onclick="on()"> <img class="confirm-cancel-icon"
                                 src="./public/icons8-search.svg" alt=""> Search</button>
+                        <script>
+                           function on() {
+                                    
+	                                document.querySelector(".search-overlay").style.display="block";
+                            }
+                        </script>
                     </div>
 
                     <!--second div-->
@@ -481,26 +485,27 @@
                         <form>
                             <h1>Add a bus</h1>
 
-                            <input type="number" id="number" name="number" placeholder="Bus Number">
+                            <input type="text" id="bus-number" name="number" placeholder="Bus Number">
 
 
-                            <input type="number" id="seats" name="seats" placeholder="Total seats">
+                            <input type="number" id="bus-seats" name="seats" placeholder="Total seats">
 
 
-                            <input type="text" id="name" name="name" placeholder="Bus Name"><br>
+                            <input type="text" id="bus-name" name="name" placeholder="Bus Name"><br>
 
 
-                            <input type="submit" value="+ Add Bus">
+                            <input type="submit" value="+ Add Bus" onclick="addBus(event)">
 
                             <h1>Search/edit a bus</h1>
 
-                            <input type="text" 
-                                placeholder="Enter bus name/bus id/bus number">
+                            <input type="text"
+                                id = "bus-search-name"Bus-number-search" 
+                                placeholder="Enter bus number">
 
 
 
                         </form><br>
-                        <button class="bus-btn" onclick="on2()"> <img class="confirm-cancel-icon"
+                        <button class="bus-btn" onclick="on2(event)"> <img class="confirm-cancel-icon"
                                 src="./public/icons8-search.svg" alt=""> Search</button>
                     </div>
 
@@ -516,25 +521,25 @@
                         <form>
                             <h1>Add a destination</h1>
                             
-                            <input type="text" id="name" name="name" placeholder="Bus Name">
+                            <input type="text" id="dest-name" name="name" placeholder="Enter destination name">
 
-                            <input type="number" id="latitude-input" name="latitude" min="-90" max="90" step="any" placeholder="Enter latitude">
-
-
-                            <input type="number" id="longitude-input" name="longitude" min="-180" max="180" step="any" placeholder="Enter longitude"><br>
+                            <input type="number" id="dest-latitude-input" name="latitude" min="-90" max="90" step="any" placeholder="Enter latitude">
 
 
-                            <input type="submit" value="+ Add Destination">
+                            <input type="number" id="dest-longitude-input" name="longitude" min="-180" max="180" step="any" placeholder="Enter longitude"><br>
 
-                            <h1>Search/edit a bus</h1>
+
+                            <input type="submit" 
+                            onclick="addDestination(event)"
+                            value="+ Add Destination">
+
+                            <h1>Search/Edit destination</h1>
 
                             <input type="text"
-                                placeholder="Enter bus name/bus id/bus number">
-
-
-
+                                id = "dest-search-name"
+                                placeholder="Enter destination name">
                         </form><br>
-                        <button class="search-destination" onclick="on3()"> <img class="confirm-cancel-icon"
+                        <button class="search-destination" onclick="on3(event)"> <img class="confirm-cancel-icon"
                                 src="./public/icons8-search.svg" alt=""> Search</button>
                     </div>
 
@@ -574,16 +579,18 @@
 
                 <div class="cancel-text">
                     <form>
-                        <input type="text" id="name" name="name" placeholder="Name">
+                        <input type="text" id="employee-name" name="name" placeholder="Name">
 
 
-                        <input type="text" id="email" name="email" placeholder="Email">
+                        <input type="text" id="employee-email" name="email" placeholder="Email">
 
 
-                        <input type="text" name="password" placeholder="Password">
+                        <input type="text" name="employee-password" placeholder="Password">
 
 
-                        <input type="text" placeholder="Employee ID"><br>
+                        <input type="text"
+                        id = "employee-id"
+                        placeholder="Employee ID"><br>
                     </form>
                 </div>
                 <div class="confirm-cancel-buttons">
@@ -609,16 +616,15 @@
 
                 <div class="search-text">
                     <form>
-                        <input type="text" id="number" name="number" placeholder="Bus Number">
+                        <input type="text" id="bus-number-o" name="number" placeholder="Bus Number">
 
 
-                        <input type="text" id="name" name="name" placeholder="Bus Name">
+                        <input type="text" id="bus-name-o" name="name" placeholder="Bus Name">
 
 
-                        <input type="text" id="seats" name="seats" placeholder="Total Seats">
+                        <input type="text" id="bus-seats-o" name="seats" placeholder="Total Seats">
 
 
-                        <input type="text" id="id" name="id" placeholder="Bus ID"><br>
                     </form>
                 </div>
                 <div class="search-cancel-buttons">
@@ -644,13 +650,13 @@
 
                 <div class="search-text">
                     <form>
-                        <input type="text" id="name" name="name" placeholder="Destination Name">
+                        <input type="text" id="dest-edit-name" name="name" placeholder="Destination Name">
 
 
-                        <input type="number" id="latitude-input" name="latitude" min="-90" max="90" step="any" placeholder="Enter latitude">
+                        <input type="number" id="dest-edit-latitude-input" name="latitude" min="-90" max="90" step="any" placeholder="Enter latitude">
 
 
-                            <input type="number" id="longitude-input" name="longitude" min="-180" max="180" step="any" placeholder="Enter longitude"><br>
+                            <input type="number" id="dest-edit-longitude-input" name="longitude" min="-180" max="180" step="any" placeholder="Enter longitude"><br>
                     </form>
                 </div>
                 <div class="search-cancel-buttons">

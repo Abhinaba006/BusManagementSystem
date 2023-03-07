@@ -80,11 +80,10 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
-			<version>5.6.0</version>
 		</dependency>
 	</dependencies>
 	<build>
-		<plugins>
+		<plugins>		
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
