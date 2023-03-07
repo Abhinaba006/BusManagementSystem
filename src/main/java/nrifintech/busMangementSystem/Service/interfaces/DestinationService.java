@@ -12,4 +12,5 @@ public interface DestinationService {
 	Destination getDestination(int id);
 	List<Destination> getDestination();
 	void deleteDestination(int id);
+	List<Destination> getDestinationByName(String name);
 }
