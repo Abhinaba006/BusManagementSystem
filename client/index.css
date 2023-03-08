@@ -137,6 +137,18 @@ a:link {
     margin-right: 10px;
 }
 
+/*Monidepa Ghosh*/
+
+.profile{
+    font-family: Montserrat;
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 30px;
+    letter-spacing: 0em;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 1);
+}
+
 .booking{
     font-family: Montserrat;
     font-size: 25px;
@@ -180,7 +192,7 @@ a:link {
     margin-top: auto;
 
     font-family: Montserrat;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 400;
     line-height: 27px;
     letter-spacing: 0em;
