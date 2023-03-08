@@ -572,7 +572,7 @@
 
     <!-- Employee Search Overlay -->
 
-    <div class="search-overlay" onclick="off()">
+    <div class="search-overlay" >
         <div class="search-div">
 
             <div class="search-overlay-main-div">
@@ -609,7 +609,7 @@
 
     <!-- Bus Search Overlay -->
 
-    <div class="bus-overlay" onclick="off2()">
+    <div class="bus-overlay">
         <div class="bus-div">
 
             <div class="bus-overlay-main-div">
@@ -643,7 +643,7 @@
 
     <!-- Destination Search Overlay -->
 
-    <div class="destination-overlay" onclick="off3()" >
+    <div class="destination-overlay" >
         <div class="destination-div">
 
             <div class="destination-overlay-main-div">
@@ -660,9 +660,9 @@
                     </form>
                 </div>
                 <div class="search-cancel-buttons">
-                    <button class="save-button"> <img class="search-cancel-icon" src="./public/arrow-right-circle-fill.svg"
+                    <button class="save-button" type="submit"> <img class="search-cancel-icon" src="./public/arrow-right-circle-fill.svg"
                             alt=""> Save</button>
-                    <button class="delete-button"> <img class="search-cancel-icon" src=""
+                    <button class="delete-button" onclick="delete_destination(event)"> <img class="search-cancel-icon" src=""
                             alt=""> Delete</button>
                 </div>
 

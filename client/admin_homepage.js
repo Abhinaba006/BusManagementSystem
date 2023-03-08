@@ -293,6 +293,35 @@ function add_field() {
 
   }
 
-  
+  const save_destination=(evt)=>{
+	evt.preventDefault();
+	const name = $("#dest-edit-name").val();
+	const latitude = $("#dest-edit-latitude-input").val();
+	const longitude = $("#dest-edit-longitude-input").val();
 
-  
+	$.ajax({
+		url: "http://localhost:8080/api/v1/destination/update",
+		type: "POST",
+		data: JSON.stringify({
+		name:name,
+		latitude:latitude,
+		longitude:longitude
+	}),
+		contentType: "application/json",
+		success: function(result) {
+			console.log(result);
+			alert("Destination updated successfully!")
+		},
+		error: function(xhr, status, error) {
+			console.log(error);
+			alert("Oops something went wrong! Please try again")
+		}
+	});
+  }
+
+  document.querySelector('.save-button').addEventListener('click', save_destination);
+
+
+  const delete_destination=(evt)=>{
+	evt.preventDefault();
+  }
