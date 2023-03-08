@@ -176,7 +176,7 @@ a:link {
     margin-top: auto;
 
     font-family: Montserrat;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 400;
     line-height: 27px;
     letter-spacing: 0em;
@@ -193,7 +193,7 @@ a:link {
 input[type=text],[type=email],[type=password],[type=time],[type=number],select {
     width: 75%;
     padding: 12px 20px;
-    margin: 8px 0;
+    margin: 8px 3%;
     display: inline-block;
     border: none;
     border-bottom: 2px solid #ccc;
@@ -207,13 +207,12 @@ input[type=text],[type=email],[type=password],[type=time],[type=number],select {
     background-color: #082032;
     color: white;
     padding: 14px 20px;
-    margin: 8px 0;
+    margin: 8px 3%;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     display: inline-block;
   }
-  
 
 form {
     padding: 0% 5%;
@@ -441,7 +440,25 @@ form {
     border-radius: 4px;
     cursor: pointer;
     display: inline-block;
-    margin-left: 5%;
+    margin-left: 8%;
+}
+
+.add-field-btn{
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: 0.035em;
+    text-align: right;
+    cursor: pointer;
+    background-color: #082032;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
 }
 
 .search-route{
@@ -473,7 +490,7 @@ form {
     background-color: #082032;
     color: white;
     padding: 14px 20px;
-    margin: 8px 0;
+    margin: 8px 3%;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -497,7 +514,7 @@ form {
     border-radius: 4px;
     cursor: pointer;
     display: inline-block;
-    margin-left: 5%;
+    margin-left: 8%;
     
 }
 
@@ -1040,9 +1057,9 @@ a {
     font-family: Montserrat;
     font-size: 18px;
     font-weight: 500;
-    line-height: 27px;
+    line-height: 13px;
     letter-spacing: 0.035em;
-    padding: 1%;
+    /* padding: 1%; */
     
 }
 
@@ -1060,7 +1077,7 @@ a {
 .bar-block .dropdown-click .button {
     width: 100%;
     text-align: left;
-    padding: 8px 16px
+    /* padding: 8px 16px */
 }
 
 .main,
@@ -1102,12 +1119,12 @@ a {
 }
 
 .bar .bar-item {
-    padding: 8px 16px;
+    /* padding: 8px 16px; */
     float: left;
     width: auto;
     border: none;
     display: block;
-    outline: 0
+    outline: 0;
 }
 
 .bar .dropdown-hover,
@@ -1123,8 +1140,8 @@ a {
 .bar-block .bar-item {
     width: 100%;
     display: block;
-    padding: 8px 16px;
-    text-align: left;
+    /* padding: 8px 16px; */
+    text-align:center;
     border: none;
     white-space: normal;
     float: none;
@@ -1810,7 +1827,7 @@ a {
 
 .button:hover {
     color: #000 !important;
-    background-color: #ccc !important
+    background-color: #f9f9f9 !important
 }
 
 .transparent,
@@ -2576,6 +2593,23 @@ a {
 {
   width:300px;
 }
+
+.search td{
+    width: 300px;
+}
+
+.from-to-searchbar{
+    margin-left: 3%;
+}
+
+.search{
+    margin-left: 4%;
+}
+
+.bottom-table{
+    margin-left: 1%;
+}
+
 .from-to-searchtext section
 {
 box-shadow: 2px 2px 2px #ddd;background:white;
