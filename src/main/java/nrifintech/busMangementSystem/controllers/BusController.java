@@ -46,7 +46,7 @@ public class BusController {
 	}
 	//update
 	@PostMapping("/update/{busId}")
-	ResponseEntity<Bus> createBus(@Valid @RequestBody Bus bus, @PathVariable("busId") int busId){
+	ResponseEntity<Bus> updateBus(@Valid @RequestBody Bus bus, @PathVariable("busId") int busId){
 		Bus updatedBus = busService.updateBus(bus, busId);
 		return ResponseEntity.ok(updatedBus);
 	}
@@ -56,4 +56,5 @@ public class BusController {
 		busService.deleteBus(busId);
 		return new ResponseEntity(new ApiResponse("bus deleted", true), HttpStatus.OK);
 	}
+
 }
