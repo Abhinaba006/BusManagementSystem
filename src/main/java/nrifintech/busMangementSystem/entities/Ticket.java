@@ -20,20 +20,9 @@ public class Ticket {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int id;
+	int routeId;
+	int busId;
+	int userId;
 	String status;
-	@ManyToOne
-	Bus bus;
-//	@ManyToOne
-//	Route route;
-	@ManyToOne
-	User user;
-	Date createdAt;
-
-	@Override
-	public String toString() {
-		return "Ticket [id=" + id + ", status=" + status + ", bus=" + bus + ", user=" + user + ", createdAt="
-				+ createdAt + "]";
-	}
-	
-
+	String date;
 }

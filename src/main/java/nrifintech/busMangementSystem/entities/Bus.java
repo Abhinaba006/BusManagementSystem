@@ -31,19 +31,6 @@ public class Bus {
 	String name;
 	@NotEmpty
 	String bus_number;
-	int numberOfSeats;
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "route_id")
-    private Route route;
-	int totalNumberOfseats;
-	public void resetNumberOfSeats() {
-		numberOfSeats = totalNumberOfseats;
-		
-	}
-	@Override
-	public String toString() {
-		return "Bus [id=" + id + ", name=" + name + ", bus_number=" + bus_number + ", numberOfSeats=" + numberOfSeats
-				+ ", route=" + route + ", totalNumberOfseats=" + totalNumberOfseats + "]";
-	}
 
+	int totalNumberOfseats;
 }

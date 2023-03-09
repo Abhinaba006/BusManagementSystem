@@ -5,7 +5,7 @@
 -->
 
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -84,8 +84,9 @@
                             <input type="email" id="add-employee-email" name="email" placeholder="Email">
 
 
-                            <input type="password" id="add-employee-password" name="password" placeholder="Password"><br>
-
+                            <input type="password" id="add-employee-password" name="password" placeholder="Password">
+                            
+                            <input type = "text" id = "add-employee-id" name = "empId" placeholder="Employee id"><br>
                             <input type="submit" value="+ Add Employee" onclick="addEmployee(event)">
 
                             <h1>Search/edit an employee</h1>
@@ -126,83 +127,18 @@
 
 
                                 <table class="container">
-                                    <tr>
-                                        <td>
-                                            <div class="from">
-
-                                                <div class="from-to-search-text"> <label for="fromtext">Add Bus
-                                                        Stop</label> </div>
-                                                <div class="options">
-                                                    <select name="" id="">
-
-                                                        <option value="option0"></option>
-                                                        <option value="option1">Option1</option>
-                                                        <option value="option2">Option2</option>
-                                                        <option value="option3">Option3</option>
-                                                    </select>
-                                                </div>
-
-                                            </div>
-                                        </td>
-
-                                        <td>
-                                            <div class="to">
-
-                                                <div class="from-to-search-text"> <label for="tottext">Add
-                                                        Timing</label> </div>
-                                                <div class="options">
-                                                    <input type="time" id="time-input" name="time">
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            <div class="from">
-
-                                                <div class="from-to-search-text"> <label for="fromtext">Add Bus
-                                                        Stop</label> </div>
-                                                <div class="options">
-                                                    <select name="" id="">
-
-                                                        <option value="option0"></option>
-                                                        <option value="option1">Option1</option>
-                                                        <option value="option2">Option2</option>
-                                                        <option value="option3">Option3</option>
-                                                    </select>
-                                                </div>
-
-                                            </div>
-                                        </td>
-
-                                        <td>
-                                            <div class="to">
-
-                                                <div class="from-to-search-text"> <label for="tottext">Add
-                                                        Timing</label> </div>
-                                                <div class="options">
-                                                    <input type="time" id="time-input" name="time">
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-
+                                
                                 </table>
                                 <table class="bottom-table">
                                     <tr>
                                         <td>
                                             <div class="from">
 
-                                                <div class="from-to-search-text"> <label for="fromtext">Bus ID</label>
+                                                <div class="from-to-search-text"> <label for="fromtext">Select Bus</label>
                                                 </div>
                                                 <div class="options">
-                                                    <select name="" id="">
-
-                                                        <option value="option0"></option>
-                                                        <option value="option1">Option1</option>
-                                                        <option value="option2">Option2</option>
-                                                        <option value="option3">Option3</option>
+                                                    <select name="" id="select-bus-id" onclick="displayBusID(event)">
+                                                        <option>None</option>
                                                     </select>
                                                 </div>
 
@@ -223,7 +159,7 @@
 
 
 
-                            <input type="submit" style="margin-left: 4%;" value="+ Add route">
+                            <input type="submit" onclick="addRoute(event)" style="margin-left: 4%;" value="+ Add route">
 
 
                         </form>
@@ -512,7 +448,69 @@
                     <!--fourth div-->
 
                     <div id="fourthdiv" style="display:none;">
-                        <h1>To be generated..</h1>
+                        <input type = "text" id = "report-route-id"/>
+                        <button onclick="getReportById(event)">Search</button>
+                        <div>Month: March</div>
+                        <canvas id="myChart" style="width:100%;max-width:1300px;margin-left:30px;"></canvas>
+                        <script>
+                         var xValues = new Array(31);
+                        var yValues = new Array(31);
+                        var barColors = new Array(31);
+                        for(let i = 0;i<31;i++){
+                            xValues[i] = i+1;
+                            yValues[i] = 0;
+                        }
+                        var positiveColor = 'rgba(54, 162, 235, 0.2)';
+                        var negativeColor = 'rgba(255, 99, 132, 0.2)';
+                    
+                        function getReportById(event){
+                            event.preventDefault();
+                            const id = $("#report-route-id").val();
+                            if(id == "") return alert("Please provide a valid route id");
+                            $.get("http://localhost:8080/api/v1/route/getReport/" + id,function(data){
+                                console.log(data);
+                                for(var i = 0;i<data.length;i++){
+                                    var date = data[i].date;
+                                    var index = parseInt(date.split(':')[0]);
+                                    var diff = data[i].total_seats - data[i].overall_bookings;
+                                    console.log(index,diff);
+                                    if(diff > 0 ){
+                                        //Underused
+                                        yValues[index] = diff;
+                                        barColors[index] = negativeColor;
+                                    }
+                                    else{
+                                        //overused
+                                        yValues[index] = -diff;
+                                        barColors[index] = positiveColor;
+                                    }
+                                }
+                                console.log(yValues);
+                                new Chart("myChart", {
+                                    type: "bar",
+                                    data: {
+                                    labels: xValues,
+                                    datasets: [{
+                                        backgroundColor: barColors,
+                                        data: yValues
+                                    }]
+                                    },
+                                    options: {
+                                    legend: {display: false},
+                                    title: {
+                                        display: true,
+                                        text: "Usage report"
+                                    }
+                                    }
+                                });
+                            }).fail(function(){
+                                return alert("Server error! Please try again!")
+                            })
+                    
+                        }
+                       
+                        
+                          </script>
                     </div>
 
                     <!--fifth div-->
@@ -585,18 +583,18 @@
                         <input type="text" id="employee-email" name="email" placeholder="Email">
 
 
-                        <input type="text" name="employee-password" placeholder="Password">
+                        <input type="text" id = "employee-password" name="employee-password" placeholder="Update password">
 
 
-                        <input type="text"
-                        id = "employee-id"
-                        placeholder="Employee ID"><br>
+                        <input type="text" id = "employee-id" placeholder="Employee ID"><br>
+
+                        <input type = "text" id = "emp-inp-id" style = "display: none;">
                     </form>
                 </div>
                 <div class="confirm-cancel-buttons">
-                    <button class="confirm-button"> <img class="confirm-cancel-icon" src="./public/arrow-right-circle-fill.svg"
+                    <button class="confirm-button" onclick="updateEmployee(event)"> <img class="confirm-cancel-icon" src="./public/arrow-right-circle-fill.svg"
                             alt=""> Save</button>
-                    <button class="cancel-button"> <img class="confirm-cancel-icon" src=""
+                    <button class="cancel-button"  onclick = "deleteEmployee(event)"> <img class="confirm-cancel-icon" src=""
                             alt=""> Delete</button>
                 </div>
 
@@ -623,20 +621,21 @@
 
 
                         <input type="text" id="bus-seats-o" name="seats" placeholder="Total Seats">
-
+                        <input type = "text" id="bus-id-o" style = "display: none;"/>
 
                     </form>
                 </div>
                 <div class="search-cancel-buttons">
-                    <button class="save-button"> <img class="search-cancel-icon" src="./public/arrow-right-circle-fill.svg"
+                    <button class="save-button" onclick="updateBus(event)"> <img class="search-cancel-icon" src="./public/arrow-right-circle-fill.svg"
                             alt=""> Save</button>
-                    <button class="delete-button"> <img class="search-cancel-icon" src=""
+                    <button class="delete-button" onclick="deleteBus(event)"> <img class="search-cancel-icon" src=""
                             alt=""> Delete</button>
                 </div>
 
             </div>
 
         </div>
+        <div class = "cancel-button" onclick="off2()">X</div>
     </div>
 
     <!-- Bus Search Overlay Ends Here-->
@@ -656,18 +655,19 @@
                         <input type="number" id="dest-edit-latitude-input" name="latitude" min="-90" max="90" step="any" placeholder="Enter latitude">
 
 
-                            <input type="number" id="dest-edit-longitude-input" name="longitude" min="-180" max="180" step="any" placeholder="Enter longitude"><br>
+                        <input type="number" id="dest-edit-longitude-input" name="longitude" min="-180" max="180" step="any" placeholder="Enter longitude"><br>
+                        <input type = "number" id = "dest-edit-id" name = "id" style = "display: none;"></input>
                     </form>
                 </div>
                 <div class="search-cancel-buttons">
-                    <button class="save-button" type="submit"> <img class="search-cancel-icon" src="./public/arrow-right-circle-fill.svg"
-                            alt=""> Save</button>
-                    <button class="delete-button" onclick="delete_destination(event)"> <img class="search-cancel-icon" src=""
+                    <button class="save-button" onclick="updateDestination(event)"> <img class="search-cancel-icon" src="./public/arrow-right-circle-fill.svg"
+                            alt="" > Save</button>
+                    <button class="delete-button" onclick="deleteDestination(event)"> <img class="search-cancel-icon" src=""
                             alt=""> Delete</button>
                 </div>
 
             </div>
-
+            <div class = "cancel-button" onclick="off3()">X</div>
         </div>
     </div>
 

@@ -21,6 +21,71 @@ var home="Home";
 // document.querySelector(".logout").innerHTML=logout;
 // document.querySelector(".home").innerHTML=home;
 
+function displayDestinations(event){
+	event.preventDefault();
+	$.get("http://localhost:8080/api/v1/destination/get",function(data){
+		console.log(data);
+		var selectElement = document.getElementById('user-from');
+
+		// Add options from the data array
+		data.forEach(function(item) {
+		var optionElement = document.createElement('option');
+		optionElement.value = item.id;
+		optionElement.textContent = item.name;
+		var flag = 1;
+		for(var i = 0; i < selectElement.options.length;i++){
+			if(item.id == selectElement.options[i].value) flag = 0;
+		}
+		if(flag || selectElement.options.length == 1)
+			selectElement.appendChild(optionElement);
+});
+	}).fail(function(){
+		return new alert("Server error! Please try again!")
+	})
+}
+function displayDestinations1(event){
+	event.preventDefault();
+	$.get("http://localhost:8080/api/v1/destination/get",function(data){
+		console.log(data);
+		var selectElement = document.getElementById('user-to');
+
+		// Add options from the data array
+		data.forEach(function(item) {
+		var optionElement = document.createElement('option');
+		optionElement.value = item.id;
+		optionElement.textContent = item.name;
+		var flag = 1;
+		for(var i = 0; i < selectElement.options.length;i++){
+			if(item.id == selectElement.options[i].value) flag = 0;
+		}
+		if(flag || selectElement.options.length == 1)
+			selectElement.appendChild(optionElement);
+});
+	}).fail(function(){
+		return new alert("Server error! Please try again!")
+	})
+}
+function getRoutes(event){
+	event.preventDefault();
+	const source = $("#user-from").val();
+	const dest = $("#user-to").val();
+	console.log(source,dest);
+	$.get("http://localhost:8080/api/v1/route/getBySrcDest/"+source+"/"+dest,function(data){
+		console.log(data);
+		for(var i = 0;i<data.length;i++){
+			const route_id = data[i].id;
+			$.get("http://localhost:8080/api/v1/route/getDestinations/" + route_id,function(data){
+				console.log(data);
+			}).fail(function(){
+				return alert("Server error! Please try again!");
+			});
+
+		}
+	}).fail(function(){
+		alert("Server error! Please try again later.")
+	})
+
+}
 function togglepassword() {
 	var x = document.getElementById("mypassword");
 	var y=document.getElementById("mypassword-icon");

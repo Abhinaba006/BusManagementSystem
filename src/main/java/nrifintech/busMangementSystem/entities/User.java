@@ -45,5 +45,6 @@ public class User {
 	String password;
 	@OneToMany
 	Set<Ticket> tickets = new HashSet<>();
+	String employeeId;
 	
 }

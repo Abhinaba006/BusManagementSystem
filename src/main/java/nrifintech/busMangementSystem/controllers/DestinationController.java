@@ -45,6 +45,7 @@ public class DestinationController {
     }
     
     //update
+    @CrossOrigin(origins = "http://localhost:5500")
     @PostMapping("/destination/update/{destinationId}")
     public ResponseEntity<Destination> updateDestination(@Valid @RequestBody Destination destination, @PathVariable("destinationId") int destinationId){
         Destination updatedDestination = destinationService.updateDestination(destination, destinationId);

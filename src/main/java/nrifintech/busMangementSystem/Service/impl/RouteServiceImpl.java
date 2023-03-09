@@ -3,7 +3,9 @@ package nrifintech.busMangementSystem.Service.impl;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +15,10 @@ import nrifintech.busMangementSystem.Service.interfaces.BusMapService;
 import nrifintech.busMangementSystem.Service.interfaces.RouteService;
 import nrifintech.busMangementSystem.entities.Destination;
 import nrifintech.busMangementSystem.entities.Route;
+import nrifintech.busMangementSystem.entities.RouteInfo;
 import nrifintech.busMangementSystem.entities.RouteMap;
 import nrifintech.busMangementSystem.exception.ResouceNotFound;
+import nrifintech.busMangementSystem.repositories.RouteInfoRepo;
 import nrifintech.busMangementSystem.repositories.RouteMapRepo;
 import nrifintech.busMangementSystem.repositories.RouteRepo;
 @Service
@@ -33,6 +37,9 @@ public class RouteServiceImpl implements RouteService{
 	
 	@Autowired
 	private BusMapService busMapService;
+
+	@Autowired
+	private RouteInfoRepo routeInfoRepo;
 	@Override
 	@Transactional
 	public Route createRoute(List<String> destinations,int bus_id) {
@@ -144,15 +151,25 @@ public class RouteServiceImpl implements RouteService{
 	}
 	
 	@Override
-	public List<Destination> getRouteDestinations(int routeId){
+	public List<Map<String, Object>> getRouteDestinations(int routeId) {
 		List<RouteMap> mapEntries = routeMapRepo.getByRouteIdSortedByDestinationIndex(routeId);
-		List<Destination> response = new ArrayList<Destination>();
-		for(int i = 0;i<mapEntries.size();i++) {
+		List<Map<String, Object>> response = new ArrayList<>();
+		for (int i = 0; i < mapEntries.size(); i++) {
 			int d_id = mapEntries.get(i).getDestination_id();
+			String time = mapEntries.get(i).getTime();
 			Destination d = destinationService.getDestination(d_id);
-			response.add(d);
+			Map<String, Object> destinationInfo = new HashMap<String, Object>();
+			destinationInfo.put("destination", d);
+			destinationInfo.put("time", time);
+			response.add(destinationInfo);
 		}
 		return response;
+	}
+
+
+	@Override
+	public List<RouteInfo> getRouteReport(int route_id) {
+		return routeInfoRepo.getRouteData(route_id);
 	}
 
 }

@@ -2,6 +2,7 @@ package nrifintech.busMangementSystem.Service.impl;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,52 +28,55 @@ public class RouteInfoServiceImpl implements RouteInfoService {
 	@Autowired
 	BusRepo busRepo;
 
-	@Override
-	public void createRouteInfo(int routeId, int action) {
-		//check if this routeId data is already in routeInfo table
-		//if present, then update info, else initializwe it
-		
-		LocalDate today = LocalDate.now();
-	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
-	    String currentDate = today.format(formatter);
-	    RouteInfo routeInfo = this.routeInfoRepo.getRouteByPresentDate(routeId, currentDate);
-	    System.out.println("Testing:      "+routeId);
-	    System.out.println(routeInfo);
-		if(routeInfo !=null)
-		{
 
-			//when ticket is created, update total_bookings
-			if(action==0)
-			{
-				routeInfo.setTotal_bookings(routeInfo.getTotal_bookings()+1);
-			}
-			else //when its cancelled, update total_cancellations
-			{
-				routeInfo.setTotal_cancellations(routeInfo.getTotal_cancellations()+1);
-			}
-			
+
+	@Override
+	public void preCheck(int route_id) {
+		LocalDate date = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
+        String formattedDate = date.format(formatter);
+		RouteInfo routeInfo = routeInfoRepo.getRouteByPresentDate(route_id,formattedDate);
+		if(routeInfo == null){
+			System.out.println("Reaching here...");
+			//Get the bus id for this route
+			BusMap busMap = busMapRepo.findByRouteId(route_id);
+			int busId = busMap.getBus_id();
+			Optional<Bus> busObj = busRepo.findById(busId);
+			Bus bus = busObj.get();
+			routeInfo= new RouteInfo();
+			routeInfo.setDate(formattedDate);
+			routeInfo.setRoute_id(route_id);
+			routeInfo.setTotal_seats(bus.getTotalNumberOfseats());
+			routeInfo.setTotal_bookings(0);
+			routeInfo.setOverall_bookings(0);
+			routeInfoRepo.save(routeInfo);
 		}
-		else
-		{
-			//save entire data for current_date and routeId
-			//get toal seats from bus and route relation.
-			//get all the bus running on this route_id using bus_map table.
-			//then get total_seats of all the bus from bus table.
-			int total_seats = 0;
-			int busId = busMapRepo.findByRouteId(routeId).getBus_id();
-			Bus bus = busRepo.findById(busId).orElseThrow(()-> new ResouceNotFound("Bus", "BusId", routeId));
-			total_seats = bus.getTotalNumberOfseats();
-			
-			RouteInfo currentDate_RouteInfo = new RouteInfo();
-			currentDate_RouteInfo.setDate(currentDate);
-			currentDate_RouteInfo.setRoute_id(routeId);
-			currentDate_RouteInfo.setTotal_bookings(1);
-			currentDate_RouteInfo.setTotal_cancellations(0);
-			currentDate_RouteInfo.setTotal_seats(total_seats);
-			this.routeInfoRepo.save(currentDate_RouteInfo);
-			
+		else{
+			//Do nothing
 		}
-		
+
+	}
+	public void changeTotalBooking(int route_id,int doit){
+		preCheck(route_id);
+		LocalDate date = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
+        String formattedDate = date.format(formatter);
+		RouteInfo routeInfo = routeInfoRepo.getRouteByPresentDate(route_id,formattedDate);
+		routeInfo.setTotal_bookings(routeInfo.getTotal_bookings() + doit);
+		routeInfoRepo.save(routeInfo);
+	}
+	public void incrementOverallBooking(int route_id){
+		preCheck(route_id);
+		LocalDate date = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
+        String formattedDate = date.format(formatter);
+		RouteInfo routeInfo = routeInfoRepo.getRouteByPresentDate(route_id,formattedDate);
+		routeInfo.setOverall_bookings(routeInfo.getOverall_bookings() + 1);
+		routeInfoRepo.save(routeInfo);
+	}
+	public RouteInfo getRouteInfo(int route_id,String date){
+		preCheck(route_id);
+		return routeInfoRepo.getRouteByPresentDate(route_id,date);
 	}
 
 }

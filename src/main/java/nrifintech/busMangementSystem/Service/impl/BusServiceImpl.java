@@ -19,7 +19,6 @@ public class BusServiceImpl implements BusService {
 
 	@Override
 	public Bus createBus(Bus bus) {
-		bus.setNumberOfSeats(bus.getTotalNumberOfseats());
 		return busRepo.save(bus);
 	}
 
@@ -32,7 +31,7 @@ public class BusServiceImpl implements BusService {
 		System.out.println("updated bus is "+ updatedBus);
 		if(updatedBus.getName()!=null) bus.setName(updatedBus.getName());
 		if(updatedBus.getTotalNumberOfseats()>0) bus.setTotalNumberOfseats(updatedBus.getTotalNumberOfseats());
-		bus.setNumberOfSeats(updatedBus.getNumberOfSeats());
+
 		System.out.println("updated bus is "+ bus);
 		return busRepo.save(bus);
 	}

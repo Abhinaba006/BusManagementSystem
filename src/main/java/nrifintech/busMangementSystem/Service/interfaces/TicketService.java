@@ -8,14 +8,8 @@ import nrifintech.busMangementSystem.entities.Ticket;
 import nrifintech.busMangementSystem.payloads.TicketDto;
 
 @Service
-public interface TicketService {
-	Ticket getTicket(int id);
-	List<Ticket> getTicket();
-	void deleteTicket(int id);
-	Ticket getMostRecentWaitingTicket(int busId);
-	Ticket createTicket(TicketDto ticketDto);
-	Ticket updateTicket(Ticket ticket, int id);
-	List<Ticket> getTicketByUserId(int userId);
-
-		
+public interface TicketService {	
+    void createTicket(Ticket ticket);
+    void cancelTicket(int ticket_id);
+    List<Ticket> getAllTicketByPersonId(int userId);
 }

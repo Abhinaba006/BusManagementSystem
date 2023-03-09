@@ -1,12 +1,14 @@
 package nrifintech.busMangementSystem.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,17 +17,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import nrifintech.busMangementSystem.Service.interfaces.RouteInfoService;
 import nrifintech.busMangementSystem.Service.interfaces.RouteService;
 import nrifintech.busMangementSystem.entities.Destination;
 import nrifintech.busMangementSystem.entities.Route;
+import nrifintech.busMangementSystem.entities.RouteInfo;
 import nrifintech.busMangementSystem.payloads.ApiResponse;
 
+@CrossOrigin(origins = "http://localhost:5500")
 @RestController
 @RequestMapping("/api/v1/route")
 public class RouteController {
 	@Autowired
 	RouteService routeService;
-	 
+	
+	@Autowired
+	RouteInfoService routeInfoService;
 	//get Not required currently
 	@GetMapping("/get")
 	public ResponseEntity<List<Route>> getAllroute(){
@@ -64,8 +71,13 @@ public class RouteController {
 	//getDestinationsbyId
 	@GetMapping("/getDestinations/{routeId}")
 	public ResponseEntity<?> getRouteDestinations(@PathVariable("routeId") int routeId){
-		List<Destination>destinations = routeService.getRouteDestinations(routeId);
+		List<Map<String, Object>> destinations = routeService.getRouteDestinations(routeId);
 		return ResponseEntity.ok(destinations);
+	}
+	@GetMapping("/getReport/{routeId}")
+	public ResponseEntity<?> getRouteReport(@PathVariable("routeId") int routeId){
+		List<RouteInfo> _routeReport = routeService.getRouteReport(routeId);
+		return ResponseEntity.ok(_routeReport);
 	}
 
 }

@@ -5,13 +5,15 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
-
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import nrifintech.busMangementSystem.Service.interfaces.BusService;
 import nrifintech.busMangementSystem.Service.interfaces.RouteInfoService;
@@ -23,6 +25,7 @@ import nrifintech.busMangementSystem.Service.interfaces.TicketService;
 
 import nrifintech.busMangementSystem.entities.Bus;
 import nrifintech.busMangementSystem.entities.Route;
+import nrifintech.busMangementSystem.entities.RouteInfo;
 import nrifintech.busMangementSystem.entities.Ticket;
 import nrifintech.busMangementSystem.entities.User;
 import nrifintech.busMangementSystem.exception.ResouceNotFound;
@@ -61,147 +64,60 @@ public class TicketServiceImpl implements TicketService {
 	BusService busService;
 	@Autowired
 	RouteInfoService routeInfoService;
+	
+	@Transactional
+	@Modifying
+	public void createTicket(Ticket ticket){
+		Ticket _ticket = ticketRepo.save(ticket);
+		LocalDate date = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
+        String formattedDate = date.format(formatter);
+		//Check first if there is seat or not
+		routeInfoService.preCheck(_ticket.getRouteId());
+		RouteInfo _routeInfo = routeInfoService.getRouteInfo(_ticket.getRouteId(), formattedDate);
+		if(_routeInfo.getTotal_bookings() < _routeInfo.getTotal_seats()){
+			_ticket.setStatus("CONFIRMED");
+			routeInfoService.changeTotalBooking(_ticket.getRouteId(), 1);
+			routeInfoService.incrementOverallBooking(_ticket.getRouteId());
+		}
+		else{
+			_ticket.setStatus("WAITING");
+			ticketRepo.save(_ticket);
+		}
+		//If not then add it to the queue and set the status of the ticket as waiting
 
-	@Override
-	public Ticket createTicket(TicketDto ticketDto) {
-//		int routeId = ticketDto.getRouteId();
-//		Route route = routeService.getRoute(routeId);
-//		// Add the route to the ticket
-//
-		
-//		// Get the bus ID from the ticket and fetch the bus, if not found give error
-		int busId = ticketDto.getBusId();
-		Bus bus = busService.getBus(busId);
-		
-//		// Get the user ID from the ticket and fetch the user, if not found give error
-		int userId = ticketDto.getUserId();
-		User user = userService.getUser(userId);
+		//If there is seat then update the route info
 
-		
-		//change the status of ticket for past dates.
-		LocalDateTime now = LocalDateTime.now();
-        LocalDateTime midnight = now.toLocalDate().atStartOfDay();
-        Date current_date = Date.from(midnight.atZone(ZoneId.systemDefault()).toInstant());
-        System.out.println("today morning date is "+current_date);
-        List<Ticket> ticketsCreatedYesterDay = this.ticketRepo.findByCreatedAtBefore(current_date);
-        
-        List<Ticket> ticketsCreatedToday = this.ticketRepo.findByCreatedToday(current_date);
-        System.out.println("size iss " + ticketsCreatedToday.size());
-        // check if it is the first ticket of the day
-        if(ticketsCreatedToday.size()==0)  	bus.resetNumberOfSeats();   
-        
-		for(Ticket t:ticketsCreatedYesterDay)
-		{
-			if(t.getStatus().equals("waiting"))
-				t.setStatus("expired");
-			else if(t.getStatus().equals("confirmed"))
-				t.setStatus("availed");
-			this.ticketRepo.save(t);
+	}
+	public void cancelTicket(int ticket_id){
+		//Get the ticket
+		Optional<Ticket> _ticketObj = ticketRepo.findById(ticket_id);
+		Ticket _ticket = _ticketObj.get();
+
+		//Get the route info
+		LocalDate date = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
+        String formattedDate = date.format(formatter);
+		RouteInfo _routeInfo = routeInfoService.getRouteInfo(_ticket.getRouteId(),formattedDate);
+
+		//Decrease the value
+		routeInfoService.changeTotalBooking(_ticket.getRouteId(),-1);
+
+		_ticket.setStatus("CANCELLED");
+		ticketRepo.save(_ticket);
+		//If there are available seats then make the status to confirmed for the first ticket in the queue
+			//Iterate through all the tickets and check which ticket is not cancelled and make it confirm
+		Ticket _latestWaitingTicket = ticketRepo.findLatestUser(_ticket.getRouteId(),formattedDate);
+		if(_latestWaitingTicket!=null){
+			_latestWaitingTicket.setStatus("CONFIRMED");
+			ticketRepo.save(_latestWaitingTicket);
+			routeInfoService.changeTotalBooking(_latestWaitingTicket.getRouteId(),1);
 		}
 
-//		
-//		System.out.println(ticketRepo.findConfirmedTicketByUser(user.getId()).size());
-//	
-	    if(ticketRepo.findConfirmedTicketByUser(user.getId()).size()>=1)
-	    {
-	    	
-	    	//need to create custom excepiton for user creating multiple tickets
-	    	throw new UnauthorizedAction("Creating multiple ticket", user.getName());
-	    }
-
-		// change the status for all the tickets before current day
-
-		// get all dates from ticket
-		// fetched_date = format it to java date time format
-		// curent_date =todays date in midnight time format.
-		// if fetched_date < current_date :
-		// update status of ticket:
-		// waiting -> expired
-		// confirmed -> availed.
-		// cancelled -> cancelled.
-
-//	    Date current_date = new Date();
-
-		// Add the user to the ticket
-
-		// Create the ticket
-		Ticket ticket = new Ticket();
-		ticket.setUser(user);
-//
-		int numberOfSeat = bus.getNumberOfSeats();
-		bus.setNumberOfSeats(numberOfSeat-1);
-		System.out.println(busId+ " now have seats " +numberOfSeat*2);
-		bus = busService.updateBus(bus, busId);
-		ticket.setBus(bus);
-//		// if bus is full logic
-		if (bus.getNumberOfSeats() < 0) {
-			ticket.setStatus("waiting");
-		} else {
-			ticket.setStatus("confirmed");
-			//Update route_info when ticket is created
-			int bus_id = ticketDto.getBusId();		
-			//get route from bus_map: relation bw bus_id and route_id
-			int route_id = this.busMapRepo.findByBusId(bus_id).getRoute_id();
-			this.routeInfoService.createRouteInfo(route_id, 0); //0 means create ticket and 1 means cancel ticket.
-		}
-		ticket.setCreatedAt(new Date());
-		return ticketRepo.save(ticket);
 	}
 
-	@Override
-	public Ticket updateTicket(Ticket ticket, int id) {
-		Ticket updatedTicket = ticketRepo.findById(id).orElseThrow(() -> new ResouceNotFound("Ticket", "id", id));
-
-		updatedTicket.setBus(ticket.getBus());
-//	    updatedTicket.setRoute(ticket.getRoute());
-		updatedTicket.setUser(ticket.getUser());
-		updatedTicket.setStatus(ticket.getStatus());
-		updatedTicket.setCreatedAt(new Date());
-
-		return ticketRepo.save(updatedTicket);
-	}
-
-
-
-
-	@Override
-	public Ticket getTicket(int id) {
-		return this.ticketRepo.findById(id).orElseThrow(() -> new ResouceNotFound("Ticket", "id", id));
-	}
-
-	@Override
-	public List<Ticket> getTicket() {
-
-	    return this.ticketRepo.findAll();
-	}
-
-	@Override
-	public void deleteTicket(int id) {
-		Ticket ticket = this.ticketRepo.findById(id).orElseThrow(() -> new ResouceNotFound("Ticket", "id", id));
-		this.ticketRepo.delete(ticket);
-	}
-
-	public Ticket getMostRecentWaitingTicket(int busId) {
-		// Create a list of all waiting tickets for the given bus ID, ordered by
-		// creation time in descending order
-		List<Ticket> waitingTickets = ticketRepo.findByBusIdAndStatusOrderByCreatedAtDesc(busId, "waiting");
-
-		// Return the first waiting ticket in the list, or null if the list is empty
-		return waitingTickets.isEmpty() ? null : waitingTickets.get(0);
-	}
-
-	@Override
-	public List<Ticket> getTicketByUserId(int userId) {
-		// TODO Auto-generated method stub
+	public List<Ticket> getAllTicketByPersonId(int userId){
 		return ticketRepo.findByUserId(userId);
 	}
-
-//	public Ticket getMostRecentWaitingTicket(int busId) {
-//	    // Create a list of all waiting tickets for the given bus ID, ordered by creation time in descending order
-//	    List<Ticket> waitingTickets = ticketRepo.findByBusIdAndStatusOrderByCreatedAtDesc(busId, "waiting");
-//
-//	    // Return the first waiting ticket in the list, or null if the list is empty
-//	    return waitingTickets.isEmpty() ? null : waitingTickets.get(0);
-//	}
 
 }

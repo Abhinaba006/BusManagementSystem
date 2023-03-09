@@ -22,5 +22,5 @@ public class RouteInfo {
 	String date;
 	int total_seats;
     int total_bookings;
-    int total_cancellations;
+	int overall_bookings;
 }

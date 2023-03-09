@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import nrifintech.busMangementSystem.entities.RouteInfo;
+
 public interface RouteMapService {
 
 	void addRouteMap(int route_id,int destination_id,int index,String time);

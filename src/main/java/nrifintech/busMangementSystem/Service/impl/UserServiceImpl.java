@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService{
 			return userRepo.save(user);
 		}
 		else 
-			throw new UnauthorizedAction("similiar user create","Admin");
+			throw new UnauthorizedAction("similiar user created","Admin");
 //		return userRepo.save(user);
 	}
 
@@ -44,11 +44,11 @@ public class UserServiceImpl implements UserService{
 	public User updateUser(User newUser, int id) {
 		// TODO Auto-generated method stub
 		User  user = userRepo.findById(id).orElseThrow(() -> new ResouceNotFound("User", "id", id));
-		if(userRepo.findByOnlyEmail(user.getEmail()) != null) throw new UnauthorizedAction("similiar user create","user");
+		// if(userRepo.findByOnlyEmail(user.getEmail()) != null) throw new UnauthorizedAction("similiar user create","user");
 		if(newUser.getName()!=null) user.setName(newUser.getName());
 		if(newUser.getEmail()!=null) user.setEmail(newUser.getEmail());
-
 		if(newUser.getPassword()!=null) user.setPassword(passwordEncoder.encode(newUser.getPassword()));
+		if(newUser.getEmployeeId()!=null) user.setEmployeeId(newUser.getEmployeeId());
 
 //		if(newUser.getPassword()!=null) user.setPassword(newUser.getPassword());
 
