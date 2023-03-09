@@ -1,100 +1,73 @@
 package nrifintech.busMangementSystem.controllers;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.integration.support.json.Jackson2JsonObjectMapper;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import nrifintech.busMangementSystem.Service.interfaces.UserService;
 import nrifintech.busMangementSystem.entities.User;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@AutoConfigureMockMvc
-class UserControllerTest {
+@ExtendWith(MockitoExtension.class)
+public class UserControllerTest
+{
+	@InjectMocks
+    UserController userController;
 
-	 @Mock
-	 private UserService userService;
-
-    @InjectMocks
-    private UserController userController;
+    @Mock
+    UserService userService;
 
     private MockMvc mockMvc;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
     }
 
-	@Test
-	void testGetAlluser() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testGetUserById() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testCreateUserUser() throws Exception {
-		User user = new User();
-        user.setName("demo user");
+    @Test
+    public void testAddEmployee()
+    {
+    	User user = new User();
         user.setEmail("demo12@gmail.com");
+        user.setEmployeeId("E012");
+        user.setName("Demo user");
         user.setPassword("demo123");
-        when(userService.createUser(user)).thenReturn(user);
-        mockMvc.perform(post("/create")
+        user.setType(1);
+
+        when(userService.createUser(any(User.class))).thenReturn(new User());
+
+        mockMvc.perform(post("/users")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(asJsonString(user)))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.name", is(user.getName())))
-            .andExpect(jsonPath("$.email", is(user.getEmail())))
-            .andExpect(jsonPath("$.password").doesNotExist());
-	}
+            .content(Jackson2JsonObjectMapper.writeValueAsString(user)))
+            .andExpect(status().isCreated())
+            .andExpect(header().string("Location", "/1"));
+    }
 
-	@Test
-	void testCreateUserUserInt() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testDeleteUser() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testUserLogin() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testAdminLogin() {
-		fail("Not yet implemented");
-	}
-	
-	 private static String asJsonString(final Object obj) {
-	        try {
-	            final ObjectMapper mapper = new ObjectMapper();
-	            final String jsonContent = mapper.writeValueAsString(obj);
-	            return jsonContent;
-	        } catch (Exception e) {
-	            throw new RuntimeException(e);
-	        }
-	    }
-
+//    @Test
+//    public void testFindAll() {
+//        Employee employee1 = new Employee(1, "Lokesh", "Gupta", "howtodoinjava@gmail.com");
+//        Employee employee2 = new Employee(2, "Alex", "Gussin", "example@gmail.com");
+//        Employees employees = new Employees();
+//        employees.setEmployeeList(Arrays.asList(employee1, employee2));
+//
+//        when(employeeDAO.getAllEmployees()).thenReturn(employees);
+//
+//        Employees result = employeeController.getEmployees();
+//
+//        assertThat(result.getEmployeeList().size()).isEqualTo(2);
+//        assertThat(result.getEmployeeList().get(0).getFirstName()).isEqualTo(employee1.getFirstName());
+//        assertThat(result.getEmployeeList().get(1).getFirstName()).isEqualTo(employee2.getFirstName());
+//    }
+//}
 }

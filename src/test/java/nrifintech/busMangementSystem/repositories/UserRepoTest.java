@@ -29,6 +29,7 @@ class UserRepoTest {
 		user.setEmail("ddd1234@gmail.com");
 		user.setName("demouser2");
 		user.setPassword("demo1234");
+		user.setEmployeeId("NRIE02");
 		user.setType(0);
 		userRepo.save(user);
 		List<User> users = userRepo.findAll();
@@ -62,6 +63,7 @@ class UserRepoTest {
 		User user = new User();
 		user.setEmail("demo123@gmail.com");
 		user.setName("demouser");
+		user.setEmployeeId("NRIE01");
 		user.setPassword("demo123");
 		user.setType(0);
 		userRepo.save(user);
