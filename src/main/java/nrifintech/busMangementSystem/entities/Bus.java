@@ -20,9 +20,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @NoArgsConstructor
-@Getter
-@Setter
 @Entity
+@Data
 public class Bus {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
