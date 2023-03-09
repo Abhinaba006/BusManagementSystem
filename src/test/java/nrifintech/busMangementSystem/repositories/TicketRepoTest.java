@@ -1,10 +1,13 @@
 package nrifintech.busMangementSystem.repositories;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -61,9 +64,15 @@ class TicketRepoTest {
 		
 		//creating ticket instance.
 		ticket = new Ticket();
-		ticket.setBus(bus);
-		ticket.setCreatedAt(new Date());
-		ticket.setUser(user1);
+		ticket.setBusId(bus.getId());
+		
+		LocalDate date = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
+        String formattedDate = date.format(formatter);
+        
+        
+		ticket.setDate(formattedDate);
+		ticket.setUserId(user1.getId());
 		ticket.setStatus("Confirmed");
 		ticketRepo.save(ticket);
 	}
@@ -92,10 +101,16 @@ class TicketRepoTest {
 		
 		//creating another ticket.
 		Ticket ticket2 = new Ticket();
-		ticket2.setBus(bus);
-		ticket2.setCreatedAt(new Date());
+		ticket2.setBusId(bus.getId());
+		
+		LocalDate date = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
+        String formattedDate = date.format(formatter);
+        
+        
+		ticket2.setDate(formattedDate);
 		ticket2.setStatus("Confirmed");
-		ticket2.setUser(user2);
+		ticket2.setUserId(user2.getId());
 		ticketRepo.save(ticket2);
 		
 		List<Ticket> tickets = ticketRepo.findAll();
@@ -107,57 +122,53 @@ class TicketRepoTest {
 	public void findbyId() {
 		Ticket result = ticketRepo.findById(ticket.getId()).orElse(null);
 		assertNotNull(result);
+		assertEquals(result, ticket);
 		assertThat(result.getStatus()).matches(ticket.getStatus());
 	}
 	
 	@Test
-	void testFindByBusIdAndStatusOrderByCreatedAtDesc() {
-		//lets create 2 waiting tickets.
-		Ticket t1 = new Ticket();
-		t1.setBus(bus);
-		t1.setCreatedAt(new Date());
-		t1.setStatus("waiting");
-		t1.setUser(user1);
-		ticketRepo.save(t1);
+	public void getLastWaitingTicket() {
 		
-		Ticket t2 = new Ticket();
-		t2.setBus(bus);
-		t2.setCreatedAt(new Date(System.currentTimeMillis() -  60 * 60 * 1000));
-		t2.setStatus("waiting");
-		t2.setUser(user2);
-		ticketRepo.save(t2);
+		LocalDate date = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
+        String formattedDate = date.format(formatter);
+        
+        
+		User user1 = new User();
+		user1.setEmail("temp123@gmail.com");
+		user1.setName("tempUser");
+		user1.setPassword("temp123");
+		userRepo.save(user1);
 		
-		//get 
-		System.out.println("Bus id: "+bus.getId());
-		//fetch bus_id from db.
-		List<Ticket> result = ticketRepo.findByBusIdAndStatusOrderByCreatedAtDesc(busRepo.findAll().get(0).getId(), "waiting");
-		assertThat(result).hasSize(2);
+		Ticket ticket1 = new Ticket();
+		ticket1.setBusId(bus.getId());
+		ticket1.setStatus("waiting");
+		ticket1.setDate(formattedDate);
+		ticket1.setUserId(user1.getId());
+		ticket1.setRouteId(0);
+
+		ticketRepo.save(ticket1);
+		
+		// user 2 
+		
+		
+		Ticket ticket2 = new Ticket();
+		ticket2.setBusId(bus.getId());
+		ticket2.setStatus("waiting");
+		ticket2.setDate(formattedDate);
+		ticket2.setUserId(user1.getId()+1);
+		ticket2.setRouteId(0);
+
+		ticketRepo.save(ticket2);
+		
+		
+		
+		
+		Ticket ticket = ticketRepo.findLatestUser(0, formattedDate);
+		assertEquals(ticket, ticket1);
 		
 	}
 
-	@Test
-	void testFindByCreatedAtBefore() {
-		//create one ticket for yesterday.
-		Ticket t = new Ticket();
-		t.setBus(bus);
-		t.setCreatedAt(new Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000));
-		t.setUser(user1);
-		t.setStatus("availed");
-		ticketRepo.save(t);
-		
-		LocalDateTime now = LocalDateTime.now();
-        LocalDateTime midnight = now.toLocalDate().atStartOfDay();
-        Date current_date = Date.from(midnight.atZone(ZoneId.systemDefault()).toInstant());
-
-		List<Ticket> result = ticketRepo.findByCreatedAtBefore(current_date);
-		assertThat(result.get(0).getStatus()).isEqualTo(t.getStatus());
-	}
-
-	@Test
-	void testFindConfirmedTicketByTicket() {
-		List<Ticket> result = ticketRepo.findConfirmedTicketByUser(user1.getId());
-		assertThat(result.get(0).getStatus()).isEqualTo(ticket.getStatus());
-	}
 
 	@Test
 	void testFindByUserId() {
@@ -165,18 +176,5 @@ class TicketRepoTest {
 		assertThat(result.get(0).getStatus()).isEqualTo(ticket.getStatus());
 	}
 
-	@Test
-	void testFindByCreatedToday() {
-		//insert one ticket for yesterday.
-		//and the query should return result not more than 1.
-		Ticket t = new Ticket();
-		t.setBus(bus);
-		t.setUser(user1);
-		t.setStatus("Waiting");
-		t.setCreatedAt(new Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000));
-		
-		List<Ticket>  result = ticketRepo.findByCreatedToday(new Date());
-		assertThat(result).hasSize(1);
-	}
 
 }
