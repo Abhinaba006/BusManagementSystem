@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 class RouteMapServiceImplTest {
 
-	@Disabled
+
 	@Test
 	void testAddRouteMap() {
 		fail("Not yet implemented");

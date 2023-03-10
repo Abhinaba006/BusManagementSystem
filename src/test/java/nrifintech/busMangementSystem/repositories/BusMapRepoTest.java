@@ -27,7 +27,6 @@ class BusMapRepoTest {
 	@Test
 	void contextLoads() {
 	}
-	@Disabled
 	@Test
 	public void testFindAll() {
 		// adding one more data

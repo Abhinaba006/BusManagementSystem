@@ -31,7 +31,6 @@ class RouteInfoRepoTest {
 	}
 	
 	@Test
-	@Disabled
 	public void testFindAll() {
 	    //storing 3 routeInfos in routeInfo db, to check if findAll fetches these 3 data or not.
 		List<RouteInfo> routeInfos = routeInfoRepo.findAll();

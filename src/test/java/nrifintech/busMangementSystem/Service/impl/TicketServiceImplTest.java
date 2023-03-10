@@ -108,10 +108,10 @@ class TicketServiceImplTest {
 //
 		
 		
-//		// verify that the ticket status has been updated to CANCELLED
-//		Ticket updatedTicket = ticketRepo.findById(ticket.getId()).orElse(null);
-//		assertNotNull(updatedTicket);
-//		assertEquals("CANCELLED", updatedTicket.getStatus());
+		// verify that the ticket status has been updated to CANCELLED
+		Ticket updatedTicket = ticketRepo.findById(ticket.getId()).orElse(null);
+		assertNotNull(updatedTicket);
+		assertEquals("CANCELLED", updatedTicket.getStatus());
 	}
 
 	@Test
