@@ -88,7 +88,18 @@ public class UserController {
 	@GetMapping("/admin/login/{email}/{password}")
 	public ResponseEntity<?> adminLogin(@PathVariable("email") String email, @PathVariable("password") String password){
 		boolean isAuthenticated = userService.checkAdmin(email,password);
-		if(isAuthenticated) return new ResponseEntity(new ApiResponse("Authenticated success",true), HttpStatus.OK);
+		if(isAuthenticated) {
+			User user = userService.getUserByEmail(email);
+	        String token = jwtTokenUtil.generateToken(user.getId());  // generate JWT token
+
+	        // include JWT token in the response
+	        Map<String, Object> responseBody = new HashMap<>();
+	        responseBody.put("token", token);
+	        responseBody.put("message", "Authenticated success");
+	        responseBody.put("success", true);
+
+	        return ResponseEntity.ok(responseBody);
+		}
 		else {
 			return new ResponseEntity(new ApiResponse("User not found or password is incorrect!",false), HttpStatus.BAD_REQUEST);
 		}
