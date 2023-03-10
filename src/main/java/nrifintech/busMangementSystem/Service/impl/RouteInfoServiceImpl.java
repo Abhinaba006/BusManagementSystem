@@ -31,11 +31,9 @@ public class RouteInfoServiceImpl implements RouteInfoService {
 
 
 	@Override
-	public void preCheck(int route_id) {
-		LocalDate date = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
-        String formattedDate = date.format(formatter);
-		RouteInfo routeInfo = routeInfoRepo.getRouteByPresentDate(route_id,formattedDate);
+	public void preCheck(int route_id,String date) {
+
+		RouteInfo routeInfo = routeInfoRepo.getRouteByPresentDate(route_id,date);
 		if(routeInfo == null){
 			System.out.println("Reaching here...");
 			//Get the bus id for this route
@@ -44,7 +42,7 @@ public class RouteInfoServiceImpl implements RouteInfoService {
 			Optional<Bus> busObj = busRepo.findById(busId);
 			Bus bus = busObj.get();
 			routeInfo= new RouteInfo();
-			routeInfo.setDate(formattedDate);
+			routeInfo.setDate(date);
 			routeInfo.setRoute_id(route_id);
 			routeInfo.setTotal_seats(bus.getTotalNumberOfseats());
 			routeInfo.setTotal_bookings(0);
@@ -56,26 +54,20 @@ public class RouteInfoServiceImpl implements RouteInfoService {
 		}
 
 	}
-	public void changeTotalBooking(int route_id,int doit){
-		preCheck(route_id);
-		LocalDate date = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
-        String formattedDate = date.format(formatter);
-		RouteInfo routeInfo = routeInfoRepo.getRouteByPresentDate(route_id,formattedDate);
+	public void changeTotalBooking(int route_id,int doit,String date){
+		preCheck(route_id,date);
+		RouteInfo routeInfo = routeInfoRepo.getRouteByPresentDate(route_id,date);
 		routeInfo.setTotal_bookings(routeInfo.getTotal_bookings() + doit);
 		routeInfoRepo.save(routeInfo);
 	}
-	public void incrementOverallBooking(int route_id){
-		preCheck(route_id);
-		LocalDate date = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
-        String formattedDate = date.format(formatter);
-		RouteInfo routeInfo = routeInfoRepo.getRouteByPresentDate(route_id,formattedDate);
+	public void incrementOverallBooking(int route_id,String date){
+		preCheck(route_id,date);
+		RouteInfo routeInfo = routeInfoRepo.getRouteByPresentDate(route_id,date);
 		routeInfo.setOverall_bookings(routeInfo.getOverall_bookings() + 1);
 		routeInfoRepo.save(routeInfo);
 	}
 	public RouteInfo getRouteInfo(int route_id,String date){
-		preCheck(route_id);
+		preCheck(route_id,date);
 		return routeInfoRepo.getRouteByPresentDate(route_id,date);
 	}
 

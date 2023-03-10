@@ -24,6 +24,9 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap"
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
     <title>Document</title>
 </head>
 <body>
@@ -109,7 +112,12 @@
                                                 </div>
                                         </div>
                                             <!-- <p class="from-to-search-text">To</p> </div> -->
-
+                                        <input type="text" id="datepicker"></p>
+                                        <script>
+                                            $( function() {
+                                                $( "#datepicker" ).datepicker();
+                                            } );
+                                        </script>
                                         <div class="searchbar"> 
 
                                             <img class="search-icon from-to-search-text search-icon"  src="./public/search-icon.svg" alt="">
@@ -124,80 +132,8 @@
 
                                     <div class="content">
                                         
-                                        <div class="content-element">
-
-                                            <div class="content-element-main">
-
-                                                    <!-- Bus Name , Bus Number -->
-                                                    <div class="content-element-main-divs">
-                                                        <div class="bus-name-div"> 
-                                                            <div class="bus-icon"><img  src="./public/vector4.svg" alt=""> </div>
-                                                            <div class="bus-name-text">NR-01 </div> 
-                                                        </div>
-                                                        <div class="bus-no">WB-94-3235</div>
-                                                        
-                                                    </div>
-
-
-                                                    <!-- Pickup Location & Time -->
-
-
-                                                     <div class="content-element-main-divs pickup-drop">
-                                                        <div class="pickup-div"> 
-                                                            <div class="location-icon">
-                                                                <img class="location-icon-img" src="./public/placeholder-14@2x.png" alt=""> 
-                                                            </div>
-                                                            <div class="pickup-text" >Pickup </div> 
-                                                        </div>
-                                                    <div  class="pickup-location-text">NRI Fintech</div>
-                                                    <div class="pickup-time-text">9:00 AM</div>
-
-                                                    </div>
-
-                                                    <!-- Drop Location & Time -->
-
-                                                    <div class="content-element-main-divs pickup-drop"> 
-                                                        <div class="drop-div" > 
-                                                            <div class="location-icon">
-                                                                <img class="drop-icon-img" src="./public/placeholder-14@2x.png" alt=""> 
-                                                            </div>
-                                                            <div class="drop-location">Drop </div> 
-                                                        </div>
-                                                    <div class="drop-location-text">Ultodanga</div>
-                                                    <div class="drop-time-text">12:00 AM</div>
-                                                    
-                                                    </div>
-
-                                                    <!-- Seats Left -->
-                                                    
-                                                    <div class="content-element-main-divs seats-left"> 
-                                                        
-                                                            <div  class="seats-left-div"> 
-                                                                <div  class="seats-left-text"> Seats Left </div> 
-                                                            </div>
-                                                        <div  class="seats-left-number">  30 </div>
-                                                        
-                                                    </div> 
-
-                                                    <!-- See Route ,Book -->
-
-                                                    <div class="content-element-main-divs">
-                                                        
-                                                        
-                                                       <div class="see-route-div" onclick="homeonroute()"> 
-                                                            <div class="route-icon"><img  src="./public/route-icon.svg" alt=""> </div>
-                                                            <div  class="see-route-text">See Route </div> 
-                                                        </div>
-                                                        <button class="book-btn-div" onclick="onbooking()">  
-                                                            <div class="btn-search-icon-div"> 
-                                                                <img class="btn-search-icon" src="./public/white-book-icon.svg">  
-                                                            </div>   
-                                                            <div class="book-text">Book</div> 
-                                                        </button>
-                                                    </div>
-                                            </div>
-                                        </div>
-                                        </div>
+                                     
+                                    </div>
 
 
                                         <!-- 

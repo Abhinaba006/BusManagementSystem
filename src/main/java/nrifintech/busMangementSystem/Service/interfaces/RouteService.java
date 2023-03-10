@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import nrifintech.busMangementSystem.entities.Bus;
 import nrifintech.busMangementSystem.entities.Destination;
 import nrifintech.busMangementSystem.entities.Route;
 import nrifintech.busMangementSystem.entities.RouteInfo;
@@ -18,6 +19,6 @@ public interface RouteService {
 	void deleteRoute(int id);
 	List<Route> getRoute();
 	List<RouteInfo> getRouteReport(int route_id);
-	
+	Bus getBusFromRouteId(int route_id);
 }
 

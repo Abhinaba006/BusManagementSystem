@@ -10,8 +10,8 @@ import nrifintech.busMangementSystem.entities.RouteInfo;
 
 @Service
 public interface RouteInfoService {
-	void preCheck(int route_id);
-	void changeTotalBooking(int route_id,int doit);
+	void preCheck(int route_id,String date);
+	void changeTotalBooking(int route_id,int doit,String date);
 	RouteInfo getRouteInfo(int route_id,String date);
-	void incrementOverallBooking(int route_id);
+	void incrementOverallBooking(int route_id,String date);
 }
