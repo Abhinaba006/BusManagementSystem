@@ -2,6 +2,7 @@ package nrifintech.busMangementSystem.Service.impl;
 
 import static org.hamcrest.CoreMatchers.any;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
@@ -100,19 +101,28 @@ class TicketServiceImplTest {
 	}
 
 	@Test
-	@Transactional
 	void testCancelTicket() {
-		// keshabh
 		// create a ticket
-	
-//
+		Ticket ticket = new Ticket();
+		ticket.setId(1);
+		ticket.setBusId(11);
+		ticket.setRouteId(22);
+		ticket.setDate("10-03-2023");
+		ticket.setStatus("confirmed");
+		ticket.setUserId(31);
 		
+		// Mock the ticketRepo.findById() method
+		when(ticketRepo.findById(ticket.getId())).thenReturn(Optional.of(ticket));
 		
-		// verify that the ticket status has been updated to CANCELLED
+		// Call the service method
+		ticketService.cancelTicket(ticket.getId());
+		
+		// Verify that the ticket status has been updated to CANCELLED
 		Ticket updatedTicket = ticketRepo.findById(ticket.getId()).orElse(null);
 		assertNotNull(updatedTicket);
 		assertEquals("CANCELLED", updatedTicket.getStatus());
 	}
+
 
 	@Test
 	void testGetAllTicketByPersonId() {
