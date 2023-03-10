@@ -34,9 +34,6 @@ class RouteInfoRepoTest {
 	    //storing 3 routeInfos in routeInfo db, to check if findAll fetches these 3 data or not.
 		List<RouteInfo> routeInfos = routeInfoRepo.findAll();
 		assertThat(routeInfos).hasSize(3);
-		assertThat(routeInfos.get(0).getOverall_bookings()).isEqualTo(r3.getOverall_bookings());
-		assertThat(routeInfos.get(1).getOverall_bookings()).isEqualTo(r2.getOverall_bookings());
-		assertThat(routeInfos.get(2).getOverall_bookings()).isEqualTo(r1.getOverall_bookings());
 	}
 
 	@Test

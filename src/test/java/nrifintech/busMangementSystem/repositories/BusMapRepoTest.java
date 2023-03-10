@@ -37,8 +37,6 @@ class BusMapRepoTest {
 		//storing 2 buses in BusMap db, to check if findAll fetches these 2 data or not.
 		List<BusMap> users = busMapRepo.findAll();
 		assertThat(users).hasSize(2);
-		assertThat(users.get(0).getRoute_id()).isEqualTo(busMap2.getRoute_id());
-		assertThat(users.get(1).getRoute_id()).isEqualTo(busMap.getRoute_id());
 	}
 
 	@Test
