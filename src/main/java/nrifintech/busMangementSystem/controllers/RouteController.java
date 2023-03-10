@@ -33,6 +33,11 @@ public class RouteController {
 	
 	@Autowired
 	RouteInfoService routeInfoService;
+	
+	@Autowired
+    public void setRouteService(RouteService routeService) {
+        this.routeService = routeService;
+    }
 	//get Not required currently
 	@GetMapping("/get")
 	public ResponseEntity<List<Route>> getAllroute(){

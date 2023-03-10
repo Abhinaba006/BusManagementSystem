@@ -1,127 +1,94 @@
 package nrifintech.busMangementSystem.controllers;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import nrifintech.busMangementSystem.Service.interfaces.UserService;
 import nrifintech.busMangementSystem.entities.User;
+import nrifintech.busMangementSystem.payloads.ApiResponse;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class UserControllerTest {
-	
-	@Autowired
-	private MockMvc mockMvc;
 
-	@MockBean
+	@InjectMocks
+	private UserController userController;
+
+	@Mock
 	private UserService userService;
-	
-	@Autowired
-	private ObjectMapper objectMapper;
-	
-	private User user1;
-	private User user2;
-	
-	@BeforeEach
-	void init() {
-		user1 = new User();
-		user1.setEmail("demo12@gmail.com");
-		user1.setEmployeeId("E012");
-		user1.setName("Demo user");
-		user1.setPassword("demo123");
-		user1.setType(0);
-		
-		user2 = new User();
-		user2.setEmail("temp12@gmail.com");
-		user2.setName("Temp user");
-		user2.setPassword("temp123");
-		user2.setType(1);
-	}
-	
+
 	@Test
-	void CreateUser() throws Exception {
-		
-		when(userService.createUser(any(User.class))).thenReturn(user1);
-		
-		this.mockMvc.perform(post("/api/v1/user/create")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(user1)))
-		.andExpect(status().isCreated())
-		.andExpect(jsonPath("$.name", is(user1.getName())))
-		.andExpect(jsonPath("$.email", is(user1.getEmail())))
-		.andExpect(jsonPath("$.employee_id", is(user1.getEmployeeId())))
-		.andExpect(jsonPath("$.password", is(user1.getPassword())))
-		.andExpect(jsonPath("$.type", is(user1.getType())));
-			
+	public void testGetAlluser() {
+		List<User> userList = new ArrayList<>();
+		when(userService.getUser()).thenReturn(userList);
+
+		ResponseEntity<List<User>> responseEntity = userController.getAlluser();
+
+		assert(responseEntity.getStatusCode().equals(HttpStatus.OK));
 	}
-	
-//	@Test
-//	void shouldFetchAllMovies() throws Exception {
-//		
-//		List<Movie> list = new ArrayList<>();
-//		list.add(avatarMovie);
-//		list.add(titanicMovie);
-//		
-//		when(movieService.getAllMovies()).thenReturn(list);
-//		
-//		this.mockMvc.perform(get("/movies"))
-//			.andExpect(status().isOk())
-//			.andExpect(jsonPath("$.size()", is(list.size())));
-//	}
-//	
-//	@Test
-//	void shouldFetchOneMovieById() throws Exception {
-//		
-//		when(movieService.getMovieById(anyLong())).thenReturn(avatarMovie);
-//		
-//		this.mockMvc.perform(get("/movies/{id}", 1L))
-//			.andExpect(status().isOk())
-//			.andExpect(jsonPath("$.name", is(avatarMovie.getName())))
-//			.andExpect(jsonPath("$.genera", is(avatarMovie.getGenera())));
-//	}
-//	
-//	@Test
-//	void shouldDeleteMovie() throws Exception {
-//		
-//		doNothing().when(movieService).deleteMovie(anyLong());
-//		
-//		this.mockMvc.perform(delete("/movies/{id}", 1L))
-//			.andExpect(status().isNoContent());
-//			
-//	}
-//	
-//	@Test
-//	void shouldUpdateMovie() throws Exception {
-//		
-//		when(movieService.updateMovie(any(Movie.class), anyLong())).thenReturn(avatarMovie);		
-//		this.mockMvc.perform(put("/movies/{id}", 1L)
-//				.contentType(MediaType.APPLICATION_JSON)
-//				.content(objectMapper.writeValueAsString(avatarMovie)))
-//		.andExpect(status().isOk())
-//		.andExpect(jsonPath("$.name", is(avatarMovie.getName())))
-//		.andExpect(jsonPath("$.genera", is(avatarMovie.getGenera())));
-//	}
+
+	@Test
+	public void testGetUserById() {
+		User user = new User();
+		when(userService.getUser(ArgumentMatchers.anyInt())).thenReturn(user);
+
+		ResponseEntity<User> responseEntity = userController.getUserById(1);
+
+		assert(responseEntity.getStatusCode().equals(HttpStatus.OK));
+	}
+
+	@Test
+	public void testCreateUser() {
+		User user = new User();
+		when(userService.createUser(user)).thenReturn(user);
+
+		ResponseEntity<User> responseEntity = userController.createUser(user);
+
+		assert(responseEntity.getStatusCode().equals(HttpStatus.CREATED));
+	}
+
+	@Test
+	public void testUpdateUser() {
+		User user = new User();
+		when(userService.updateUser(user, 1)).thenReturn(user);
+
+		ResponseEntity<User> responseEntity = userController.createUser(user, 1);
+
+		assert(responseEntity.getStatusCode().equals(HttpStatus.OK));
+	}
+
+	@Test
+	public void testDeleteUser() {
+		ResponseEntity<ApiResponse> responseEntity = (ResponseEntity<ApiResponse>) userController.deleteUser(1);
+
+		assert(responseEntity.getStatusCode().equals(HttpStatus.OK));
+	}
+
+	@Test
+	public void testUserLogin() {
+		when(userService.checkUser(ArgumentMatchers.anyString(), ArgumentMatchers.anyString())).thenReturn(true);
+
+		ResponseEntity<ApiResponse> responseEntity = (ResponseEntity<ApiResponse>) userController.userLogin("test@test.com", "password");
+
+		assert(responseEntity.getStatusCode().equals(HttpStatus.OK));
+	}
+
+	@Test
+	public void testAdminLogin() {
+		when(userService.checkAdmin(ArgumentMatchers.anyString(), ArgumentMatchers.anyString())).thenReturn(true);
+
+		ResponseEntity<ApiResponse> responseEntity = (ResponseEntity<ApiResponse>) userController.adminLogin("test@test.com", "password");
+
+		assert(responseEntity.getStatusCode().equals(HttpStatus.OK));
+	}
 }
