@@ -76,12 +76,13 @@ public class TicketServiceImpl implements TicketService {
 		if(_routeInfo.getTotal_bookings() < _routeInfo.getTotal_seats()){
 			_ticket.setStatus("CONFIRMED");
 			routeInfoService.changeTotalBooking(_ticket.getRouteId(), 1,_ticket.getDate());
-			routeInfoService.incrementOverallBooking(_ticket.getRouteId(),_ticket.getDate());
+			
 		}
 		else{
 			_ticket.setStatus("WAITING");
 			ticketRepo.save(_ticket);
 		}
+		routeInfoService.incrementOverallBooking(_ticket.getRouteId(),_ticket.getDate());
 		//If not then add it to the queue and set the status of the ticket as waiting
 
 		//If there is seat then update the route info
