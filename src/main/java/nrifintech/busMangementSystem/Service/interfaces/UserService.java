@@ -14,4 +14,5 @@ public interface UserService {
 	void deleteUser(int id);
 	boolean checkUser(String email, String password);
 	boolean checkAdmin(String email, String password);
+	User getUserByEmail(String email);
 }

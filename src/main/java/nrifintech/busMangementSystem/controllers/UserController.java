@@ -1,6 +1,8 @@
 package nrifintech.busMangementSystem.controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import nrifintech.busMangementSystem.JwtTokenUtil;
 import nrifintech.busMangementSystem.Service.interfaces.UserService;
 import nrifintech.busMangementSystem.entities.User;
 import nrifintech.busMangementSystem.payloads.ApiResponse;
@@ -26,6 +29,9 @@ import nrifintech.busMangementSystem.payloads.ApiResponse;
 public class UserController {
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	JwtTokenUtil jwtTokenUtil;
 	 
 	//get
 	@GetMapping("/get")
@@ -62,7 +68,19 @@ public class UserController {
 		System.out.println(email);
 		System.out.println(password);
 		boolean isAuthenticated = userService.checkUser(email,password);
-		if(isAuthenticated) return new ResponseEntity(new ApiResponse("Authenticated success",true), HttpStatus.OK);
+	
+		if(isAuthenticated) {
+			User user = userService.getUserByEmail(email);
+	        String token = jwtTokenUtil.generateToken(user.getId());  // generate JWT token
+
+	        // include JWT token in the response
+	        Map<String, Object> responseBody = new HashMap<>();
+	        responseBody.put("token", token);
+	        responseBody.put("message", "Authenticated success");
+	        responseBody.put("success", true);
+
+	        return ResponseEntity.ok(responseBody);
+		}
 		else {
 			return new ResponseEntity(new ApiResponse("User not found or password is incorrect!",false), HttpStatus.BAD_REQUEST);
 		}
