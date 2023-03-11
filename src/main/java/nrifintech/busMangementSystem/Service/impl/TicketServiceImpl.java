@@ -1,6 +1,7 @@
 package nrifintech.busMangementSystem.Service.impl;
 
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -9,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
@@ -68,8 +70,27 @@ public class TicketServiceImpl implements TicketService {
 	@Transactional
 	@Modifying
 	public void createTicket(Ticket ticket){
-		Ticket _ticket = ticketRepo.save(ticket);
+		//dont allow user to book a ticket if their ticket is already booked.
+		//check from db if user data is present for today or not.
+		if(ticketRepo.findUserByPresentDate(ticket.getUserId(), ticket.getDate())!=null)
+			throw new UnauthorizedAction("Ticket already","");
+		
+		//change the status of the past ticket.
+		 List<Ticket> pastTickets = this.ticketRepo.findPastTickets(ticket.getDate());
+	        //System.out.println("size iss " + ticketsCreatedToday.size());
+	        // check if it is the first ticket of the day
+			for(Ticket t:pastTickets)
+			{
+				if(t.getStatus().equals("WAITING"))
+					t.setStatus("EXPIRED");
+				else if(t.getStatus().equals("CONFIRMED"))
+					t.setStatus("AVAILED");
+				this.ticketRepo.save(t);
+			}
 
+		
+		Ticket _ticket = ticketRepo.save(ticket);
+         
 		//Check first if there is seat or not
 		routeInfoService.preCheck(_ticket.getRouteId(),ticket.getDate());
 		RouteInfo _routeInfo = routeInfoService.getRouteInfo(_ticket.getRouteId(), ticket.getDate());
@@ -113,6 +134,23 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	public List<Ticket> getAllTicketByPersonId(int userId){
+		Date now = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd:MM:yyyy");
+        formatter.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
+        String currentDate = formatter.format(now);
+
+		//change the status of the past ticket.
+		 List<Ticket> pastTickets = this.ticketRepo.findPastTickets(currentDate);
+	        //System.out.println("size iss " + ticketsCreatedToday.size());
+	        // check if it is the first ticket of the day
+			for(Ticket t:pastTickets)
+			{
+				if(t.getStatus().equals("WAITING"))
+					t.setStatus("EXPIRED");
+				else if(t.getStatus().equals("CONFIRMED"))
+					t.setStatus("AVAILED");
+				this.ticketRepo.save(t);
+			}
 		return ticketRepo.findByUserId(userId);
 	}
 

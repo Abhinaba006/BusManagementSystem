@@ -159,7 +159,28 @@ public class RouteServiceImpl implements RouteService{
 
 	@Override
 	public List<Route> getRoutesBySourceAndDestination(int source, int destination) {
-		return routeRepo.searchBySourceAndDestination(source, destination);
+		//return routeRepo.searchBySourceAndDestination(source, destination);
+		//use route_map db
+		//find all route_ids from route_map where source = destination_id.(returns R1, R2)
+		List<Integer> routes1 = routeMapRepo.getByDestinationId(source);
+		//find all route_ids from route_map where destination = destination_id(returns R2, R3)
+		List<Integer> routes2 = routeMapRepo.getByDestinationId(destination);
+		//find common of both (return R2)
+		List<Integer> commonroutes = new ArrayList<>(routes1);
+		commonroutes.retainAll(routes2);
+		//check if destination_index of source in R2 < destination_index of destination in R2
+		List<Route> result = new ArrayList<>();
+		if(commonroutes.size()>0)
+		{
+			//check for all route in commonroutes if it satisfies above given criteria, if yes put it in result.
+			for(Integer route_id:commonroutes)
+			{
+				//find routeObject from routeMap where route_id = route_id and destination_id = source
+				if(routeMapRepo.getByRouteIdAndDestinationId(route_id, source).get().getDestination_id()<routeMapRepo.getByRouteIdAndDestinationId(route_id, destination).get().getDestination_id())
+					result.add(routeRepo.findById(route_id).get());		
+			}
+		}
+	    return  result;	
 	}
 	
 	@Override

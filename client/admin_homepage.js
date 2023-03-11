@@ -196,7 +196,7 @@ function deleteEmployee(event){
 		var found = 0;
 		let user = null;
 		for(var i = 0;i<data.length;i++){
-			if(data[i].email == email){
+			if((data[i].email).toLowerCase() == email.toLowerCase()){
 				found = 1;
 				user = data[i];
 				document.querySelector(".search-overlay").style.display="block";
@@ -256,7 +256,7 @@ function on2(event) {
 		console.log(data[0]);
 		let bus = null;
 		for(var i = 0;i<data.length;i++){
-			if(data[i].bus_number == busNumber){
+			if((data[i].bus_number).toLowerCase() == busNumber.toLowerCase()){
 				bus = data[i];
 			}
 		}
@@ -286,7 +286,7 @@ function on3(event) {
 		console.log(data[0]);
 		let dest = null;
 		for(var i = 0;i<data.length;i++){
-			if(data[i].name == destName){
+			if((data[i].name).toLowerCase() == destName.toLowerCase()){
 				dest = data[i];
 			}
 		}

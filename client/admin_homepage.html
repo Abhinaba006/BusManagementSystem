@@ -523,17 +523,157 @@
                             <div id = "results"></div>
                             <script>
                                         const places = [
-                                            {
-                                            "name": "Victoria Memorial",
-                                            "latitude": 22.5454,
-                                            "longitude": 88.3428
-                                            },
-                                            {
-                                            "name": "Howrah Bridge",
-                                            "latitude": 22.5851,
-                                            "longitude": 88.3468
-                                            },
-                                            // add more places here
+                                        {
+                                            "name": "Ecospace",
+                                            "latitude": 22.576951,
+                                            "longitude": 88.433728
+                                        },
+                                        {
+                                            "name": "SDF more",
+                                            "latitude": 22.577187,
+                                            "longitude": 88.428692
+                                        },
+                                        {
+                                            "name": "Unitech",
+                                            "latitude": 22.577587,
+                                            "longitude": 88.433714
+                                        },
+                                        {
+                                            "name": "SDF Building",
+                                            "latitude": 22.577858,
+                                            "longitude": 88.429189
+                                        },
+                                        {
+                                            "name": "Wipro more",
+                                            "latitude": 22.577601,
+                                            "longitude": 88.429674
+                                        },
+                                        {
+                                            "name": "College More",
+                                            "latitude": 22.579856,
+                                            "longitude": 88.428441
+                                        },
+                                        {
+                                            "name": "Webel More",
+                                            "latitude": 22.576576,
+                                            "longitude": 88.426511
+                                        },
+                                        {
+                                            "name": "Technopolis",
+                                            "latitude": 22.580815,
+                                            "longitude": 88.428056
+                                        },
+                                        {
+                                            "name": "RDB",
+                                            "latitude": 22.580548,
+                                            "longitude": 88.433063
+                                        },
+                                        {
+                                            "name": "Tata Medical Centre",
+                                            "latitude": 22.579414,
+                                            "longitude": 88.436316
+                                        },
+                                        {
+                                            "name": "Eco Station",
+                                            "latitude": 22.575468,
+                                            "longitude": 88.432514
+                                        },
+                                        {
+                                            "name": "Infinity",
+                                            "latitude": 22.580441,
+                                            "longitude": 88.427693
+                                        },
+                                        {
+                                            "name": "SDF 2",
+                                            "latitude": 22.576925,
+                                            "longitude": 88.430089
+                                        },
+                                        {
+                                            "name": "Techno India",
+                                            "latitude": 22.582547,
+                                            "longitude": 88.422847
+                                        },
+                                        {
+                                            "name": "Wipro Gate 2",
+                                            "latitude": 22.575606,
+                                            "longitude": 88.428674
+                                        },
+                                        {
+                                            "name": "Aloft",
+                                            "latitude": 22.584686,
+                                            "longitude": 88.423684
+                                        },
+                                        {
+                                            "name": "Idea Building",
+                                            "latitude": 22.576154,
+                                            "longitude": 88.426277
+                                        },
+                                        {
+                                            "name": "Capgemini",
+                                            "latitude": 22.581013,
+                                            "longitude": 88.427693
+                                        },
+                                        {
+                                            "name": "SDF 3",
+                                            "latitude": 22.574778,
+                                            "longitude": 88.427151
+                                        },
+                                        {
+                                            "name": "SDF 4",
+                                            "latitude": 22.575109,
+                                            "longitude": 88.429193
+                                        },
+                                        {
+                                            "name": "Charnock Hospital",
+                                            "latitude": 22.586247,
+                                            "longitude": 88.427778
+                                        },
+                                        {
+                                            "name": "Ecospace Gate 2",
+                                            "latitude": 22.577304,
+                                            "longitude": 88.431006
+                                        },
+                                        {
+                                            "name": "Tollygunge Tram Depot",
+                                            "latitude": 22.5085,
+                                            "longitude": 88.3358
+                                        },
+                                        {
+                                            "name": "Esplanade",
+                                            "latitude": 22.5641,
+                                            "longitude": 88.3488
+                                        },
+                                        {
+                                            "name": "Park Circus Maidan",
+                                            "latitude": 22.5415,
+                                            "longitude": 88.3957
+                                        },
+                                        {
+                                            "name": "Garia Bus Stand",
+                                            "latitude": 22.4767,
+                                            "longitude": 88.3942
+                                        },
+                                        {
+                                            "name": "Shyambazar",
+                                            "latitude": 22.6024,
+                                            "longitude": 88.3749
+                                        },
+                                        {
+                                            "name": "Ruby Crossing",
+                                            "latitude": 22.5113,
+                                            "longitude": 88.3939
+                                        },
+                                        {
+                                            "name": "Kudghat Bus Stand",
+                                            "latitude": 22.4981,
+                                            "longitude": 88.3244
+                                        },
+                                        {
+                                            "name": "Barasat Bus Stand",
+                                            "latitude": 22.7256,
+                                            "longitude": 88.4798
+                                        },
+                                        
                                         ];
                                         
                                         const input = document.getElementById("dest-name");
@@ -554,7 +694,14 @@
                                                 li.textContent = place.name;
                                                 li.addEventListener("click", () => {
                                                 console.log(`Name: ${place.name}, Latitude: ${place.latitude}, Longitude: ${place.longitude}`);
-                                                });
+                                                const placeInput = document.getElementById("dest-name");
+                                                const latitudeInput = document.getElementById("dest-latitude-input");
+                                                const longitudeInput = document.getElementById("dest-longitude-input");
+                                                placeInput.value = place.name;
+                                                latitudeInput.value = place.latitude;
+                                                longitudeInput.value = place.longitude;
+
+                                            });
                                                 ul.appendChild(li);
                                             });
                                             results.appendChild(ul);

@@ -112,10 +112,14 @@
                                                 </div>
                                         </div>
                                             <!-- <p class="from-to-search-text">To</p> </div> -->
-                                        <input type="text" id="datepicker"></p>
+                                        <input type="text" id="datepicker" readonly></p>
                                         <script>
                                             $( function() {
-                                                $( "#datepicker" ).datepicker();
+                                                $( "#datepicker" ).datepicker({
+                                                         defaultDate: new Date(),
+                                                        minDate: new Date(),
+                                                });
+                                                $("#datepicker").datepicker("setDate", new Date());
                                             } );
                                         </script>
                                         <div class="searchbar"> 
