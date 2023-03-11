@@ -45,6 +45,7 @@ public class IssueController {
     @PostMapping("/{issueId}/resolve")
     public ResponseEntity<Void> resolveIssue(@PathVariable int issueId){
         issueService.resolveIssue(issueId);
+        System.out.println("hellllllllo");
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
