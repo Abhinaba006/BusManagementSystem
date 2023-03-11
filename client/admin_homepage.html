@@ -75,6 +75,7 @@
                     <!--first div-->
 
                     <div id="firstdiv" style="display:block;">
+                        
                         <form>
                             <h1>Add an employee</h1>
 
@@ -96,6 +97,7 @@
                         
 
                         </form>
+                        
                         <button class="search-btn" onclick="on()"> <img class="confirm-cancel-icon"
                                 src="./public/icons8-search.svg" alt=""> Search</button>
                         <script>
@@ -117,7 +119,7 @@
 
                         <section>
                             <h1>Add a route</h1>
-                            <button class="add-field-btn" onclick="add_field()">+ Add Field</button>
+                            <button class="add-field-btn" onclick="add_field()">+ Add Destination Field</button>
                         </section>
 
                         <form action="">
@@ -180,12 +182,8 @@
                                                 <div class="from-to-search-text"> <label for="fromtext">From</label>
                                                 </div>
                                                 <div class="options">
-                                                    <select name="" id="">
-
-                                                        <option value="option0"></option>
-                                                        <option value="option1">Option1</option>
-                                                        <option value="option2">Option2</option>
-                                                        <option value="option3">Option3</option>
+                                                    <select name="" id="select-destination-id-from" onclick="displayDestinationsfrom(event)">
+                                                        <option>None</option>
                                                     </select>
                                                 </div>
 
@@ -198,12 +196,8 @@
                                                 <div class="from-to-search-text"> <label for="tottext"> TO </label>
                                                 </div>
                                                 <div class="options">
-                                                    <select name="" id="">
-
-                                                        <option value="option0"></option>
-                                                        <option value="option1">Option1</option>
-                                                        <option value="option2">Option2</option>
-                                                        <option value="option3">Option3</option>
+                                                    <select name="" id="select-destination-id-to" onclick="displayDestinationsto(event)">
+                                                        <option>None</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -228,189 +222,55 @@
 
                         </form>
 
+                        <section>
+                            
+                            <button class="edit-route" onclick="add_field()">+ Add Destination Field</button>
+                        </section>
 
-                        <div class="content" style="margin:10px;margin-top:30px;margin-left: 5%;">
+                        <form action="">
 
-
-                            <div class="content-element">
-                                <form>
-                                    <div class="content-element-main" style="display: grid;
-                                      grid-template-columns: 20% 20% 20% 20% 20%;padding:15px;display: flex;
-                                      flex-wrap: wrap;
-                                      align-items: stretch;
-                                      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-
-                                        <!-- Bus Name , Bus Number -->
-                                        
-                                        <div class="content-element-main-divs">
-                                            <div style="display: flex; margin-bottom: 4px;">
-                                                <div class="location-icon"><img style="height: 28px;
-                                                        width: 28px;" src="./public/vector4.svg" alt=""> </div>
-                                                <div style="margin-right: auto; font-family: Montserrat;
-                                                    font-size: 22px;
-                                                    font-weight: 700;
-                                                    line-height: 24px;
-                                                    letter-spacing: 0.035em;
-                                                    text-align: left;
-                                                    color:  darkblue;
-                                                   
-                                                    ">&nbsp;NR-01</div>
-                                            </div>
-                                            <div style="font-family: Montserrat;
-                                                font-size: 20px;
-                                                font-weight: 600;
-                                                line-height: 22px;
-                                                letter-spacing: 0.035em;
-                                                text-align: left;
-                                                color:  darkblue;
-                                                
-                                                ">WB-94-3235</div>
-                                            
-
-                                        </div>
-
-
-                                        <!-- Pickup Location & Time -->
-
-
-                                        <div class="content-element-main-divs pickup-drop">
-                                            <div style="display: flex; margin-bottom: 4px;">
-                                                <div class="location-icon"><img style="height: 19px;
-                                                      width: 17px;" src="./public/placeholder-14@2x.png" alt=""> </div>
-                                                <div style="margin-right: auto; font-family: Montserrat;
-                                                  font-size: 20px;
-                                                  font-weight: 500;
-                                                  line-height: 24px;
-                                                  letter-spacing: 0.035em;
-                                                  text-align: left;
-                                                  color:  rgba(255, 76, 41, 1);
-                                                  ">Pickup </div>
-                                            </div>
-                                            <div style="font-family: Montserrat;
-                                              font-size: 18px;
-                                              font-weight: 500;
-                                              line-height: 22px;
-                                              letter-spacing: 0.035em;
-                                              text-align: left;
-                                              ">NRI Fintech</div>
-                                            <div style="font-family: Montserrat;
-                                              font-size: 18px;
-                                              font-weight: 500;
-                                              line-height: 22px;
-                                              letter-spacing: 0.035em;
-                                              text-align: center;
-                                              ">9:00 AM</div>
-
-                                        </div>
-
-                                        <!-- Drop Location & Time -->
-
-                                        <div class="content-element-main-divs pickup-drop">
-                                            <div style="display: flex; margin-bottom: 4px;">
-                                                <div class="location-icon"><img style="height: 19px;
-                                                      width: 17px;" src="./public/placeholder-14@2x.png" alt=""> </div>
-                                                <div style="margin-right: auto; font-family: Montserrat;
-                                                  font-size: 20px;
-                                                  font-weight: 500;
-                                                  line-height: 24px;
-                                                  letter-spacing: 0.035em;
-                                                  text-align: left;
-                                                  color:  rgba(255, 76, 41, 1); 
-                                                  ">Drop </div>
-                                            </div>
-                                            <div style="font-family: Montserrat;
-                                              font-size: 18px;
-                                              font-weight: 500;
-                                              line-height: 22px;
-                                              letter-spacing: 0.035em;
-                                              text-align: left;
-                                              ">Ultodanga</div>
-                                            <div style="font-family: Montserrat;
-                                              font-size: 18px;
-                                              font-weight: 500;
-                                              line-height: 22px;
-                                              letter-spacing: 0.035em;
-                                              text-align: center;
-                                              ">12:00 AM</div>
-
-                                        </div>
-
-                                        <!-- Seats Left -->
-
-                                        <div class="content-element-main-divs seats-left">
-
-                                            <div style="display: flex; margin-bottom: 4px;">
-                                                
-                                                <div style="margin-right: auto; font-family: Montserrat;
-                                                      font-size: 20px;
-                                                      font-weight: 500;
-                                                      line-height: 24px;
-                                                      letter-spacing: 0.035em;
-                                                      text-align: left;
-                                                  color:  rgba(255, 76, 41, 1); 
-                                                  "> Seats Left </div>
-                                            </div>
-                                            <div style="font-family: Montserrat;
-                                                      font-size: 18px;
-                                                      font-weight: 500;
-                                                      line-height: 22px;
-                                                      letter-spacing: 0.035em;
-                                                      text-align: center;
-                                              "> 30 </div>
+                            <div class="from-to-searchbar">
 
 
 
-                                        </div>
+                                <table class="container">
+                                
+                                </table>
+                                <table class="bottom-table">
+                                    <tr>
+                                        <td>
+                                            <div class="from">
 
-                                        <!-- See Route ,Book -->
-
-                                        <div class="content-element-main-divs">
-
-
-                                            <div style="display: flex; margin-bottom: 17px;">
-                                                
-
-                                                <div class="location-icon"><img style="height: 19px;
-                                                        width: 17px;" src="./public/route-icon.svg" alt=""> </div>
-
-                                                <div style="margin-right: auto; font-family: Montserrat;
-                                                    font-size: 20px;
-                                                    font-weight: 500;
-                                                    line-height: 24px;
-                                                    letter-spacing: 0.035em;
-                                                    text-align: left;
-                                                    color:  darkblue;
-                                                    ">&nbsp;See route </div>
+                                                <div class="from-to-search-text"> <label for="fromtext">Select Bus</label>
+                                                </div>
+                                                <div class="options">
+                                                    <select name="" id="select-bus-id" onclick="displayBusID(event)">
+                                                        <option>None</option>
+                                                    </select>
+                                                </div>
 
                                             </div>
-
-                                            <div style="font-family: Montserrat;
-                                                    font-size: 18px;
-                                                    font-weight: 500;
-                                                    line-height: 22px;
-                                                    letter-spacing: 0.035em;
-                                                    text-align: right;
-                                                    
-                                                    color:red;
-                                                    "><a href=""><img class="vector-icon" alt=""
-                                                        src="public/edit-button.svg" style="height: 19px;
-                                                        width: 17px;color:red;margin:auto;" />&nbsp;Edit</a></div>
+                                        </td>
+                                    </tr>
+                                </table>
 
 
 
 
-                                        </div>
-
-                                    </div>
 
                             </div>
 
 
 
-
                             
 
-                        </div>
+
+
+                            <input type="submit" onclick="addRoute(event)" style="margin-left: 4%;" value="+ Add route">
+
+
+                        </form>
+                        
 
 
                     </div>
@@ -440,7 +300,7 @@
 
 
 
-                        </form><br>
+                        </form>
                         <button class="bus-btn" onclick="on2(event)"> <img class="confirm-cancel-icon"
                                 src="./public/icons8-search.svg" alt=""> Search</button>
                     </div>
@@ -448,10 +308,12 @@
                     <!--fourth div-->
 
                     <div id="fourthdiv" style="display:none;">
-                        <input type = "text" id = "report-route-id"/>
-                        <button onclick="getReportById(event)">Search</button>
-                        <div>Month: March</div>
-                        <canvas id="myChart" style="width:100%;max-width:1300px;margin-left:30px;"></canvas>
+                        <input type = "text" id = "report-route-id" placeholder="Enter route id"/>
+                        <button onclick="getReportById(event)" class="generate-report">Search</button>
+                        
+                        <canvas id="myChart" style="width:100%;max-width:1300px;margin-left:30px;">
+                            
+                        </canvas>
                         <script>
                          var xValues = new Array(31);
                         var yValues = new Array(31);
@@ -499,7 +361,7 @@
                                     legend: {display: false},
                                     title: {
                                         display: true,
-                                        text: "Usage report"
+                                        text: "Usage report for month of march"
                                     }
                                     }
                                 });
@@ -511,6 +373,10 @@
                        
                         
                           </script>
+                          <div>
+                          <button class="user-status">User Status</button>
+                          <button class="route-status">Route Status</button>
+                          </div>
                     </div>
 
                     <!--fifth div-->
@@ -536,7 +402,7 @@
                             <input type="text"
                                 id = "dest-search-name"
                                 placeholder="Enter destination name">
-                        </form><br>
+                        </form>
                         <button class="search-destination" onclick="on3(event)"> <img class="confirm-cancel-icon"
                                 src="./public/icons8-search.svg" alt=""> Search</button>
                     </div>
@@ -574,18 +440,19 @@
         <div class="search-div">
 
             <div class="search-overlay-main-div">
-
+                <div class = "close-button" onclick="off()"></div>
                 <div class="cancel-text">
-                    <form>
-                        <input type="text" id="employee-name" name="name" placeholder="Name">
+                    <form style="text-align: left;margin: auto;">
+                        <label for="employee-name">Name: </label>
+                        <input type="text" id="employee-name" name="name" placeholder="Name"><br>
 
+                        <label for="employee-email">Email ID: </label>
+                        <input type="text" id="employee-email" name="email" placeholder="Email"><br>
 
-                        <input type="text" id="employee-email" name="email" placeholder="Email">
+                        <label for="employee-password">Password:</label>
+                        <input type="text" id = "employee-password" name="employee-password" placeholder="Update password"><br>
 
-
-                        <input type="text" id = "employee-password" name="employee-password" placeholder="Update password">
-
-
+                        <label for="employee-id">Emp ID: </label>
                         <input type="text" id = "employee-id" placeholder="Employee ID"><br>
 
                         <input type = "text" id = "emp-inp-id" style = "display: none;">
@@ -594,8 +461,7 @@
                 <div class="confirm-cancel-buttons">
                     <button class="confirm-button" onclick="updateEmployee(event)"> <img class="confirm-cancel-icon" src="./public/arrow-right-circle-fill.svg"
                             alt=""> Save</button>
-                    <button class="cancel-button"  onclick = "deleteEmployee(event)"> <img class="confirm-cancel-icon" src=""
-                            alt=""> Delete</button>
+                    <button class="cancel-button"  onclick = "deleteEmployee(event)">Delete</button>
                 </div>
 
             </div>
@@ -608,34 +474,34 @@
     <!-- Bus Search Overlay -->
 
     <div class="bus-overlay">
-        <div class="bus-div">
+        <div class="search-div">
 
-            <div class="bus-overlay-main-div">
-
-                <div class="search-text">
-                    <form>
+            <div class="search-overlay-main-div">
+                <div class = "close-button" onclick="off2()"></div>
+                <div class="cancel-text">
+                    <form style="text-align: left;margin: auto;">
+                        <label for="bus-number-o">No:</label>
                         <input type="text" id="bus-number-o" name="number" placeholder="Bus Number">
 
-
+                        <label for="bus-name-o">Name:</label>
                         <input type="text" id="bus-name-o" name="name" placeholder="Bus Name">
 
-
+                        <label for="bus-seats-o">Seats:</label>
                         <input type="text" id="bus-seats-o" name="seats" placeholder="Total Seats">
                         <input type = "text" id="bus-id-o" style = "display: none;"/>
 
                     </form>
                 </div>
-                <div class="search-cancel-buttons">
-                    <button class="save-button" onclick="updateBus(event)"> <img class="search-cancel-icon" src="./public/arrow-right-circle-fill.svg"
+                <div class="confirm-cancel-buttons">
+                    <button class="confirm-button" onclick="updateBus(event)"> <img class="search-cancel-icon" src="./public/arrow-right-circle-fill.svg"
                             alt=""> Save</button>
-                    <button class="delete-button" onclick="deleteBus(event)"> <img class="search-cancel-icon" src=""
-                            alt=""> Delete</button>
+                    <button class="cancel-button" onclick="deleteBus(event)">Delete</button>
                 </div>
 
             </div>
 
         </div>
-        <div class = "cancel-button" onclick="off2()">X</div>
+        
     </div>
 
     <!-- Bus Search Overlay Ends Here-->
@@ -643,31 +509,32 @@
     <!-- Destination Search Overlay -->
 
     <div class="destination-overlay" >
-        <div class="destination-div">
-
-            <div class="destination-overlay-main-div">
-
-                <div class="search-text">
-                    <form>
+        <div class="search-div">
+            
+            <div class="search-overlay-main-div">
+                <div class = "close-button" onclick="off3()"></div>
+                <div class="cancel-text">
+                    
+                    <form style="text-align: left;margin: auto;">
+                        <label for="dest-edit-name">Name: </label>
                         <input type="text" id="dest-edit-name" name="name" placeholder="Destination Name">
 
-
+                        <label for="dest-edit-latitude-input">Latitude: </label>
                         <input type="number" id="dest-edit-latitude-input" name="latitude" min="-90" max="90" step="any" placeholder="Enter latitude">
 
-
+                        <label for="dest-edit-longitude-input">Longitude: </label>
                         <input type="number" id="dest-edit-longitude-input" name="longitude" min="-180" max="180" step="any" placeholder="Enter longitude"><br>
                         <input type = "number" id = "dest-edit-id" name = "id" style = "display: none;"></input>
                     </form>
                 </div>
-                <div class="search-cancel-buttons">
-                    <button class="save-button" onclick="updateDestination(event)"> <img class="search-cancel-icon" src="./public/arrow-right-circle-fill.svg"
+                <div class="confirm-cancel-buttons">
+                    <button class="confirm-button" onclick="updateDestination(event)"> <img class="search-cancel-icon" src="./public/arrow-right-circle-fill.svg"
                             alt="" > Save</button>
-                    <button class="delete-button" onclick="deleteDestination(event)"> <img class="search-cancel-icon" src=""
-                            alt=""> Delete</button>
+                    <button class="cancel-button" onclick="deleteDestination(event)">Delete</button>
                 </div>
 
             </div>
-            <div class = "cancel-button" onclick="off3()">X</div>
+           
         </div>
     </div>
 

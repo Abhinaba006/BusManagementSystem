@@ -188,7 +188,14 @@ a:link {
     display: none;
 }
 
-
+label{
+    display: inline-block;
+    width: 25%;
+  text-align: right;
+  /* margin-right: 10px; */
+  font-size:14px;
+  text-align: left;
+}
 
 input[type=text],[type=email],[type=password],[type=time],[type=number],select {
     width: 75%;
@@ -202,6 +209,20 @@ input[type=text],[type=email],[type=password],[type=time],[type=number],select {
     outline: none;
   }
   
+#employee-name,#employee-email,#employee-password,#employee-id,#bus-number-o,#bus-name-o,#bus-seats-o,#dest-edit-name,#dest-edit-latitude-input,#dest-edit-longitude-input{
+    width:60%;
+    padding: 0%;
+    margin: 0%;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    outline: none;
+    /* font-size:smaller; */
+    display: inline-block;
+    font-size: 20px
+}
+
   input[type=submit] {
     /* width: 100%; */
     background-color: #082032;
@@ -218,6 +239,9 @@ form {
     padding: 0% 5%;
 }
 
+#fourthdiv{
+    padding-top: 1%;
+}
 
 /* OverLays */
 .search-overlay {
@@ -268,8 +292,8 @@ form {
 
 
 .search-div {
-    width: 40%;
-    height: 60%;
+    width: 30%;
+    height: 50%;
     position: absolute;
     top: 40%;
     left: 50%;
@@ -326,7 +350,7 @@ form {
 }
 
 .cancel-text {
-    width: 80%;
+    width: 100%;
     margin: auto;
     font-family: Montserrat;
     font-size: 22px;
@@ -387,6 +411,25 @@ form {
     font-size: large;
 }
 
+.close-button {
+    position: relative;
+    margin-left: 1%;
+  }
+  
+  .close-button::after {
+    content: "×"; /* the "X" character */
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 1.5em;
+    cursor: pointer;
+  }
+  
+  .close-button::after:hover {
+    color: red; /* change the color on hover */
+  }
+  
+
 .confirm-button {
     height: 43px;
     width: 30%;
@@ -435,12 +478,45 @@ form {
     background-color: #082032;
     color: white;
     padding: 14px 20px;
-    margin: 8px 0;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     display: inline-block;
     margin-left: 8%;
+}
+
+.generate-report{
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: 0.035em;
+    text-align: right;
+    cursor: pointer;
+    background-color: #082032;
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.user-status, .route-status{
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: 0.035em;
+    text-align: right;
+    cursor: pointer;
+    background-color: #082032;
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
 }
 
 .add-field-btn{
@@ -459,6 +535,25 @@ form {
     border-radius: 4px;
     cursor: pointer;
     display: inline-block;
+}
+
+.edit-route{
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: 0.035em;
+    text-align: right;
+    cursor: pointer;
+    background-color: #082032;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 4%;
 }
 
 .search-route{
@@ -495,6 +590,7 @@ form {
     border-radius: 4px;
     cursor: pointer;
     display: inline-block;
+    margin-left: 8%;
     
 }
 
@@ -509,7 +605,7 @@ form {
     background-color: #082032;
     color: white;
     padding: 14px 20px;
-    margin: 8px 0;
+    /* margin: 8px 0; */
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -2351,6 +2447,8 @@ a {
 @media(max-width:750px)
 {
     .header-end-items-text{display: none;}
+    .bus-div{width:50%;height: 70%;}
+
 }
 
 @media(max-width: 750px) {
@@ -2553,7 +2651,8 @@ a {
         display: none
     }
 
-    .main { flex;
+    .main { 
+        display:flex;
         margin-left: 0 !important;
         margin-right: 0 !important
     }

@@ -5,6 +5,11 @@
     Acts as a Header & Footer Template
 	@file path from root: Ex ./index.css/
 
+    @edited: Monidepa Ghosh
+    @desc: 1. made necessary changes in the header and footer
+           2. added my profile
+           3. improvised the buttons
+
 
 */
 
@@ -147,6 +152,42 @@ a:link {
     letter-spacing: 0em;
     cursor: pointer;
     color: rgba(255, 255, 255, 1);
+}
+
+.search-btn{
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: 0.035em;
+    text-align: right;
+    cursor: pointer;
+    background-color: #082032;
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 8%;
+}
+
+.book-bus{
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: 0.035em;
+    text-align: right;
+    cursor: pointer;
+    background-color: #082032;
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 8%;
 }
 
 .booking{
