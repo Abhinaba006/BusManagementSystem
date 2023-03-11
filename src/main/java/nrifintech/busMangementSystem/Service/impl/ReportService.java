@@ -10,6 +10,9 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,20 +47,19 @@ public class ReportService {
 	public void generateRouteReport(HttpServletResponse response) throws IOException {
 
 	    // create a new workbook
-	    Workbook workbook = new HSSFWorkbook();
+	    Workbook workbook = new XSSFWorkbook();
 
 	    // create a new sheet
-	    HSSFSheet sheet =   (HSSFSheet) workbook.createSheet("Route Info");
+	    XSSFSheet sheet =   (XSSFSheet) workbook.createSheet("Route Info");
 
 	    // create header row and add headers
-	    HSSFRow headerRow =  sheet.createRow(0);
+	    XSSFRow headerRow =  sheet.createRow(0);
 	    headerRow.createCell(0).setCellValue("Route ID");
 	    headerRow.createCell(1).setCellValue("Start Destination");
 	    headerRow.createCell(2).setCellValue("End Destination");
 	    headerRow.createCell(3).setCellValue("Total Destination");
 	    headerRow.createCell(4).setCellValue("Total Bookings");
-	    headerRow.createCell(5).setCellValue("Total Cancellations");
-	    headerRow.createCell(6).setCellValue("Route-Usage(in %)");
+	    headerRow.createCell(5).setCellValue("Route-Usage(in %)");
 
 	    int totalBookings;
     	int totalCancellations;
@@ -68,19 +70,18 @@ public class ReportService {
 	    List<Route> routes = routeRepo.findAll();
 	    for(Route route:routes)
 	    {
-	    	HSSFRow row = sheet.createRow(rowNum++);
+	    	XSSFRow row = sheet.createRow(rowNum++);
 	    	row.createCell(0).setCellValue(route.getId());
 	    	//we need to create an entry for each route.
 	    	//for each route, get data for all dates from routeInfo table.
 	    	try {
-		    	List<RouteInfo> routeData = routeInfoRepo.getRouteByRouteId(route.getId());
+		    	List<RouteInfo> routeData = routeInfoRepo.getRouteData(route.getId());
 		    	//add all bookings and cancellations from this routeData
 		    	totalBookings = 0;
 		    	totalCancellations = 0;
 		    	for(RouteInfo r:routeData)
 		    	{
 		    		totalBookings+=r.getTotal_bookings();
-		    		totalCancellations+=r.getTotal_cancellations();
 		    	}
 		    	avgBooking = totalBookings/routeData.size();
 		    	avgCancels = totalCancellations/routeData.size();
@@ -90,8 +91,7 @@ public class ReportService {
 		    	row.createCell(2).setCellValue((destinationRepo.findById(route.getEnd_destination_id())).get().getName());
 		    	row.createCell(3).setCellValue(route.getTotal_destinations());
 		    	row.createCell(4).setCellValue(totalBookings);
-		    	row.createCell(5).setCellValue(totalCancellations);
-		    	row.createCell(6).setCellValue(routeUsage*100);
+		    	row.createCell(5).setCellValue(routeUsage*100);
 	    	}
 	    	catch(Exception e)
 	    	{
@@ -116,13 +116,13 @@ public class ReportService {
 	public void generateUserReport(HttpServletResponse response) throws IOException {
 
 	    // create a new workbook
-	    Workbook workbook = new HSSFWorkbook();
+	    Workbook workbook = new XSSFWorkbook();
 
 	    // create a new sheet
-	    HSSFSheet sheet =   (HSSFSheet) workbook.createSheet("User Info");
+	    XSSFSheet sheet =   (XSSFSheet) workbook.createSheet("User Info");
 
 	    // create header row and add headers
-	    HSSFRow headerRow =  sheet.createRow(0);
+	    XSSFRow headerRow =  sheet.createRow(0);
 	    headerRow.createCell(0).setCellValue("Emp Id");
 	    headerRow.createCell(1).setCellValue("Name ");
 	    headerRow.createCell(2).setCellValue("Email");
@@ -136,8 +136,8 @@ public class ReportService {
 	    List<User> users = userRepo.findAll();
 	    for(User user:users)
 	    {
-	    	HSSFRow row = sheet.createRow(rowNum++);
-	    	row.createCell(0).setCellValue(user.getEmployee_id());
+	    	XSSFRow row = sheet.createRow(rowNum++);
+	    	row.createCell(0).setCellValue(user.getEmployeeId());
 	    	row.createCell(1).setCellValue(user.getName());
 	    	row.createCell(2).setCellValue(user.getEmail());
 	   

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import nrifintech.busMangementSystem.Service.impl.ReportService;
 
-@CrossOrigin(origins = "http://localhost:5500")
+//@CrossOrigin(origins = "http://localhost:5500")
 @RestController
 @RequestMapping("/api/v1/report")
 public class ReportController {
@@ -25,7 +25,7 @@ public class ReportController {
 	{
 		response.setContentType("application/octet-stream");
 		String headerKey = "Content-Disposition";
-		String headerValue = "attachment;filename=Route-Report.xls";
+		String headerValue = "attachment;filename=Route-Report.xlsx";
 		response.setHeader(headerKey, headerValue);
 		reportService.generateRouteReport(response);
 	}
@@ -35,7 +35,7 @@ public class ReportController {
 	{
 		response.setContentType("application/octet-stream");
 		String headerKey = "Content-Disposition";
-		String headerValue = "attachment;filename=User-Usage-Report.xls";
+		String headerValue = "attachment;filename=User-Usage-Report.xlsx";
 		response.setHeader(headerKey, headerValue);
 		reportService.generateUserReport(response);
 	}
