@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import nrifintech.busMangementSystem.Service.interfaces.DestinationService;
 import nrifintech.busMangementSystem.entities.Destination;
 import nrifintech.busMangementSystem.payloads.ApiResponse;
-@CrossOrigin(origins = "http://localhost:5500")
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 @RestController
 @RequestMapping("/api/v1/")
 public class DestinationController {
