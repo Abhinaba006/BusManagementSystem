@@ -1,7 +1,7 @@
 <!--
-	@author: Monidepa Ghosh
-	@desc: admin site
-	@file path from root: Ex ./index.html/
+    @author: Monidepa Ghosh
+    @desc: admin site
+    @file path from root: Ex ./index.html/
 -->
 
 
@@ -21,42 +21,42 @@
 </head>
 
 <body>
-
+    
     <div class="main">
         <!-- Header -->
         <div class="header">
-
+            
             
             <div class="header-div">
                 <div class="nrifintech"> ${NRI TRAVEL}</div>
             </div>
             <div class="header-end">
-
-
-
-
+                
+                
+                
+                
                 <div class="header-end-items">
                     <img class="vector-icon" alt="" src="public/vector1.svg" />
                     <p class="header-end-items-text logout"> <a href="">Logout </a> </p>
                 </div>
-
+                
             </div>
         </div>
-
+        
         <!-- Body -->
         <div class="body-part">
-
+            
             <div>
-
+                
                 <!--
-                            Write your body code within this div
-                            
-                            
-                             -->
-
-
+                    Write your body code within this div
+                    
+                    
+                -->
+                
+                
                 <!--sidebar-->
-
+                
                 <div class="sidebar bar-block collapse card animate-left" id="mySidebar">
                     <button class="bar-item button large hide-large" onclick="closeSidebar()">Close &times;</button>
                     <a href="#" class="bar-item button" onclick="firstdiv()" id="text1">Employees</a>
@@ -64,488 +64,587 @@
                     <a href="#" class="bar-item button" onclick="thirddiv()" id="text3">Bus</a>
                     <a href="#" class="bar-item button" onclick="fourthdiv()" id="text4">Report</a>
                     <a href="#" class="bar-item button" onclick="fifthdiv()" id="text5">Destination</a>
+                    <a href="#" class="bar-item button" onclick="sixthdiv()" id="text6">Issues</a>
+                    <a href="#" class="bar-item button" onclick="seventhdiv()" id="text7">Tickets</a>
                 </div>
-
+                
                 <div class="main" style="margin-left:200px;">
                     <div class="red">
                         <button class="button red xlarge hide-large" onclick="openSidebar()">&#9776;</button>
-
+                        
                     </div>
-
+                    
                     <!--first div-->
-
+                    
                     <div id="firstdiv" style="display:block;">
                         
                         <form>
                             <h1>Add an employee</h1>
-
+                            
                             <input type="text" id="add-employee-name" name="name" placeholder="Name">
-
-
+                            
+                            
                             <input type="email" id="add-employee-email" name="email" placeholder="Email">
-
-
+                            
+                            
                             <input type="password" id="add-employee-password" name="password" placeholder="Password">
                             
                             <input type = "text" id = "add-employee-id" name = "empId" placeholder="Employee id"><br>
                             <input type="submit" value="+ Add Employee" onclick="addEmployee(event)">
-
+                            
                             <h1>Search/edit an employee</h1>
-
+                            
                             <input type="text" id = "search-email" placeholder="Enter employee email">
-
-                        
-
+                            
+                            
+                            
                         </form>
                         
                         <button class="search-btn" onclick="on()"> <img class="confirm-cancel-icon"
-                                src="./public/icons8-search.svg" alt=""> Search</button>
-                        <script>
-                           function on() {
+                            src="./public/icons8-search.svg" alt=""> Search</button>
+                            <script>
+                                function on() {
                                     
-	                                document.querySelector(".search-overlay").style.display="block";
-                            }
-                        </script>
-                    </div>
-
-                    <!--second div-->
-
-                    <div id="seconddiv" style="display:none;">
-
-
-
-
-                    
-
-                        <section>
-                            <h1>Add a route</h1>
-                            <button class="add-field-btn" onclick="add_field()">+ Add Destination Field</button>
-                        </section>
-
-                        <form action="">
-
-                            <div class="from-to-searchbar">
-
-
-
-                                <table class="container">
-                                
-                                </table>
-                                <table class="bottom-table">
-                                    <tr>
-                                        <td>
-                                            <div class="from">
-
-                                                <div class="from-to-search-text"> <label for="fromtext">Select Bus</label>
-                                                </div>
-                                                <div class="options">
-                                                    <select name="" id="select-bus-id" onclick="displayBusID(event)">
-                                                        <option>None</option>
-                                                    </select>
-                                                </div>
-
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-
-
-
-
-
-                            </div>
-
-
-
-                            
-
-
-
-                            <input type="submit" onclick="addRoute(event)" style="margin-left: 4%;" value="+ Add route">
-
-
-                        </form>
-
-
-
-
-
-                        <form action="">
-                            <h1>Search a route</h1>
-                            <div class="search">
-
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <div class="from">
-
-                                                <div class="from-to-search-text"> <label for="fromtext">From</label>
-                                                </div>
-                                                <div class="options">
-                                                    <select name="" id="select-destination-id-from" onclick="displayDestinationsfrom(event)">
-                                                        <option>None</option>
-                                                    </select>
-                                                </div>
-
-                                            </div>
-                                        </td>
-
-                                        <td>
-                                            <div class="to">
-
-                                                <div class="from-to-search-text"> <label for="tottext"> TO </label>
-                                                </div>
-                                                <div class="options">
-                                                    <select name="" id="select-destination-id-to" onclick="displayDestinationsto(event)">
-                                                        <option>None</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-
-
-                                
-
-                                <div class="searchbar">
-
-
-                                    <button class="search-route"> <img class="confirm-cancel-icon"
-                                            src="./public/icons8-search.svg" alt=""> Search</button>
-
-
-                                </div>
-
-
-                            </div>
-
-                        </form>
-
-                        <section>
-                            
-                            <button class="edit-route" onclick="add_field()">+ Add Destination Field</button>
-                        </section>
-
-                        <form action="">
-
-                            <div class="from-to-searchbar">
-
-
-
-                                <table class="container">
-                                
-                                </table>
-                                <table class="bottom-table">
-                                    <tr>
-                                        <td>
-                                            <div class="from">
-
-                                                <div class="from-to-search-text"> <label for="fromtext">Select Bus</label>
-                                                </div>
-                                                <div class="options">
-                                                    <select name="" id="select-bus-id" onclick="displayBusID(event)">
-                                                        <option>None</option>
-                                                    </select>
-                                                </div>
-
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-
-
-
-
-
-                            </div>
-
-
-
-                            
-
-
-
-                            <input type="submit" onclick="addRoute(event)" style="margin-left: 4%;" value="+ Add route">
-
-
-                        </form>
-                        
-
-
-                    </div>
-
-                    <!--third div-->
-
-                    <div id="thirddiv" style="display:none;">
-                        <form>
-                            <h1>Add a bus</h1>
-
-                            <input type="text" id="bus-number" name="number" placeholder="Bus Number">
-
-
-                            <input type="number" id="bus-seats" name="seats" placeholder="Total seats">
-
-
-                            <input type="text" id="bus-name" name="name" placeholder="Bus Name"><br>
-
-
-                            <input type="submit" value="+ Add Bus" onclick="addBus(event)">
-
-                            <h1>Search/edit a bus</h1>
-
-                            <input type="text"
-                                id = "bus-search-name"Bus-number-search" 
-                                placeholder="Enter bus number">
-
-
-
-                        </form>
-                        <button class="bus-btn" onclick="on2(event)"> <img class="confirm-cancel-icon"
-                                src="./public/icons8-search.svg" alt=""> Search</button>
-                    </div>
-
-                    <!--fourth div-->
-
-                    <div id="fourthdiv" style="display:none;">
-                        <input type = "text" id = "report-route-id" placeholder="Enter route id"/>
-                        <button onclick="getReportById(event)" class="generate-report">Search</button>
-                        
-                        <canvas id="myChart" style="width:100%;max-width:1300px;margin-left:30px;">
-                            
-                        </canvas>
-                        <script>
-                         var xValues = new Array(31);
-                        var yValues = new Array(31);
-                        var barColors = new Array(31);
-                        for(let i = 0;i<31;i++){
-                            xValues[i] = i+1;
-                            yValues[i] = 0;
-                        }
-                        var positiveColor = 'rgba(54, 162, 235, 0.2)';
-                        var negativeColor = 'rgba(255, 99, 132, 0.2)';
-                    
-                        function getReportById(event){
-                            event.preventDefault();
-                            const id = $("#report-route-id").val();
-                            if(id == "") return alert("Please provide a valid route id");
-                            $.get("http://localhost:8080/api/v1/route/getReport/" + id,function(data){
-                                console.log(data);
-                                for(var i = 0;i<data.length;i++){
-                                    var date = data[i].date;
-                                    var index = parseInt(date.split(':')[0]);
-                                    var diff = data[i].total_seats - data[i].overall_bookings;
-                                    console.log(index,diff);
-                                    if(diff > 0 ){
-                                        //Underused
-                                        yValues[index] = diff;
-                                        barColors[index] = negativeColor;
-                                    }
-                                    else{
-                                        //overused
-                                        yValues[index] = -diff;
-                                        barColors[index] = positiveColor;
-                                    }
+                                    document.querySelector(".search-overlay").style.display="block";
                                 }
-                                console.log(yValues);
-                                new Chart("myChart", {
-                                    type: "bar",
-                                    data: {
-                                    labels: xValues,
-                                    datasets: [{
-                                        backgroundColor: barColors,
-                                        data: yValues
-                                    }]
-                                    },
-                                    options: {
-                                    legend: {display: false},
-                                    title: {
-                                        display: true,
-                                        text: "Usage report for month of march"
-                                    }
-                                    }
-                                });
-                            }).fail(function(){
-                                return alert("Server error! Please try again!")
-                            })
-                    
-                        }
-                       
+                            </script>
+                        </div>
                         
-                          </script>
-                          <div>
-                          <button class="user-status">User Status</button>
-                          <button class="route-status">Route Status</button>
-                          </div>
-                    </div>
-
-                    <!--fifth div-->
-
-                    <div id="fifthdiv" style="display:none;">
-                        <form>
-                            <h1>Add a destination</h1>
+                        <!--second div-->
+                        
+                        <div id="seconddiv" style="display:none;">
                             
-                            <input type="text" id="dest-name" name="name" placeholder="Enter destination name">
-
-                            <input type="number" id="dest-latitude-input" name="latitude" min="-90" max="90" step="any" placeholder="Enter latitude">
-
-
-                            <input type="number" id="dest-longitude-input" name="longitude" min="-180" max="180" step="any" placeholder="Enter longitude"><br>
-
-
-                            <input type="submit" 
-                            onclick="addDestination(event)"
-                            value="+ Add Destination">
-
-                            <h1>Search/Edit destination</h1>
-
-                            <input type="text"
-                                id = "dest-search-name"
-                                placeholder="Enter destination name">
-                        </form>
-                        <button class="search-destination" onclick="on3(event)"> <img class="confirm-cancel-icon"
-                                src="./public/icons8-search.svg" alt=""> Search</button>
+                            
+                            
+                            
+                            
+                            
+                            <section>
+                                <h1>Add a route</h1>
+                                <button class="add-field-btn" onclick="add_field()">+ Add Destination Field</button>
+                            </section>
+                            
+                            <form action="">
+                                
+                                <div class="from-to-searchbar">
+                                    
+                                    
+                                    
+                                    <table class="container">
+                                        
+                                    </table>
+                                    <table class="bottom-table">
+                                        <tr>
+                                            <td>
+                                                <div class="from">
+                                                    
+                                                    <div class="from-to-search-text"> <label for="fromtext">Select Bus</label>
+                                                    </div>
+                                                    <div class="options">
+                                                        <select name="" id="select-bus-id" onclick="displayBusID(event)">
+                                                            <option>None</option>
+                                                        </select>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                </div>
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                <input type="submit" onclick="addRoute(event)" style="margin-left: 4%;" value="+ Add route">
+                                
+                                
+                            </form>
+                            
+                            
+                            
+                            
+                            
+                            <form action="">
+                                <h1>Search a route</h1>
+                                <div class="search">
+                                    
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <div class="from">
+                                                    
+                                                    <div class="from-to-search-text"> <label for="fromtext">From</label>
+                                                    </div>
+                                                    <div class="options">
+                                                        <select name="" id="select-destination-id-from" onclick="displayDestinationsfrom(event)">
+                                                            <option>None</option>
+                                                        </select>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </td>
+                                            
+                                            <td>
+                                                <div class="to">
+                                                    
+                                                    <div class="from-to-search-text"> <label for="tottext"> TO </label>
+                                                    </div>
+                                                    <div class="options">
+                                                        <select name="" id="select-destination-id-to" onclick="displayDestinationsto(event)">
+                                                            <option>None</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                                    
+                                    
+                                    
+                                    <div class="searchbar">
+                                        
+                                        
+                                        <button class="search-route"> <img class="confirm-cancel-icon"
+                                            src="./public/icons8-search.svg" alt=""> Search</button>
+                                            
+                                            
+                                        </div>
+                                        
+                                        
+                                    </div>
+                                    
+                                </form>
+                                
+                                <section>
+                                    
+                                    <button class="edit-route" onclick="add_field()">+ Add Destination Field</button>
+                                </section>
+                                
+                                <form action="">
+                                    
+                                    <div class="from-to-searchbar">
+                                        
+                                        
+                                        
+                                        <table class="container">
+                                            
+                                        </table>
+                                        <table class="bottom-table">
+                                            <tr>
+                                                <td>
+                                                    <div class="from">
+                                                        
+                                                        <div class="from-to-search-text"> <label for="fromtext">Select Bus</label>
+                                                        </div>
+                                                        <div class="options">
+                                                            <select name="" id="select-bus-id" onclick="displayBusID(event)">
+                                                                <option>None</option>
+                                                            </select>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        
+                                        
+                                        
+                                        
+                                        
+                                    </div>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    <input type="submit" onclick="addRoute(event)" style="margin-left: 4%;" value="+ Add route">
+                                    
+                                    
+                                </form>
+                                
+                                
+                                
+                            </div>
+                            
+                            <!--third div-->
+                            
+                            <div id="thirddiv" style="display:none;">
+                                <form>
+                                    <h1>Add a bus</h1>
+                                    
+                                    <input type="text" id="bus-number" name="number" placeholder="Bus Number">
+                                    
+                                    
+                                    <input type="number" id="bus-seats" name="seats" placeholder="Total seats">
+                                    
+                                    
+                                    <input type="text" id="bus-name" name="name" placeholder="Bus Name"><br>
+                                    
+                                    
+                                    <input type="submit" value="+ Add Bus" onclick="addBus(event)">
+                                    
+                                    <h1>Search/edit a bus</h1>
+                                    
+                                    <input type="text"
+                                    id = "bus-search-name"Bus-number-search" 
+                                    placeholder="Enter bus number">
+                                    
+                                    
+                                    
+                                </form>
+                                <button class="bus-btn" onclick="on2(event)"> <img class="confirm-cancel-icon"
+                                    src="./public/icons8-search.svg" alt=""> Search</button>
+                                </div>
+                                
+                                <!--fourth div-->
+                                
+                                <div id="fourthdiv" style="display:none;">
+                                    <input type = "text" id = "report-route-id" placeholder="Enter route id"/>
+                                    <button onclick="getReportById(event)" class="generate-report">Search</button>
+                                    
+                                    <canvas id="myChart" style="width:100%;max-width:1300px;margin-left:30px;">
+                                        
+                                    </canvas>
+                                    <script>
+                                        var xValues = new Array(31);
+                                        var yValues = new Array(31);
+                                        var barColors = new Array(31);
+                                        for(let i = 0;i<31;i++){
+                                            xValues[i] = i+1;
+                                            yValues[i] = 0;
+                                        }
+                                        var positiveColor = 'rgba(54, 162, 235, 0.2)';
+                                        var negativeColor = 'rgba(255, 99, 132, 0.2)';
+                                        
+                                        function getReportById(event){
+                                            event.preventDefault();
+                                            const id = $("#report-route-id").val();
+                                            if(id == "") return alert("Please provide a valid route id");
+                                            $.get("http://localhost:8080/api/v1/route/getReport/" + id,function(data){
+                                                console.log(data);
+                                                for(var i = 0;i<data.length;i++){
+                                                    var date = data[i].date;
+                                                    var index = parseInt(date.split(':')[0]);
+                                                    var diff = data[i].total_seats - data[i].overall_bookings;
+                                                    console.log(index,diff);
+                                                    if(diff > 0 ){
+                                                        //Underused
+                                                        yValues[index] = diff;
+                                                        barColors[index] = negativeColor;
+                                                    }
+                                                    else{
+                                                        //overused
+                                                        yValues[index] = -diff;
+                                                        barColors[index] = positiveColor;
+                                                    }
+                                                }
+                                                console.log(yValues);
+                                                new Chart("myChart", {
+                                                    type: "bar",
+                                                    data: {
+                                                        labels: xValues,
+                                                        datasets: [{
+                                                            backgroundColor: barColors,
+                                                            data: yValues
+                                                        }]
+                                                    },
+                                                    options: {
+                                                        legend: {display: false},
+                                                        title: {
+                                                            display: true,
+                                                            text: "Usage report for month of march"
+                                                        }
+                                                    }
+                                                });
+                                            }).fail(function(){
+                                                return alert("Server error! Please try again!")
+                                            })
+                                            
+                                        }
+                                        
+                                        
+                                    </script>
+                                    <div>
+                                        <button class="user-status">User Status</button>
+                                        <button class="route-status">Route Status</button>
+                                    </div>
+                                </div>
+                                
+                                <!--fifth div-->
+                                
+                                <div id="fifthdiv" style="display:none;">
+                                    <form>
+                                        <h1>Add a destination</h1>
+                                        
+                                        <input type="text" id="dest-name" name="name" placeholder="Enter destination name">
+                                        
+                                        <input type="number" id="dest-latitude-input" name="latitude" min="-90" max="90" step="any" placeholder="Enter latitude">
+                                        
+                                        
+                                        <input type="number" id="dest-longitude-input" name="longitude" min="-180" max="180" step="any" placeholder="Enter longitude"><br>
+                                        
+                                        
+                                        <input type="submit" 
+                                        onclick="addDestination(event)"
+                                        value="+ Add Destination">
+                                        
+                                        <h1>Search/Edit destination</h1>
+                                        
+                                        <input type="text"
+                                        id = "dest-search-name"
+                                        placeholder="Enter destination name">
+                                    </form>
+                                    <button class="search-destination" onclick="on3(event)"> <img class="confirm-cancel-icon"
+                                        src="./public/icons8-search.svg" alt=""> Search</button>
+                                    </div>
+                                    
+                                    <!--sixth div-->
+                                    <div id="sixthdiv" style="display:none" class="issue-tile">
+                                        <h2 class="issue-title">Issue Title</h2>
+                                        <p class="issue-user">Posted by John Doe</p>
+                                        <p class="issue-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed efficitur, lorem ac hendrerit aliquam, mauris nunc ultrices mauris, a tristique mauris nisi ut sapien. Sed ullamcorper nulla sed mi luctus congue. Nullam vel justo euismod, feugiat augue non, dapibus urna. Nam sit amet ligula ac risus bibendum iaculis. Suspendisse vehicula dui sed augue ultrices maximus. Praesent vel nunc lorem. Duis vulputate auctor massa at accumsan.</p>
+                                        <button class="resolve-button">Resolve</button>
+                                    </div>
+                                    
+                                    <!--seventh div-->
+                                    <div id="seventhdiv" style="display:none">
+                                        <form action="" method="get">
+                                            <h1>Search Tickets</h1>
+                                            <input type="text" id="search-tickets" placeholder="Enter Employee's Name">
+                                            <button id="search-ticket-button">Search</button>
+                                        </form>
+                                        
+                                        <div class="content">
+                                            
+                                            <div class="content-element">
+                                                
+                                                <div class="content-element-main">
+                                                    
+                                                    <!-- Bus Name & Number  -->
+                                                    <div class="content-element-main-divs">
+                                                        <div class="bus-name-div"> 
+                                                            <div class="bus-icon"><img  src="./public/vector4.svg" alt=""> </div>
+                                                            <div class="bus-name-text">NR-01 </div> 
+                                                        </div>
+                                                        <div class="bus-no">WB-94-3235</div>
+                                                        
+                                                    </div>
+                                                    
+                                                    <!-- Pickup Location & Time -->
+                                                    
+                                                    <div class="content-element-main-divs pickup-drop">
+                                                        <div class="pickup-div"> 
+                                                            <div class="location-icon">
+                                                                <img class="location-icon-img" src="./public/placeholder-14@2x.png" alt=""> 
+                                                            </div>
+                                                            <div class="pickup-text" >Pickup </div> 
+                                                        </div>
+                                                        <div  class="pickup-location-text">NRI Fintech</div>
+                                                        <div class="pickup-time-text">9:00 AM</div>
+                                                        
+                                                    </div>
+                                                    
+                                                    <!-- Drop Location & Time -->
+                                                    
+                                                    <div class="content-element-main-divs pickup-drop"> 
+                                                        <div class="drop-div" > 
+                                                            <div class="location-icon">
+                                                                <img class="drop-icon-img" src="./public/placeholder-14@2x.png" alt=""> 
+                                                            </div>
+                                                            <div class="drop-location">Drop </div> 
+                                                        </div>
+                                                        <div class="drop-location-text">Ultodanga</div>
+                                                        <div class="drop-time-text">12:00 AM</div>
+                                                        
+                                                    </div>
+                                                    
+                                                    <!-- Seats Left -->
+                                                    
+                                                    <div class="content-element-main-divs seats-left"> 
+                                                        
+                                                        <div class="status-div"> 
+                                                            <div class="status-text" > Status </div> 
+                                                        </div>
+                                                        <div class="expired-text" >  
+                                                            Expired 
+                                                        </div>
+                                                        
+                                                    </div> 
+                                                    
+                                                    <!-- See Route ,Book -->
+                                                    
+                                                    <div class="content-element-main-divs">
+                                                        
+                                                        
+                                                        <div  class="see-route-div" onclick="onroute()"> 
+                                                            <div class="route-icon"><img  src="./public/route-icon.svg" alt=""> </div>
+                                                            <div class="see-route-text">See Route </div> 
+                                                        </div>
+                                                        
+                                                        <div class="date-info" >  Date: 21-02-23 </div>
+                                                        
+                                                    </div>
+                                                    
+                                                </div>
+                                                
+                                                
+                                                
+                                                
+                                            </div> 
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                                
+                                
+                            </div>
+                            
+                            
+                            
+                        </div>
+                        
+                        <!-- Footer -->
+                        <div class="footer">
+                            
+                            <div class="footer-element">
+                                NRI includes a copyright notice that reserves all rights for itself,
+                                and has protected material from 1995 to 2021:
+                            </div>
+                            <div class="footer-element-smallerscreen">
+                                All rights reserved by NRI
+                            </div>
+                        </div>
+                        
                     </div>
-
-                </div>
-
-
-            </div>
-
-
-
-        </div>
-
-        <!-- Footer -->
-        <div class="footer">
-
-            <div class="footer-element">
-                NRI includes a copyright notice that reserves all rights for itself,
-                and has protected material from 1995 to 2021:
-            </div>
-            <div class="footer-element-smallerscreen">
-                All rights reserved by NRI
-            </div>
-        </div>
-
-    </div>
-
-    <!-- 
-        *****   OverLays   ****** 
-    -->
-
-    <!-- Employee Search Overlay -->
-
-    <div class="search-overlay" >
-        <div class="search-div">
-
-            <div class="search-overlay-main-div">
-                <div class = "close-button" onclick="off()"></div>
-                <div class="cancel-text">
-                    <form style="text-align: left;margin: auto;">
-                        <label for="employee-name">Name: </label>
-                        <input type="text" id="employee-name" name="name" placeholder="Name"><br>
-
-                        <label for="employee-email">Email ID: </label>
-                        <input type="text" id="employee-email" name="email" placeholder="Email"><br>
-
-                        <label for="employee-password">Password:</label>
-                        <input type="text" id = "employee-password" name="employee-password" placeholder="Update password"><br>
-
-                        <label for="employee-id">Emp ID: </label>
-                        <input type="text" id = "employee-id" placeholder="Employee ID"><br>
-
-                        <input type = "text" id = "emp-inp-id" style = "display: none;">
-                    </form>
-                </div>
-                <div class="confirm-cancel-buttons">
-                    <button class="confirm-button" onclick="updateEmployee(event)"> <img class="confirm-cancel-icon" src="./public/arrow-right-circle-fill.svg"
-                            alt=""> Save</button>
-                    <button class="cancel-button"  onclick = "deleteEmployee(event)">Delete</button>
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-
-    <!-- Employee Search Overlay Ends Here-->
-
-    <!-- Bus Search Overlay -->
-
-    <div class="bus-overlay">
-        <div class="search-div">
-
-            <div class="search-overlay-main-div">
-                <div class = "close-button" onclick="off2()"></div>
-                <div class="cancel-text">
-                    <form style="text-align: left;margin: auto;">
-                        <label for="bus-number-o">No:</label>
-                        <input type="text" id="bus-number-o" name="number" placeholder="Bus Number">
-
-                        <label for="bus-name-o">Name:</label>
-                        <input type="text" id="bus-name-o" name="name" placeholder="Bus Name">
-
-                        <label for="bus-seats-o">Seats:</label>
-                        <input type="text" id="bus-seats-o" name="seats" placeholder="Total Seats">
-                        <input type = "text" id="bus-id-o" style = "display: none;"/>
-
-                    </form>
-                </div>
-                <div class="confirm-cancel-buttons">
-                    <button class="confirm-button" onclick="updateBus(event)"> <img class="search-cancel-icon" src="./public/arrow-right-circle-fill.svg"
-                            alt=""> Save</button>
-                    <button class="cancel-button" onclick="deleteBus(event)">Delete</button>
-                </div>
-
-            </div>
-
-        </div>
-        
-    </div>
-
-    <!-- Bus Search Overlay Ends Here-->
-
-    <!-- Destination Search Overlay -->
-
-    <div class="destination-overlay" >
-        <div class="search-div">
-            
-            <div class="search-overlay-main-div">
-                <div class = "close-button" onclick="off3()"></div>
-                <div class="cancel-text">
                     
-                    <form style="text-align: left;margin: auto;">
-                        <label for="dest-edit-name">Name: </label>
-                        <input type="text" id="dest-edit-name" name="name" placeholder="Destination Name">
-
-                        <label for="dest-edit-latitude-input">Latitude: </label>
-                        <input type="number" id="dest-edit-latitude-input" name="latitude" min="-90" max="90" step="any" placeholder="Enter latitude">
-
-                        <label for="dest-edit-longitude-input">Longitude: </label>
-                        <input type="number" id="dest-edit-longitude-input" name="longitude" min="-180" max="180" step="any" placeholder="Enter longitude"><br>
-                        <input type = "number" id = "dest-edit-id" name = "id" style = "display: none;"></input>
-                    </form>
-                </div>
-                <div class="confirm-cancel-buttons">
-                    <button class="confirm-button" onclick="updateDestination(event)"> <img class="search-cancel-icon" src="./public/arrow-right-circle-fill.svg"
-                            alt="" > Save</button>
-                    <button class="cancel-button" onclick="deleteDestination(event)">Delete</button>
-                </div>
-
-            </div>
-           
-        </div>
-    </div>
-
-    <!-- Destination Search Overlay Ends Here-->
-
-    <!--Overlay ends here-->
-
-
-    <script src="./admin_homepage.js">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-</body>
-
-</html>
+                    <!-- 
+                        *****   OverLays   ****** 
+                    -->
+                    
+                    <!-- Employee Search Overlay -->
+                    
+                    <div class="search-overlay" >
+                        <div class="search-div">
+                            
+                            <div class="search-overlay-main-div">
+                                <div class = "close-button" onclick="off()"></div>
+                                <div class="cancel-text">
+                                    <form style="text-align: left;margin: auto;">
+                                        <label for="employee-name">Name: </label>
+                                        <input type="text" id="employee-name" name="name" placeholder="Name"><br>
+                                        
+                                        <label for="employee-email">Email ID: </label>
+                                        <input type="text" id="employee-email" name="email" placeholder="Email"><br>
+                                        
+                                        <label for="employee-password">Password:</label>
+                                        <input type="text" id = "employee-password" name="employee-password" placeholder="Update password"><br>
+                                        
+                                        <label for="employee-id">Emp ID: </label>
+                                        <input type="text" id = "employee-id" placeholder="Employee ID"><br>
+                                        
+                                        <input type = "text" id = "emp-inp-id" style = "display: none;">
+                                    </form>
+                                </div>
+                                <div class="confirm-cancel-buttons">
+                                    <button class="confirm-button" onclick="updateEmployee(event)"> <img class="confirm-cancel-icon" src="./public/arrow-right-circle-fill.svg"
+                                        alt=""> Save</button>
+                                        <button class="cancel-button"  onclick = "deleteEmployee(event)">Delete</button>
+                                    </div>
+                                    
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                        <!-- Employee Search Overlay Ends Here-->
+                        
+                        <!-- Bus Search Overlay -->
+                        
+                        <div class="bus-overlay">
+                            <div class="search-div">
+                                
+                                <div class="search-overlay-main-div">
+                                    <div class = "close-button" onclick="off2()"></div>
+                                    <div class="cancel-text">
+                                        <form style="text-align: left;margin: auto;">
+                                            <label for="bus-number-o">No:</label>
+                                            <input type="text" id="bus-number-o" name="number" placeholder="Bus Number">
+                                            
+                                            <label for="bus-name-o">Name:</label>
+                                            <input type="text" id="bus-name-o" name="name" placeholder="Bus Name">
+                                            
+                                            <label for="bus-seats-o">Seats:</label>
+                                            <input type="text" id="bus-seats-o" name="seats" placeholder="Total Seats">
+                                            <input type = "text" id="bus-id-o" style = "display: none;"/>
+                                            
+                                        </form>
+                                    </div>
+                                    <div class="confirm-cancel-buttons">
+                                        <button class="confirm-button" onclick="updateBus(event)"> <img class="search-cancel-icon" src="./public/arrow-right-circle-fill.svg"
+                                            alt=""> Save</button>
+                                            <button class="cancel-button" onclick="deleteBus(event)">Delete</button>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                                
+                            </div>
+                            
+                            <!-- Bus Search Overlay Ends Here-->
+                            
+                            <!-- Destination Search Overlay -->
+                            
+                            <div class="destination-overlay" >
+                                <div class="search-div">
+                                    
+                                    <div class="search-overlay-main-div">
+                                        <div class = "close-button" onclick="off3()"></div>
+                                        <div class="cancel-text">
+                                            
+                                            <form style="text-align: left;margin: auto;">
+                                                <label for="dest-edit-name">Name: </label>
+                                                <input type="text" id="dest-edit-name" name="name" placeholder="Destination Name">
+                                                
+                                                <label for="dest-edit-latitude-input">Latitude: </label>
+                                                <input type="number" id="dest-edit-latitude-input" name="latitude" min="-90" max="90" step="any" placeholder="Enter latitude">
+                                                
+                                                <label for="dest-edit-longitude-input">Longitude: </label>
+                                                <input type="number" id="dest-edit-longitude-input" name="longitude" min="-180" max="180" step="any" placeholder="Enter longitude"><br>
+                                                <input type = "number" id = "dest-edit-id" name = "id" style = "display: none;"></input>
+                                            </form>
+                                        </div>
+                                        <div class="confirm-cancel-buttons">
+                                            <button class="confirm-button" onclick="updateDestination(event)"> <img class="search-cancel-icon" src="./public/arrow-right-circle-fill.svg"
+                                                alt="" > Save</button>
+                                                <button class="cancel-button" onclick="deleteDestination(event)">Delete</button>
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                
+                                <!-- Destination Search Overlay Ends Here-->
+                                
+                                <!--Overlay ends here-->
+                                
+                                
+                                <script src="./admin_homepage.js" defer>
+                                </script>
+                                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                            </body>
+                            
+                            </html>
