@@ -2435,6 +2435,67 @@ a {
     bottom: 0
 }
 
+.issue-tile {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .issue-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  
+  .issue-user {
+    font-size: 16px;
+    font-style: italic;
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  
+  .issue-text {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  
+  .resolve-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .resolve-button[disabled] {
+    background-color: #6c757d;
+    cursor: not-allowed;
+  }
+
+  #search-ticket-button{
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: 0.035em;
+    text-align: right;
+    cursor: pointer;
+    background-color: #082032;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    /* margin-left: 8%; */
+  }
 
 
 /* Media Queries */

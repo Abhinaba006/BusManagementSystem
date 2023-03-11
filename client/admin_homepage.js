@@ -18,69 +18,124 @@ function openSidebar() {
 
 
   function firstdiv(){
-	document.getElementById("firstdiv").style.display = "block";
-	document.getElementById("seconddiv").style.display = "none";
-	document.getElementById("thirddiv").style.display = "none";
-	document.getElementById("fourthdiv").style.display = "none";
-	document.getElementById("fifthdiv").style.display = "none";
-	document.getElementById("text1").style.color="red";
-	document.getElementById("text2").style.color="black";
-	document.getElementById("text3").style.color="black";
-	document.getElementById("text4").style.color="black";
-	document.getElementById("text5").style.color="black";
-  }
+    document.getElementById("firstdiv").style.display = "block";
+    document.getElementById("seconddiv").style.display = "none";
+    document.getElementById("thirddiv").style.display = "none";
+    document.getElementById("fourthdiv").style.display = "none";
+    document.getElementById("fifthdiv").style.display = "none";
+    document.getElementById("sixthdiv").style.display = "none";
+    document.getElementById("seventhdiv").style.display = "none";
+    document.getElementById("text1").style.color="red";
+    document.getElementById("text2").style.color="black";
+    document.getElementById("text3").style.color="black";
+    document.getElementById("text4").style.color="black";
+    document.getElementById("text5").style.color="black";
+    document.getElementById("text6").style.color="black";
+    document.getElementById("text7").style.color="black";
+}
 
-  function seconddiv(){
-	document.getElementById("firstdiv").style.display = "none";
-	document.getElementById("seconddiv").style.display = "block";
-	document.getElementById("thirddiv").style.display = "none";
-	document.getElementById("fourthdiv").style.display = "none";
-	document.getElementById("fifthdiv").style.display = "none";
-	document.getElementById("text1").style.color="black";
-	document.getElementById("text2").style.color="red";
-	document.getElementById("text3").style.color="black";
-	document.getElementById("text4").style.color="black";
-	document.getElementById("text5").style.color="black";
-  }
+function seconddiv(){
+    document.getElementById("firstdiv").style.display = "none";
+    document.getElementById("seconddiv").style.display = "block";
+    document.getElementById("thirddiv").style.display = "none";
+    document.getElementById("fourthdiv").style.display = "none";
+    document.getElementById("fifthdiv").style.display = "none";
+    document.getElementById("sixthdiv").style.display = "none";
+    document.getElementById("seventhdiv").style.display = "none";
+    document.getElementById("text1").style.color="black";
+    document.getElementById("text2").style.color="red";
+    document.getElementById("text3").style.color="black";
+    document.getElementById("text4").style.color="black";
+    document.getElementById("text5").style.color="black";
+    document.getElementById("text6").style.color="black";
+    document.getElementById("text7").style.color="black";
+}
 
-  function thirddiv(){
-	document.getElementById("firstdiv").style.display = "none";
-	document.getElementById("seconddiv").style.display = "none";
-	document.getElementById("thirddiv").style.display = "block";
-	document.getElementById("fourthdiv").style.display = "none";
-	document.getElementById("fifthdiv").style.display = "none";
-	document.getElementById("text1").style.color="black";
-	document.getElementById("text2").style.color="black";
-	document.getElementById("text3").style.color="red";
-	document.getElementById("text4").style.color="black";
-	document.getElementById("text5").style.color="black";
-  }
+function thirddiv(){
+    document.getElementById("firstdiv").style.display = "none";
+    document.getElementById("seconddiv").style.display = "none";
+    document.getElementById("thirddiv").style.display = "block";
+    document.getElementById("fourthdiv").style.display = "none";
+    document.getElementById("fifthdiv").style.display = "none";
+    document.getElementById("sixthdiv").style.display = "none";
+    document.getElementById("seventhdiv").style.display = "none";
+    document.getElementById("text1").style.color="black";
+    document.getElementById("text2").style.color="black";
+    document.getElementById("text3").style.color="red";
+    document.getElementById("text4").style.color="black";
+    document.getElementById("text5").style.color="black";
+    document.getElementById("text6").style.color="black";
+    document.getElementById("text7").style.color="black";
+}
 
-  function fourthdiv(){
-	document.getElementById("firstdiv").style.display = "none";
-	document.getElementById("seconddiv").style.display = "none";
-	document.getElementById("thirddiv").style.display = "none";
-	document.getElementById("fourthdiv").style.display = "block";
-	document.getElementById("fifthdiv").style.display = "none";
-	document.getElementById("text1").style.color="black";
-	document.getElementById("text2").style.color="black";
-	document.getElementById("text3").style.color="black";
-	document.getElementById("text4").style.color="red";
-	document.getElementById("text5").style.color="black";
-  }
+function fourthdiv(){
+    document.getElementById("firstdiv").style.display = "none";
+    document.getElementById("seconddiv").style.display = "none";
+    document.getElementById("thirddiv").style.display = "none";
+    document.getElementById("fourthdiv").style.display = "block";
+    document.getElementById("fifthdiv").style.display = "none";
+    document.getElementById("sixthdiv").style.display = "none";
+    document.getElementById("seventhdiv").style.display = "none";
+    document.getElementById("text1").style.color="black";
+    document.getElementById("text2").style.color="black";
+    document.getElementById("text3").style.color="black";
+    document.getElementById("text4").style.color="red";
+    document.getElementById("text5").style.color="black";
+    document.getElementById("text6").style.color="black";
+    document.getElementById("text7").style.color="black";
+}
 
-  function fifthdiv(){
-	document.getElementById("firstdiv").style.display = "none";
-	document.getElementById("seconddiv").style.display = "none";
-	document.getElementById("thirddiv").style.display = "none";
-	document.getElementById("fourthdiv").style.display = "none";
-	document.getElementById("fifthdiv").style.display = "block";
-	document.getElementById("text1").style.color="black";
-	document.getElementById("text2").style.color="black";
-	document.getElementById("text3").style.color="black";
-	document.getElementById("text4").style.color="black";
-	document.getElementById("text5").style.color="red";
-  }
+function fifthdiv(){
+    document.getElementById("firstdiv").style.display = "none";
+    document.getElementById("seconddiv").style.display = "none";
+    document.getElementById("thirddiv").style.display = "none";
+    document.getElementById("fourthdiv").style.display = "none";
+    document.getElementById("fifthdiv").style.display = "block";
+    document.getElementById("sixthdiv").style.display = "none";
+    document.getElementById("seventhdiv").style.display = "none";
+    document.getElementById("text1").style.color="black";
+    document.getElementById("text2").style.color="black";
+    document.getElementById("text3").style.color="black";
+    document.getElementById("text4").style.color="black";
+    document.getElementById("text5").style.color="red";
+    document.getElementById("text6").style.color="black";
+    document.getElementById("text7").style.color="black";
+}
+
+function sixthdiv(){
+    document.getElementById("firstdiv").style.display = "none";
+    document.getElementById("seconddiv").style.display = "none";
+    document.getElementById("thirddiv").style.display = "none";
+    document.getElementById("fourthdiv").style.display = "none";
+    document.getElementById("fifthdiv").style.display = "none";
+    document.getElementById("sixthdiv").style.display = "block";
+    document.getElementById("seventhdiv").style.display = "none";
+    document.getElementById("text1").style.color="black";
+    document.getElementById("text2").style.color="black";
+    document.getElementById("text3").style.color="black";
+    document.getElementById("text4").style.color="black";
+    document.getElementById("text5").style.color="black";
+    document.getElementById("text6").style.color="red";
+    document.getElementById("text7").style.color="black";
+}
+
+function seventhdiv(){
+    document.getElementById("firstdiv").style.display = "none";
+    document.getElementById("seconddiv").style.display = "none";
+    document.getElementById("thirddiv").style.display = "none";
+    document.getElementById("fourthdiv").style.display = "none";
+    document.getElementById("fifthdiv").style.display = "none";
+    document.getElementById("sixthdiv").style.display = "none";
+    document.getElementById("seventhdiv").style.display = "block";
+    document.getElementById("text1").style.color="black";
+    document.getElementById("text2").style.color="black";
+    document.getElementById("text3").style.color="black";
+    document.getElementById("text4").style.color="black";
+    document.getElementById("text5").style.color="black";
+    document.getElementById("text6").style.color="black";
+    document.getElementById("text7").style.color="red";
+}
+
 
 
   $(document).ready(function() {
@@ -673,11 +728,216 @@ function generateReport(reportType) {
 	});
   }
   
+  const resolveButton = document.querySelector('.resolve-button');
+
+resolveButton.addEventListener('click', () => {
+    console.log("resolve button clicked");
+    resolveButton.disabled = true;
+    resolveButton.textContent = 'Resolved';
+});
+
+
+function getUnResolvedIssues() {
+    // Change it the user that is calling
+    $.get("http://localhost:8080/api/v1/issues/unresolved", function(data) {
+        // "id": 1,
+        // "is_resolved": 0,
+        // "issue": "Ticket not getting cancelled",
+        // "user_id": 11,
+        for (var i = 0; i < data.length; i++) {
+            const id = data[i].id;
+            const is_resolved = data[i].is_resolved;
+            const issue = data[i].issue;
+            const user_id = parseInt(data[i].user_id);
+            const obj = {
+                id: "",
+                is_resolved: "",
+                issue: "",
+                user_id: "",
+            };
+            obj["id"] = id;
+            obj["is_resolved"] = is_resolved;
+            obj["issue"] = issue;
+            obj["user_id"] = user_id;
+            // Get user name by user_id
+            $.get("http://localhost:8080/api/v1/user/get/" + user_id, function(data2) {
+                obj["username"] = data2.name;
+                // Get issue divs html here
+                const issueHTML = `
+                <p class="issue-user">Posted by ${obj.username}</p>
+                <p class="issue-text">${obj.issue}</p>
+                <button class="resolve-button" data-id="${obj.id}">Resolve</button>
+                `;
+                const parentDiv = document.querySelector(".issue-tile");
+                parentDiv.innerHTML += issueHTML;
+                // Add a click event handler for the dynamically created buttons
+                $('.resolve-button').click(function() {
+                    // Get the ID value from the data-id attribute
+                    var id = $(this).data('id');
+                    // Make an AJAX call to post the data to the database
+                    $.ajax({
+                        url: '/http://localhost:8080/api/v1/issues/' + id + '/resolved',
+                        type: 'POST',
+                        data: {
+                            // Add any data you want to post to the database here
+                            id: id,
+                            // ...
+                        },
+                        success: function(response) {
+                            // Do something if the POST request is successful
+                            console.log('Data posted to database');
+                        },
+                        error: function(error) {
+                            // Do something if the POST request fails
+                            console.log(error);
+                        }
+                    });
+                });
+            }).fail(function() {
+                return alert("Server error! Please try again!")
+            });
+        }
+    }).fail(function() {
+        return alert("Something went wrong. Please try again later!");
+    });
+}
+
+
+
+// function getUnResolvedIssues()
+// {  
+// $(document).ready(function(){
+// 	//Change it the user that is calling
+// 	$.get("http://localhost:8080/api/v1/issues/unresolved",function(data){
+// 		// "id": 1,
+// 		// "is_resolved": 0,
+// 		// "issue": "Ticket not getting cancelled",
+// 		// "user_id": 11,
+// 		for(var i = 0;i<data.length;i++){
+// 		const id = data[i].id;
+// 		const is_resolved = data[i].is_resolved;
+// 		const issue = data[i].issue;
+// 		const user_id = parseInt(data[i].user_id);
+// 		const obj = {
+// 			id:"",
+// 			is_resolved:"",
+// 			issue:"",
+// 			user_id:"",
+// 		};
+// 		obj["id"] = id;
+// 		obj["is_resolved"] = is_resolved;
+// 		obj["issue"] = issue;
+// 		obj["user_id"] = user_id;
+// 		//get user name by user_id
+// 		$.get("http://localhost:8080/api/v1/user/get/" + user_id,function(data2){
+// 			obj["username"] = data2.name;
+// 			    //get issue divs html here
+// 				const issueHTML = `
+// 				<p class="issue-user">Posted by ${obj.username}</p>
+// 				<p class="issue-text">${obj.issue}</p>
+// 				<button class="resolve-button" data-id="' + ${data.id} + '">Resolve</button>
+// 							`;
+// 							const parentDiv = document.querySelector(".issue-tile");
+// 							parentDiv.innerHTML += issueHTML;
+// 			}).fail(function(){
+// 				return alert("Server error! Please try again!")
+// 			})
+	
+// 	// Add a click event handler for the dynamically created buttons
+// 	$('.resolve-button').click(function() {
+// 		// Get the ID value from the data-id attribute
+// 		var id = $(this).data('id');
+		
+// 		// Make an AJAX call to post the data to the database
+// 		$.ajax({
+// 			url: '/http://localhost:8080/api/v1/issues/'+id+'/resolved',
+// 			type: 'POST',
+// 			data: {
+// 				// Add any data you want to post to the database here
+// 				id: id,
+// 				// ...
+// 			},
+// 			success: function(response) {
+// 				// Do something if the POST request is successful
+// 				console.log('Data posted to database');
+// 			},
+// 			error: function(error) {
+// 				// Do something if the POST request fails
+// 				console.log(error);
+// 			}
+// 		});	
+		
+	
+		
+	
+// }
+// 	}).fail(function(){
+// 		return alert("Something went wrong. Please try again later!");
+// 	})
+// })
   
-  
-  
-  
-  
+
+// }
+    // function getUnResolvedIssues() {
+	// 	$.get("http://localhost:8080/api/v1/issues/unresolved",function(data){
+    //     $.ajax({
+    //         url: '/http://localhost:8080/api/v1/issues/unresolved',
+    //         type: 'GET',
+    //         dataType: 'json',
+    //         success: function(response) {
+    //             // Loop through the response data
+    //             $.each(response, function(index, data) {
+    //                 // Create an HTML string with the dynamic data
+    //                 var htmlString = '<div class="your-class" id="your-id-' + index + '">' +
+    //                     '<span>' + data.id + '</span>' +
+    //                     '<button class="your-button" data-id="' + data.issue + '">Click Me</button>' +
+    //                     '</div>';
+    //                 console(htmlString);
+    //                 // Append the HTML string to the container
+    //                 $('#container').append(htmlString);
+    //             });
+                
+    //             // Add a click event handler for the dynamically created buttons
+    //             $('.your-button').click(function() {
+    //                 // Get the ID value from the data-id attribute
+    //                 var id = $(this).data('id');
+                    
+    //                 // Make an AJAX call to post the data to the database
+    //                 $.ajax({
+    //                     url: '/your-post-endpoint-url',
+    //                     type: 'POST',
+    //                     data: {
+    //                         // Add any data you want to post to the database here
+    //                         id: id,
+    //                         // ...
+    //                     },
+    //                     success: function(response) {
+    //                         // Do something if the POST request is successful
+    //                         console.log('Data posted to database');
+    //                     },
+    //                     error: function(error) {
+    //                         // Do something if the POST request fails
+    //                         console.log(error);
+    //                     }
+    //                 });
+    //             });
+    //         },
+    //         error: function(error) {
+    //             console.log(error);
+    //         }
+    //     });
+    // }
+    
+    // // Add a click event handler for the link
+    // $('#your-link-id').click(function(event) {
+    //     event.preventDefault(); // Prevent the default link behavior
+        
+    //     // Call the function to make the AJAX call and append the data to the container
+    //     getDataAndAppend();
+    // });
+
+
+
 
   //--------------------------------------------------------------------------//
  

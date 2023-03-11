@@ -64,6 +64,9 @@
                     <a href="#" class="bar-item button" onclick="thirddiv()" id="text3">Bus</a>
                     <a href="#" class="bar-item button" onclick="fourthdiv()" id="text4">Report</a>
                     <a href="#" class="bar-item button" onclick="fifthdiv()" id="text5">Destination</a>
+                    <a href="#" class="bar-item button" onclick="sixthdiv(); getUnResolvedIssues();" id="text6">Issues</a>
+                    <a href="#" class="bar-item button" onclick="seventhdiv()" id="text7">Tickets</a>
+
                 </div>
 
                 <div class="main" style="margin-left:200px;">
@@ -608,6 +611,19 @@
                         <button class="search-destination" onclick="on3(event)"> <img class="confirm-cancel-icon"
                                 src="./public/icons8-search.svg" alt=""> Search</button>
                     </div>
+
+                    <!--sixth div-->
+                    <div id="sixthdiv" style="display:none" class="issue-tile">
+                        
+                    </div>
+                    
+                    <!--seventh div-->
+                    <div id="seventhdiv" style="display:none">
+                        <form action="" method="get">
+                            <h1>Search Tickets</h1>
+                            <input type="text" id="search-tickets" placeholder="Enter Employee's Name">
+                            <button id="search-ticket-button">Search</button>
+                        </form>
 
                 </div>
 
