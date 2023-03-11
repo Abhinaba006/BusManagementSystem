@@ -82,6 +82,7 @@ function openSidebar() {
 	document.getElementById("text5").style.color="red";
   }
 
+  
 
   $(document).ready(function() {
 	var fieldIndex = 1;
@@ -95,6 +96,8 @@ function openSidebar() {
 	});
   });
 
+  
+
 function addEmployee(event){
 	event.preventDefault();
 	const name = $("#add-employee-name").val();
@@ -103,8 +106,9 @@ function addEmployee(event){
 	const employeeId = $("#add-employee-id").val();
 
 	if(name == "" || email == "" || password == "" || employeeId == ""){
-		return alert("Please provide valide credentials for a employee");
+		return alert("Please provide valid credentials for a employee");
 	}
+	
 	$.ajax({
 		url: "http://localhost:8080/api/v1/user/create",
 		type: "POST",
@@ -137,7 +141,7 @@ function updateEmployee(event){
 	const id = $("#emp-inp-id").val();
 	console.log(name,email,empId,password,id);
 	if(name == "" || email == "" || empId == ""){
-		return alert("Please provide valide credentials for a employee");
+		return alert("Please provide valid credentials for a employee");
 	}
 	const newObj = {
 		name:name,
@@ -436,6 +440,52 @@ function displayBusID(event){
 		var optionElement = document.createElement('option');
 		optionElement.value = item.id;
 		optionElement.textContent = item.bus_number;
+		var flag = 1;
+		for(var i = 0; i < selectElement.options.length;i++){
+			if(item.id == selectElement.options[i].value) flag = 0;
+		}
+		if(flag || selectElement.options.length == 1)
+			selectElement.appendChild(optionElement);
+});
+	}).fail(function(){
+		return new alert("Server error! Please try again!")
+	})
+}
+
+//For display of the destinations dynamically in search a route - from
+function displayDestinationsfrom(event){
+	event.preventDefault();
+	$.get("http://localhost:8080/api/v1/destination/get",function(data){
+		var selectElement = document.getElementById('select-destination-id-from');
+
+		// Add options from the data array
+		data.forEach(function(item) {
+		var optionElement = document.createElement('option');
+		optionElement.value = item.id;
+		optionElement.textContent = item.name;
+		var flag = 1;
+		for(var i = 0; i < selectElement.options.length;i++){
+			if(item.id == selectElement.options[i].value) flag = 0;
+		}
+		if(flag || selectElement.options.length == 1)
+			selectElement.appendChild(optionElement);
+});
+	}).fail(function(){
+		return new alert("Server error! Please try again!")
+	})
+}
+
+//For display of the destinations dynamically in search a route - to
+function displayDestinationsto(event){
+	event.preventDefault();
+	$.get("http://localhost:8080/api/v1/destination/get",function(data){
+		var selectElement = document.getElementById('select-destination-id-to');
+
+		// Add options from the data array
+		data.forEach(function(item) {
+		var optionElement = document.createElement('option');
+		optionElement.value = item.id;
+		optionElement.textContent = item.name;
 		var flag = 1;
 		for(var i = 0; i < selectElement.options.length;i++){
 			if(item.id == selectElement.options[i].value) flag = 0;
