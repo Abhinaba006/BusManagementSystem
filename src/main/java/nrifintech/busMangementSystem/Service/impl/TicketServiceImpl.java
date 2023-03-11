@@ -69,21 +69,20 @@ public class TicketServiceImpl implements TicketService {
 	@Modifying
 	public void createTicket(Ticket ticket){
 		Ticket _ticket = ticketRepo.save(ticket);
-		LocalDate date = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
-        String formattedDate = date.format(formatter);
+
 		//Check first if there is seat or not
-		routeInfoService.preCheck(_ticket.getRouteId());
-		RouteInfo _routeInfo = routeInfoService.getRouteInfo(_ticket.getRouteId(), formattedDate);
+		routeInfoService.preCheck(_ticket.getRouteId(),ticket.getDate());
+		RouteInfo _routeInfo = routeInfoService.getRouteInfo(_ticket.getRouteId(), ticket.getDate());
 		if(_routeInfo.getTotal_bookings() < _routeInfo.getTotal_seats()){
 			_ticket.setStatus("CONFIRMED");
-			routeInfoService.changeTotalBooking(_ticket.getRouteId(), 1);
-			routeInfoService.incrementOverallBooking(_ticket.getRouteId());
+			routeInfoService.changeTotalBooking(_ticket.getRouteId(), 1,_ticket.getDate());
+			
 		}
 		else{
 			_ticket.setStatus("WAITING");
 			ticketRepo.save(_ticket);
 		}
+		routeInfoService.incrementOverallBooking(_ticket.getRouteId(),_ticket.getDate());
 		//If not then add it to the queue and set the status of the ticket as waiting
 
 		//If there is seat then update the route info
@@ -95,23 +94,20 @@ public class TicketServiceImpl implements TicketService {
 		Ticket _ticket = _ticketObj.get();
 
 		//Get the route info
-		LocalDate date = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
-        String formattedDate = date.format(formatter);
-		RouteInfo _routeInfo = routeInfoService.getRouteInfo(_ticket.getRouteId(),formattedDate);
+		RouteInfo _routeInfo = routeInfoService.getRouteInfo(_ticket.getRouteId(),_ticket.getDate());
 
 		//Decrease the value
-		routeInfoService.changeTotalBooking(_ticket.getRouteId(),-1);
+		routeInfoService.changeTotalBooking(_ticket.getRouteId(),-1,_ticket.getDate());
 
 		_ticket.setStatus("CANCELLED");
 		ticketRepo.save(_ticket);
 		//If there are available seats then make the status to confirmed for the first ticket in the queue
 			//Iterate through all the tickets and check which ticket is not cancelled and make it confirm
-		Ticket _latestWaitingTicket = ticketRepo.findLatestUser(_ticket.getRouteId(),formattedDate);
+		Ticket _latestWaitingTicket = ticketRepo.findLatestUser(_ticket.getRouteId(),_ticket.getDate());
 		if(_latestWaitingTicket!=null){
 			_latestWaitingTicket.setStatus("CONFIRMED");
 			ticketRepo.save(_latestWaitingTicket);
-			routeInfoService.changeTotalBooking(_latestWaitingTicket.getRouteId(),1);
+			routeInfoService.changeTotalBooking(_latestWaitingTicket.getRouteId(),1,_ticket.getDate());
 		}
 
 	}

@@ -24,7 +24,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap"
     />
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <title>Document</title>
 </head>
 <body>
@@ -94,311 +94,6 @@
                                     
 
                                     <div class="content">
-                                        
-                                        <div class="content-element">
-
-                                            <div class="content-element-main">
-
-                                                    <!-- Bus Name & Number  -->
-                                                    <div class="content-element-main-divs">
-                                                        <div class="bus-name-div"> 
-                                                            <div class="bus-icon"><img  src="./public/vector4.svg" alt=""> </div>
-                                                            <div class="bus-name-text">NR-01 </div> 
-                                                        </div>
-                                                        <div class="bus-no">WB-94-3235</div>
-                                                        
-                                                    </div>
-
-                                                    <!-- Pickup Location & Time -->
-
-                                                    <div class="content-element-main-divs pickup-drop">
-                                                        <div class="pickup-div"> 
-                                                            <div class="location-icon">
-                                                                <img class="location-icon-img" src="./public/placeholder-14@2x.png" alt=""> 
-                                                            </div>
-                                                            <div class="pickup-text" >Pickup </div> 
-                                                        </div>
-                                                        <div  class="pickup-location-text">NRI Fintech</div>
-                                                        <div class="pickup-time-text">9:00 AM</div>
-
-                                                    </div>
-
-                                                    <!-- Drop Location & Time -->
-
-                                                    <div class="content-element-main-divs pickup-drop"> 
-                                                        <div class="drop-div" > 
-                                                            <div class="location-icon">
-                                                                <img class="drop-icon-img" src="./public/placeholder-14@2x.png" alt=""> 
-                                                            </div>
-                                                            <div class="drop-location">Drop </div> 
-                                                        </div>
-                                                        <div class="drop-location-text">Ultodanga</div>
-                                                        <div class="drop-time-text">12:00 AM</div>
-
-                                                    </div>
-
-                                                    <!-- Status of Ticket -->
-                                                    
-                                                    <div class="content-element-main-divs seats-left"> 
-                                                        
-                                                        <div class="status-div"> 
-                                                            <div class="status-text" > Status </div> 
-                                                        </div>
-                                                        <div  class="confirmed-text">  Confirmed 
-
-                                                        </div>   
-                                                    </div> 
-
-                                                   <!-- See Route ,Book -->
-
-                                                   <div class="content-element-main-divs">
-                                                    
-                                                    
-                                                        <div  class="see-route-div" onclick="onroute()"> 
-                                                            <div class="route-icon"><img  src="./public/route-icon.svg" alt=""> </div>
-                                                            <div class="see-route-text">See Route </div> 
-                                                        </div>
-
-                                                        <div class="cancel-btn" onclick="on()">  
-                                                            Cancel
-                                                        </div>
-                                            
-                                                    </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="content-element">
-
-                                            <div class="content-element-main">
-
-                                                <!-- Bus Name & Number  -->
-                                                <div class="content-element-main-divs">
-                                                    <div class="bus-name-div"> 
-                                                        <div class="bus-icon"><img  src="./public/vector4.svg" alt=""> </div>
-                                                        <div class="bus-name-text">NR-01 </div> 
-                                                    </div>
-                                                    <div class="bus-no">WB-94-3235</div>
-                                                    
-                                                </div>
-
-                                                <!-- Pickup Location & Time -->
-
-                                                <div class="content-element-main-divs pickup-drop">
-                                                    <div class="pickup-div"> 
-                                                        <div class="location-icon">
-                                                            <img class="location-icon-img" src="./public/placeholder-14@2x.png" alt=""> 
-                                                        </div>
-                                                        <div class="pickup-text" >Pickup </div> 
-                                                    </div>
-                                                    <div  class="pickup-location-text">NRI Fintech</div>
-                                                    <div class="pickup-time-text">9:00 AM</div>
-
-                                                </div>
-
-                                                <!-- Drop Location & Time -->
-
-                                                <div class="content-element-main-divs pickup-drop"> 
-                                                    <div class="drop-div" > 
-                                                        <div class="location-icon">
-                                                            <img class="drop-icon-img" src="./public/placeholder-14@2x.png" alt=""> 
-                                                        </div>
-                                                        <div class="drop-location">Drop </div> 
-                                                    </div>
-                                                    <div class="drop-location-text">Ultodanga</div>
-                                                    <div class="drop-time-text">12:00 AM</div>
-
-                                                </div>
-
-                                                <!-- Status of Ticket -->
-                                                 
-                                                <div class="content-element-main-divs seats-left"> 
-                                                        
-                                                    <div class="status-div"> 
-                                                        <div class="status-text" > Status </div> 
-                                                    </div>
-                                                    <div class="waiting-text">  Waiting </div> 
-                                                </div> 
-
-
-                                                <!-- See Route ,Book -->
-
-                                                <div class="content-element-main-divs">
-                                                    
-                                                    
-                                                    <div  class="see-route-div" onclick="onroute()"> 
-                                                        <div class="route-icon"><img  src="./public/route-icon.svg" alt=""> </div>
-                                                        <div class="see-route-text">See Route </div> 
-                                                    </div>
-
-                                                    <div class="cancel-btn" onclick="on()">  
-                                                        Cancel
-                                                    </div>
-                                        
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-
-
-
-                                        <div class="content-element">
-
-
-                                            <div class="content-element-main">
-
-                                                    <!-- Bus Name & Number  -->
-                                                    <div class="content-element-main-divs">
-                                                        <div class="bus-name-div"> 
-                                                            <div class="bus-icon"><img  src="./public/vector4.svg" alt=""> </div>
-                                                            <div class="bus-name-text">NR-01 </div> 
-                                                        </div>
-                                                        <div class="bus-no">WB-94-3235</div>
-                                                        
-                                                    </div>
-                                                    
-                                                    <!-- Pickup Location & Time -->
-
-                                                    <div class="content-element-main-divs pickup-drop">
-                                                        <div class="pickup-div"> 
-                                                            <div class="location-icon">
-                                                                <img class="location-icon-img" src="./public/placeholder-14@2x.png" alt=""> 
-                                                            </div>
-                                                            <div class="pickup-text" >Pickup </div> 
-                                                        </div>
-                                                        <div  class="pickup-location-text">NRI Fintech</div>
-                                                        <div class="pickup-time-text">9:00 AM</div>
-
-                                                    </div>
-
-                                                    <!-- Drop Location & Time -->
-
-                                                    <div class="content-element-main-divs pickup-drop"> 
-                                                        <div class="drop-div" > 
-                                                            <div class="location-icon">
-                                                                <img class="drop-icon-img" src="./public/placeholder-14@2x.png" alt=""> 
-                                                            </div>
-                                                            <div class="drop-location">Drop </div> 
-                                                        </div>
-                                                        <div class="drop-location-text">Ultodanga</div>
-                                                        <div class="drop-time-text">12:00 AM</div>
-                                                    
-                                                    </div>
-
-                                                    <!-- Status of ticket -->
-                                                
-                                                    <div class="content-element-main-divs seats-left"> 
-                                                        
-                                                        <div class="status-div"> 
-                                                            <div class="status-text" > Status </div> 
-                                                        </div>
-                                                        <div class="cancelled-text" >  Cancelled </div>
-
-                                                    </div> 
-
-                                                    <!-- See Route ,Book -->
-
-                                                    <div class="content-element-main-divs">
-                                                    
-                                                    
-                                                        <div  class="see-route-div" onclick="onroute()"> 
-                                                            <div class="route-icon"><img  src="./public/route-icon.svg" alt=""> </div>
-                                                            <div class="see-route-text">See Route </div> 
-                                                        </div>
-
-                                                        <div class="date-info" >  Date: 21-02-23 </div>
-                                                
-                                                    </div>
-                                                </div>
-
-
-                                        </div>
-
-                                        <div class="content-element">
-
-                                            <div class="content-element-main">
-
-                                                <!-- Bus Name & Number  -->
-                                                <div class="content-element-main-divs">
-                                                    <div class="bus-name-div"> 
-                                                        <div class="bus-icon"><img  src="./public/vector4.svg" alt=""> </div>
-                                                        <div class="bus-name-text">NR-01 </div> 
-                                                    </div>
-                                                    <div class="bus-no">WB-94-3235</div>
-                                                    
-                                                </div>
-                                                
-                                                <!-- Pickup Location & Time -->
-
-                                                <div class="content-element-main-divs pickup-drop">
-                                                    <div class="pickup-div"> 
-                                                        <div class="location-icon">
-                                                            <img class="location-icon-img" src="./public/placeholder-14@2x.png" alt=""> 
-                                                        </div>
-                                                        <div class="pickup-text" >Pickup </div> 
-                                                    </div>
-                                                    <div  class="pickup-location-text">NRI Fintech</div>
-                                                    <div class="pickup-time-text">9:00 AM</div>
-
-                                                </div>
-
-                                                <!-- Drop Location & Time -->
-
-                                                <div class="content-element-main-divs pickup-drop"> 
-                                                    <div class="drop-div" > 
-                                                        <div class="location-icon">
-                                                            <img class="drop-icon-img" src="./public/placeholder-14@2x.png" alt=""> 
-                                                        </div>
-                                                        <div class="drop-location">Drop </div> 
-                                                    </div>
-                                                    <div class="drop-location-text">Ultodanga</div>
-                                                    <div class="drop-time-text">12:00 AM</div>
-                                                
-                                                </div>
-
-                                                <!-- Seats Left -->
-                                                
-                                                <div class="content-element-main-divs seats-left"> 
-                                                    
-                                                    <div class="status-div"> 
-                                                        <div class="status-text" > Status </div> 
-                                                    </div>
-                                                    <div class="expired-text" >  
-                                                        Expired 
-                                                    </div>
-                                                  
-                                                </div> 
-
-                                                <!-- See Route ,Book -->
-
-                                                <div class="content-element-main-divs">
-                                                        
-                                                        
-                                                    <div  class="see-route-div" onclick="onroute()"> 
-                                                        <div class="route-icon"><img  src="./public/route-icon.svg" alt=""> </div>
-                                                        <div class="see-route-text">See Route </div> 
-                                                    </div>
-
-                                                    <div class="date-info" >  Date: 21-02-23 </div>
-                                            
-                                                </div>
-
-                                            </div>
-
-
-
-
-                                        </div> 
-                                        <!-- <div class="content-element"></div>
-                                        <div class="content-element"></div>
-                                        <div class="content-element"></div>
-                                        <div class="content-element"></div>
-                                        <div class="content-element"></div>
-                                        <div class="content-element"></div>
-                                        <div class="content-element"></div>  -->
-
-                                    </div>
 
                                 
                              </div>
@@ -506,3 +201,142 @@
 
 </body>
 </html>
+<script>
+    $(document).ready(function(){
+        //Change it the user that is calling
+        $.get("http://localhost:8080/api/v1/ticket/get/1",function(data){
+            // "id": 28,
+            // "routeId": 5,
+            // "busId": 4,
+            // "userId": 1,
+            // "status": "CANCELLED",
+            // "date": "09:03:2023"
+            for(var i = 0;i<data.length;i++){
+			const route_id = data[i].routeId;
+            const ticket_id = data[i].id;
+            const formattedDate = data[i].date;
+            const status = data[i].status;
+			const obj = {
+				busId:"",
+				busName:"",
+				busNumber:"",
+				destination_name:"",
+				destination_time:"",
+				route_id:"",
+				source_name:"",
+				source_time:"",
+				userId:1, //To be changed
+			};
+			obj["route_id"] = route_id;
+			$.get("http://localhost:8080/api/v1/route/getDestinations/" + route_id,function(data){
+				console.log(data);
+				obj["source_name"] = data[0].destination.name;
+				obj["source_time"] = data[0].time;
+
+				obj["destination_name"] = data[data.length - 1].destination.name;
+				obj["destination_time"] = data[data.length - 1].time;
+
+				$.get("http://localhost:8080/api/v1/route/getReport/" + route_id + "/" + formattedDate,function(data){
+				var diff = data.total_seats - data.total_bookings;
+				obj["seatsLeft"] = max(0,diff);
+				$.get("http://localhost:8080/api/v1/route/getBus/" + route_id,function(data){
+					obj["busName"] = data.name;
+					obj["busId"] = data.id;
+					obj["busNumber"] = data.bus_number;
+
+					//To be changed
+					obj["userId"] = 1;
+					console.log(obj);
+
+					const routeHTML = `
+									<div class="content-element">
+
+									<div class="content-element-main">
+										<div class="content-element-main-divs">
+										<div class="bus-name-div">
+											<div class="bus-icon"><img src="./public/vector4.svg" alt=""></div>
+											<div class="bus-name-text">${obj.busName}</div>
+										</div>
+										<div class="bus-no">${obj.busNumber}</div>
+										</div>
+										<div class="content-element-main-divs pickup-drop">
+										<div class="pickup-div">
+											<div class="location-icon"><img class="location-icon-img" src="./public/placeholder-14@2x.png" alt=""></div>
+											<div class="pickup-text">Pickup</div>
+										</div>
+										<div class="pickup-location-text">${obj.source_name}</div>
+										<div class="pickup-time-text">${obj.source_time}</div>
+										</div>
+										<div class="content-element-main-divs pickup-drop">
+										<div class="drop-div">
+											<div class="location-icon"><img class="drop-icon-img" src="./public/placeholder-14@2x.png" alt=""></div>
+											<div class="drop-location">Drop</div>
+										</div>
+										<div class="drop-location-text">${obj.destination_name}</div>
+										<div class="drop-time-text">${obj.destination_time}</div>
+										</div>
+                                        <div class="content-element-main-divs seats-left"> 
+                                                        
+                                                        <div class="status-div"> 
+                                                            <div class="status-text" > Status </div> 
+                                                        </div>
+                                                        <div  class="confirmed-text">  ${status} 
+
+                                                        </div>   
+                                                    </div> 
+										<div class="content-element-main-divs">
+										<div class="see-route-div" onclick="homeonroute()">
+											<div class="route-icon"><img src="./public/route-icon.svg" alt=""></div>
+											<div class="see-route-text">See Route</div>
+										</div>
+                                        <div class="cancel-btn" ticket_id = ${ticket_id} onclick="cancelTicket(event)">  
+                                                            Cancel
+                                        </div>
+
+										</div>
+									</div>
+									</div>
+								`;
+								const parentDiv = document.querySelector(".content");
+								parentDiv.innerHTML += routeHTML;
+				}).fail(function(){
+					return alert("Server error! Please try again!")
+				})
+			}).fail(function(){
+				return alert("Server error! Please try again!");
+			});
+			}).fail(function(){
+				return alert("Server error! Please try again!");
+			});
+			
+		
+			
+		
+	}
+        }).fail(function(){
+            return alert("Something went wrong. Please try again later!");
+        })
+    })
+    function cancelTicket(event){
+        const ticket_id = $(event.target).attr("ticket_id");
+        
+$.ajax({
+    type: "POST",
+    url: "http://localhost:8080/api/v1/ticket/cancel",
+    data: JSON.stringify(ticket_id),
+    headers: {
+        "Content-Type": "application/json"
+    },
+    success: function(response) {
+        console.log("Ticket cancelled successfully");
+        alert("Ticket cancelled sucessfully!");
+        // Handle success response here
+    },
+    error: function(xhr, status, error) {
+        console.log("Error cancelling ticket: " + error);
+        alert("Server error! Please try again!");
+        // Handle error response here
+    }
+});
+    }
+</script>

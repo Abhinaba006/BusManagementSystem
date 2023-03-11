@@ -1,5 +1,4 @@
 
-
 var nrifintech="NRI TRAVEL";
 var booking = `My Bookings`; 
 var logout="Logout";
@@ -736,3 +735,8 @@ resolveButton.addEventListener('click', () => {
 });
 
 
+
+
+  //--------------------------------------------------------------------------//
+ 
+  
