@@ -1,11 +1,4 @@
 
-/* 
-
-    @author: Arijit Saha
-	@desc: js for all the html files 
-	@file path from root: Ex ./index.js/
-
-*/
 // var cors = require('cors');
 var nrifintech="NRI TRAVEL";
 var booking = `My Bookings`; 

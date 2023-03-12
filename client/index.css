@@ -1,17 +1,4 @@
-/*
 
-	@author: Arijit Saha
-	@desc: 1st css for  user home page (index.html)
-    Acts as a Header & Footer Template
-	@file path from root: Ex ./index.css/
-
-    @edited: Monidepa Ghosh
-    @desc: 1. made necessary changes in the header and footer
-           2. added my profile
-           3. improvised the buttons
-
-
-*/
 
 
 
@@ -141,8 +128,6 @@ a:link {
 .vector-icon{
     margin-right: 10px;
 }
-
-/*Monidepa Ghosh*/
 
 .profile{
     font-family: Montserrat;
@@ -450,14 +435,123 @@ a:link {
     border-radius: 5px;
 }
 
+.table,
+.table-all {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    display: table
+}
 
+.table-all {
+    border: 1px solid #ccc
+}
 
+.bordered tr,
+.table-all tr {
+    border-bottom: 1px solid #ddd
+}
 
+.striped tbody tr:nth-child(even) {
+    background-color: #f1f1f1
+}
 
+.table-all tr:nth-child(odd) {
+    background-color: #fff
+}
 
+.table-all tr:nth-child(even) {
+    background-color: #f1f1f1
+}
 
+.hoverable tbody tr:hover,
+.ul.hoverable li:hover {
+    background-color: #ccc
+}
 
+.centered tr th,
+.centered tr td {
+    text-align: center
+}
 
+.table td,
+.table th,
+.table-all td,
+.table-all th {
+    padding: 8px 8px;
+    display: table-cell;
+    text-align: left;
+    vertical-align: top
+}
+
+.table th:first-child,
+.table td:first-child,
+.table-all th:first-child,
+.table-all td:first-child {
+    padding-left: 16px
+}
+
+.from-to-searchbar td
+{
+  width:300px;
+}
+
+.search td{
+    width: 300px;
+}
+
+.from-to-searchbar{
+    margin-left: 3%;
+}
+
+.search{
+    margin-left: 4%;
+}
+
+.bottom-table{
+    margin-left: 1%;
+}
+
+.from-to-searchtext section
+{
+box-shadow: 2px 2px 2px #ddd;background:white;
+}
+
+  /* .content-element-main {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 10px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    background-color: #fffbfb;
+    
+  }
+  
+  .content-element-main-divs {
+    padding: 20px;
+    
+  } */
+  
+  @media screen and (max-width: 600px) {
+    .content-element-main {
+      grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+      padding: 10px;
+    margin: 5px;
+    font-size: 12px;
+    grid-gap:0;
+    }
+    
+  }
+
+select {
+    width: 75%;
+    padding: 12px 20px;
+    margin: 8px 3%;
+    display: inline-block;
+    border-bottom: 3px solid #f1f1f1;
+    border-radius: 4px;
+    box-sizing: border-box;
+    outline: none;
+  }
 
 
 

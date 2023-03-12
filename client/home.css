@@ -1,11 +1,4 @@
 
-/* <!--
-
-	@author: Arijit Saha
-	@desc: 2nd Css file for user home page (index.html)
-	@file path from root: Ex ./home.css/
-
---> */
 
 
 
@@ -359,7 +352,7 @@ select {
     }
 
     .search {
-        display: none;
+        
     }
 
     .from-to-searchbar {
@@ -395,6 +388,9 @@ select {
 
 @media(max-width: 480px) {
     .seats-left {
+        display: none;
+    }
+    .search-icon{
         display: none;
     }
 }

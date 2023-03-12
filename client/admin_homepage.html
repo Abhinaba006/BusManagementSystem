@@ -1,8 +1,4 @@
-<!--
-	@author: Monidepa Ghosh
-	@desc: admin site
-	@file path from root: Ex ./index.html/
--->
+
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
@@ -307,11 +303,11 @@
 
                     <!--fourth div-->
 
-                    <div id="fourthdiv" style="display:none;">
+                    <div id="fourthdiv" style="display:none;overflow-x: scroll;">
                         <input type = "text" id = "report-route-id" placeholder="Enter route id"/>
                         <button onclick="getReportById(event)" class="generate-report">Search</button>
                         
-                        <canvas id="myChart" style="width:100%;max-width:1300px;margin-left:30px;">
+                        <canvas id="myChart" style="width:100%;max-width:1300px;margin-left:10px;">
                             
                         </canvas>
                         <script>

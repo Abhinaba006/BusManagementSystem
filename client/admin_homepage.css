@@ -1,8 +1,4 @@
-/*
-	@author: Monidepa Ghosh
-	@desc: css for index.html (admin site)
-	@file path from root: Ex ./index.css/
-*/
+
 
 
 
@@ -207,6 +203,10 @@ input[type=text],[type=email],[type=password],[type=time],[type=number],select {
     border-radius: 4px;
     box-sizing: border-box;
     outline: none;
+  }
+
+  #report-route-id{
+    margin-right: 0%;
   }
   
 #employee-name,#employee-email,#employee-password,#employee-id,#bus-number-o,#bus-name-o,#bus-seats-o,#dest-edit-name,#dest-edit-latitude-input,#dest-edit-longitude-input{
@@ -500,6 +500,7 @@ form {
     border-radius: 4px;
     cursor: pointer;
     display: inline-block;
+    margin: 0% 1%;
 }
 
 .user-status, .route-status{
@@ -515,8 +516,12 @@ form {
     padding: 14px 20px;
     border: none;
     border-radius: 4px;
-    cursor: pointer;
     display: inline-block;
+    margin: 4%;
+}
+
+.route-status{
+    margin-left: 0%;
 }
 
 .add-field-btn{
@@ -671,6 +676,10 @@ canvas,
 progress,
 video {
     display: inline-block
+}
+
+canvas{
+    margin:1% 0%;
 }
 
 progress {
