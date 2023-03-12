@@ -1,5 +1,4 @@
 
-
 var nrifintech="NRI TRAVEL";
 var booking = `My Bookings`; 
 var logout="Logout";
@@ -672,3 +671,8 @@ table.appendChild(newRow);
   const delete_destination=(evt)=>{
 	evt.preventDefault();
   }
+
+
+  //--------------------------------------------------------------------------//
+ 
+  

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,11 +14,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import nrifintech.busMangementSystem.Service.interfaces.BusMapService;
 import nrifintech.busMangementSystem.Service.interfaces.RouteService;
+import nrifintech.busMangementSystem.entities.Bus;
+import nrifintech.busMangementSystem.entities.BusMap;
 import nrifintech.busMangementSystem.entities.Destination;
 import nrifintech.busMangementSystem.entities.Route;
 import nrifintech.busMangementSystem.entities.RouteInfo;
 import nrifintech.busMangementSystem.entities.RouteMap;
 import nrifintech.busMangementSystem.exception.ResouceNotFound;
+import nrifintech.busMangementSystem.repositories.BusMapRepo;
+import nrifintech.busMangementSystem.repositories.BusRepo;
 import nrifintech.busMangementSystem.repositories.RouteInfoRepo;
 import nrifintech.busMangementSystem.repositories.RouteMapRepo;
 import nrifintech.busMangementSystem.repositories.RouteRepo;
@@ -39,7 +44,14 @@ public class RouteServiceImpl implements RouteService{
 	private BusMapService busMapService;
 
 	@Autowired
+	private BusMapRepo busMapRepo;
+
+	@Autowired
 	private RouteInfoRepo routeInfoRepo;
+
+	@Autowired
+	private BusRepo busRepo;
+	
 	@Override
 	@Transactional
 	public Route createRoute(List<String> destinations,int bus_id) {
@@ -170,6 +182,13 @@ public class RouteServiceImpl implements RouteService{
 	@Override
 	public List<RouteInfo> getRouteReport(int route_id) {
 		return routeInfoRepo.getRouteData(route_id);
+	}
+	@Override
+	public Bus getBusFromRouteId(int route_id){
+		BusMap b = busMapRepo.findByRouteId(route_id);
+		int bus_id = b.getBus_id();
+		Optional<Bus> bus = busRepo.findById(bus_id);
+		return bus.get();
 	}
 
 }

@@ -1,0 +1,22 @@
+package nrifintech.busMangementSystem.repositories;
+
+
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import nrifintech.busMangementSystem.entities.Destination;
+import nrifintech.busMangementSystem.entities.Issue;
+
+public interface IssueRepo extends JpaRepository<Issue, Integer>{
+    @Query(value = "SELECT * FROM issue WHERE user_id = :userId",nativeQuery = true)
+	List<Issue> getIssuesByUserId(@Param("userId") int userId);
+
+    @Query(value = "SELECT * FROM issue WHERE isResolved = 'WAITING'",nativeQuery = true)
+    List<Issue> getAllunResolvedIssue();
+
+}

@@ -15,6 +15,9 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap"
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
     <title>Document</title>
 </head>
 <body>
@@ -102,7 +105,12 @@
 
                                                 <td>
                                                 
-                                            
+                                                                                    <input type="text" id="datepicker"></p>
+                                        <script>
+                                            $( function() {
+                                                $( "#datepicker" ).datepicker();
+                                            } );
+                                        </script>
                                                     <button type="submit" class="from-to-search-text search search-btn" onclick="getRoutes(event)">Search
                                                     </button>
                                                 </td>

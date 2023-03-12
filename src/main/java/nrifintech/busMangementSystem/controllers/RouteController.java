@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import nrifintech.busMangementSystem.Service.interfaces.RouteInfoService;
 import nrifintech.busMangementSystem.Service.interfaces.RouteService;
+import nrifintech.busMangementSystem.entities.Bus;
 import nrifintech.busMangementSystem.entities.Destination;
 import nrifintech.busMangementSystem.entities.Route;
 import nrifintech.busMangementSystem.entities.RouteInfo;
@@ -79,5 +80,14 @@ public class RouteController {
 		List<RouteInfo> _routeReport = routeService.getRouteReport(routeId);
 		return ResponseEntity.ok(_routeReport);
 	}
-
+	@GetMapping("/getReport/{routeId}/{date}")
+	public ResponseEntity<?> getRouteInfoByDate(@PathVariable("routeId") int routeId , @PathVariable("date") String date){
+		RouteInfo routeInfo = routeInfoService.getRouteInfo(routeId,date);
+		return ResponseEntity.ok(routeInfo);
+	}
+	@GetMapping("/getBus/{routeId}")
+	public ResponseEntity<?> getBusByRoute(@PathVariable("routeId") int routeId){
+		Bus _bus =  routeService.getBusFromRouteId(routeId);
+		return ResponseEntity.ok(_bus);
+	}
 }

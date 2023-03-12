@@ -18,6 +18,6 @@ public interface UserRepo extends  JpaRepository<User, Integer>{
 	Optional<User> findByEmail(String email, int type);
 	
 	@Query(value = "SELECT * FROM user WHERE email = ?1", nativeQuery = true)
-	User findByOnlyEmail(String email);
+	Optional<User> findByOnlyEmail(String email);
 
 }

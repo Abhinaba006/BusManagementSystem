@@ -332,8 +332,8 @@
                                     var index = parseInt(date.split(':')[0]);
                                     var diff = data[i].total_seats - data[i].overall_bookings;
                                     console.log(index,diff);
-                                    if(diff > 0 ){
-                                        //Underused
+                                    index--;
+                                    if(diff >= 0 ){
                                         yValues[index] = diff;
                                         barColors[index] = negativeColor;
                                     }
@@ -382,6 +382,60 @@
                             <h1>Add a destination</h1>
                             
                             <input type="text" id="dest-name" name="name" placeholder="Enter destination name">
+                            <div id = "results"></div>
+                            <script>
+                                        const places = [
+                                            {
+                                            "name": "Victoria Memorial",
+                                            "latitude": 22.5454,
+                                            "longitude": 88.3428
+                                            },
+                                            {
+                                            "name": "Howrah Bridge",
+                                            "latitude": 22.5851,
+                                            "longitude": 88.3468
+                                            },
+                                            // add more places here
+                                        ];
+                                        
+                                        const input = document.getElementById("dest-name");
+                                        
+                                        
+                                        function searchPlaces(term) {
+
+                                            return places.filter(place => place.name.toLowerCase().includes(term.toLowerCase()));
+                                        }
+                                        
+                                        function displayResults(places) {
+                                            const results = document.getElementById("results");
+                                            results.innerHTML = ""; // clear previous results
+                                            if (places.length > 0) {
+                                            const ul = document.createElement("ul");
+                                            places.forEach(place => {
+                                                const li = document.createElement("li");
+                                                li.textContent = place.name;
+                                                li.addEventListener("click", () => {
+                                                console.log(`Name: ${place.name}, Latitude: ${place.latitude}, Longitude: ${place.longitude}`);
+                                                });
+                                                ul.appendChild(li);
+                                            });
+                                            results.appendChild(ul);
+                                            } else {
+                                            results.textContent = "No matching places found.";
+                                            }
+                                        }
+                                        
+                                        input.addEventListener("input", () => {
+
+                                            const term = input.value.trim();
+                                            console.log(term=="");
+                                            if(term == "") document.getElementById("results").innerHTML = "";
+                                            if(term!=""){
+                                                const matchingPlaces = searchPlaces(term);
+                                                displayResults(matchingPlaces);
+                                            }
+                                        });
+                            </script>
 
                             <input type="number" id="dest-latitude-input" name="latitude" min="-90" max="90" step="any" placeholder="Enter latitude">
 

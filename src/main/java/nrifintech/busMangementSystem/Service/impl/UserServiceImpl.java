@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		//same user can't be created multiple times for each role type.
 		System.out.println(userRepo.findByOnlyEmail(user.getEmail()));
-		if(userRepo.findByOnlyEmail(user.getEmail())==null)
+		if(userRepo.findByOnlyEmail(user.getEmail()).isEmpty())
 		{
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
 			return userRepo.save(user);
@@ -61,6 +61,13 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		 return this.userRepo.findById(id).orElseThrow(() -> new ResouceNotFound("User", "id", id));
 	}
+	
+	@Override
+	public User getUserByEmail(String email) {
+		// TODO Auto-generated method stub
+		 return this.userRepo.findByOnlyEmail(email).orElseThrow(() -> new ResouceNotFound("User", "email", -1));
+	}
+
 
 	@Override
 	public List<User> getUser() {
