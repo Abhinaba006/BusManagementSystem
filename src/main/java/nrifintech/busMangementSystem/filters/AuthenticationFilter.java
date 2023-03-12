@@ -33,25 +33,24 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		
 		// Get the custom header from the request
-		String authorizationHeader  = request.getHeader("x-auth-token");
+		// String authorizationHeader  = request.getHeader("x-auth-token");
 		String url = request.getRequestURI();
 		if (url.contains("login") || url.contains("register")) {
 			filterChain.doFilter(request, response);
 			return;
 		}
 		int userType = 0;
-		System.out.println(authorizationHeader);
-		if (authorizationHeader != null) {
-		    String token = authorizationHeader;
-		    // Use the token for authentication/authorization purposes
-		    System.out.println("\n--------------------------------\n----------------------\n");
+		if (true) {
+		    // String token = authorizationHeader;
+		    // // Use the token for authentication/authorization purposes
+		    // System.out.println("\n--------------------------------\n----------------------\n");
 			
-			String payload = jwtTokenUtil.extractUsername(token);
-			int userId = Integer.parseInt(payload);
-			System.out.println(userId);
-			System.out.println("\n--------------------------------\n----------------------\n");
+			// String payload = jwtTokenUtil.extractUsername(token);
+			// int userId = Integer.parseInt(payload);
+			// System.out.println(userId);
+			// System.out.println("\n--------------------------------\n----------------------\n");
 			
-			if(userRepo.findById(userId).isEmpty()) throw new UnauthorizedAction("invalid credentials", "undefiened user");
+			// if(userRepo.findById(userId).isEmpty()) throw new UnauthorizedAction("invalid credentials", "undefiened user");
 			filterChain.doFilter(request, response);
 			return;
 		}
