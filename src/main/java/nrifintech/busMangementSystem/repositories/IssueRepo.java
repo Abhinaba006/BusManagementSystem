@@ -16,7 +16,7 @@ public interface IssueRepo extends JpaRepository<Issue, Integer>{
     @Query(value = "SELECT * FROM issue WHERE user_id = :userId",nativeQuery = true)
 	List<Issue> getIssuesByUserId(@Param("userId") int userId);
 
-    @Query(value = "SELECT * FROM issue WHERE isResolved = 'WAITING'",nativeQuery = true)
+    @Query(value = "SELECT * FROM issue WHERE is_resolved = 0",nativeQuery = true)
     List<Issue> getAllunResolvedIssue();
 
 }
