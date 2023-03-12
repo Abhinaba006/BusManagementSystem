@@ -1,12 +1,4 @@
-/*
 
-	@author: Arijit Saha
-	@desc: 1st css for  user home page (index.html)
-    Acts as a Header & Footer Template
-	@file path from root: Ex ./index.css/
-
-
-*/
 
 
 
@@ -137,8 +129,6 @@ a:link {
     margin-right: 10px;
 }
 
-/*Monidepa Ghosh*/
-
 .profile{
     font-family: Montserrat;
     font-size: 25px;
@@ -147,6 +137,164 @@ a:link {
     letter-spacing: 0em;
     cursor: pointer;
     color: rgba(255, 255, 255, 1);
+}
+
+.search-btn{
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: 0.035em;
+    text-align: right;
+    cursor: pointer;
+    background-color: #082032;
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 8%;
+}
+
+.bottom-table {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 10px 0;
+  }
+  
+  .bottom-table td {
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .bottom-table td div {
+    margin: 5px 0;
+  }
+  
+  .bottom-table td label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .bottom-table td input[type="text"] {
+    padding: 5px;
+    width: 100%;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  
+  .bottom-table td select {
+    padding: 8px;
+    width: 100%;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 4px;
+  }
+  
+  .from-to-search-text {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  #datepicker {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #fff;
+    color: #333;
+    margin-left: 5%;
+  }
+  
+  #datepicker:focus {
+    outline: none;
+    box-shadow: 0 0 4px #6ab4ff;
+  }
+  
+  .ui-datepicker {
+    font-size: 16px;
+    margin-top: 4px;
+  }
+  
+  .ui-datepicker-header {
+    background-color: #6ab4ff;
+    color: #fff;
+    border-radius: 4px 4px 0 0;
+  }
+  
+  .ui-datepicker-prev,
+  .ui-datepicker-next {
+    font-size: 16px;
+    border-radius: 4px;
+    border: none;
+    background-color: #6ab4ff;
+    color: #fff;
+  }
+  
+  .ui-datepicker-prev:hover,
+  .ui-datepicker-next:hover {
+    background-color: #0d6efd;
+    color: #fff;
+  }
+  
+  .ui-datepicker-calendar td {
+    border-radius: 4px;
+  }
+  
+  .ui-state-default {
+    font-weight: normal;
+    background-color: #fff;
+    color: #333;
+    border: none;
+  }
+  
+  .ui-state-active {
+    background-color: #6ab4ff;
+    color: #fff;
+  }
+  
+  .ui-state-hover {
+    background-color: #f5f5f5;
+    cursor: pointer;
+  }
+  
+  .ui-datepicker-close {
+    font-size: 16px;
+    border-radius: 4px;
+    border: none;
+    background-color: #6ab4ff;
+    color: #fff;
+    margin-top: 4px;
+    padding: 8px;
+  }
+  
+  .ui-datepicker-close:hover {
+    background-color: #0d6efd;
+    color: #fff;
+  }
+  
+
+.book-bus{
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: 0.035em;
+    text-align: right;
+    cursor: pointer;
+    background-color: #082032;
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 8%;
 }
 
 .booking{
@@ -409,14 +557,123 @@ a:link {
     border-radius: 5px;
 }
 
+.table,
+.table-all {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    display: table
+}
 
+.table-all {
+    border: 1px solid #ccc
+}
 
+.bordered tr,
+.table-all tr {
+    border-bottom: 1px solid #ddd
+}
 
+.striped tbody tr:nth-child(even) {
+    background-color: #f1f1f1
+}
 
+.table-all tr:nth-child(odd) {
+    background-color: #fff
+}
 
+.table-all tr:nth-child(even) {
+    background-color: #f1f1f1
+}
 
+.hoverable tbody tr:hover,
+.ul.hoverable li:hover {
+    background-color: #ccc
+}
 
+.centered tr th,
+.centered tr td {
+    text-align: center
+}
 
+.table td,
+.table th,
+.table-all td,
+.table-all th {
+    padding: 8px 8px;
+    display: table-cell;
+    text-align: left;
+    vertical-align: top
+}
+
+.table th:first-child,
+.table td:first-child,
+.table-all th:first-child,
+.table-all td:first-child {
+    padding-left: 16px
+}
+
+.from-to-searchbar td
+{
+  width:300px;
+}
+
+.search td{
+    width: 300px;
+}
+
+.from-to-searchbar{
+    margin-left: 3%;
+}
+
+.search{
+    margin-left: 4%;
+}
+
+.bottom-table{
+    margin-left: 1%;
+}
+
+/* .from-to-searchtext section
+{
+box-shadow: 2px 2px 2px #ddd;background:white;
+} */
+
+  /* .content-element-main {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 10px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    background-color: #fffbfb;
+    
+  }
+  
+  .content-element-main-divs {
+    padding: 20px;
+    
+  } */
+  
+  @media screen and (max-width: 600px) {
+    .content-element-main {
+      grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+      padding: 10px;
+    margin: 5px;
+    font-size: 12px;
+    grid-gap:0;
+    }
+    
+  }
+
+select {
+    width: 75%;
+    padding: 12px 20px;
+    margin: 8px 3%;
+    display: inline-block;
+    border-bottom: 3px solid #f1f1f1;
+    border-radius: 4px;
+    box-sizing: border-box;
+    outline: none;
+  }
 
 
 

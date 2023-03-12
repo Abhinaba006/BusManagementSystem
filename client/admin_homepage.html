@@ -1,8 +1,9 @@
 <!--
-	@author: Monidepa Ghosh
-	@desc: admin site
-	@file path from root: Ex ./index.html/
+    @author: Monidepa Ghosh
+    @desc: admin site
+    @file path from root: Ex ./index.html/
 -->
+
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
@@ -21,42 +22,42 @@
 </head>
 
 <body>
-
+    
     <div class="main">
         <!-- Header -->
         <div class="header">
-
+            
             
             <div class="header-div">
                 <div class="nrifintech"> ${NRI TRAVEL}</div>
             </div>
             <div class="header-end">
-
-
-
-
+                
+                
+                
+                
                 <div class="header-end-items">
                     <img class="vector-icon" alt="" src="public/vector1.svg" />
                     <p class="header-end-items-text logout"> <a href="">Logout </a> </p>
                 </div>
-
+                
             </div>
         </div>
-
+        
         <!-- Body -->
         <div class="body-part">
-
+            
             <div>
-
+                
                 <!--
-                            Write your body code within this div
-                            
-                            
-                             -->
-
-
+                    Write your body code within this div
+                    
+                    
+                -->
+                
+                
                 <!--sidebar-->
-
+                
                 <div class="sidebar bar-block collapse card animate-left" id="mySidebar">
                     <button class="bar-item button large hide-large" onclick="closeSidebar()">Close &times;</button>
                     <a href="#" class="bar-item button" onclick="firstdiv()" id="text1">Employees</a>
@@ -64,60 +65,170 @@
                     <a href="#" class="bar-item button" onclick="thirddiv()" id="text3">Bus</a>
                     <a href="#" class="bar-item button" onclick="fourthdiv()" id="text4">Report</a>
                     <a href="#" class="bar-item button" onclick="fifthdiv()" id="text5">Destination</a>
-                </div>
+                    <a href="#" class="bar-item button" onclick="sixthdiv(); getUnResolvedIssues();" id="text6">Issues</a>
+                    <a href="#" class="bar-item button" onclick="seventhdiv()" id="text7">Tickets</a>
 
+                </div>
+                
                 <div class="main" style="margin-left:200px;">
                     <div class="red">
                         <button class="button red xlarge hide-large" onclick="openSidebar()">&#9776;</button>
-
+                        
                     </div>
-
+                    
                     <!--first div-->
-
+                    
                     <div id="firstdiv" style="display:block;">
+                        
                         <form>
                             <h1>Add an employee</h1>
-
+                            
                             <input type="text" id="add-employee-name" name="name" placeholder="Name">
-
-
+                            
+                            
                             <input type="email" id="add-employee-email" name="email" placeholder="Email">
-
-
+                            
+                            
                             <input type="password" id="add-employee-password" name="password" placeholder="Password">
                             
                             <input type = "text" id = "add-employee-id" name = "empId" placeholder="Employee id"><br>
                             <input type="submit" value="+ Add Employee" onclick="addEmployee(event)">
-
+                            
                             <h1>Search/edit an employee</h1>
-
+                            
                             <input type="text" id = "search-email" placeholder="Enter employee email">
-
+                            
+                            
+                            
+                        </form>
                         
+                        <button class="search-btn" onclick="on()"> <img class="confirm-cancel-icon"
+                            src="./public/icons8-search.svg" alt=""> Search</button>
+                            <script>
+                                function on() {
+                                    
+                                    document.querySelector(".search-overlay").style.display="block";
+                                }
+                            </script>
+                        </div>
+                        
+                        <!--second div-->
+                        
+                        <div id="seconddiv" style="display:none;">
+                            
+                            
+                            
+                            
+                            
+                            
+                            <section>
+                                <h1>Add a route</h1>
+                                <button class="add-field-btn" onclick="add_field()">+ Add Destination Field</button>
+                            </section>
+                            
+                            <form action="">
+                                
+                                <div class="from-to-searchbar">
+                                    
+                                    
+                                    
+                                    <table class="container">
+                                        
+                                    </table>
+                                    <table class="bottom-table">
+                                        <tr>
+                                            <td>
+                                                <div class="from">
+                                                    
+                                                    <div class="from-to-search-text"> <label for="fromtext">Select Bus</label>
+                                                    </div>
+                                                    <div class="options">
+                                                        <select name="" id="select-bus-id" onclick="displayBusID(event)">
+                                                            <option>None</option>
+                                                        </select>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                </div>
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                <input type="submit" onclick="addRoute(event)" style="margin-left: 4%;" value="+ Add route">
+                                
+                                
+                            </form>
+                            
+                            
+                            
+                            
+                            
+                            <form action="">
+                                <h1>Search a route</h1>
+                                <div class="search">
+                                    
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <div class="from">
+                                                    
+                                                    <div class="from-to-search-text"> <label for="fromtext">From</label>
+                                                    </div>
+                                                    <div class="options">
+                                                        <select name="" id="select-destination-id-from" onclick="displayDestinationsfrom(event)">
+                                                            <option>None</option>
+                                                        </select>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </td>
+                                            
+                                            <td>
+                                                <div class="to">
+                                                    
+                                                    <div class="from-to-search-text"> <label for="tottext"> TO </label>
+                                                    </div>
+                                                    <div class="options">
+                                                        <select name="" id="select-destination-id-to" onclick="displayDestinationsto(event)">
+                                                            <option>None</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                                    
+                                    
+                                    
+                                    <div class="searchbar">
+                                        
+                                        
+                                        <button class="search-route"> <img class="confirm-cancel-icon"
+                                            src="./public/icons8-search.svg" alt=""> Search</button>
+
+
+                                </div>
+
+
+                            </div>
 
                         </form>
-                        <button class="search-btn" onclick="on()"> <img class="confirm-cancel-icon"
-                                src="./public/icons8-search.svg" alt=""> Search</button>
-                        <script>
-                           function on() {
-                                    
-	                                document.querySelector(".search-overlay").style.display="block";
-                            }
-                        </script>
-                    </div>
-
-                    <!--second div-->
-
-                    <div id="seconddiv" style="display:none;">
-
-
-
-
-                    
 
                         <section>
-                            <h1>Add a route</h1>
-                            <button class="add-field-btn" onclick="add_field()">+ Add Field</button>
+                            
+                            <button class="edit-route" onclick="add_field()">+ Add Destination Field</button>
                         </section>
 
                         <form action="">
@@ -163,254 +274,7 @@
 
 
                         </form>
-
-
-
-
-
-                        <form action="">
-                            <h1>Search a route</h1>
-                            <div class="search">
-
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <div class="from">
-
-                                                <div class="from-to-search-text"> <label for="fromtext">From</label>
-                                                </div>
-                                                <div class="options">
-                                                    <select name="" id="">
-
-                                                        <option value="option0"></option>
-                                                        <option value="option1">Option1</option>
-                                                        <option value="option2">Option2</option>
-                                                        <option value="option3">Option3</option>
-                                                    </select>
-                                                </div>
-
-                                            </div>
-                                        </td>
-
-                                        <td>
-                                            <div class="to">
-
-                                                <div class="from-to-search-text"> <label for="tottext"> TO </label>
-                                                </div>
-                                                <div class="options">
-                                                    <select name="" id="">
-
-                                                        <option value="option0"></option>
-                                                        <option value="option1">Option1</option>
-                                                        <option value="option2">Option2</option>
-                                                        <option value="option3">Option3</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-
-
-                                
-
-                                <div class="searchbar">
-
-
-                                    <button class="search-route"> <img class="confirm-cancel-icon"
-                                            src="./public/icons8-search.svg" alt=""> Search</button>
-
-
-                                </div>
-
-
-                            </div>
-
-                        </form>
-
-
-                        <div class="content" style="margin:10px;margin-top:30px;margin-left: 5%;">
-
-
-                            <div class="content-element">
-                                <form>
-                                    <div class="content-element-main" style="display: grid;
-                                      grid-template-columns: 20% 20% 20% 20% 20%;padding:15px;display: flex;
-                                      flex-wrap: wrap;
-                                      align-items: stretch;
-                                      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-
-                                        <!-- Bus Name , Bus Number -->
-                                        
-                                        <div class="content-element-main-divs">
-                                            <div style="display: flex; margin-bottom: 4px;">
-                                                <div class="location-icon"><img style="height: 28px;
-                                                        width: 28px;" src="./public/vector4.svg" alt=""> </div>
-                                                <div style="margin-right: auto; font-family: Montserrat;
-                                                    font-size: 22px;
-                                                    font-weight: 700;
-                                                    line-height: 24px;
-                                                    letter-spacing: 0.035em;
-                                                    text-align: left;
-                                                    color:  darkblue;
-                                                   
-                                                    ">&nbsp;NR-01</div>
-                                            </div>
-                                            <div style="font-family: Montserrat;
-                                                font-size: 20px;
-                                                font-weight: 600;
-                                                line-height: 22px;
-                                                letter-spacing: 0.035em;
-                                                text-align: left;
-                                                color:  darkblue;
-                                                
-                                                ">WB-94-3235</div>
-                                            
-
-                                        </div>
-
-
-                                        <!-- Pickup Location & Time -->
-
-
-                                        <div class="content-element-main-divs pickup-drop">
-                                            <div style="display: flex; margin-bottom: 4px;">
-                                                <div class="location-icon"><img style="height: 19px;
-                                                      width: 17px;" src="./public/placeholder-14@2x.png" alt=""> </div>
-                                                <div style="margin-right: auto; font-family: Montserrat;
-                                                  font-size: 20px;
-                                                  font-weight: 500;
-                                                  line-height: 24px;
-                                                  letter-spacing: 0.035em;
-                                                  text-align: left;
-                                                  color:  rgba(255, 76, 41, 1);
-                                                  ">Pickup </div>
-                                            </div>
-                                            <div style="font-family: Montserrat;
-                                              font-size: 18px;
-                                              font-weight: 500;
-                                              line-height: 22px;
-                                              letter-spacing: 0.035em;
-                                              text-align: left;
-                                              ">NRI Fintech</div>
-                                            <div style="font-family: Montserrat;
-                                              font-size: 18px;
-                                              font-weight: 500;
-                                              line-height: 22px;
-                                              letter-spacing: 0.035em;
-                                              text-align: center;
-                                              ">9:00 AM</div>
-
-                                        </div>
-
-                                        <!-- Drop Location & Time -->
-
-                                        <div class="content-element-main-divs pickup-drop">
-                                            <div style="display: flex; margin-bottom: 4px;">
-                                                <div class="location-icon"><img style="height: 19px;
-                                                      width: 17px;" src="./public/placeholder-14@2x.png" alt=""> </div>
-                                                <div style="margin-right: auto; font-family: Montserrat;
-                                                  font-size: 20px;
-                                                  font-weight: 500;
-                                                  line-height: 24px;
-                                                  letter-spacing: 0.035em;
-                                                  text-align: left;
-                                                  color:  rgba(255, 76, 41, 1); 
-                                                  ">Drop </div>
-                                            </div>
-                                            <div style="font-family: Montserrat;
-                                              font-size: 18px;
-                                              font-weight: 500;
-                                              line-height: 22px;
-                                              letter-spacing: 0.035em;
-                                              text-align: left;
-                                              ">Ultodanga</div>
-                                            <div style="font-family: Montserrat;
-                                              font-size: 18px;
-                                              font-weight: 500;
-                                              line-height: 22px;
-                                              letter-spacing: 0.035em;
-                                              text-align: center;
-                                              ">12:00 AM</div>
-
-                                        </div>
-
-                                        <!-- Seats Left -->
-
-                                        <div class="content-element-main-divs seats-left">
-
-                                            <div style="display: flex; margin-bottom: 4px;">
-                                                
-                                                <div style="margin-right: auto; font-family: Montserrat;
-                                                      font-size: 20px;
-                                                      font-weight: 500;
-                                                      line-height: 24px;
-                                                      letter-spacing: 0.035em;
-                                                      text-align: left;
-                                                  color:  rgba(255, 76, 41, 1); 
-                                                  "> Seats Left </div>
-                                            </div>
-                                            <div style="font-family: Montserrat;
-                                                      font-size: 18px;
-                                                      font-weight: 500;
-                                                      line-height: 22px;
-                                                      letter-spacing: 0.035em;
-                                                      text-align: center;
-                                              "> 30 </div>
-
-
-
-                                        </div>
-
-                                        <!-- See Route ,Book -->
-
-                                        <div class="content-element-main-divs">
-
-
-                                            <div style="display: flex; margin-bottom: 17px;">
-                                                
-
-                                                <div class="location-icon"><img style="height: 19px;
-                                                        width: 17px;" src="./public/route-icon.svg" alt=""> </div>
-
-                                                <div style="margin-right: auto; font-family: Montserrat;
-                                                    font-size: 20px;
-                                                    font-weight: 500;
-                                                    line-height: 24px;
-                                                    letter-spacing: 0.035em;
-                                                    text-align: left;
-                                                    color:  darkblue;
-                                                    ">&nbsp;See route </div>
-
-                                            </div>
-
-                                            <div style="font-family: Montserrat;
-                                                    font-size: 18px;
-                                                    font-weight: 500;
-                                                    line-height: 22px;
-                                                    letter-spacing: 0.035em;
-                                                    text-align: right;
-                                                    
-                                                    color:red;
-                                                    "><a href=""><img class="vector-icon" alt=""
-                                                        src="public/edit-button.svg" style="height: 19px;
-                                                        width: 17px;color:red;margin:auto;" />&nbsp;Edit</a></div>
-
-
-
-
-                                        </div>
-
-                                    </div>
-
-                            </div>
-
-
-
-
-                            
-
-                        </div>
+                        
 
 
                     </div>
@@ -440,18 +304,20 @@
 
 
 
-                        </form><br>
+                        </form>
                         <button class="bus-btn" onclick="on2(event)"> <img class="confirm-cancel-icon"
                                 src="./public/icons8-search.svg" alt=""> Search</button>
                     </div>
 
                     <!--fourth div-->
 
-                    <div id="fourthdiv" style="display:none;">
-                        <input type = "text" id = "report-route-id"/>
-                        <button onclick="getReportById(event)">Search</button>
-                        <div>Month: March</div>
-                        <canvas id="myChart" style="width:100%;max-width:1300px;margin-left:30px;"></canvas>
+                    <div id="fourthdiv" style="display:none;overflow-x: scroll;">
+                        <input type = "text" id = "report-route-id" placeholder="Enter route id"/>
+                        <button onclick="getReportById(event)" class="generate-report">Search</button>
+                        
+                        <canvas id="myChart" style="width:100%;max-width:1300px;margin-left:10px;">
+                            
+                        </canvas>
                         <script>
                          var xValues = new Array(31);
                         var yValues = new Array(31);
@@ -499,7 +365,7 @@
                                     legend: {display: false},
                                     title: {
                                         display: true,
-                                        text: "Usage report"
+                                        text: "Usage report for month of march"
                                     }
                                     }
                                 });
@@ -511,6 +377,11 @@
                        
                         
                           </script>
+                          <div>
+                          <button class="user-status" onclick="generateReport('user')">User Status</button>
+        
+                          <button class="route-status" onclick="generateReport('route')">Route Status</button>
+                          </div>
                     </div>
 
                     <!--fifth div-->
@@ -523,27 +394,166 @@
                             <div id = "results"></div>
                             <script>
                                         const places = [
-                                            {
-                                            "name": "Victoria Memorial",
-                                            "latitude": 22.5454,
-                                            "longitude": 88.3428
-                                            },
-                                            {
-                                            "name": "Howrah Bridge",
-                                            "latitude": 22.5851,
-                                            "longitude": 88.3468
-                                            },
-                                            // add more places here
+                                        {
+                                            "name": "Ecospace",
+                                            "latitude": 22.576951,
+                                            "longitude": 88.433728
+                                        },
+                                        {
+                                            "name": "SDF more",
+                                            "latitude": 22.577187,
+                                            "longitude": 88.428692
+                                        },
+                                        {
+                                            "name": "Unitech",
+                                            "latitude": 22.577587,
+                                            "longitude": 88.433714
+                                        },
+                                        {
+                                            "name": "SDF Building",
+                                            "latitude": 22.577858,
+                                            "longitude": 88.429189
+                                        },
+                                        {
+                                            "name": "Wipro more",
+                                            "latitude": 22.577601,
+                                            "longitude": 88.429674
+                                        },
+                                        {
+                                            "name": "College More",
+                                            "latitude": 22.579856,
+                                            "longitude": 88.428441
+                                        },
+                                        {
+                                            "name": "Webel More",
+                                            "latitude": 22.576576,
+                                            "longitude": 88.426511
+                                        },
+                                        {
+                                            "name": "Technopolis",
+                                            "latitude": 22.580815,
+                                            "longitude": 88.428056
+                                        },
+                                        {
+                                            "name": "RDB",
+                                            "latitude": 22.580548,
+                                            "longitude": 88.433063
+                                        },
+                                        {
+                                            "name": "Tata Medical Centre",
+                                            "latitude": 22.579414,
+                                            "longitude": 88.436316
+                                        },
+                                        {
+                                            "name": "Eco Station",
+                                            "latitude": 22.575468,
+                                            "longitude": 88.432514
+                                        },
+                                        {
+                                            "name": "Infinity",
+                                            "latitude": 22.580441,
+                                            "longitude": 88.427693
+                                        },
+                                        {
+                                            "name": "SDF 2",
+                                            "latitude": 22.576925,
+                                            "longitude": 88.430089
+                                        },
+                                        {
+                                            "name": "Techno India",
+                                            "latitude": 22.582547,
+                                            "longitude": 88.422847
+                                        },
+                                        {
+                                            "name": "Wipro Gate 2",
+                                            "latitude": 22.575606,
+                                            "longitude": 88.428674
+                                        },
+                                        {
+                                            "name": "Aloft",
+                                            "latitude": 22.584686,
+                                            "longitude": 88.423684
+                                        },
+                                        {
+                                            "name": "Idea Building",
+                                            "latitude": 22.576154,
+                                            "longitude": 88.426277
+                                        },
+                                        {
+                                            "name": "Capgemini",
+                                            "latitude": 22.581013,
+                                            "longitude": 88.427693
+                                        },
+                                        {
+                                            "name": "SDF 3",
+                                            "latitude": 22.574778,
+                                            "longitude": 88.427151
+                                        },
+                                        {
+                                            "name": "SDF 4",
+                                            "latitude": 22.575109,
+                                            "longitude": 88.429193
+                                        },
+                                        {
+                                            "name": "Charnock Hospital",
+                                            "latitude": 22.586247,
+                                            "longitude": 88.427778
+                                        },
+                                        {
+                                            "name": "Ecospace Gate 2",
+                                            "latitude": 22.577304,
+                                            "longitude": 88.431006
+                                        },
+                                        {
+                                            "name": "Tollygunge Tram Depot",
+                                            "latitude": 22.5085,
+                                            "longitude": 88.3358
+                                        },
+                                        {
+                                            "name": "Esplanade",
+                                            "latitude": 22.5641,
+                                            "longitude": 88.3488
+                                        },
+                                        {
+                                            "name": "Park Circus Maidan",
+                                            "latitude": 22.5415,
+                                            "longitude": 88.3957
+                                        },
+                                        {
+                                            "name": "Garia Bus Stand",
+                                            "latitude": 22.4767,
+                                            "longitude": 88.3942
+                                        },
+                                        {
+                                            "name": "Shyambazar",
+                                            "latitude": 22.6024,
+                                            "longitude": 88.3749
+                                        },
+                                        {
+                                            "name": "Ruby Crossing",
+                                            "latitude": 22.5113,
+                                            "longitude": 88.3939
+                                        },
+                                        {
+                                            "name": "Kudghat Bus Stand",
+                                            "latitude": 22.4981,
+                                            "longitude": 88.3244
+                                        },
+                                        {
+                                            "name": "Barasat Bus Stand",
+                                            "latitude": 22.7256,
+                                            "longitude": 88.4798
+                                        },
+                                        
                                         ];
+                                        </script>
                                         
-                                        const input = document.getElementById("dest-name");
+                                        <!-- <input type="number" id="dest-latitude-input" name="latitude" min="-90" max="90" step="any" placeholder="Enter latitude">
                                         
                                         
-                                        function searchPlaces(term) {
-
-                                            return places.filter(place => place.name.toLowerCase().includes(term.toLowerCase()));
-                                        }
+                                        <input type="number" id="dest-longitude-input" name="longitude" min="-180" max="180" step="any" placeholder="Enter longitude"><br> -->
                                         
+                                        <script>
                                         function displayResults(places) {
                                             const results = document.getElementById("results");
                                             results.innerHTML = ""; // clear previous results
@@ -554,7 +564,14 @@
                                                 li.textContent = place.name;
                                                 li.addEventListener("click", () => {
                                                 console.log(`Name: ${place.name}, Latitude: ${place.latitude}, Longitude: ${place.longitude}`);
-                                                });
+                                                const placeInput = document.getElementById("dest-name");
+                                                const latitudeInput = document.getElementById("dest-latitude-input");
+                                                const longitudeInput = document.getElementById("dest-longitude-input");
+                                                placeInput.value = place.name;
+                                                latitudeInput.value = place.latitude;
+                                                longitudeInput.value = place.longitude;
+
+                                            });
                                                 ul.appendChild(li);
                                             });
                                             results.appendChild(ul);
@@ -590,12 +607,54 @@
                             <input type="text"
                                 id = "dest-search-name"
                                 placeholder="Enter destination name">
-                        </form><br>
+                        </form>
                         <button class="search-destination" onclick="on3(event)"> <img class="confirm-cancel-icon"
                                 src="./public/icons8-search.svg" alt=""> Search</button>
                     </div>
 
-                </div>
+                    <!--sixth div-->
+                                    <div id="sixthdiv" style="display:none" >
+                                        <h1 class="issue-main-heading">Manage Issues</h1>
+                                        <div class="issue-tile">
+                                            <h2 class="issue-title">Issue Title</h2>
+                                            <p class="issue-user">Posted by Shubh</p>
+                                            <p class="issue-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed efficitur, lorem ac hendrerit aliquam, mauris nunc ultrices mauris, a tristique mauris nisi ut sapien. Sed ullamcorper nulla sed mi luctus congue. Nullam vel justo euismod, feugiat augue non, dapibus urna. Nam sit amet ligula ac risus bibendum iaculis. Suspendisse vehicula dui sed augue ultrices maximus. Praesent vel nunc lorem. Duis vulputate auctor massa at accumsan.</p>
+                                            <button class="resolve-button">Resolve</button>
+                                        </div>
+                                    </div>
+                    
+                    <!--seventh div-->
+                                    <div id="seventhdiv" style="display:none">
+                                        <form action="" method="get">
+                                            <h1>Search Tickets</h1>
+                                            <input type="text" id="search-tickets" placeholder="Enter Employee's Name">
+                                            <button id="search-ticket-button">Search</button>
+                                        </form>
+                                        
+                                        <table class="ticket-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Bus Number</th>
+                                                    <th>Pickup</th>
+                                                    <th>Drop</th>
+                                                    <th>Status</th>
+                                                    <th>Date</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>WB-94-3235</td>
+                                                    <td>NRI Fintech</td>
+                                                    <td>Ultodanga</td>
+                                                    <td>Confirmed</td>
+                                                    <td>21-02-23</td>
+                                                    <td><button>Cancel</button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        
+                                    </div>
 
 
             </div>
@@ -628,18 +687,19 @@
         <div class="search-div">
 
             <div class="search-overlay-main-div">
-
+                <div class = "close-button" onclick="off()"></div>
                 <div class="cancel-text">
-                    <form>
-                        <input type="text" id="employee-name" name="name" placeholder="Name">
+                    <form style="text-align: left;margin: auto;">
+                        <label for="employee-name">Name: </label>
+                        <input type="text" id="employee-name" name="name" placeholder="Name"><br>
 
+                        <label for="employee-email">Email ID: </label>
+                        <input type="text" id="employee-email" name="email" placeholder="Email"><br>
 
-                        <input type="text" id="employee-email" name="email" placeholder="Email">
+                        <label for="employee-password">Password:</label>
+                        <input type="text" id = "employee-password" name="employee-password" placeholder="Update password"><br>
 
-
-                        <input type="text" id = "employee-password" name="employee-password" placeholder="Update password">
-
-
+                        <label for="employee-id">Emp ID: </label>
                         <input type="text" id = "employee-id" placeholder="Employee ID"><br>
 
                         <input type = "text" id = "emp-inp-id" style = "display: none;">
@@ -648,8 +708,7 @@
                 <div class="confirm-cancel-buttons">
                     <button class="confirm-button" onclick="updateEmployee(event)"> <img class="confirm-cancel-icon" src="./public/arrow-right-circle-fill.svg"
                             alt=""> Save</button>
-                    <button class="cancel-button"  onclick = "deleteEmployee(event)"> <img class="confirm-cancel-icon" src=""
-                            alt=""> Delete</button>
+                    <button class="cancel-button"  onclick = "deleteEmployee(event)">Delete</button>
                 </div>
 
             </div>
@@ -662,34 +721,34 @@
     <!-- Bus Search Overlay -->
 
     <div class="bus-overlay">
-        <div class="bus-div">
+        <div class="search-div">
 
-            <div class="bus-overlay-main-div">
-
-                <div class="search-text">
-                    <form>
+            <div class="search-overlay-main-div">
+                <div class = "close-button" onclick="off2()"></div>
+                <div class="cancel-text">
+                    <form style="text-align: left;margin: auto;">
+                        <label for="bus-number-o">No:</label>
                         <input type="text" id="bus-number-o" name="number" placeholder="Bus Number">
 
-
+                        <label for="bus-name-o">Name:</label>
                         <input type="text" id="bus-name-o" name="name" placeholder="Bus Name">
 
-
+                        <label for="bus-seats-o">Seats:</label>
                         <input type="text" id="bus-seats-o" name="seats" placeholder="Total Seats">
                         <input type = "text" id="bus-id-o" style = "display: none;"/>
 
                     </form>
                 </div>
-                <div class="search-cancel-buttons">
-                    <button class="save-button" onclick="updateBus(event)"> <img class="search-cancel-icon" src="./public/arrow-right-circle-fill.svg"
+                <div class="confirm-cancel-buttons">
+                    <button class="confirm-button" onclick="updateBus(event)"> <img class="search-cancel-icon" src="./public/arrow-right-circle-fill.svg"
                             alt=""> Save</button>
-                    <button class="delete-button" onclick="deleteBus(event)"> <img class="search-cancel-icon" src=""
-                            alt=""> Delete</button>
+                    <button class="cancel-button" onclick="deleteBus(event)">Delete</button>
                 </div>
 
             </div>
 
         </div>
-        <div class = "cancel-button" onclick="off2()">X</div>
+        
     </div>
 
     <!-- Bus Search Overlay Ends Here-->
@@ -697,31 +756,32 @@
     <!-- Destination Search Overlay -->
 
     <div class="destination-overlay" >
-        <div class="destination-div">
-
-            <div class="destination-overlay-main-div">
-
-                <div class="search-text">
-                    <form>
+        <div class="search-div">
+            
+            <div class="search-overlay-main-div">
+                <div class = "close-button" onclick="off3()"></div>
+                <div class="cancel-text">
+                    
+                    <form style="text-align: left;margin: auto;">
+                        <label for="dest-edit-name">Name: </label>
                         <input type="text" id="dest-edit-name" name="name" placeholder="Destination Name">
 
-
+                        <label for="dest-edit-latitude-input">Latitude: </label>
                         <input type="number" id="dest-edit-latitude-input" name="latitude" min="-90" max="90" step="any" placeholder="Enter latitude">
 
-
+                        <label for="dest-edit-longitude-input">Longitude: </label>
                         <input type="number" id="dest-edit-longitude-input" name="longitude" min="-180" max="180" step="any" placeholder="Enter longitude"><br>
                         <input type = "number" id = "dest-edit-id" name = "id" style = "display: none;"></input>
                     </form>
                 </div>
-                <div class="search-cancel-buttons">
-                    <button class="save-button" onclick="updateDestination(event)"> <img class="search-cancel-icon" src="./public/arrow-right-circle-fill.svg"
+                <div class="confirm-cancel-buttons">
+                    <button class="confirm-button" onclick="updateDestination(event)"> <img class="search-cancel-icon" src="./public/arrow-right-circle-fill.svg"
                             alt="" > Save</button>
-                    <button class="delete-button" onclick="deleteDestination(event)"> <img class="search-cancel-icon" src=""
-                            alt=""> Delete</button>
+                    <button class="cancel-button" onclick="deleteDestination(event)">Delete</button>
                 </div>
 
             </div>
-            <div class = "cancel-button" onclick="off3()">X</div>
+           
         </div>
     </div>
 

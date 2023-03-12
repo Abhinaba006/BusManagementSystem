@@ -1,16 +1,3 @@
-<!--
-
-	@author: Arijit Saha
-	@desc: Html serving as header and footer template
-	@file path from root: Ex ./index.html/
-    
-    @edited: Monidepa Ghosh
-    @desc: made necessary changes in the header and footer and added my profile
-
--->
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,20 +22,15 @@
         <!-- Header -->
         <div class="header">
 
-            <!-- <div class="header-div">
-                <div class="nri-travel">NRI Travel</div>
-
-            </div> -->
-            <div class="header-div">
+           <div class="header-div">
                 <a href="index.html" class="nrifintech">
                     <div> NRI TRAVEL</div>
                 </a>
             </div>
             <div class="header-end">
 
-                <!--Monidepa Ghosh-->
-
                 <div class="header-end-items">
+                    <img class="vector-icon" alt="" src="public/abstract-user-flat-4.svg" style="height: 25px; margin: auto;margin-right: 10px;" />
                     <p class="header-end-items-text"> 
                         <a href="my_profile.html" class="profile">  My Profile  </a>
                     </p>     
@@ -88,76 +70,85 @@
 
                                 <form action="">
                                     <div  class="from-to-searchbar">
-
-                                       
-
-                                        <div class="from"> 
+                                        <table class="bottom-table">
+                                            <tr>
+                                                <td>
+                                                    <div class="from-to-search-text">  <label for="user-from">From</label> </div>
+                                                    
+                                                        
+                                                        
+                                                            <div class="options"> 
+                                                                <select name="" id="user-from" class="from-id" onclick=" displayDestinations(event)">
+                                                                <option value = "-1">None</option>
+                                                                </select>
+                                                            </div>
+                                                        
+                                                    
+                                                </td>
                                             
-                                            <div class="from-to-search-text">  <label for="fromtext">From</label> </div>
-                                                <div class="options"> 
-                                                    <select name="" id="user-from" class="from-id" onclick=" displayDestinations(event)">
-                                                    <option value = "-1">None</option>
-                                                    </select>
-                                                 </div>
+                                                <td>
+                                                    <div class="from-to-search-text">   <label for="user-to"> TO </label>  </div>
+                                                    
                                             
-                                        </div>
+                                                        
+                                                            <div class="options"> 
+                                                                <select name="" id="user-to" class="to-id"  onclick=" displayDestinations1(event)">
+                                                                    <option value = "-1">None</option>
+                                                                </select>
+                                                            </div>
+                                                    
+                                                </td>
 
-                                        <div class="to"> 
-                                            
-                                            <div class="from-to-search-text">   <label for="tottext"> TO </label>  </div>
-                                                <div class="options"> 
-                                                    <select name="" id="user-to" class="to-id"  onclick=" displayDestinations1(event)">
-                                                        <option value = "-1">None</option>
-                                                    </select>
-                                                </div>
-                                        </div>
-                                            <!-- <p class="from-to-search-text">To</p> </div> -->
-                                        <input type="text" id="datepicker"></p>
+                                        
+                                            <td>
+                                                <div style="padding-bottom: 10px;">
+                                                <div class="from-to-search-text" style="margin-bottom: 10px;">   <label for="datepicker"> DATE </label>  </div>
+                                       <div > <input type="text" id="datepicker" readonly></div></div>
                                         <script>
                                             $( function() {
-                                                $( "#datepicker" ).datepicker();
+                                                $( "#datepicker" ).datepicker({
+                                                         defaultDate: new Date(),
+                                                        minDate: new Date(),
+                                                });
+                                                $("#datepicker").datepicker("setDate", new Date());
                                             } );
                                         </script>
-                                        <div class="searchbar"> 
-
-                                            <img class="search-icon from-to-search-text search-icon"  src="./public/search-icon.svg" alt="">
-                                            <button type="submit" class="from-to-search-text search" onclick="getRoutes(event)"> Search </button>
+                                        </td>
+                                        <td>
+                                                    <button type="submit" class="from-to-search-text search search-btn" onclick="getRoutes(event)">Search
+                                                    </button>
+                                        </td>
+                                            </tr>
+                                        </table>
+                                        
+                                            
                                             
 
-                                        </div>
+                                        
                                         
 
                                     </div>
                                 </form>
 
-                                    <div class="content">
+                                <div class="content">
                                         
                                      
                                     </div>
 
+                                <!--Content Div Ends Here-->
+                                        
 
-                                        <!-- 
-                                        <div class="content-element"></div>
-                                        <div class="content-element"></div>
-                                        <div class="content-element"></div>
-                                        <div class="content-element"></div>
-                                        <div class="content-element"></div>
-                                        <div class="content-element"></div>
-                                        <div class="content-element"></div>
-                                        <div class="content-element"></div> 
-                                        -->
-
-                                    </div>  <!--Content Div Ends Here-->
+                            </div>  
 
                                 
-                             </div>
+                     </div>
 
 
-                    </div>
+        </div>
             
            
                         
-            </div>
+            
 
         <!-- Footer -->
         <div class="footer">
@@ -187,8 +178,8 @@
 
                 <div class="cancel-text">Are you sure you want to cancel your booking ?</div>
                 <div class="confirm-cancel-buttons">
-                    <button class="confirm-button"> <img class="confirm-cancel-icon" src="./public/confirm-icon.svg" alt=""> Confirm</button>
-                    <button class="cancel-button"> <img class="confirm-cancel-icon" src="./public/cancel-icon.svg" alt=""> Cancel</button>
+                    <button type="submit" class="confirm-button" onclick="location.reload()"> <img class="confirm-cancel-icon" src="./public/confirm-icon.svg" alt=""> Confirm</button>
+                    <button type="submit" class="cancel-button"> <img class="confirm-cancel-icon" src="./public/cancel-icon.svg" alt=""> Cancel</button>
                 </div>
 
             </div>

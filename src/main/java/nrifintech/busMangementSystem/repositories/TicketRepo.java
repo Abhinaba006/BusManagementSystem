@@ -14,8 +14,15 @@ import nrifintech.busMangementSystem.entities.User;
 
 
 public interface TicketRepo extends JpaRepository<Ticket, Integer> {
-    @Query(value = "SELECT * FROM ticket WHERE user_id = :user_id", nativeQuery = true)
+    @Query(value = "SELECT * FROM ticket WHERE user_id = :user_id order by status desc,date desc", nativeQuery = true)
     List<Ticket> findByUserId(@Param("user_id") int user_id);
+    
     @Query(value = "SELECT * FROM ticket WHERE route_id = :route_id AND date = :date AND status = 'WAITING' ORDER BY id ASC LIMIT 1",nativeQuery = true)
     Ticket findLatestUser(@Param("route_id") int route_id, @Param("date") String date);
+    
+    @Query(value = "SELECT * FROM ticket WHERE user_id = :user_id AND date = :date AND status = 'CONFIRMED' LIMIT 1",nativeQuery = true)
+    Ticket findUserByPresentDate(@Param("user_id") int user_id, @Param("date") String date);
+
+    @Query(value = "SELECT * FROM ticket WHERE date < :date",nativeQuery = true)
+	List<Ticket> findPastTickets(String date);
 }

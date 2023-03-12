@@ -34,12 +34,13 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 		
 		// Get the custom header from the request
 		// String authorizationHeader  = request.getHeader("x-auth-token");
-		String url = request.getRequestURI();
-		if (url.contains("login") || url.contains("register")) {
-			filterChain.doFilter(request, response);
-			return;
-		}
-		int userType = 0;
+		// String url = request.getRequestURI();
+		// if (url.contains("login") || url.contains("register")) {
+		// 	filterChain.doFilter(request, response);
+		// 	return;
+		// }
+		// int userType = 0;
+		// System.out.println(authorizationHeader);
 		if (true) {
 		    // String token = authorizationHeader;
 		    // // Use the token for authentication/authorization purposes

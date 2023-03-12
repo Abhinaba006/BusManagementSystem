@@ -1,11 +1,4 @@
 
-/* 
-
-    @author: Arijit Saha
-	@desc: js for all the html files 
-	@file path from root: Ex ./index.js/
-
-*/
 // var cors = require('cors');
 var nrifintech="NRI TRAVEL";
 var booking = `My Bookings`; 
@@ -223,11 +216,16 @@ function bookTicket(event){
 		contentType: "application/json",
 		success: function(result) {
 			console.log(result);
-			alert("Ticket booked successfully!")
+			alert("Ticket booked successfully!");
+			location.reload(); 
 		},
 		error: function(xhr, status, error) {
 			console.log(error);
-			alert("Oops something went wrong! Please try again")
+			console.log(JSON.parse(xhr.responseText).message);
+			if(JSON.parse(xhr.responseText).message === "Ticket already done by ")
+			  alert("First cancel 1 confirmed ticket, then book a ticket.");
+			else
+			alert("Oops something went wrong! Please try again ");
 		}
 	});
 }
