@@ -410,11 +410,14 @@
                                     </div>
                                     
                                     <!--sixth div-->
-                                    <div id="sixthdiv" style="display:none" class="issue-tile">
-                                        <h2 class="issue-title">Issue Title</h2>
-                                        <p class="issue-user">Posted by John Doe</p>
-                                        <p class="issue-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed efficitur, lorem ac hendrerit aliquam, mauris nunc ultrices mauris, a tristique mauris nisi ut sapien. Sed ullamcorper nulla sed mi luctus congue. Nullam vel justo euismod, feugiat augue non, dapibus urna. Nam sit amet ligula ac risus bibendum iaculis. Suspendisse vehicula dui sed augue ultrices maximus. Praesent vel nunc lorem. Duis vulputate auctor massa at accumsan.</p>
-                                        <button class="resolve-button">Resolve</button>
+                                    <div id="sixthdiv" style="display:none" >
+                                        <h1 class="issue-main-heading">Manage Issues</h1>
+                                        <div class="issue-tile">
+                                            <h2 class="issue-title">Issue Title</h2>
+                                            <p class="issue-user">Posted by Shubh</p>
+                                            <p class="issue-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed efficitur, lorem ac hendrerit aliquam, mauris nunc ultrices mauris, a tristique mauris nisi ut sapien. Sed ullamcorper nulla sed mi luctus congue. Nullam vel justo euismod, feugiat augue non, dapibus urna. Nam sit amet ligula ac risus bibendum iaculis. Suspendisse vehicula dui sed augue ultrices maximus. Praesent vel nunc lorem. Duis vulputate auctor massa at accumsan.</p>
+                                            <button class="resolve-button">Resolve</button>
+                                        </div>
                                     </div>
                                     
                                     <!--seventh div-->
@@ -425,84 +428,28 @@
                                             <button id="search-ticket-button">Search</button>
                                         </form>
                                         
-                                        <div class="content">
-                                            
-                                            <div class="content-element">
-                                                
-                                                <div class="content-element-main">
-                                                    
-                                                    <!-- Bus Name & Number  -->
-                                                    <div class="content-element-main-divs">
-                                                        <div class="bus-name-div"> 
-                                                            <div class="bus-icon"><img  src="./public/vector4.svg" alt=""> </div>
-                                                            <div class="bus-name-text">NR-01 </div> 
-                                                        </div>
-                                                        <div class="bus-no">WB-94-3235</div>
-                                                        
-                                                    </div>
-                                                    
-                                                    <!-- Pickup Location & Time -->
-                                                    
-                                                    <div class="content-element-main-divs pickup-drop">
-                                                        <div class="pickup-div"> 
-                                                            <div class="location-icon">
-                                                                <img class="location-icon-img" src="./public/placeholder-14@2x.png" alt=""> 
-                                                            </div>
-                                                            <div class="pickup-text" >Pickup </div> 
-                                                        </div>
-                                                        <div  class="pickup-location-text">NRI Fintech</div>
-                                                        <div class="pickup-time-text">9:00 AM</div>
-                                                        
-                                                    </div>
-                                                    
-                                                    <!-- Drop Location & Time -->
-                                                    
-                                                    <div class="content-element-main-divs pickup-drop"> 
-                                                        <div class="drop-div" > 
-                                                            <div class="location-icon">
-                                                                <img class="drop-icon-img" src="./public/placeholder-14@2x.png" alt=""> 
-                                                            </div>
-                                                            <div class="drop-location">Drop </div> 
-                                                        </div>
-                                                        <div class="drop-location-text">Ultodanga</div>
-                                                        <div class="drop-time-text">12:00 AM</div>
-                                                        
-                                                    </div>
-                                                    
-                                                    <!-- Seats Left -->
-                                                    
-                                                    <div class="content-element-main-divs seats-left"> 
-                                                        
-                                                        <div class="status-div"> 
-                                                            <div class="status-text" > Status </div> 
-                                                        </div>
-                                                        <div class="expired-text" >  
-                                                            Expired 
-                                                        </div>
-                                                        
-                                                    </div> 
-                                                    
-                                                    <!-- See Route ,Book -->
-                                                    
-                                                    <div class="content-element-main-divs">
-                                                        
-                                                        
-                                                        <div  class="see-route-div" onclick="onroute()"> 
-                                                            <div class="route-icon"><img  src="./public/route-icon.svg" alt=""> </div>
-                                                            <div class="see-route-text">See Route </div> 
-                                                        </div>
-                                                        
-                                                        <div class="date-info" >  Date: 21-02-23 </div>
-                                                        
-                                                    </div>
-                                                    
-                                                </div>
-                                                
-                                                
-                                                
-                                                
-                                            </div> 
-                                        </div>
+                                        <table class="ticket-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Bus Number</th>
+                                                    <th>Pickup</th>
+                                                    <th>Drop</th>
+                                                    <th>Status</th>
+                                                    <th>Date</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>WB-94-3235</td>
+                                                    <td>NRI Fintech</td>
+                                                    <td>Ultodanga</td>
+                                                    <td>Confirmed</td>
+                                                    <td>21-02-23</td>
+                                                    <td><button>Cancel</button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                         
                                     </div>
                                     
