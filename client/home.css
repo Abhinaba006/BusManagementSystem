@@ -336,7 +336,7 @@ select {
 /* Media Queries */
 @media(max-width: 1300px) {
     .pickup-drop {
-        display: none;
+        /* display: none; */
     }
 
     .from {
@@ -366,7 +366,7 @@ select {
 
 @media(max-width: 1008px) {
     .bus-icon {
-        display: none;
+        /* display: none; */
     }
 
     .from {
@@ -380,7 +380,7 @@ select {
     }
 }
 
-@media(max-width: 865px) {
+/* @media(max-width: 865px) {
     .bus-no {
         display: none;
     }
@@ -393,4 +393,4 @@ select {
     .search-icon{
         display: none;
     }
-}
+} */
