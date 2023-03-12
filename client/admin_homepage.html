@@ -64,8 +64,9 @@
                     <a href="#" class="bar-item button" onclick="thirddiv()" id="text3">Bus</a>
                     <a href="#" class="bar-item button" onclick="fourthdiv()" id="text4">Report</a>
                     <a href="#" class="bar-item button" onclick="fifthdiv()" id="text5">Destination</a>
-                    <a href="#" class="bar-item button" onclick="sixthdiv()" id="text6">Issues</a>
+                    <a href="#" class="bar-item button" onclick="sixthdiv(); getUnResolvedIssues();" id="text6">Issues</a>
                     <a href="#" class="bar-item button" onclick="seventhdiv()" id="text7">Tickets</a>
+
                 </div>
                 
                 <div class="main" style="margin-left:200px;">
@@ -215,201 +216,400 @@
                                         
                                         <button class="search-route"> <img class="confirm-cancel-icon"
                                             src="./public/icons8-search.svg" alt=""> Search</button>
-                                            
-                                            
-                                        </div>
-                                        
-                                        
-                                    </div>
-                                    
-                                </form>
-                                
-                                <section>
-                                    
-                                    <button class="edit-route" onclick="add_field()">+ Add Destination Field</button>
-                                </section>
-                                
-                                <form action="">
-                                    
-                                    <div class="from-to-searchbar">
-                                        
-                                        
-                                        
-                                        <table class="container">
-                                            
-                                        </table>
-                                        <table class="bottom-table">
-                                            <tr>
-                                                <td>
-                                                    <div class="from">
-                                                        
-                                                        <div class="from-to-search-text"> <label for="fromtext">Select Bus</label>
-                                                        </div>
-                                                        <div class="options">
-                                                            <select name="" id="select-bus-id" onclick="displayBusID(event)">
-                                                                <option>None</option>
-                                                            </select>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                        
-                                        
-                                        
-                                        
-                                        
-                                    </div>
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    <input type="submit" onclick="addRoute(event)" style="margin-left: 4%;" value="+ Add route">
-                                    
-                                    
-                                </form>
-                                
-                                
-                                
+
+
+                                </div>
+
+
                             </div>
+
+                        </form>
+
+                        <section>
                             
-                            <!--third div-->
+                            <button class="edit-route" onclick="add_field()">+ Add Destination Field</button>
+                        </section>
+
+                        <form action="">
+
+                            <div class="from-to-searchbar">
+
+
+
+                                <table class="container">
+                                
+                                </table>
+                                <table class="bottom-table">
+                                    <tr>
+                                        <td>
+                                            <div class="from">
+
+                                                <div class="from-to-search-text"> <label for="fromtext">Select Bus</label>
+                                                </div>
+                                                <div class="options">
+                                                    <select name="" id="select-bus-id" onclick="displayBusID(event)">
+                                                        <option>None</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+
+
+
+
+                            </div>
+
+
+
                             
-                            <div id="thirddiv" style="display:none;">
-                                <form>
-                                    <h1>Add a bus</h1>
-                                    
-                                    <input type="text" id="bus-number" name="number" placeholder="Bus Number">
-                                    
-                                    
-                                    <input type="number" id="bus-seats" name="seats" placeholder="Total seats">
-                                    
-                                    
-                                    <input type="text" id="bus-name" name="name" placeholder="Bus Name"><br>
-                                    
-                                    
-                                    <input type="submit" value="+ Add Bus" onclick="addBus(event)">
-                                    
-                                    <h1>Search/edit a bus</h1>
-                                    
-                                    <input type="text"
-                                    id = "bus-search-name"Bus-number-search" 
-                                    placeholder="Enter bus number">
-                                    
-                                    
-                                    
-                                </form>
-                                <button class="bus-btn" onclick="on2(event)"> <img class="confirm-cancel-icon"
-                                    src="./public/icons8-search.svg" alt=""> Search</button>
-                                </div>
-                                
-                                <!--fourth div-->
-                                
-                                <div id="fourthdiv" style="display:none;">
-                                    <input type = "text" id = "report-route-id" placeholder="Enter route id"/>
-                                    <button onclick="getReportById(event)" class="generate-report">Search</button>
-                                    
-                                    <canvas id="myChart" style="width:100%;max-width:1300px;margin-left:30px;">
+
+
+
+                            <input type="submit" onclick="addRoute(event)" style="margin-left: 4%;" value="+ Add route">
+
+
+                        </form>
+                        
+
+
+                    </div>
+
+                    <!--third div-->
+
+                    <div id="thirddiv" style="display:none;">
+                        <form>
+                            <h1>Add a bus</h1>
+
+                            <input type="text" id="bus-number" name="number" placeholder="Bus Number">
+
+
+                            <input type="number" id="bus-seats" name="seats" placeholder="Total seats">
+
+
+                            <input type="text" id="bus-name" name="name" placeholder="Bus Name"><br>
+
+
+                            <input type="submit" value="+ Add Bus" onclick="addBus(event)">
+
+                            <h1>Search/edit a bus</h1>
+
+                            <input type="text"
+                                id = "bus-search-name"Bus-number-search" 
+                                placeholder="Enter bus number">
+
+
+
+                        </form>
+                        <button class="bus-btn" onclick="on2(event)"> <img class="confirm-cancel-icon"
+                                src="./public/icons8-search.svg" alt=""> Search</button>
+                    </div>
+
+                    <!--fourth div-->
+
+                    <div id="fourthdiv" style="display:none;">
+                        <input type = "text" id = "report-route-id" placeholder="Enter route id"/>
+                        <button onclick="getReportById(event)" class="generate-report">Search</button>
+                        
+                        <canvas id="myChart" style="width:100%;max-width:1300px;margin-left:30px;">
+                            
+                        </canvas>
+                        <script>
+                         var xValues = new Array(31);
+                        var yValues = new Array(31);
+                        var barColors = new Array(31);
+                        for(let i = 0;i<31;i++){
+                            xValues[i] = i+1;
+                            yValues[i] = 0;
+                        }
+                        var positiveColor = 'rgba(54, 162, 235, 0.2)';
+                        var negativeColor = 'rgba(255, 99, 132, 0.2)';
+                    
+                        function getReportById(event){
+                            event.preventDefault();
+                            const id = $("#report-route-id").val();
+                            if(id == "") return alert("Please provide a valid route id");
+                            $.get("http://localhost:8080/api/v1/route/getReport/" + id,function(data){
+                                console.log(data);
+                                for(var i = 0;i<data.length;i++){
+                                    var date = data[i].date;
+                                    var index = parseInt(date.split(':')[0]);
+                                    var diff = data[i].total_seats - data[i].overall_bookings;
+                                    console.log(index,diff);
+                                    index--;
+                                    if(diff >= 0 ){
+                                        yValues[index] = diff;
+                                        barColors[index] = negativeColor;
+                                    }
+                                    else{
+                                        //overused
+                                        yValues[index] = -diff;
+                                        barColors[index] = positiveColor;
+                                    }
+                                }
+                                console.log(yValues);
+                                new Chart("myChart", {
+                                    type: "bar",
+                                    data: {
+                                    labels: xValues,
+                                    datasets: [{
+                                        backgroundColor: barColors,
+                                        data: yValues
+                                    }]
+                                    },
+                                    options: {
+                                    legend: {display: false},
+                                    title: {
+                                        display: true,
+                                        text: "Usage report for month of march"
+                                    }
+                                    }
+                                });
+                            }).fail(function(){
+                                return alert("Server error! Please try again!")
+                            })
+                    
+                        }
+                       
+                        
+                          </script>
+                          <div>
+                          <button class="user-status" onclick="generateReport('user')">User Status</button>
+        
+                          <button class="route-status" onclick="generateReport('route')">Route Status</button>
+                          </div>
+                    </div>
+
+                    <!--fifth div-->
+
+                    <div id="fifthdiv" style="display:none;">
+                        <form>
+                            <h1>Add a destination</h1>
+                            
+                            <input type="text" id="dest-name" name="name" placeholder="Enter destination name">
+                            <div id = "results"></div>
+                            <script>
+                                        const places = [
+                                        {
+                                            "name": "Ecospace",
+                                            "latitude": 22.576951,
+                                            "longitude": 88.433728
+                                        },
+                                        {
+                                            "name": "SDF more",
+                                            "latitude": 22.577187,
+                                            "longitude": 88.428692
+                                        },
+                                        {
+                                            "name": "Unitech",
+                                            "latitude": 22.577587,
+                                            "longitude": 88.433714
+                                        },
+                                        {
+                                            "name": "SDF Building",
+                                            "latitude": 22.577858,
+                                            "longitude": 88.429189
+                                        },
+                                        {
+                                            "name": "Wipro more",
+                                            "latitude": 22.577601,
+                                            "longitude": 88.429674
+                                        },
+                                        {
+                                            "name": "College More",
+                                            "latitude": 22.579856,
+                                            "longitude": 88.428441
+                                        },
+                                        {
+                                            "name": "Webel More",
+                                            "latitude": 22.576576,
+                                            "longitude": 88.426511
+                                        },
+                                        {
+                                            "name": "Technopolis",
+                                            "latitude": 22.580815,
+                                            "longitude": 88.428056
+                                        },
+                                        {
+                                            "name": "RDB",
+                                            "latitude": 22.580548,
+                                            "longitude": 88.433063
+                                        },
+                                        {
+                                            "name": "Tata Medical Centre",
+                                            "latitude": 22.579414,
+                                            "longitude": 88.436316
+                                        },
+                                        {
+                                            "name": "Eco Station",
+                                            "latitude": 22.575468,
+                                            "longitude": 88.432514
+                                        },
+                                        {
+                                            "name": "Infinity",
+                                            "latitude": 22.580441,
+                                            "longitude": 88.427693
+                                        },
+                                        {
+                                            "name": "SDF 2",
+                                            "latitude": 22.576925,
+                                            "longitude": 88.430089
+                                        },
+                                        {
+                                            "name": "Techno India",
+                                            "latitude": 22.582547,
+                                            "longitude": 88.422847
+                                        },
+                                        {
+                                            "name": "Wipro Gate 2",
+                                            "latitude": 22.575606,
+                                            "longitude": 88.428674
+                                        },
+                                        {
+                                            "name": "Aloft",
+                                            "latitude": 22.584686,
+                                            "longitude": 88.423684
+                                        },
+                                        {
+                                            "name": "Idea Building",
+                                            "latitude": 22.576154,
+                                            "longitude": 88.426277
+                                        },
+                                        {
+                                            "name": "Capgemini",
+                                            "latitude": 22.581013,
+                                            "longitude": 88.427693
+                                        },
+                                        {
+                                            "name": "SDF 3",
+                                            "latitude": 22.574778,
+                                            "longitude": 88.427151
+                                        },
+                                        {
+                                            "name": "SDF 4",
+                                            "latitude": 22.575109,
+                                            "longitude": 88.429193
+                                        },
+                                        {
+                                            "name": "Charnock Hospital",
+                                            "latitude": 22.586247,
+                                            "longitude": 88.427778
+                                        },
+                                        {
+                                            "name": "Ecospace Gate 2",
+                                            "latitude": 22.577304,
+                                            "longitude": 88.431006
+                                        },
+                                        {
+                                            "name": "Tollygunge Tram Depot",
+                                            "latitude": 22.5085,
+                                            "longitude": 88.3358
+                                        },
+                                        {
+                                            "name": "Esplanade",
+                                            "latitude": 22.5641,
+                                            "longitude": 88.3488
+                                        },
+                                        {
+                                            "name": "Park Circus Maidan",
+                                            "latitude": 22.5415,
+                                            "longitude": 88.3957
+                                        },
+                                        {
+                                            "name": "Garia Bus Stand",
+                                            "latitude": 22.4767,
+                                            "longitude": 88.3942
+                                        },
+                                        {
+                                            "name": "Shyambazar",
+                                            "latitude": 22.6024,
+                                            "longitude": 88.3749
+                                        },
+                                        {
+                                            "name": "Ruby Crossing",
+                                            "latitude": 22.5113,
+                                            "longitude": 88.3939
+                                        },
+                                        {
+                                            "name": "Kudghat Bus Stand",
+                                            "latitude": 22.4981,
+                                            "longitude": 88.3244
+                                        },
+                                        {
+                                            "name": "Barasat Bus Stand",
+                                            "latitude": 22.7256,
+                                            "longitude": 88.4798
+                                        },
                                         
-                                    </canvas>
-                                    <script>
-                                        var xValues = new Array(31);
-                                        var yValues = new Array(31);
-                                        var barColors = new Array(31);
-                                        for(let i = 0;i<31;i++){
-                                            xValues[i] = i+1;
-                                            yValues[i] = 0;
-                                        }
-                                        var positiveColor = 'rgba(54, 162, 235, 0.2)';
-                                        var negativeColor = 'rgba(255, 99, 132, 0.2)';
-                                        
-                                        function getReportById(event){
-                                            event.preventDefault();
-                                            const id = $("#report-route-id").val();
-                                            if(id == "") return alert("Please provide a valid route id");
-                                            $.get("http://localhost:8080/api/v1/route/getReport/" + id,function(data){
-                                                console.log(data);
-                                                for(var i = 0;i<data.length;i++){
-                                                    var date = data[i].date;
-                                                    var index = parseInt(date.split(':')[0]);
-                                                    var diff = data[i].total_seats - data[i].overall_bookings;
-                                                    console.log(index,diff);
-                                                    if(diff > 0 ){
-                                                        //Underused
-                                                        yValues[index] = diff;
-                                                        barColors[index] = negativeColor;
-                                                    }
-                                                    else{
-                                                        //overused
-                                                        yValues[index] = -diff;
-                                                        barColors[index] = positiveColor;
-                                                    }
-                                                }
-                                                console.log(yValues);
-                                                new Chart("myChart", {
-                                                    type: "bar",
-                                                    data: {
-                                                        labels: xValues,
-                                                        datasets: [{
-                                                            backgroundColor: barColors,
-                                                            data: yValues
-                                                        }]
-                                                    },
-                                                    options: {
-                                                        legend: {display: false},
-                                                        title: {
-                                                            display: true,
-                                                            text: "Usage report for month of march"
-                                                        }
-                                                    }
-                                                });
-                                            }).fail(function(){
-                                                return alert("Server error! Please try again!")
-                                            })
-                                            
-                                        }
-                                        
-                                        
-                                    </script>
-                                    <div>
-                                        <button class="user-status">User Status</button>
-                                        <button class="route-status">Route Status</button>
-                                    </div>
-                                </div>
-                                
-                                <!--fifth div-->
-                                
-                                <div id="fifthdiv" style="display:none;">
-                                    <form>
-                                        <h1>Add a destination</h1>
-                                        
-                                        <input type="text" id="dest-name" name="name" placeholder="Enter destination name">
+                                        ];
                                         
                                         <input type="number" id="dest-latitude-input" name="latitude" min="-90" max="90" step="any" placeholder="Enter latitude">
                                         
                                         
                                         <input type="number" id="dest-longitude-input" name="longitude" min="-180" max="180" step="any" placeholder="Enter longitude"><br>
                                         
+                                        function displayResults(places) {
+                                            const results = document.getElementById("results");
+                                            results.innerHTML = ""; // clear previous results
+                                            if (places.length > 0) {
+                                            const ul = document.createElement("ul");
+                                            places.forEach(place => {
+                                                const li = document.createElement("li");
+                                                li.textContent = place.name;
+                                                li.addEventListener("click", () => {
+                                                console.log(`Name: ${place.name}, Latitude: ${place.latitude}, Longitude: ${place.longitude}`);
+                                                const placeInput = document.getElementById("dest-name");
+                                                const latitudeInput = document.getElementById("dest-latitude-input");
+                                                const longitudeInput = document.getElementById("dest-longitude-input");
+                                                placeInput.value = place.name;
+                                                latitudeInput.value = place.latitude;
+                                                longitudeInput.value = place.longitude;
+
+                                            });
+                                                ul.appendChild(li);
+                                            });
+                                            results.appendChild(ul);
+                                            } else {
+                                            results.textContent = "No matching places found.";
+                                            }
+                                        }
                                         
-                                        <input type="submit" 
-                                        onclick="addDestination(event)"
-                                        value="+ Add Destination">
-                                        
-                                        <h1>Search/Edit destination</h1>
-                                        
-                                        <input type="text"
-                                        id = "dest-search-name"
-                                        placeholder="Enter destination name">
-                                    </form>
-                                    <button class="search-destination" onclick="on3(event)"> <img class="confirm-cancel-icon"
-                                        src="./public/icons8-search.svg" alt=""> Search</button>
-                                    </div>
-                                    
-                                    <!--sixth div-->
+                                        input.addEventListener("input", () => {
+
+                                            const term = input.value.trim();
+                                            console.log(term=="");
+                                            if(term == "") document.getElementById("results").innerHTML = "";
+                                            if(term!=""){
+                                                const matchingPlaces = searchPlaces(term);
+                                                displayResults(matchingPlaces);
+                                            }
+                                        });
+                            </script>
+
+                            <input type="number" id="dest-latitude-input" name="latitude" min="-90" max="90" step="any" placeholder="Enter latitude">
+
+
+                            <input type="number" id="dest-longitude-input" name="longitude" min="-180" max="180" step="any" placeholder="Enter longitude"><br>
+
+
+                            <input type="submit" 
+                            onclick="addDestination(event)"
+                            value="+ Add Destination">
+
+                            <h1>Search/Edit destination</h1>
+
+                            <input type="text"
+                                id = "dest-search-name"
+                                placeholder="Enter destination name">
+                        </form>
+                        <button class="search-destination" onclick="on3(event)"> <img class="confirm-cancel-icon"
+                                src="./public/icons8-search.svg" alt=""> Search</button>
+                    </div>
+
+                    <!--sixth div-->
                                     <div id="sixthdiv" style="display:none" >
                                         <h1 class="issue-main-heading">Manage Issues</h1>
                                         <div class="issue-tile">
@@ -419,8 +619,8 @@
                                             <button class="resolve-button">Resolve</button>
                                         </div>
                                     </div>
-                                    
-                                    <!--seventh div-->
+                    
+                    <!--seventh div-->
                                     <div id="seventhdiv" style="display:none">
                                         <form action="" method="get">
                                             <h1>Search Tickets</h1>
@@ -452,146 +652,144 @@
                                         </table>
                                         
                                     </div>
-                                    
-                                </div>
-                                
-                                
-                            </div>
-                            
-                            
-                            
-                        </div>
-                        
-                        <!-- Footer -->
-                        <div class="footer">
-                            
-                            <div class="footer-element">
-                                NRI includes a copyright notice that reserves all rights for itself,
-                                and has protected material from 1995 to 2021:
-                            </div>
-                            <div class="footer-element-smallerscreen">
-                                All rights reserved by NRI
-                            </div>
-                        </div>
-                        
-                    </div>
+
+
+            </div>
+
+
+
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+
+            <div class="footer-element">
+                NRI includes a copyright notice that reserves all rights for itself,
+                and has protected material from 1995 to 2021:
+            </div>
+            <div class="footer-element-smallerscreen">
+                All rights reserved by NRI
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 
+        *****   OverLays   ****** 
+    -->
+
+    <!-- Employee Search Overlay -->
+
+    <div class="search-overlay" >
+        <div class="search-div">
+
+            <div class="search-overlay-main-div">
+                <div class = "close-button" onclick="off()"></div>
+                <div class="cancel-text">
+                    <form style="text-align: left;margin: auto;">
+                        <label for="employee-name">Name: </label>
+                        <input type="text" id="employee-name" name="name" placeholder="Name"><br>
+
+                        <label for="employee-email">Email ID: </label>
+                        <input type="text" id="employee-email" name="email" placeholder="Email"><br>
+
+                        <label for="employee-password">Password:</label>
+                        <input type="text" id = "employee-password" name="employee-password" placeholder="Update password"><br>
+
+                        <label for="employee-id">Emp ID: </label>
+                        <input type="text" id = "employee-id" placeholder="Employee ID"><br>
+
+                        <input type = "text" id = "emp-inp-id" style = "display: none;">
+                    </form>
+                </div>
+                <div class="confirm-cancel-buttons">
+                    <button class="confirm-button" onclick="updateEmployee(event)"> <img class="confirm-cancel-icon" src="./public/arrow-right-circle-fill.svg"
+                            alt=""> Save</button>
+                    <button class="cancel-button"  onclick = "deleteEmployee(event)">Delete</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Employee Search Overlay Ends Here-->
+
+    <!-- Bus Search Overlay -->
+
+    <div class="bus-overlay">
+        <div class="search-div">
+
+            <div class="search-overlay-main-div">
+                <div class = "close-button" onclick="off2()"></div>
+                <div class="cancel-text">
+                    <form style="text-align: left;margin: auto;">
+                        <label for="bus-number-o">No:</label>
+                        <input type="text" id="bus-number-o" name="number" placeholder="Bus Number">
+
+                        <label for="bus-name-o">Name:</label>
+                        <input type="text" id="bus-name-o" name="name" placeholder="Bus Name">
+
+                        <label for="bus-seats-o">Seats:</label>
+                        <input type="text" id="bus-seats-o" name="seats" placeholder="Total Seats">
+                        <input type = "text" id="bus-id-o" style = "display: none;"/>
+
+                    </form>
+                </div>
+                <div class="confirm-cancel-buttons">
+                    <button class="confirm-button" onclick="updateBus(event)"> <img class="search-cancel-icon" src="./public/arrow-right-circle-fill.svg"
+                            alt=""> Save</button>
+                    <button class="cancel-button" onclick="deleteBus(event)">Delete</button>
+                </div>
+
+            </div>
+
+        </div>
+        
+    </div>
+
+    <!-- Bus Search Overlay Ends Here-->
+
+    <!-- Destination Search Overlay -->
+
+    <div class="destination-overlay" >
+        <div class="search-div">
+            
+            <div class="search-overlay-main-div">
+                <div class = "close-button" onclick="off3()"></div>
+                <div class="cancel-text">
                     
-                    <!-- 
-                        *****   OverLays   ****** 
-                    -->
-                    
-                    <!-- Employee Search Overlay -->
-                    
-                    <div class="search-overlay" >
-                        <div class="search-div">
-                            
-                            <div class="search-overlay-main-div">
-                                <div class = "close-button" onclick="off()"></div>
-                                <div class="cancel-text">
-                                    <form style="text-align: left;margin: auto;">
-                                        <label for="employee-name">Name: </label>
-                                        <input type="text" id="employee-name" name="name" placeholder="Name"><br>
-                                        
-                                        <label for="employee-email">Email ID: </label>
-                                        <input type="text" id="employee-email" name="email" placeholder="Email"><br>
-                                        
-                                        <label for="employee-password">Password:</label>
-                                        <input type="text" id = "employee-password" name="employee-password" placeholder="Update password"><br>
-                                        
-                                        <label for="employee-id">Emp ID: </label>
-                                        <input type="text" id = "employee-id" placeholder="Employee ID"><br>
-                                        
-                                        <input type = "text" id = "emp-inp-id" style = "display: none;">
-                                    </form>
-                                </div>
-                                <div class="confirm-cancel-buttons">
-                                    <button class="confirm-button" onclick="updateEmployee(event)"> <img class="confirm-cancel-icon" src="./public/arrow-right-circle-fill.svg"
-                                        alt=""> Save</button>
-                                        <button class="cancel-button"  onclick = "deleteEmployee(event)">Delete</button>
-                                    </div>
-                                    
-                                </div>
-                                
-                            </div>
-                        </div>
-                        
-                        <!-- Employee Search Overlay Ends Here-->
-                        
-                        <!-- Bus Search Overlay -->
-                        
-                        <div class="bus-overlay">
-                            <div class="search-div">
-                                
-                                <div class="search-overlay-main-div">
-                                    <div class = "close-button" onclick="off2()"></div>
-                                    <div class="cancel-text">
-                                        <form style="text-align: left;margin: auto;">
-                                            <label for="bus-number-o">No:</label>
-                                            <input type="text" id="bus-number-o" name="number" placeholder="Bus Number">
-                                            
-                                            <label for="bus-name-o">Name:</label>
-                                            <input type="text" id="bus-name-o" name="name" placeholder="Bus Name">
-                                            
-                                            <label for="bus-seats-o">Seats:</label>
-                                            <input type="text" id="bus-seats-o" name="seats" placeholder="Total Seats">
-                                            <input type = "text" id="bus-id-o" style = "display: none;"/>
-                                            
-                                        </form>
-                                    </div>
-                                    <div class="confirm-cancel-buttons">
-                                        <button class="confirm-button" onclick="updateBus(event)"> <img class="search-cancel-icon" src="./public/arrow-right-circle-fill.svg"
-                                            alt=""> Save</button>
-                                            <button class="cancel-button" onclick="deleteBus(event)">Delete</button>
-                                        </div>
-                                        
-                                    </div>
-                                    
-                                </div>
-                                
-                            </div>
-                            
-                            <!-- Bus Search Overlay Ends Here-->
-                            
-                            <!-- Destination Search Overlay -->
-                            
-                            <div class="destination-overlay" >
-                                <div class="search-div">
-                                    
-                                    <div class="search-overlay-main-div">
-                                        <div class = "close-button" onclick="off3()"></div>
-                                        <div class="cancel-text">
-                                            
-                                            <form style="text-align: left;margin: auto;">
-                                                <label for="dest-edit-name">Name: </label>
-                                                <input type="text" id="dest-edit-name" name="name" placeholder="Destination Name">
-                                                
-                                                <label for="dest-edit-latitude-input">Latitude: </label>
-                                                <input type="number" id="dest-edit-latitude-input" name="latitude" min="-90" max="90" step="any" placeholder="Enter latitude">
-                                                
-                                                <label for="dest-edit-longitude-input">Longitude: </label>
-                                                <input type="number" id="dest-edit-longitude-input" name="longitude" min="-180" max="180" step="any" placeholder="Enter longitude"><br>
-                                                <input type = "number" id = "dest-edit-id" name = "id" style = "display: none;"></input>
-                                            </form>
-                                        </div>
-                                        <div class="confirm-cancel-buttons">
-                                            <button class="confirm-button" onclick="updateDestination(event)"> <img class="search-cancel-icon" src="./public/arrow-right-circle-fill.svg"
-                                                alt="" > Save</button>
-                                                <button class="cancel-button" onclick="deleteDestination(event)">Delete</button>
-                                            </div>
-                                            
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                                
-                                <!-- Destination Search Overlay Ends Here-->
-                                
-                                <!--Overlay ends here-->
-                                
-                                
-                                <script src="./admin_homepage.js" defer>
-                                </script>
-                                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-                            </body>
-                            
-                            </html>
+                    <form style="text-align: left;margin: auto;">
+                        <label for="dest-edit-name">Name: </label>
+                        <input type="text" id="dest-edit-name" name="name" placeholder="Destination Name">
+
+                        <label for="dest-edit-latitude-input">Latitude: </label>
+                        <input type="number" id="dest-edit-latitude-input" name="latitude" min="-90" max="90" step="any" placeholder="Enter latitude">
+
+                        <label for="dest-edit-longitude-input">Longitude: </label>
+                        <input type="number" id="dest-edit-longitude-input" name="longitude" min="-180" max="180" step="any" placeholder="Enter longitude"><br>
+                        <input type = "number" id = "dest-edit-id" name = "id" style = "display: none;"></input>
+                    </form>
+                </div>
+                <div class="confirm-cancel-buttons">
+                    <button class="confirm-button" onclick="updateDestination(event)"> <img class="search-cancel-icon" src="./public/arrow-right-circle-fill.svg"
+                            alt="" > Save</button>
+                    <button class="cancel-button" onclick="deleteDestination(event)">Delete</button>
+                </div>
+
+            </div>
+           
+        </div>
+    </div>
+
+    <!-- Destination Search Overlay Ends Here-->
+
+    <!--Overlay ends here-->
+
+
+    <script src="./admin_homepage.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</body>
+
+</html>

@@ -17,7 +17,7 @@ function closeSidebar() {
 }
 
 
-function firstdiv(){
+  function firstdiv(){
     document.getElementById("firstdiv").style.display = "block";
     document.getElementById("seconddiv").style.display = "none";
     document.getElementById("thirddiv").style.display = "none";
@@ -150,128 +150,125 @@ $(document).ready(function() {
     });
 });
 
-
-
 function addEmployee(event){
-    event.preventDefault();
-    const name = $("#add-employee-name").val();
-    const email = $("#add-employee-email").val();
-    const password = $("#add-employee-password").val();
-    const employeeId = $("#add-employee-id").val();
-    
-    if(name == "" || email == "" || password == "" || employeeId == ""){
-        return alert("Please provide valid credentials for a employee");
-    }
-    
-    $.ajax({
-        url: "http://localhost:8080/api/v1/user/create",
-        type: "POST",
-        data: JSON.stringify({
-            name:name,
-            email:email,
-            password:password,
-            employeeId:employeeId
-        }),
-        contentType: "application/json",
-        success: function(result) {
-            console.log(result);
-            alert("User added successfully!")
-        },
-        error: function(xhr, status, error) {
-            console.log(error);
-            alert("Oops something went wrong! Please try again")
-        }
-    });
-    
-    
+	event.preventDefault();
+	const name = $("#add-employee-name").val();
+	const email = $("#add-employee-email").val();
+	const password = $("#add-employee-password").val();
+	const employeeId = $("#add-employee-id").val();
+
+	if(name == "" || email == "" || password == "" || employeeId == ""){
+		return alert("Please provide valide credentials for a employee");
+	}
+	$.ajax({
+		url: "http://localhost:8080/api/v1/user/create",
+		type: "POST",
+		data: JSON.stringify({
+		name:name,
+		email:email,
+		password:password,
+		employeeId:employeeId
+	}),
+		contentType: "application/json",
+		success: function(result) {
+			console.log(result);
+			alert("User added successfully!")
+		},
+		error: function(xhr, status, error) {
+			console.log(error);
+			alert("Oops something went wrong! Please try again")
+		}
+	});
+
+
 }
 
 function updateEmployee(event){
-    event.preventDefault();
-    const name =  $("#employee-name").val();
-    const email = $("#employee-email").val();
-    const empId = $("#employee-id").val();
-    const password = $("#employee-password").val();
-    const id = $("#emp-inp-id").val();
-    console.log(name,email,empId,password,id);
-    if(name == "" || email == "" || empId == ""){
-        return alert("Please provide valid credentials for a employee");
-    }
-    const newObj = {
-        name:name,
-        email:email,
-        employeeId:empId
-    }
-    if(password!=""){
-        newObj["password"] = password;
-    }
-    $.ajax({
-        url: "http://localhost:8080/api/v1/user/update/"+id,
-        type: "POST",
-        data: JSON.stringify(
-            newObj
-            ),
-            contentType: "application/json",
-            success: function(result) {
-                console.log(result);
-                alert("User updated successfully!")
-            },
-            error: function(xhr, status, error) {
-                console.log(error);
-                alert("Oops something went wrong! Please try again")
-            }
-        });
-        
-        
-    }
-    function deleteEmployee(event){
-        console.log("Hitting");
-        event.preventDefault();
-        
-        const id = $("#emp-inp-id").val();
-        console.log(id);
-        $.ajax({
-            url: "http://localhost:8080/api/v1/user/delete/" + id,
-            type: "DELETE",
-            success: function(result) {
-                console.log(result);
-                alert("Employee details deleted successfully!")
-            },
-            error: function(xhr, status, error) {
-                console.log(error);
-                alert("Oops something went wrong! Please try again")
-            }
-        });
-    }
-    function on() {
-        //Getall user
-        $.get("http://localhost:8080/api/v1/user/get",function(data){
-        console.log(data)
-        const email = $("#search-email").val();
-        if(email == ""){
-            return alert("Please provide an email");
-        }
-        var found = 0;
-        let user = null;
-        for(var i = 0;i<data.length;i++){
-            if(data[i].email == email){
-                found = 1;
-                user = data[i];
-                document.querySelector(".search-overlay").style.display="block";
-            }
-        }
-        if(found == 0){
-            return alert("No employee found!")
-        }
-        $("#employee-name").val(user.name);
-        $("#employee-email").val(user.email);
-        $("#employee-id").val(user.employeeId);
-        $("#emp-inp-id").val(user.id);
-        $("#employee-password").val("");
-    }).fail(function(){
-        alert("Server error");
-    })
-    
+	event.preventDefault();
+	const name =  $("#employee-name").val();
+	const email = $("#employee-email").val();
+	const empId = $("#employee-id").val();
+	const password = $("#employee-password").val();
+	const id = $("#emp-inp-id").val();
+	console.log(name,email,empId,password,id);
+	if(name == "" || email == "" || empId == ""){
+		return alert("Please provide valide credentials for a employee");
+	}
+	const newObj = {
+		name:name,
+		email:email,
+		employeeId:empId
+	}
+	if(password!=""){
+		newObj["password"] = password;
+	}
+	$.ajax({
+		url: "http://localhost:8080/api/v1/user/update/"+id,
+		type: "POST",
+		data: JSON.stringify(
+		newObj
+	),
+		contentType: "application/json",
+		success: function(result) {
+			console.log(result);
+			alert("User updated successfully!")
+		},
+		error: function(xhr, status, error) {
+			console.log(error);
+			alert("Oops something went wrong! Please try again")
+		}
+	});
+
+
+}
+function deleteEmployee(event){
+	console.log("Hitting");
+	event.preventDefault();
+
+	const id = $("#emp-inp-id").val();
+	console.log(id);
+	$.ajax({
+		url: "http://localhost:8080/api/v1/user/delete/" + id,
+		type: "DELETE",
+		success: function(result) {
+			console.log(result);
+			alert("Employee details deleted successfully!")
+		},
+		error: function(xhr, status, error) {
+			console.log(error);
+			alert("Oops something went wrong! Please try again")
+		}
+	});
+}
+  function on() {
+	//Getall user
+	$.get("http://localhost:8080/api/v1/user/get",function(data){
+		console.log(data)
+		const email = $("#search-email").val();
+		if(email == ""){
+			return alert("Please provide an email");
+		}
+		var found = 0;
+		let user = null;
+		for(var i = 0;i<data.length;i++){
+			if((data[i].email).toLowerCase() == email.toLowerCase()){
+				found = 1;
+				user = data[i];
+				document.querySelector(".search-overlay").style.display="block";
+			}
+		}
+		if(found == 0){
+			return alert("No employee found!")
+		}
+		$("#employee-name").val(user.name);
+		$("#employee-email").val(user.email);
+		$("#employee-id").val(user.employeeId);
+		$("#emp-inp-id").val(user.id);
+		$("#employee-password").val("");
+	}).fail(function(){
+		alert("Server error");
+	})
+	
 }
 function addDestination(event){
     event.preventDefault();
@@ -307,29 +304,29 @@ function off() {
 }
 
 function on2(event) {
-    event.preventDefault();
-    const busNumber = $("#bus-search-name").val();
-    console.log(busNumber);
-    $.get("http://localhost:8080/api/v1/bus/get",function(data){
-    console.log(data[0]);
-    let bus = null;
-    for(var i = 0;i<data.length;i++){
-        if(data[i].bus_number == busNumber){
-            bus = data[i];
-        }
-    }
-    if(bus == null){
-        return alert("No bus found!");
-    }
-    console.log(bus);
-    document.querySelector(".bus-overlay").style.display="block";
-    $("#bus-number-o").val(bus.bus_number);
-    $("#bus-name-o").val(bus.name);
-    $("#bus-seats-o").val(bus.totalNumberOfseats);
-    $("#bus-id-o").val(bus.id);
-    
-});
-
+	event.preventDefault();
+	const busNumber = $("#bus-search-name").val();
+	console.log(busNumber);
+	$.get("http://localhost:8080/api/v1/bus/get",function(data){
+		console.log(data[0]);
+		let bus = null;
+		for(var i = 0;i<data.length;i++){
+			if((data[i].bus_number).toLowerCase() == busNumber.toLowerCase()){
+				bus = data[i];
+			}
+		}
+		if(bus == null){
+			return alert("No bus found!");
+		}
+		console.log(bus);
+		document.querySelector(".bus-overlay").style.display="block";
+		$("#bus-number-o").val(bus.bus_number);
+		$("#bus-name-o").val(bus.name);
+		$("#bus-seats-o").val(bus.totalNumberOfseats);
+		$("#bus-id-o").val(bus.id);
+	
+	});
+	
 }
 
 function off2() {
@@ -337,27 +334,27 @@ function off2() {
 }
 
 function on3(event) {
-    event.preventDefault();
-    const destName = $("#dest-search-name").val();
-    console.log(destName);
-    $.get("http://localhost:8080/api/v1/destination/get",function(data){
-    console.log(data[0]);
-    let dest = null;
-    for(var i = 0;i<data.length;i++){
-        if(data[i].name == destName){
-            dest = data[i];
-        }
-    }
-    if(dest == null){
-        return alert("No destinations found!");
-    }
-    document.querySelector(".destination-overlay").style.display="block";
-    $("#dest-edit-name").val(dest.name);
-    $("#dest-edit-longitude-input").val(dest.longitude)
-    $("#dest-edit-latitude-input").val(dest.latitude);
-    $("#dest-edit-id").val(dest.id);
-})
-
+	event.preventDefault();
+	const destName = $("#dest-search-name").val();
+	console.log(destName);
+	$.get("http://localhost:8080/api/v1/destination/get",function(data){
+		console.log(data[0]);
+		let dest = null;
+		for(var i = 0;i<data.length;i++){
+			if((data[i].name).toLowerCase() == destName.toLowerCase()){
+				dest = data[i];
+			}
+		}
+		if(dest == null){
+			return alert("No destinations found!");
+		}
+		document.querySelector(".destination-overlay").style.display="block";
+		$("#dest-edit-name").val(dest.name);
+		$("#dest-edit-longitude-input").val(dest.longitude)
+		$("#dest-edit-latitude-input").val(dest.latitude);
+		$("#dest-edit-id").val(dest.id);
+	})
+	
 }
 function updateDestination(event){
     console.log("Hitting");
@@ -507,50 +504,50 @@ function displayBusID(event){
 }
 
 //For display of the destinations dynamically in search a route - from
-function displayDestinationsfrom(event){
-    event.preventDefault();
-    $.get("http://localhost:8080/api/v1/destination/get",function(data){
-    var selectElement = document.getElementById('select-destination-id-from');
+// function displayDestinationsfrom(event){
+//     event.preventDefault();
+//     $.get("http://localhost:8080/api/v1/destination/get",function(data){
+//     var selectElement = document.getElementById('select-destination-id-from');
     
-    // Add options from the data array
-    data.forEach(function(item) {
-        var optionElement = document.createElement('option');
-        optionElement.value = item.id;
-        optionElement.textContent = item.name;
-        var flag = 1;
-        for(var i = 0; i < selectElement.options.length;i++){
-            if(item.id == selectElement.options[i].value) flag = 0;
-        }
-        if(flag || selectElement.options.length == 1)
-        selectElement.appendChild(optionElement);
-    });
-}).fail(function(){
-    return new alert("Server error! Please try again!")
-})
-}
+//     // Add options from the data array
+//     data.forEach(function(item) {
+//         var optionElement = document.createElement('option');
+//         optionElement.value = item.id;
+//         optionElement.textContent = item.name;
+//         var flag = 1;
+//         for(var i = 0; i < selectElement.options.length;i++){
+//             if(item.id == selectElement.options[i].value) flag = 0;
+//         }
+//         if(flag || selectElement.options.length == 1)
+//         selectElement.appendChild(optionElement);
+//     });
+// }).fail(function(){
+//     return new alert("Server error! Please try again!")
+// })
+// }
 
-//For display of the destinations dynamically in search a route - to
-function displayDestinationsto(event){
-    event.preventDefault();
-    $.get("http://localhost:8080/api/v1/destination/get",function(data){
-    var selectElement = document.getElementById('select-destination-id-to');
+// //For display of the destinations dynamically in search a route - to
+// function displayDestinationsto(event){
+//     event.preventDefault();
+//     $.get("http://localhost:8080/api/v1/destination/get",function(data){
+//     var selectElement = document.getElementById('select-destination-id-to');
     
-    // Add options from the data array
-    data.forEach(function(item) {
-        var optionElement = document.createElement('option');
-        optionElement.value = item.id;
-        optionElement.textContent = item.name;
-        var flag = 1;
-        for(var i = 0; i < selectElement.options.length;i++){
-            if(item.id == selectElement.options[i].value) flag = 0;
-        }
-        if(flag || selectElement.options.length == 1)
-        selectElement.appendChild(optionElement);
-    });
-}).fail(function(){
-    return new alert("Server error! Please try again!")
-})
-}
+//     // Add options from the data array
+//     data.forEach(function(item) {
+//         var optionElement = document.createElement('option');
+//         optionElement.value = item.id;
+//         optionElement.textContent = item.name;
+//         var flag = 1;
+//         for(var i = 0; i < selectElement.options.length;i++){
+//             if(item.id == selectElement.options[i].value) flag = 0;
+//         }
+//         if(flag || selectElement.options.length == 1)
+//         selectElement.appendChild(optionElement);
+//     });
+// }).fail(function(){
+//     return new alert("Server error! Please try again!")
+// })
+// }
 
 function addRoute(event){
     event.preventDefault();
@@ -726,7 +723,63 @@ const delete_destination=(evt)=>{
     evt.preventDefault();
 }
 
-const resolveButton = document.querySelector('.resolve-button');
+
+
+
+
+
+
+// function generateReport(reportType) {
+// 	$.ajax({
+// 	  url: "http://localhost:8080/api/v1/report/" + reportType,
+// 	  type: "GET",
+// 	  xhrFields: {
+// 		responseType: 'blob' // This sets the response type to Blob
+// 	  },
+// 	  success: function(response) {
+// 		var blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }); // Create a Blob from the response
+//  // Create a Blob from the response
+// 		var link = document.createElement('a'); // Create a link element
+// 		link.href = window.URL.createObjectURL(blob); // Set the href to the URL of the Blob
+// 		link.download = reportType + '.xlsx';
+		
+// 		link.type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+
+// 		link.click(); // Trigger the click event to start the download
+// 		alert("Report generated successfully!");
+// 	  },
+// 	  error: function(jqXHR, textStatus, errorThrown) {
+// 		console.log("Error generating report:", textStatus, errorThrown);
+// 		console.log(textStatus, errorThrown);
+// 		alert("Error generating report!");
+// 	  }
+// 	});
+//   }
+  
+function generateReport(reportType) {
+	$.ajax({
+	  url: "http://localhost:8080/api/v1/report/" + reportType,
+	  type: "GET",
+	  xhrFields: {
+		responseType: 'blob' // This sets the response type to Blob
+	  },
+	  success: function(response) {
+		var blob = new Blob([response], { type: 'application/octet-stream' }); // Create a Blob from the response
+		var link = document.createElement('a'); // Create a link element
+		link.href = window.URL.createObjectURL(blob); // Set the href to the URL of the Blob
+		link.download = reportType + '.xlsx'; // Set the download attribute to the file name
+		link.click(); // Trigger the click event to start the download
+		alert("Report generated successfully!");
+	  },
+	  error: function(jqXHR, textStatus, errorThrown) {
+		console.log("Error generating report:", textStatus, errorThrown);
+		console.log(textStatus, errorThrown);
+		alert("Error generating report!");
+	  }
+	});
+  }
+  
+  const resolveButton = document.querySelector('.resolve-button');
 
 resolveButton.addEventListener('click', () => {
     console.log("resolve button clicked");
@@ -735,8 +788,80 @@ resolveButton.addEventListener('click', () => {
 });
 
 
+function getUnResolvedIssues() {
+    // Change it the user that is calling
+    $.get("http://localhost:8080/api/v1/issues/unresolved", function(data) {
+        // "id": 1,
+        // "is_resolved": 0,
+        // "issue": "Ticket not getting cancelled",
+        // "user_id": 11,
+		
+		//clear the tiles every time this function is called.
+		const parentDiv = document.querySelector(".issue-tile");
+		parentDiv.innerHTML="";
 
-
+        for (var i = 0; i < data.length; i++) {
+            const id = data[i].id;
+            const is_resolved = data[i].is_resolved;
+            const issue = data[i].issue;
+            const user_id = parseInt(data[i].user_id);
+            const obj = {
+                id: "",
+                is_resolved: "",
+                issue: "",
+                user_id: "",
+            };
+            obj["id"] = id;
+            obj["is_resolved"] = is_resolved;
+            obj["issue"] = issue;
+            obj["user_id"] = user_id;
+            // Get user name by user_id
+            $.get("http://localhost:8080/api/v1/user/get/" + user_id, function(data2) {
+                obj["username"] = data2.name;
+                // Get issue divs html here
+                const issueHTML = `
+                <p class="issue-user">Posted by ${obj.username}</p>
+                <p class="issue-text">${obj.issue}</p>
+                <button class="resolve-button" data-id="${obj.id}">Resolve</button>
+                `;
+                const parentDiv = document.querySelector(".issue-tile");
+                parentDiv.innerHTML += issueHTML;
+                // Add a click event handler for the dynamically created buttons
+                $('.resolve-button').click(function() {
+                    // Get the ID value from the data-id attribute
+                    var id = $(this).data('id');
+                    // Make an AJAX call to post the data to the database
+                    $.ajax({
+						url: 'http://localhost:8080/api/v1/issues/' + id + '/resolve',
+						type: 'POST',
+						data: {
+							// Add any data you want to post to the database here
+							//id: id,
+							// ...
+						},
+						success: function(response) {
+							// Do something if the POST request is successful
+							console.log('Data posted to database');
+							//refresh the page if any issue is resolved.
+							var link = document.getElementById('text6');
+ 							 link.click();
+							
+						},
+						error: function(error) {
+							// Do something if the POST request fails
+							console.log(error);
+						}
+					});
+					
+                });
+            }).fail(function() {
+                return alert("Server error! Please try again!")
+            });
+        }
+    }).fail(function() {
+        return alert("Something went wrong. Please try again later!");
+    });
+}
   //--------------------------------------------------------------------------//
  
   
