@@ -33,15 +33,16 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		
 		// Get the custom header from the request
-		String authorizationHeader  = request.getHeader("Authorization");
+		String authorizationHeader  = request.getHeader("x-auth-token");
 		String url = request.getRequestURI();
 		if (url.contains("login") || url.contains("register")) {
 			filterChain.doFilter(request, response);
 			return;
 		}
 		int userType = 0;
-		if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-		    String token = authorizationHeader.substring(7);
+		System.out.println(authorizationHeader);
+		if (authorizationHeader != null) {
+		    String token = authorizationHeader;
 		    // Use the token for authentication/authorization purposes
 		    System.out.println("\n--------------------------------\n----------------------\n");
 			

@@ -33,13 +33,11 @@ public class JwtTokenUtil {
     private String createToken(Map<String, Object> claims, String subject) {
 //    	System.out.println(key.get);
     	final Date createdDate = new Date();
-    	  final Date expirationDate = new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10);
     	  return Jwts.builder()
     	      .setClaims(claims)
     	      .setSubject(subject)
     	      .setIssuedAt(createdDate)
-    	      .setExpiration(expirationDate)
-    	      .signWith(SignatureAlgorithm.HS512, key)
+    	      .signWith(key)
     	      .compact();
     }
 
