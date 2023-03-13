@@ -4,78 +4,165 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./my_profile.css" />
-    <title>My Profile</title>
+    <link rel="stylesheet" href="./index.css" />
+    <link rel="stylesheet" href="./home.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap"
+    />
+    <script src="https://kit.fontawesome.com/c01e8f4e5e.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+    <title>Document</title>
 </head>
 <body>
-<div class="main">
-    <!-- Header -->
-    <div class="header">
 
-        <div class="header-div">
-             <a href="index.html" class="nrifintech">
-                 <div> NRI TRAVEL</div>
-             </a>
-         </div>
-         <div class="header-end">
+    <div class="main">
+        <!-- Header -->
+        <div class="header">
 
-             <div class="header-end-items">
-                <img class="vector-icon" alt="" src="public/abstract-user-flat-4.svg" style="height: 25px; margin: auto;margin-right: 10px;" />
-                 <p class="header-end-items-text"> 
-                     <a href="my_profile.html" class="profile">  My Profile  </a>
-                 </p>     
-             </div>
+           <div class="header-div">
+                <a href="index.html" class="nrifintech">
+                    <div> NRI TRAVEL</div>
+                </a>
+            </div>
+            <div class="header-end">
 
-                     <div class="header-end-items">
-                         <img class="vector-icon" alt="" src="public/vector2.svg" />
-                         <p class="header-end-items-text"> 
-                             <a href="my_bookings.html" class="booking">  Booking  </a>
-                         </p>     
-                     </div>
+                <div class="header-end-items">
+                    <img class="vector-icon" alt="" src="public/abstract-user-flat-4.svg" style="height: 25px; margin: auto;margin-right: 10px;" />
+                    <p class="header-end-items-text"> 
+                        <a href="my_profile.html" class="profile">  My Profile  </a>
+                    </p>     
+                </div>
 
-                     <div class="header-end-items">
-                             <img class="vector-icon" alt="" src="public/vector1.svg" />
-                             <p class="header-end-items-text"> 
-                                  <a href="" class="logout"> Logout  </a>  
-                             </p>
-                     </div>
-             
-         </div>
-     </div>
+                        <div class="header-end-items">
+                            <img class="vector-icon" alt="" src="public/vector2.svg" />
+                            <p class="header-end-items-text"> 
+                                <a href="my_bookings.html" class="booking">  Booking  </a>
+                            </p>     
+                        </div>
 
-     <!--body-->
+                        <div class="header-end-items">
+                                <img class="vector-icon" alt="" src="public/vector1.svg" />
+                                <p class="header-end-items-text"> 
+                                     <a href="" class="logout"> Logout  </a>  
+                                </p>
+                        </div>
+                
+            </div>
+        </div>
 
-    <div class="body">
+        <!-- Body -->
+        <div class="body-part">
+            
+            <div class = "_profile">
+                <div class = "_profile_label">Name</div>
+                <input class = "_profile_data" disabled = true/>
+                <div class = "_profile_label">Email</div>
+                <input class = "_profile_data" disabled = true/>
+                <div class = "_profile_label">Employee id</div>
+                <input class = "_profile_data" disabled = true/>
+                <div class = "_profile_label">Total seats booked</div>
+                <input class = "_profile_data" disabled = true/>
+                <div class = "_profile_label">Feel free to reach us!</div>
+                <textarea class = "_profile_textarea" placeholder="Enter your query here!"></textarea>
+                <div class = "_profile_submit">Submit</div>
+            </div>
+
+        </div>
+            
+           
                         
-        <form>
-            <h1>My Profile</h1>
+            
 
-            <input type="text" id="username" name="username" placeholder="Username">
+        <!-- Footer -->
+        <div class="footer">
 
-
-            <input type="email" id="email" name="email" placeholder="Email">
-
-            <input type = "text" id = "empId" name = "empId" placeholder="Employee Id">
-
-            <input type="number" id="bookings" name="bookings" placeholder="Total Bookings Made">
-
-            <input type = "text" id = "issue" name = "issue" placeholder="Generate Issue">
-        </form>
-        
-        <button type="submit" class="submit-btn">Submit</button>
+            <div class="footer-element">
+                NRI includes a copyright notice that reserves all rights for itself,
+                and has protected material
+            </div>
+            <div class="footer-element-smallerscreen" >
+                All rights reserved by NRI
+            </div>
+        </div>
+    
     </div>
 
-    <!-- Footer -->
-    <div class="footer">
+    
+    <!-- 
+        *****   OverLays   ****** 
+    -->
 
-        <div class="footer-element">
-            NRI includes a copyright notice that reserves all rights for itself,
-            and has protected material from 1995 to 2021:
-        </div>
-        <div class="footer-element-smallerscreen">
-            All rights reserved by NRI
+    <!-- Cancel Overlay -->
+
+    <div class="booking-cancel-overlay" onclick="offbooking()">
+        <div class="cancel-div">
+            
+            <div class="cancel-overlay-main-div">
+
+                <div class="cancel-text">Are you sure you want to cancel your booking ?</div>
+                <div class="confirm-cancel-buttons">
+                    <button type="submit" class="confirm-button" onclick="location.reload()"> <img class="confirm-cancel-icon" src="./public/confirm-icon.svg" alt=""> Confirm</button>
+                    <button type="submit" class="cancel-button"> <img class="confirm-cancel-icon" src="./public/cancel-icon.svg" alt=""> Cancel</button>
+                </div>
+
+            </div>
+
         </div>
     </div>
-</div>
+
+    <!-- Cancel Overlay Ends Here-->
+
+
+    <div class="home-route-overlay" onclick="homeoffroute()">
+        <div class="route-div"> 
+            <div class="route-overlay-main-div">
+
+                <!-- Cross div -->
+                <div class="route-overlay-crossdiv">
+                    <img class="route-cross-icon" src="./public/route-overlay-cancel-icon.svg" alt="">
+                </div>
+                <!-- Cross div ends here -->
+                
+                <div class="route-overlay-main-div-elements-div">
+                    <div class="route-overlay-time">8:00 am </div> 
+                    <img class="route-overlay-icon" src="./public/route-overlay-icon.svg" alt=""> 
+                    <div class="route-overlay-place">Ultodanga</div>
+                </div>
+
+                <div class="route-overlay-main-div-elements-div">
+                    <div class="route-overlay-time">8:15 am </div> 
+                    <img class="route-overlay-icon" src="./public/route-overlay-icon.svg" alt=""> 
+                    <div class="route-overlay-place">Sapoorji</div>
+                </div>
+
+                <div class="route-overlay-main-div-elements-div">
+                    <div class="route-overlay-time">8:30 am </div> 
+                    <img class="route-overlay-icon" src="./public/route-overlay-icon.svg" alt=""> 
+                    <div class="route-overlay-place">Saltlake</div>
+                </div>
+
+                <div class="route-overlay-main-div-elements-div">
+                    <div class="route-overlay-time">8:45 am </div> 
+                    <img class="route-overlay-icon" src="./public/route-overlay-icon.svg" alt=""> 
+                    <div class="route-overlay-place">Chingrighata</div>
+                </div>
+
+                <div class="route-overlay-main-div-elements-div">
+                    <div class="route-overlay-time">9:00 am </div> 
+                    <img class="route-overlay-icon" src="./public/route-overlay-icon.svg" alt=""> 
+                    <div class="route-overlay-place">Nri Fintech</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- OverLays End here -->
+
+    <script src="./index.js">
+    </script>
 </body>
 </html>

@@ -63,7 +63,7 @@
         </div>
 
         <!-- Body -->
-        <div class="body-part">
+        <div class="body-part" style="min-height:100%;">
             
                     <div>
 
@@ -217,6 +217,7 @@
 				source_name:"",
 				source_time:"",
 				userId:1, //To be changed
+                date:formattedDate
 			};
 			obj["route_id"] = route_id;
 			$.get("http://localhost:8080/api/v1/route/getDestinations/" + route_id,function(data){
@@ -238,57 +239,47 @@
 					//To be changed
 					obj["userId"] = 1;
 					console.log(obj);
-
-					// const routeHTML = `
-					// 				<div class="content-element">
-
-					// 				<div class="content-element-main">
-					// 					<div class="content-element-main-divs">
-					// 					<div class="bus-name-div">
-					// 						<div class="bus-icon"><img src="./public/vector4.svg" alt=""></div>
-					// 						<div class="bus-name-text">${obj.busName}</div>
-					// 					</div>
-					// 					<div class="bus-no">${obj.busNumber}</div>
-					// 					</div>
-					// 					<div class="content-element-main-divs pickup-drop">
-					// 					<div class="pickup-div">
-					// 						<div class="location-icon"><img class="location-icon-img" src="./public/placeholder-14@2x.png" alt=""></div>
-					// 						<div class="pickup-text">Pickup</div>
-					// 					</div>
-					// 					<div class="pickup-location-text">${obj.source_name}</div>
-					// 					<div class="pickup-time-text">${obj.source_time}</div>
-					// 					</div>
-					// 					<div class="content-element-main-divs pickup-drop">
-					// 					<div class="drop-div">
-					// 						<div class="location-icon"><img class="drop-icon-img" src="./public/placeholder-14@2x.png" alt=""></div>
-					// 						<div class="drop-location">Drop</div>
-					// 					</div>
-					// 					<div class="drop-location-text">${obj.destination_name}</div>
-					// 					<div class="drop-time-text">${obj.destination_time}</div>
-					// 					</div>
-                    //                     <div class="content-element-main-divs seats-left"> 
-                                                        
-                    //                                     <div class="status-div"> 
-                    //                                         <div class="status-text" > Status </div> 
-                    //                                     </div>
-                    //                                     <div  class="confirmed-text">  ${status} 
-
-                    //                                     </div>   
-                    //                                 </div> 
-					// 					<div class="content-element-main-divs">
-					// 					<div class="see-route-div" onclick="homeonroute()">
-					// 						<div class="route-icon"><img src="./public/route-icon.svg" alt=""></div>
-					// 						<div class="see-route-text">See Route</div>
-					// 					</div>
-                    //                     <div class="cancel-btn" ticket_id = ${ticket_id} onclick="cancelTicket(event)">  
-                    //                                         Cancel
-                    //                     </div>
-
-					// 					</div>
-					// 				</div>
-					// 				</div>
-					// 			`;
-                                const routeHTML = 
+                    let color;
+                    if(status == "CONFIRMED"){
+                            color = "green";
+                    }
+                    else if(status == "CANCELLED"){
+                        color = "red";
+                    }
+                    else if(status = "WAITING"){
+                        color = "yellow";
+                    }
+                    const routeHTML = `
+				 <div class = "index_route_item">
+					<div class = "index_source">
+						<div class = "index_heading">Bus details</div>
+						<div class = "index_bus_number">${obj.busName}</div>
+						<div class = "index_bus_name">${obj.busNumber}</div>
+					</div>
+					<div class = "index_source">
+						<div class = "index_heading">Source</div>
+						<div class = "index_value">${obj.source_name}</div>
+						<div class = "index_value">${obj.source_time}</div>
+					</div>
+					<div class = "index_source">
+						<div class = "index_heading">Destination</div>
+						<div class = "index_value">${obj.destination_name}</div>
+						<div class = "index_value">${obj.destination_time}</div>
+					</div>
+					<div class = "index_source">
+						<div class = "index_heading">Status</div>
+						<div class = "index_value"  style = 'color:${color};'>${status}</div>
+					   
+					</div>
+					<div class = "index_source">
+						<div class = "index_route">See route</div>
+						<div class = "index_value" style = 'font-weight:500;color:grey;margin-top:10px;'>${obj.date}</div>
+                        <div class="index_cancel_button" ticket_id = ${ticket_id} onclick="cancelTicket(event)">  
+                                                             Cancel
+                        </div>
+					</div>
+				</div>
+								`; 
 								const parentDiv = document.querySelector(".content");
 								parentDiv.innerHTML += routeHTML;
 				}).fail(function(){
