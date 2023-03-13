@@ -58,7 +58,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 			filterChain.doFilter(request, response);
 			return;
 		}
-		if (url.contains("create") && type == 0) {
+		if (url.contains("create") && type == 0 && !url.contains("ticket/create")) {
 			throw new UnauthorizedAction("Admin permission needed", "undefiened user");
 		}
 		System.out.println(userId);
