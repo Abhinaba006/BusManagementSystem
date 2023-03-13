@@ -25,26 +25,36 @@ public class JwtTokenUtil {
 //        return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
 //    }
 
-    public String generateToken(int userId) {
-        Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, Integer.toString(userId));
-    }
+   public String generateToken(int userId, int type) {
+	   System.out.println("\n--------------------------------\n----------------------\n");
+	   System.out.println("key: "+key.toString());
+	   System.out.println("\n--------------------------------\n----------------------\n");
+	   
+	    Map<String, Object> claims = new HashMap<>();
+	    claims.put("type", type);
+	    return createToken(claims, Integer.toString(userId));
+	}
+ 
 
-    private String createToken(Map<String, Object> claims, String subject) {
-//    	System.out.println(key.get);
-    	final Date createdDate = new Date();
-    	  return Jwts.builder()
-    	      .setClaims(claims)
-    	      .setSubject(subject)
-    	      .setIssuedAt(createdDate)
-    	      .signWith(key)
-    	      .compact();
-    }
+   private String createToken(Map<String, Object> claims, String subject) {
+	    final Date createdDate = new Date();
+	    return Jwts.builder()
+	        .setClaims(claims)
+	        .setSubject(subject)
+	        .setIssuedAt(createdDate)
+	        .claim("type", claims.get("type"))
+	        .signWith(key)
+	        .compact();
+	}
+   public int extractType(String token) {
+	    return extractClaim(token, claims -> claims.get("type", Integer.class));
+	}
 
-    public boolean validateToken(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
-    }
+   public boolean validateToken(String token, UserDetails userDetails, int expectedType) {
+	    final String username = extractUsername(token);
+	    final int type = extractType(token);
+	    return (username.equals(userDetails.getUsername()) && type == expectedType && !isTokenExpired(token));
+	}
 
     private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());

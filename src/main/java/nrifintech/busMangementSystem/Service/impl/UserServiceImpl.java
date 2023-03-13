@@ -67,6 +67,12 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		 return this.userRepo.findByOnlyEmail(email).orElseThrow(() -> new ResouceNotFound("User", "email", -1));
 	}
+	
+	@Override
+	public User getAdminByEmail(String email) {
+		// TODO Auto-generated method stub
+		 return this.userRepo.findByEmail(email, 1).orElseThrow(() -> new ResouceNotFound("User", "email", -1));
+	}
 
 
 	@Override

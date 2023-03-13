@@ -15,4 +15,5 @@ public interface UserService {
 	boolean checkUser(String email, String password);
 	boolean checkAdmin(String email, String password);
 	User getUserByEmail(String email);
+	User getAdminByEmail(String email);
 }
