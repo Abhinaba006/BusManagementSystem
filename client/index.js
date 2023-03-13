@@ -74,9 +74,17 @@ function getRoutes(event){
 	var formattedDate = d[1] + ":" + d[0] + ":" + d[2];
 	console.log(formattedDate);
 	const result = [];
-	$.get("http://localhost:8080/api/v1/route/getBySrcDest/"+source+"/"+dest,function(data){
+	$.get("http://localhost:8080/api/v1/route/getBySrcDest/"+source+"/"+dest, function(data){
 		console.log(data);
+	
+		document.querySelector(".content").innerHTML+=`
+		<div class = "index_show_results">
+                <p class = "index_show_results_p">${data.length} results found!</p>
+        </div>`
+		document.querySelector(".content").innerHTML+=`
+		<div class = "index_show_line"></div>
 		
+		`
 		for(var i = 0;i<data.length;i++){
 			const route_id = data[i].id;
 			const obj = {
@@ -120,54 +128,32 @@ function getRoutes(event){
 					// 	"date":"10:03:2023"
 					// }
 					const routeHTML = `
-									<div class="content-element">
-
-									<div class="content-element-main">
-										<div class="content-element-main-divs">
-										<div class="bus-name-div">
-											<div class="bus-icon"><img src="./public/vector4.svg" alt=""></div>
-											<div class="bus-name-text">${obj.busName}</div>
-										</div>
-										<div class="bus-no">${obj.busNumber}</div>
-										</div>
-										<div class="content-element-main-divs pickup-drop">
-										<div class="pickup-div">
-											<div class="location-icon"><img class="location-icon-img" src="./public/placeholder-14@2x.png" alt=""></div>
-											<div class="pickup-text">Pickup</div>
-										</div>
-										<div class="pickup-location-text">${obj.source_name}</div>
-										<div class="pickup-time-text">${obj.source_time}</div>
-										</div>
-										<div class="content-element-main-divs pickup-drop">
-										<div class="drop-div">
-											<div class="location-icon"><img class="drop-icon-img" src="./public/placeholder-14@2x.png" alt=""></div>
-											<div class="drop-location">Drop</div>
-										</div>
-										<div class="drop-location-text">${obj.destination_name}</div>
-										<div class="drop-time-text">${obj.destination_time}</div>
-										</div>
-										<div class="content-element-main-divs seats-left">
-										<div class="seats-left-div">
-											<div class="seats-left-text">Seats left</div>
-										</div>
-										<div class="seats-left-number">${obj.seatsLeft}</div>
-										</div>
-										<div class="content-element-main-divs">
-										<div class="see-route-div" onclick="homeonroute()">
-											<div class="route-icon"><img src="./public/route-icon.svg" alt=""></div>
-											<div class="see-route-text">See Route</div>
-										</div>
-										<div id = "getRouteId-${i}" value = ${obj.route_id} ></div>
-										<div id = "getBusId-${i}" value = ${obj.busId} ></div>
-										<div id = "getUserId-${i}" value = ${obj.userId} ></div>
-										<div id = "getDate-${i}" value = ${obj.date} ></div>
-										<button class="book-btn-div" onclick=" bookTicket(event)">
-											<div class="btn-search-icon-div"><img class="btn-search-icon" src="./public/white-book-icon.svg"></div>
-											<div route_id = ${obj.route_id} bus_id =  ${obj.busId} user_id = ${obj.userId} date =  ${formattedDate} class="book-text">Book</div>
-										</button>
-										</div>
-									</div>
-									</div>
+				 <div class = "index_route_item">
+					<div class = "index_source">
+						<div class = "index_heading">Bus details</div>
+						<div class = "index_bus_number">${obj.busName}</div>
+						<div class = "index_bus_name">${obj.busNumber}</div>
+					</div>
+					<div class = "index_source">
+						<div class = "index_heading">Source</div>
+						<div class = "index_value">${obj.source_name}</div>
+						<div class = "index_value">${obj.source_time}</div>
+					</div>
+					<div class = "index_source">
+						<div class = "index_heading">Destination</div>
+						<div class = "index_value">${obj.destination_name}</div>
+						<div class = "index_value">${obj.destination_time}</div>
+					</div>
+					<div class = "index_source">
+						<div class = "index_heading">Seats left</div>
+						<div class = "index_value">${obj.seatsLeft}</div>
+					   
+					</div>
+					<div class = "index_source">
+						<div class = "index_route">See route</div>
+						<div class = "index_book" route_id = ${obj.route_id} bus_id =  ${obj.busId} user_id = ${obj.userId} date =  ${formattedDate} onclick=" bookTicket(event)">Book</div>
+					</div>
+				</div>
 								`;
 								const parentDiv = document.querySelector(".content");
 								parentDiv.innerHTML += routeHTML;

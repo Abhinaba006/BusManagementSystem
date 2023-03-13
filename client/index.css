@@ -1,8 +1,9 @@
 
 
-
-
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&display=swap');
 :root {
+    font-family: 'Montserrat', sans-serif;
     /* fonts */
     --font-montserrat: Montserrat;
   
@@ -198,18 +199,10 @@ a:link {
   .from-to-search-text {
     font-size: 16px;
     font-weight: bold;
+    padding:20px;
   }
-  
-  #datepicker {
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    cursor: pointer;
-    background-color: #fff;
-    color: #333;
-    margin-left: 5%;
-  }
+ 
+
   
   #datepicker:focus {
     outline: none;
@@ -324,24 +317,19 @@ a:link {
 }
 .footer
 {
-    height: 49px;
+    height: 20px;
     width: 100%;
     background-color: var(--color-gray-200);
     display: flex;
-    border-bottom-width: 2px;
     /* padding: 10px; */
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding:10px;
     align-items: center;
     justify-content: center;
     color: #fff;
     margin-top: auto;
 
     font-family: Montserrat;
-    font-size: 20px;
-    font-weight: 400;
+    font-size: 17px;
     line-height: 27px;
     letter-spacing: 0em;
 
@@ -664,7 +652,7 @@ box-shadow: 2px 2px 2px #ddd;background:white;
     
   }
 
-select {
+/* select {
     width: 75%;
     padding: 12px 20px;
     margin: 8px 3%;
@@ -673,10 +661,132 @@ select {
     border-radius: 4px;
     box-sizing: border-box;
     outline: none;
+  } */
+  /*------------------------------------Aaditya's Css*/
+
+.index_form{
+  width:40%;
+  height:5em;
+  display: flex;
+  justify-content: center!important;
+  margin:0px auto 0px auto;
+  align-items: center;
+  
+}
+.index-from-id,.index-to-id,#datepicker{
+  font-size:20px;
+  padding: 20px;
+  width:200px;
+  border:none;
+  outline:none!important;
+  margin-right:10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  color:grey;
+ 
+}
+.index_home_img{
+  width:100%;
+  display: flex;
+  justify-content: center;
+}
+.index_head{
+  width:50%;
+  text-align: center;
+  font-size:50px;
+  padding:20px;
+  font-family: 'Montserrat', sans-serif;
+  background-color: rgb(247, 247, 247);
+  margin:0px auto 40px auto;
+}
+.index_search{
+  font-size:20px;
+  padding:20px;
+  border:none;
+  outline:none;
+  background-color: #082032;
+  color:white;
+}
+.content{
+  width: 100%!important;
+}
+.index_route_item{
+  width:50%;
+  height:130px;
+  margin:0px auto 20px auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+.index_source{
+  height:100%;
+  text-align: center;
+}
+.index_heading{
+  margin-top:30px;
+  color:orangered;
+  margin-bottom:15px;
+}
+.index_bus_number,.index_bus_name{
+  font-weight: 700;
+  color:#334756
+}
+.index_route{
+  margin-top:30px;
+  color:gold;
+}
+.index_book{
+  color: white;
+  background-color:#334756;
+  padding:5px;
+  margin-top:20px;
+  cursor: pointer;
+}
+.index_value{
+  font-weight: 400;
+}
+.index_show_results{
+  width:50%;
+  margin:0 auto 0 auto;
+  height:auto;
+  text-align: left;
+  font-weight: 400;
+  color:goldenrod;
+  font-size:18px;
+}
+.index_home_photo{
+  width:300px;
+  height:300px;
+
+}
+.index_show_line{
+  width:50%;
+  height:0.5px;
+  background-color: rgb(202, 202, 202);
+  margin:0 auto 0 auto;
+  margin-bottom: 10px;
+}
+@media only screen and (max-width:850px){
+  .index_route_item{
+    flex-direction: column;
+    height:auto;
+    padding:20px;
+    width:60%;
   }
-
-
-
-
-
-
+}
+@media only screen and (max-width:700px){
+  .index_form{
+    flex-direction: column;
+    height:auto;
+    padding:0;
+  }
+  .index-from-id,.index-to-id{
+    width:200px;
+    margin-bottom: 20px;
+  }
+  #datepicker{
+    margin-bottom: 20px;
+    padding:15px;
+    width:170px;
+  }
+}

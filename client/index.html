@@ -10,6 +10,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap"
     />
+    <script src="https://kit.fontawesome.com/c01e8f4e5e.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
@@ -68,22 +69,18 @@
 
                              <div class="body-part-maindiv">
 
-                                <form action="">
+                                <!-- <form action="">
                                     <div  class="from-to-searchbar">
                                         <table class="bottom-table">
                                             <tr>
                                                 <td>
                                                     <div class="from-to-search-text">  <label for="user-from">From</label> </div>
-                                                    
-                                                        
-                                                        
                                                             <div class="options"> 
                                                                 <select name="" id="user-from" class="from-id" onclick=" displayDestinations(event)">
                                                                 <option value = "-1">None</option>
                                                                 </select>
                                                             </div>
                                                         
-                                                    
                                                 </td>
                                             
                                                 <td>
@@ -101,18 +98,10 @@
 
                                         
                                             <td>
-                                                <div style="padding-bottom: 10px;">
+                                        <div style="padding-bottom: 10px;">
                                                 <div class="from-to-search-text" style="margin-bottom: 10px;">   <label for="datepicker"> DATE </label>  </div>
-                                       <div > <input type="text" id="datepicker" readonly></div></div>
-                                        <script>
-                                            $( function() {
-                                                $( "#datepicker" ).datepicker({
-                                                         defaultDate: new Date(),
-                                                        minDate: new Date(),
-                                                });
-                                                $("#datepicker").datepicker("setDate", new Date());
-                                            } );
-                                        </script>
+                                       <input type="text" id="datepicker" readonly></div>
+                                      
                                         </td>
                                         <td>
                                                     <button type="submit" class="from-to-search-text search search-btn" onclick="getRoutes(event)">Search
@@ -128,12 +117,65 @@
                                         
 
                                     </div>
-                                </form>
-
-                                <div class="content">
-                                        
-                                     
+                                </form> -->
+                                <div class = "index_home_img">
+                                    <img src = "./public/home_photo.svg" class = "index_home_photo">
+                                </div>
+                                    <div class = "index_no_data" style = "text-align: center; color: #334756; margin-bottom:10px;font-size:40px;font-family: 'Josefin Sans', sans-serif;">
+                                       NRI Fintech <p style = "display: inline; color: orangered;">cares for you!</p>
                                     </div>
+                                <div class = "index_form">
+
+                                    <select name="" id="user-from" class="index-from-id" onclick=" displayDestinations(event)">
+                                        <option value = "-1">Source</option>
+                                    </select>
+                                    <select name="" id="user-to" class="index-to-id"  onclick=" displayDestinations1(event)">
+                                        <option value = "-1">Destination</option>
+                                    </select>
+                                    <input type="text" id="datepicker" readonly placeholder="Date">
+                                    <button type="submit" class="index_search" onclick="getRoutes(event)">Search
+                                    </button>
+                                </div>
+                                <script>
+                                    $( function() {
+                                        $( "#datepicker" ).datepicker({
+                                                minDate: new Date(),
+                                        });
+                                        $("#datepicker").datepicker("setDate", new Date());
+                                    } );
+                                </script>
+                                <div class="content">
+                                    
+                                    
+                                    <!-- <div class = "index_route_item">
+                                        <div class = "index_source">
+                                            <div class = "index_heading">Bus details</div>
+                                            <div class = "index_bus_number">JH-01-8913</div>
+                                            <div class = "index_bus_name">NRI1</div>
+                                        </div>
+                                        <div class = "index_source">
+                                            <div class = "index_heading">Source</div>
+                                            <div class = "index_value">Shapoorji</div>
+                                            <div class = "index_value">9:00</div>
+                                        </div>
+                                        <div class = "index_source">
+                                            <div class = "index_heading">Destination</div>
+                                            <div class = "index_value">NRI</div>
+                                            <div class = "index_value">10:00</div>
+                                        </div>
+                                        <div class = "index_source">
+                                            <div class = "index_heading">Seats left</div>
+                                            <div class = "index_value">0</div>
+                                           
+                                        </div>
+                                        <div class = "index_source">
+                                            <div class = "index_route">See route</div>
+                                            <div class = "index_book">Book</div>
+                                        </div>
+
+                                    </div> -->
+                                    
+                                </div>
 
                                 <!--Content Div Ends Here-->
                                         

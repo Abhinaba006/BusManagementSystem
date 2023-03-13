@@ -239,55 +239,56 @@
 					obj["userId"] = 1;
 					console.log(obj);
 
-					const routeHTML = `
-									<div class="content-element">
+					// const routeHTML = `
+					// 				<div class="content-element">
 
-									<div class="content-element-main">
-										<div class="content-element-main-divs">
-										<div class="bus-name-div">
-											<div class="bus-icon"><img src="./public/vector4.svg" alt=""></div>
-											<div class="bus-name-text">${obj.busName}</div>
-										</div>
-										<div class="bus-no">${obj.busNumber}</div>
-										</div>
-										<div class="content-element-main-divs pickup-drop">
-										<div class="pickup-div">
-											<div class="location-icon"><img class="location-icon-img" src="./public/placeholder-14@2x.png" alt=""></div>
-											<div class="pickup-text">Pickup</div>
-										</div>
-										<div class="pickup-location-text">${obj.source_name}</div>
-										<div class="pickup-time-text">${obj.source_time}</div>
-										</div>
-										<div class="content-element-main-divs pickup-drop">
-										<div class="drop-div">
-											<div class="location-icon"><img class="drop-icon-img" src="./public/placeholder-14@2x.png" alt=""></div>
-											<div class="drop-location">Drop</div>
-										</div>
-										<div class="drop-location-text">${obj.destination_name}</div>
-										<div class="drop-time-text">${obj.destination_time}</div>
-										</div>
-                                        <div class="content-element-main-divs seats-left"> 
+					// 				<div class="content-element-main">
+					// 					<div class="content-element-main-divs">
+					// 					<div class="bus-name-div">
+					// 						<div class="bus-icon"><img src="./public/vector4.svg" alt=""></div>
+					// 						<div class="bus-name-text">${obj.busName}</div>
+					// 					</div>
+					// 					<div class="bus-no">${obj.busNumber}</div>
+					// 					</div>
+					// 					<div class="content-element-main-divs pickup-drop">
+					// 					<div class="pickup-div">
+					// 						<div class="location-icon"><img class="location-icon-img" src="./public/placeholder-14@2x.png" alt=""></div>
+					// 						<div class="pickup-text">Pickup</div>
+					// 					</div>
+					// 					<div class="pickup-location-text">${obj.source_name}</div>
+					// 					<div class="pickup-time-text">${obj.source_time}</div>
+					// 					</div>
+					// 					<div class="content-element-main-divs pickup-drop">
+					// 					<div class="drop-div">
+					// 						<div class="location-icon"><img class="drop-icon-img" src="./public/placeholder-14@2x.png" alt=""></div>
+					// 						<div class="drop-location">Drop</div>
+					// 					</div>
+					// 					<div class="drop-location-text">${obj.destination_name}</div>
+					// 					<div class="drop-time-text">${obj.destination_time}</div>
+					// 					</div>
+                    //                     <div class="content-element-main-divs seats-left"> 
                                                         
-                                                        <div class="status-div"> 
-                                                            <div class="status-text" > Status </div> 
-                                                        </div>
-                                                        <div  class="confirmed-text">  ${status} 
+                    //                                     <div class="status-div"> 
+                    //                                         <div class="status-text" > Status </div> 
+                    //                                     </div>
+                    //                                     <div  class="confirmed-text">  ${status} 
 
-                                                        </div>   
-                                                    </div> 
-										<div class="content-element-main-divs">
-										<div class="see-route-div" onclick="homeonroute()">
-											<div class="route-icon"><img src="./public/route-icon.svg" alt=""></div>
-											<div class="see-route-text">See Route</div>
-										</div>
-                                        <div class="cancel-btn" ticket_id = ${ticket_id} onclick="cancelTicket(event)">  
-                                                            Cancel
-                                        </div>
+                    //                                     </div>   
+                    //                                 </div> 
+					// 					<div class="content-element-main-divs">
+					// 					<div class="see-route-div" onclick="homeonroute()">
+					// 						<div class="route-icon"><img src="./public/route-icon.svg" alt=""></div>
+					// 						<div class="see-route-text">See Route</div>
+					// 					</div>
+                    //                     <div class="cancel-btn" ticket_id = ${ticket_id} onclick="cancelTicket(event)">  
+                    //                                         Cancel
+                    //                     </div>
 
-										</div>
-									</div>
-									</div>
-								`;
+					// 					</div>
+					// 				</div>
+					// 				</div>
+					// 			`;
+                                const routeHTML = 
 								const parentDiv = document.querySelector(".content");
 								parentDiv.innerHTML += routeHTML;
 				}).fail(function(){
