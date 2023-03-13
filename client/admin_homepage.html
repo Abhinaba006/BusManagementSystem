@@ -122,16 +122,13 @@
                             
                             
                             <section>
-                                <h1>Add a route</h1>
-                                <button class="add-field-btn" onclick="add_field()">+ Add Destination Field</button>
+                                <h1>Add a route</h1><br/>
                             </section>
-                            
+                           
                             <form action="">
-                                
+                               
                                 <div class="from-to-searchbar">
-                                    
-                                    
-                                    
+                                    <button class="add-field-btn" onclick="add_field()">+ Add Destination Field</button>
                                     <table class="container">
                                         
                                     </table>
@@ -315,13 +312,32 @@
                         <input type = "text" id = "report-route-id" placeholder="Enter route id"/>
                         <button onclick="getReportById(event)" class="generate-report">Search</button>
                         
-                        <canvas id="myChart" style="width:100%;max-width:1300px;margin-left:10px;">
+                        <canvas id="myChart">
                             
                         </canvas>
                         <script>
                          var xValues = new Array(31);
                         var yValues = new Array(31);
                         var barColors = new Array(31);
+
+                        //Create a chart for demo 
+                        new Chart("myChart", {
+                                    type: "bar",
+                                    data: {
+                                    labels: xValues,
+                                    datasets: [{
+                                        backgroundColor: barColors,
+                                        data: yValues
+                                    }]
+                                    },
+                                    options: {
+                                    legend: {display: false},
+                                    title: {
+                                        display: true,
+                                        text: "Usage report for month of march"
+                                    }
+                                    }
+                                });
                         for(let i = 0;i<31;i++){
                             xValues[i] = i+1;
                             yValues[i] = 0;
@@ -613,47 +629,51 @@
                     </div>
 
                     <!--sixth div-->
-                                    <div id="sixthdiv" style="display:none" >
-                                        <h1 class="issue-main-heading">Manage Issues</h1>
-                                        <div class="issue-tile">
-                                            <h2 class="issue-title">Issue Title</h2>
-                                            <p class="issue-user">Posted by Shubh</p>
-                                            <p class="issue-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed efficitur, lorem ac hendrerit aliquam, mauris nunc ultrices mauris, a tristique mauris nisi ut sapien. Sed ullamcorper nulla sed mi luctus congue. Nullam vel justo euismod, feugiat augue non, dapibus urna. Nam sit amet ligula ac risus bibendum iaculis. Suspendisse vehicula dui sed augue ultrices maximus. Praesent vel nunc lorem. Duis vulputate auctor massa at accumsan.</p>
-                                            <button class="resolve-button">Resolve</button>
+                                <div id="sixthdiv" style = "display: none;">
+                                    <h1 class="issue-main-heading">Manage Issues</h1>
+                                    <div class = "issue-div">
+                                        <div class = "issue-heading">Issue 1</div>
+                                        <div class = "issue-user">aaditya@gmail.com <p class = "issue-date">Created at: 09:03:2023</p></div>
+                                        <div class = "issue-text">paosidfjpoaisjdf poajisp foajisp dfojapsfjdpaosdijf paojidf 
+                                            apojisdf poajsdf poasjidf paosjidfp oajsfd poa adsfadsf paosidfjpoaisjdf poajisp foajisp dfojapsfjdpaosdijf paojidf 
+                                            apojisdf poajsdf poasjidf paasdfa fsadf asdf asdf asdf asdf asdf asdff da fda fosjidfp oajsfd poa adsfadsf
                                         </div>
+                                        <br/>
+                                        <div class = "issue-resolve">Resolve</div>
                                     </div>
+                                    <div class = "issue-div">
+                                        <div class = "issue-heading">Issue 1</div>
+                                        <div class = "issue-user">aaditya@gmail.com <p class = "issue-date">Created at: 09:03:2023</p></div>
+                                        <div class = "issue-text">paosidfjpoaisjdf poajisp foajisp dfojapsfjdpaosdijf paojidf 
+                                            apojisdf poajsdf poasjidf paosjidfp oajsfd poa adsfadsf paosidfjpoaisjdf poajisp foajisp dfojapsfjdpaosdijf paojidf 
+                                            apojisdf poajsdf poasjidf paasdfa fsadf asdf asdf asdf asdf asdf asdff da fda fosjidfp oajsfd poa adsfadsf
+                                        </div>
+                                        <br/>
+                                        <div class = "issue-resolve">Resolve</div>
+                                    </div>
+                                </div>
                     
                     <!--seventh div-->
                                     <div id="seventhdiv" style="display:none">
-                                        <form action="" method="get">
-                                            <h1>Search Tickets</h1>
+                                        <h1>Search Tickets</h1>
                                             <input type="text" id="search-tickets" placeholder="Enter Employee's Name">
-                                            <button id="search-ticket-button">Search</button>
-                                        </form>
-                                        
-                                        <table class="ticket-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Bus Number</th>
-                                                    <th>Pickup</th>
-                                                    <th>Drop</th>
-                                                    <th>Status</th>
-                                                    <th>Date</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>WB-94-3235</td>
-                                                    <td>NRI Fintech</td>
-                                                    <td>Ultodanga</td>
-                                                    <td>Confirmed</td>
-                                                    <td>21-02-23</td>
-                                                    <td><button>Cancel</button></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        
+                                            <button id="search-ticket-button">Search</button>    
+                                            <div class = "admin-ticket-header">
+                                                <div class = "admin-ticket-value">Date</div>
+                                                <div class = "admin-ticket-value">Source</div>
+                                                <div class = "admin-ticket-value">Destination</div>
+                                                <div class = "admin-ticket-value">Bus number</div>
+                                                <div class = "admin-ticket-value">Status</div>
+                                                <div class = "admin-ticket-value">Cancel</div>
+                                            </div>      
+                                            <div class = "admin-ticket-values">
+                                                <div class = "admin-ticket-user-value">Date</div>
+                                                <div class = "admin-ticket-user-value">Source</div>
+                                                <div class = "admin-ticket-user-value">Destination</div>
+                                                <div class = "admin-ticket-user-value">Bus number</div>
+                                                <div class = "admin-ticket-user-value">Confirmed</div>
+                                                <div class = "admin-ticket-user-value" style = "color:red;cursor: pointer;">Cancel</div>
+                                            </div>                      
                                     </div>
 
 
@@ -664,7 +684,7 @@
         </div>
 
         <!-- Footer -->
-        <div class="footer">
+        <!-- <div class="footer">
 
             <div class="footer-element">
                 NRI includes a copyright notice that reserves all rights for itself,
@@ -673,7 +693,7 @@
             <div class="footer-element-smallerscreen">
                 All rights reserved by NRI
             </div>
-        </div>
+        </div> -->
 
     </div>
 
@@ -687,20 +707,17 @@
         <div class="search-div">
 
             <div class="search-overlay-main-div">
-                <div class = "close-button" onclick="off()"></div>
+                <div class = "close-button" onclick="off()">x</div>
                 <div class="cancel-text">
                     <form style="text-align: left;margin: auto;">
-                        <label for="employee-name">Name: </label>
-                        <input type="text" id="employee-name" name="name" placeholder="Name"><br>
-
-                        <label for="employee-email">Email ID: </label>
-                        <input type="text" id="employee-email" name="email" placeholder="Email"><br>
-
-                        <label for="employee-password">Password:</label>
-                        <input type="text" id = "employee-password" name="employee-password" placeholder="Update password"><br>
-
-                        <label for="employee-id">Emp ID: </label>
-                        <input type="text" id = "employee-id" placeholder="Employee ID"><br>
+                        <p class = "overlay-label">Name</p>
+                        <input class = "overlay-input" type="text" id="employee-name" name="name" placeholder="Name"><br>
+                        <p class = "overlay-label">Email</p>
+                        <input class = "overlay-input"type="text" id="employee-email" name="email" placeholder="Email"><br>
+                        <p class = "overlay-label">Password</p>
+                        <input class = "overlay-input"type="text" id = "employee-password" name="employee-password" placeholder="Update password"><br>
+                        <p class = "overlay-label">Employee id</p>
+                        <input class = "overlay-input"type="text" id = "employee-id" placeholder="Employee ID"><br>
 
                         <input type = "text" id = "emp-inp-id" style = "display: none;">
                     </form>
@@ -724,18 +741,16 @@
         <div class="search-div">
 
             <div class="search-overlay-main-div">
-                <div class = "close-button" onclick="off2()"></div>
+                <div class = "close-button" onclick="off2()">x</div>
                 <div class="cancel-text">
                     <form style="text-align: left;margin: auto;">
-                        <label for="bus-number-o">No:</label>
-                        <input type="text" id="bus-number-o" name="number" placeholder="Bus Number">
-
-                        <label for="bus-name-o">Name:</label>
-                        <input type="text" id="bus-name-o" name="name" placeholder="Bus Name">
-
-                        <label for="bus-seats-o">Seats:</label>
-                        <input type="text" id="bus-seats-o" name="seats" placeholder="Total Seats">
-                        <input type = "text" id="bus-id-o" style = "display: none;"/>
+                        <p class = "overlay-label">Bus number</p>
+                        <input class = "overlay-input" type="text" id="bus-number-o" name="number" placeholder="Bus Number">
+                        <p class = "overlay-label">Bus name</p>
+                        <input class = "overlay-input" type="text" id="bus-name-o" name="name" placeholder="Bus Name">
+                        <p class = "overlay-label">Total seats</p>
+                        <input class = "overlay-input"type="text" id="bus-seats-o" name="seats" placeholder="Total Seats">
+                        <input class = "overlay-input" type = "text" id="bus-id-o" style = "display: none;"/>
 
                     </form>
                 </div>
@@ -759,19 +774,17 @@
         <div class="search-div">
             
             <div class="search-overlay-main-div">
-                <div class = "close-button" onclick="off3()"></div>
+                <div class = "close-button" onclick="off3()">x</div>
                 <div class="cancel-text">
                     
                     <form style="text-align: left;margin: auto;">
-                        <label for="dest-edit-name">Name: </label>
-                        <input type="text" id="dest-edit-name" name="name" placeholder="Destination Name">
-
-                        <label for="dest-edit-latitude-input">Latitude: </label>
-                        <input type="number" id="dest-edit-latitude-input" name="latitude" min="-90" max="90" step="any" placeholder="Enter latitude">
-
-                        <label for="dest-edit-longitude-input">Longitude: </label>
-                        <input type="number" id="dest-edit-longitude-input" name="longitude" min="-180" max="180" step="any" placeholder="Enter longitude"><br>
-                        <input type = "number" id = "dest-edit-id" name = "id" style = "display: none;"></input>
+                        <p class = "overlay-label">Destinatino name</p>
+                        <input class = "overlay-input" type="text" id="dest-edit-name" name="name" placeholder="Destination Name">
+                        <p class = "overlay-label">Latitude</p>
+                        <input class = "overlay-input"  type="number" id="dest-edit-latitude-input" name="latitude" min="-90" max="90" step="any" placeholder="Enter latitude">
+                        <p class = "overlay-label">Longitude</p>
+                        <input class = "overlay-input" type="number" id="dest-edit-longitude-input" name="longitude" min="-180" max="180" step="any" placeholder="Enter longitude"><br>
+                        <input class = "overlay-input" type = "number" id = "dest-edit-id" name = "id" style = "display: none;"></input>
                     </form>
                 </div>
                 <div class="confirm-cancel-buttons">
