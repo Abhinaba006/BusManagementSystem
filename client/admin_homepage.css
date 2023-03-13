@@ -1,8 +1,8 @@
-.footer{
+/* .footer{
     position: absolute;
         bottom: 0;
         z-index: 999;
-    }
+    } */
     
     
     #text1,#text2,#text3,#text4,#text5, #text6, #text7{
@@ -89,7 +89,7 @@ a:link {
     
 }
 
-.header{
+/* .header{
     height: 89px;
     width: 100%;
     background-color: var(--color-gray-200);
@@ -118,7 +118,6 @@ a:link {
     margin-top: auto;
     margin-bottom: auto;
     font-size: 35px;
-    /* font-style: Montserrat;  */
     font-family: Montserrat;
     font-weight: 400;
     line-height: 43px;
@@ -168,7 +167,7 @@ a:link {
     letter-spacing: 0em;
     cursor: pointer;
     color: rgba(255, 255, 255, 1);
-}
+} */
 .body-part
 {
     
@@ -176,14 +175,13 @@ a:link {
     overflow-x: hidden;
     overflow-y: auto;
 }
-.footer
+/* .footer
 {
     height: 49px;
     width: 100%;
     background-color: var(--color-gray-200);
     display: flex;
     border-bottom-width: 2px;
-    /* padding: 10px; */
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 30px;
@@ -204,7 +202,7 @@ a:link {
 }
 .footer-element-smallerscreen{
     display: none;
-}
+} */
 
 label{
     display: inline-block;
@@ -673,8 +671,6 @@ aside,
 details,
 figcaption,
 figure,
-footer,
-header,
 main,
 menu,
 nav,
@@ -1174,7 +1170,7 @@ a {
     width: 200px;
     background-color:#EEEEEE;
     position: fixed !important;
-    z-index: 1;
+    /* z-index: 1; */
     font-family: Montserrat;
     font-size: 18px;
     font-weight: 500;
@@ -3075,20 +3071,20 @@ a {
 /* Media Query Ends Here*/
 
 /* Media Queries */
-@media(max-width: 1100px)
+/* @media(max-width: 1100px)
 {
     .footer-element-smallerscreen{display: inline-block;}
     .footer-element{display: none;}
     
-}
+} */
 @media(max-width:750px)
 {
-    .header-end-items-text{display: none;}
+    /* .header-end-items-text{display: none;} */
     .bus-div{width:50%;height: 70%;}
 
 }
 
-@media(max-width: 750px) {
+/* @media(max-width: 750px) {
     .footer-element-smallerscreen {
         display: inline-block;
     }
@@ -3100,7 +3096,7 @@ a {
     .header-end-items-text {
         display: none;
     }
-}
+} */
 
 @media (min-width:601px) {
     .col.m1 {
@@ -3423,7 +3419,9 @@ box-shadow: 2px 2px 2px #ddd;background:white;
     border-radius: 4px;
     cursor: pointer;
   }
-  
+  #search-tickets-admin{
+    width:65%!important;
+  }
   .admin-ticket-header{
     display: flex;
     width:calc(100% - 250px);
@@ -3488,6 +3486,13 @@ box-shadow: 2px 2px 2px #ddd;background:white;
     }
     #search-ticket-button{
         margin-left:15px;
+    }
+    #search-tickets-admin{
+        width:90%!important;
+        margin-left: 0%!important;
+    }
+    .admin-ticket-values{
+        margin-bottom: 10px;
     }
   }
 

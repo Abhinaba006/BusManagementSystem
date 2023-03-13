@@ -182,7 +182,121 @@ function addEmployee(event){
 
 
 }
+function cancelTicket(event){
+    const ticket_id = $(event.target).attr("ticket_id");
+    
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/api/v1/ticket/cancel",
+        data: JSON.stringify(ticket_id),
+        headers: {
+            "Content-Type": "application/json"
+        },
+        success: function(response) {
+            console.log("Ticket cancelled successfully");
+            alert("Ticket cancelled sucessfully!");
+            // Handle success response here
+        },
+        error: function(xhr, status, error) {
+            console.log("Error cancelling ticket: " + error);
+            alert("Server error! Please try again!");
+            // Handle error response here
+        }
+    });
+}
+function searchTickets(event){
+    event.preventDefault();
+    document.querySelector(".admin-ticket-content").innerHTML = "";
+    const html = ``;
+    const email = $('#admin-user-ticket-search-val').val();
+    const id = 1; //To be changed the the id that is to be fetched by the email
+    
+    $.get("http://localhost:8080/api/v1/ticket/get/1",function(data){
+        // "id": 28,
+        // "routeId": 5,
+        // "busId": 4,
+        // "userId": 1,
+        // "status": "CANCELLED",
+        // "date": "09:03:2023"
+        document.getElementById("admin_ticket_count").innerHTML = "Total count: " + data.length;
+        for(var i = 0;i<data.length;i++){
+        const route_id = data[i].routeId;
+        const ticket_id = data[i].id;
+        const formattedDate = data[i].date;
+        const status = data[i].status;
+        const obj = {
+            busId:"",
+            busName:"",
+            busNumber:"",
+            destination_name:"",
+            destination_time:"",
+            route_id:"",
+            source_name:"",
+            source_time:"",
+            userId:1, //To be changed
+            date:formattedDate
+        };
+        obj["route_id"] = route_id;
+        $.get("http://localhost:8080/api/v1/route/getDestinations/" + route_id,function(data){
+            console.log(data);
+            obj["source_name"] = data[0].destination.name;
+            obj["source_time"] = data[0].time;
 
+            obj["destination_name"] = data[data.length - 1].destination.name;
+            obj["destination_time"] = data[data.length - 1].time;
+
+            $.get("http://localhost:8080/api/v1/route/getReport/" + route_id + "/" + formattedDate,function(data){
+            var diff = data.total_seats - data.total_bookings;
+            obj["seatsLeft"] = Math.max(0,diff);
+            $.get("http://localhost:8080/api/v1/route/getBus/" + route_id,function(data){
+                obj["busName"] = data.name;
+                obj["busId"] = data.id;
+                obj["busNumber"] = data.bus_number;
+
+                //To be changed
+                obj["userId"] = 1;
+                console.log(obj);
+                let color;
+                if(status == "CONFIRMED"){
+                        color = "green";
+                }
+                else if(status == "CANCELLED"){
+                    color = "red";
+                }
+                else if(status = "WAITING"){
+                    color = "yellow";
+                }
+                const routeHTML = `
+                       
+                <div class = "admin-ticket-values">
+                    <div class = "admin-ticket-user-value">${obj.date}</div>
+                    <div class = "admin-ticket-user-value">${obj.source_name}</div>
+                    <div class = "admin-ticket-user-value">${obj.destination_name}</div>
+                    <div class = "admin-ticket-user-value">${obj.busNumber}</div>
+                    <div class = "admin-ticket-user-value">${status}</div>
+                    <div class = "admin-ticket-user-value" style = "color:red;cursor: pointer;" onclick="cancelTicket(event)"  ticket_id = ${ticket_id}>Cancel</div>
+                </div> 
+    `; 
+                            const parentDiv = document.querySelector(".admin-ticket-content");
+                            parentDiv.innerHTML += routeHTML;
+            }).fail(function(){
+                return alert("Server error! Please try again!")
+            })
+        }).fail(function(){
+            return alert("Server error! Please try again!");
+        });
+        }).fail(function(){
+            return alert("Server error! Please try again!");
+        });
+        
+    
+        
+    
+}
+    }).fail(function(){
+        return alert("Something went wrong. Please try again later!");
+    })
+}
 function updateEmployee(event){
 	event.preventDefault();
 	const name =  $("#employee-name").val();
