@@ -3421,7 +3421,9 @@ box-shadow: 2px 2px 2px #ddd;background:white;
     border-radius: 4px;
     cursor: pointer;
   }
-  
+  #search-tickets-admin{
+    width:65%!important;
+  }
   .admin-ticket-header{
     display: flex;
     width:calc(100% - 250px);
@@ -3486,6 +3488,13 @@ box-shadow: 2px 2px 2px #ddd;background:white;
     }
     #search-ticket-button{
         margin-left:15px;
+    }
+    #search-tickets-admin{
+        width:90%!important;
+        margin-left: 0%!important;
+    }
+    .admin-ticket-values{
+        margin-bottom: 10px;
     }
   }
 
