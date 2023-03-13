@@ -1184,6 +1184,8 @@ a {
     font-weight: 500;
     line-height: 13px;
     letter-spacing: 0.035em;
+    overflow:scroll;
+    padding-bottom: 120px;
     /* padding: 1%; */
     
 }

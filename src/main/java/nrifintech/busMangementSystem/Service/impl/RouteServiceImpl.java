@@ -170,13 +170,15 @@ public class RouteServiceImpl implements RouteService{
 		commonroutes.retainAll(routes2);
 		//check if destination_index of source in R2 < destination_index of destination in R2
 		List<Route> result = new ArrayList<>();
+		
 		if(commonroutes.size()>0)
 		{
 			//check for all route in commonroutes if it satisfies above given criteria, if yes put it in result.
 			for(Integer route_id:commonroutes)
 			{
 				//find routeObject from routeMap where route_id = route_id and destination_id = source
-				if(routeMapRepo.getByRouteIdAndDestinationId(route_id, source).get().getDestination_id()<routeMapRepo.getByRouteIdAndDestinationId(route_id, destination).get().getDestination_id())
+				System.out.println();
+				if(routeMapRepo.getByRouteIdAndDestinationId(route_id, source).get().getDestination_index()<routeMapRepo.getByRouteIdAndDestinationId(route_id, destination).get().getDestination_index())
 					result.add(routeRepo.findById(route_id).get());		
 			}
 		}

@@ -22,6 +22,7 @@ import nrifintech.busMangementSystem.JwtTokenUtil;
 import nrifintech.busMangementSystem.Service.interfaces.UserService;
 import nrifintech.busMangementSystem.entities.User;
 import nrifintech.busMangementSystem.payloads.ApiResponse;
+import nrifintech.busMangementSystem.payloads.UserDto;
 
 @CrossOrigin(origins = "http://localhost:5500")
 @RestController
@@ -40,7 +41,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/get/{id}")
-	public ResponseEntity<User> getUserById(@PathVariable("id") int uid){
+	public ResponseEntity<UserDto> getUserById(@PathVariable("id") int uid){
 		return ResponseEntity.ok(this.userService.getUser(uid));
 	}
 	//post

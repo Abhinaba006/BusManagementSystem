@@ -546,6 +546,15 @@
                                         },
                                         
                                         ];
+
+                                        const input = document.getElementById("dest-name");
+                                        
+                                        
+                                        function searchPlaces(term) {
+
+                                            return places.filter(place => place.name.toLowerCase().includes(term.toLowerCase()));
+                                        }
+
                                         </script>
                                         
                                         <!-- <input type="number" id="dest-latitude-input" name="latitude" min="-90" max="90" step="any" placeholder="Enter latitude">

@@ -150,7 +150,7 @@ function getRoutes(event){
 					   
 					</div>
 					<div class = "index_source">
-						<div class = "index_route">See route</div>
+						<div class = "index_route" on onclick="homeonroute(${obj.route_id})">See route</div>
 						<div class = "index_book" route_id = ${obj.route_id} bus_id =  ${obj.busId} user_id = ${obj.userId} date =  ${formattedDate} onclick=" bookTicket(event)">Book</div>
 					</div>
 				</div>
@@ -257,10 +257,47 @@ function offroute()
 {
 	document.querySelector(".route-overlay").style.display="none";
 }
-function homeonroute()
-{
-	document.querySelector(".home-route-overlay").style.display="block";
+function homeonroute() {
+	document.querySelector(".home-route-overlay").style.display = "block";
+
+	// get routeId dynamically
+	let routeId = 1
+	// put the auth token here
+	const authToken = 'your-auth-token-here';
+
+	fetch('http://localhost:8080/api/v1/route/getDestinations/1', {
+		headers: {
+			'Authorization': `{authToken}`
+		}
+	})
+		.then(response => response.json())
+		.then(data => {
+			// format the data to use it in html
+			data.forEach(d => {
+				d["destinationName"] = d.destination.name
+				delete d.destination
+			})
+			console.log(data)
+			const containerElem = document.querySelector('.route-overlay-main-div');
+			containerElem.innerHTML =""
+			for (let i = 0; i < data.length; i++) {
+				const time = data[i].time;
+				const destinationName = data[i].destinationName;
+
+				const elem = document.createElement('div');
+				elem.className = 'route-overlay-main-div-elements-div';
+				elem.innerHTML = `
+								<div class="route-overlay-time">${time}</div> 
+								<img class="route-overlay-icon" src="./public/route-overlay-icon.svg" alt=""> 
+								<div class="route-overlay-place">${destinationName}</div>
+							`;
+
+				containerElem.appendChild(elem);
+			}
+		})
+		.catch(error => console.error(error));
 }
+
 function homeoffroute()
 {
 	document.querySelector(".home-route-overlay").style.display="none";
@@ -286,5 +323,47 @@ function getto()
 }
 
 
+//see route function
+function homeonroute(routeId) {
+	document.querySelector(".home-route-overlay").style.display = "block";
+        console.log(routeId)
+	// get routeId dynamically
+	// let routeId = 1
+	// put the auth token here
+	const authToken = 'your-auth-token-here';
 
+	fetch('http://localhost:8080/api/v1/route/getDestinations/'+routeId, {
+		headers: {
+			'Authorization': `{authToken}`
+		}
+	})
+		.then(response => response.json())
+		.then(data => {
+			// format the data to use it in html
+			data.forEach(d => {
+				d["destinationName"] = d.destination.name
+				delete d.destination
+			})
+			// console.log(data)
+			let containerElem = document.getElementById('route-container')
+			containerElem.innerHTML =""
+            console.log(data)
+			for (let i = 0; i < data.length; i++) {
+				const time = data[i].time;
+				const destinationName = data[i].destinationName;
+
+				const elem = document.createElement('div');
+				elem.className = 'route-overlay-main-div-elements-div';
+				elem.innerHTML = `
+								<div class="route-overlay-time">${time}</div> 
+								<img class="route-overlay-icon" src="./public/route-overlay-icon.svg" alt=""> 
+								<div class="route-overlay-place">${destinationName}</div>
+							`;
+
+				containerElem.appendChild(elem);
+			}
+            console.log(containerElem)
+		})
+		.catch(error => console.error(error));
+}
 

@@ -2,26 +2,27 @@ package nrifintech.busMangementSystem.Service.impl;
 
 import java.util.List;
 
-
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 
+import nrifintech.busMangementSystem.Service.interfaces.UserService;
 import nrifintech.busMangementSystem.entities.User;
 import nrifintech.busMangementSystem.exception.ResouceNotFound;
 import nrifintech.busMangementSystem.exception.UnauthorizedAction;
+import nrifintech.busMangementSystem.payloads.UserDto;
 import nrifintech.busMangementSystem.repositories.UserRepo;
-import nrifintech.busMangementSystem.Service.interfaces.*;
+
 @Service
 public class UserServiceImpl implements UserService{
 
 	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	
+	@Autowired
+	public ModelMapper modelMapper;
+	
+
 	@Autowired
 	private UserRepo userRepo;
 	
@@ -57,9 +58,12 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public User getUser(int id) {
+	public UserDto getUser(int id) {
 		// TODO Auto-generated method stub
-		 return this.userRepo.findById(id).orElseThrow(() -> new ResouceNotFound("User", "id", id));
+		 User user =  this.userRepo.findById(id).orElseThrow(() -> new ResouceNotFound("User", "id", id));
+		 return  modelMapper.map(user, UserDto.class);
+
+
 	}
 	
 	@Override

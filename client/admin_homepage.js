@@ -356,6 +356,7 @@ function on3(event) {
 	})
 	
 }
+
 function updateDestination(event){
     console.log("Hitting");
     event.preventDefault();
