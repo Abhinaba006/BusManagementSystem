@@ -153,5 +153,9 @@ public class TicketServiceImpl implements TicketService {
 			}
 		return ticketRepo.findByUserId(userId);
 	}
+	@Override
+	public Integer getTotalTicketsDoneByUser(int userId) {
+		return this.ticketRepo.getTotalTicketsDoneByUser(userId);
+	}
 
 }

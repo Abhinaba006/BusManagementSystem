@@ -45,6 +45,11 @@ input {
     border-bottom: 2px solid rgba(236, 236, 236, 1);
 }
 
+input:focus {
+    outline: none;
+  }
+  
+
 input::-ms-reveal {
     display: none;
 }

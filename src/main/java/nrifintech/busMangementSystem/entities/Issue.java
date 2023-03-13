@@ -31,6 +31,7 @@ public class Issue {
     
     int user_id;
     String issue;
+    String date;
     int isResolved;
 
 }

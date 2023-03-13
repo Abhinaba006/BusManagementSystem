@@ -71,4 +71,10 @@ public class TicketController {
 		List<Ticket> tickets = ticketService.getAllTicketByPersonId(userId);
 		return  ResponseEntity.ok(tickets);
 	}
+	
+	@GetMapping("/get/{userId}/totalTickets")
+	public ResponseEntity<Integer> myInteger(@PathVariable("userId") int userId) {
+        return ResponseEntity.ok().body(this.ticketService.getTotalTicketsDoneByUser(userId));
+    }
+	
 }

@@ -12,4 +12,5 @@ public interface TicketService {
     void createTicket(Ticket ticket);
     void cancelTicket(int ticket_id);
     List<Ticket> getAllTicketByPersonId(int userId);
+    Integer getTotalTicketsDoneByUser(int userId);
 }

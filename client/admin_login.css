@@ -146,6 +146,11 @@ input {
 
 }
 
+input:focus {
+    outline: none;
+  }
+  
+
 .hidden-eye {
     height: 30px;
     width: 30px;

@@ -16,9 +16,6 @@
       min-height: 100%;
     }
     
-    .body-part {
-      padding-bottom: 100px; /* set the same height as your footer */
-    }
 
 
 
@@ -52,6 +49,11 @@
     --br-md: 10px;
   }
 
+#mySidebar{
+    max-height: 1000px!important;
+    overflow-y: scroll;
+    overflow-x: none;
+}
 body {
     margin: 0;
     line-height: normal;
@@ -227,6 +229,7 @@ input[type=text],[type=email],[type=password],[type=time],[type=number],select {
 
   #report-route-id{
     margin-right: 0%;
+    width:70%;
   }
   
 #employee-name,#employee-email,#employee-password,#employee-id,#bus-number-o,#bus-name-o,#bus-seats-o,#dest-edit-name,#dest-edit-latitude-input,#dest-edit-longitude-input{
@@ -312,8 +315,8 @@ form {
 
 
 .search-div {
-    width: 30%;
-    height: 50%;
+    width: 500px;
+    height: auto;
     position: absolute;
     top: 40%;
     left: 50%;
@@ -343,7 +346,7 @@ form {
 
 .search-overlay-main-div {
     width: 100%;
-    height: 100%;
+    height: auto;
     background-color: #FFFFFF;
     border: 2px solid whitesmoke;
     border-radius: 5px;
@@ -378,7 +381,7 @@ form {
     line-height: 27px;
     letter-spacing: 0em;
     text-align: center;
-    height: 30%;
+    height: auto;
 }
 
 .search-text {
@@ -432,27 +435,28 @@ form {
 }
 
 .close-button {
-    position: relative;
-    margin-left: 1%;
-  }
-  
-  .close-button::after {
-    content: "×"; /* the "X" character */
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    font-size: 1.5em;
+    position: absolute!important;
+    width:30px;
+    height:20px;
+    color:black!important;
+    font-size:20px!important;
+    right:2px;
+    z-index: 20;
     cursor: pointer;
-  }
+}
   
-  .close-button::after:hover {
-    color: red; /* change the color on hover */
-  }
-  
+.overlay-input{
+    width: 100% !important;
+    padding: 5px!important;
+    margin-bottom: 5px!important;
+}
+.overlay-label{
+    font-size:13px;
+}
 
 .confirm-button {
     height: 43px;
-    width: 30%;
+    width: 100px!important;
     background-color: #334756;
     color: #FFFFFF;
     margin: auto;
@@ -464,7 +468,7 @@ form {
 
 .delete-button {
     height: 43px;
-    width: 30%;
+    width: 100px!important;
     background-color: #FF4C29;
     color: #FFFFFF;
     margin: auto;
@@ -545,21 +549,12 @@ form {
 }
 
 .add-field-btn{
-    font-family: Montserrat;
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 22px;
-    letter-spacing: 0.035em;
-    text-align: right;
-    cursor: pointer;
-    background-color: #082032;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    display: inline-block;
+   background-color: #082032;
+   color:white;
+   border:none;
+   outline:none;
+   padding:10px;
+   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
 .edit-route{
@@ -598,7 +593,8 @@ form {
     cursor: pointer;
     display: inline-block;
 }
-
+#select-bus-id{
+}
 .bus-btn{
     font-family: Montserrat;
     font-size: 18px;
@@ -640,14 +636,14 @@ form {
 }
 
 #thirddiv{
-    margin-left: 5%;
+    
 }
 
 /* dont look here */
 
 
 #text1,#text2,#text3,#text4,#text5, #text6, #text7{
-    padding: 25% 5%;
+    margin-top:30px;
 }
 
 
@@ -1187,6 +1183,7 @@ a {
     overflow:scroll;
     padding-bottom: 120px;
     /* padding: 1%; */
+
     
 }
 
@@ -2471,41 +2468,54 @@ a {
     margin-left: 5%;
 }
 
-.issue-tile {
+.issue-div {
+    position: relative;
     font-family: var(--font-montserrat);
-    background-color:#faf8f7;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     border: none;
     border-radius: 5px;
     width: 70%;
+    height:auto;
     padding: 10px;
+    padding-left:20px;
+    padding-bottom: 30px;
     margin: 25px auto;
     margin-left: 10%;
     margin-top: 5px;
   }
   
-  .issue-title {
-    font-size: 24px;
+  .issue-heading{
+    font-size:25px;
     font-weight: bold;
-    margin-top: 4px;
-    margin-bottom: 6px;
-    padding: 10px;
+    color:red;
   }
-  
   .issue-user {
     font-size: 16px;
-    font-style: italic;
     margin-top: 6px;
     margin-bottom: 6px;
-    padding: 10px;
+    display: inline;
+    font-weight: bolder;
   }
-  
+  .issue-date{
+    display: inline;
+    color:goldenrod;
+    font-weight: 300;
+    margin-left:20px;
+  }
   .issue-text {
-    font-size: 16px;
+    font-size: 19px;
     margin-top: 6px;
     margin-bottom: 6px;
-    padding: 12px;
+    color:grey;
   }
-  
+  .issue-resolve{
+    cursor: pointer;
+    background-color: #2c394b;
+    color:white;
+    width:100px;
+    text-align: center;
+    padding:7px;
+  }
   .resolve-button {
     /* background-color: #082032;
     color: #fff;
@@ -2831,7 +2841,11 @@ a {
     margin-left: 15px;
 }
 
-
+#myChart{
+    width:calc(100% - 200px)!important;
+    margin-left:10px;
+    height:70%!important;
+}
 /*  ends here*/
 
 
@@ -2971,9 +2985,13 @@ a {
 }
 
 .confirm-cancel-buttons {
-    width: 80%;
+    width: 100%;
     margin: auto;
     display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
 }
 
 .confirm-cancel-icon {
@@ -2984,7 +3002,7 @@ a {
 
 .cancel-button {
     height: 43px;
-    width: 30%;
+    width:110px;
     background-color: #334756;
     color: #FFFFFF;
     margin: auto;
@@ -2995,7 +3013,7 @@ a {
 
 .confirm-button {
     height: 43px;
-    width: 30%;
+    width:110px;
     background-color: #FF4C29;
     color: #FFFFFF;
     margin: auto;
@@ -3328,13 +3346,15 @@ box-shadow: 2px 2px 2px #ddd;background:white;
 
 #search-tickets{
     font-family: Montserrat;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
     line-height: 22px;
     letter-spacing: 0.035em;
     padding: 14px 20px;
     margin: 8px 0;
     border-radius: 4px;
+    width:80%;
+    margin-left: 10px;
 }
 
 #search-ticket-button{
@@ -3404,6 +3424,44 @@ box-shadow: 2px 2px 2px #ddd;background:white;
     cursor: pointer;
   }
   
+  .admin-ticket-header{
+    display: flex;
+    width:calc(100% - 250px);
+    margin-left:20px;
+    justify-content: space-around;
+    height:30px;
+    background-color: #334756;
+    color:white;
+    align-items: center;
+  }
+  .admin-ticket-values{
+    display: flex;
+    width: calc(100% - 250px);
+    margin-left:20px;
+    background-color: rgb(247, 247, 247);
+    justify-content: space-around;
+    padding:10px;
+  }
+  @media only screen and (max-width:1000px){
+    .issue-div{
+        width: 80%;
+    }
+    .admin-ticket-header{
+        width:90%;
+        margin: 0 auto 0 auto;
+    }
+    .admin-ticket-values{
+        width:90%;
+        margin: 0 auto 0 auto;
+    }
+    #myChart{
+        width:98%!important;
+        height:80%!important;
+        overflow-x: auto;
+        min-width: 700px!important;
+        min-height:500px!important;
+    }
+}
   /* Responsive styles */
   @media screen and (max-width: 600px) {
     .ticket-table {
@@ -3416,6 +3474,20 @@ box-shadow: 2px 2px 2px #ddd;background:white;
     
     .ticket-table th {
       font-size: 16px;
+    }
+    .admin-ticket-header{
+        display: none;
+    }
+    .admin-ticket-values{
+        flex-direction: column;
+        align-items: center;
+    }
+    #search-tickets{
+        width:90%;
+        margin-left:15px;
+    }
+    #search-ticket-button{
+        margin-left:15px;
     }
   }
 
