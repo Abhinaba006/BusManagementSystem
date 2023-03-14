@@ -1,6 +1,5 @@
 
-<<<<<<< HEAD
-=======
+
 /* 
 
 	@author: Arijit Saha
@@ -8,7 +7,7 @@
 	@file path from root: Ex ./index.js/
 
 */
->>>>>>> fec760e6080061d95a16414552cb5d45bf4a795f
+
 // var cors = require('cors');
 var nrifintech = "NRI TRAVEL";
 var booking = `My Bookings`;
