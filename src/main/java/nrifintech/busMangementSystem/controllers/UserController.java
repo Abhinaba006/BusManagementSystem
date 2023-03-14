@@ -1,9 +1,11 @@
 package nrifintech.busMangementSystem.controllers;
 
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,77 +33,87 @@ import nrifintech.busMangementSystem.repositories.UserRepo;
 public class UserController {
 	@Autowired
 	UserService userService;
-	
+
 	@Autowired
 	JwtTokenUtil jwtTokenUtil;
-	 
-	//get
+
+	// get
 	@GetMapping("/get")
-	public ResponseEntity<List<User>> getAlluser(){
+	public ResponseEntity<List<User>> getAlluser() {
 		return ResponseEntity.ok(this.userService.getUser());
 	}
-	
+
 	@GetMapping("/get/{id}")
-	public ResponseEntity<UserDto> getUserById(@PathVariable("id") int uid){
+	public ResponseEntity<UserDto> getUserById(HttpServletRequest request, @PathVariable("id") int uid) {
+		Enumeration<String> headerNames = request.getHeaderNames();
+		System.out.println("user  sdsssssssssssssssssssss \n");
+		while (headerNames.hasMoreElements()) {
+			String headerName = headerNames.nextElement();
+			System.out.println(headerName + ": " + request.getHeader(headerName));
+		}
 		return ResponseEntity.ok(this.userService.getUser(uid));
 	}
-	//post
+
+	// post
 	@PostMapping(path = "/create", consumes = "application/json", produces = "application/json")
-	ResponseEntity<User> createUser(@Valid @RequestBody User user){
+	ResponseEntity<User> createUser(@Valid @RequestBody User user) {
 		User createdUser = userService.createUser(user);
 		return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
 	}
 
-	//update
+	// update
 	@PostMapping("/update/{userId}")
-	ResponseEntity<User> createUser(@RequestBody User user, @PathVariable("userId") int userId){
+	ResponseEntity<User> createUser(@RequestBody User user, @PathVariable("userId") int userId) {
 		User updatedUser = userService.updateUser(user, userId);
 		return ResponseEntity.ok(updatedUser);
 	}
-	//delete
+
+	// delete
 	@DeleteMapping("/delete/{userId}")
-	public ResponseEntity<?> deleteUser(@PathVariable("userId") int userId){
+	public ResponseEntity<?> deleteUser(@PathVariable("userId") int userId) {
 		userService.deleteUser(userId);
 		return new ResponseEntity(new ApiResponse("user deleted", true), HttpStatus.OK);
 	}
 
 	@GetMapping("/employee/login/{email}/{password}")
-	public ResponseEntity<?> userLogin(@PathVariable("email") String email, @PathVariable("password") String password){
-		boolean isAuthenticated = userService.checkUser(email,password);
-	
-		if(isAuthenticated) {
-			User user = userService.getUserByEmail(email);
-	        String token = jwtTokenUtil.generateToken(user.getId(), 0);  // generate JWT token
-	        
-	        // include JWT token in the response
-	        Map<String, Object> responseBody = new HashMap<>();
-	        responseBody.put("token", token);
-	        responseBody.put("message", "Authenticated success");
-	        responseBody.put("success", true);
+	public ResponseEntity<?> userLogin(@PathVariable("email") String email, @PathVariable("password") String password) {
+		boolean isAuthenticated = userService.checkUser(email, password);
 
-	        return ResponseEntity.ok(responseBody);
-		}
-		else {
-			return new ResponseEntity(new ApiResponse("User not found or password is incorrect!",false), HttpStatus.BAD_REQUEST);
+		if (isAuthenticated) {
+			User user = userService.getUserByEmail(email);
+			String token = jwtTokenUtil.generateToken(user.getId(), 0); // generate JWT token
+
+			// include JWT token in the response
+			Map<String, Object> responseBody = new HashMap<>();
+			responseBody.put("token", token);
+			responseBody.put("message", "Authenticated success");
+			responseBody.put("success", true);
+
+			return ResponseEntity.ok(responseBody);
+		} else {
+			return new ResponseEntity(new ApiResponse("User not found or password is incorrect!", false),
+					HttpStatus.BAD_REQUEST);
 		}
 	}
-	@GetMapping("/admin/login/{email}/{password}")
-	public ResponseEntity<?> adminLogin(@PathVariable("email") String email, @PathVariable("password") String password){
-		boolean isAuthenticated = userService.checkAdmin(email,password);
-		if(isAuthenticated) {
-			User user = userService.getAdminByEmail(email);
-	        String token = jwtTokenUtil.generateToken(user.getId(), 1);  // generate JWT token
-	        System.out.println(email+"\n\n-------\n\n");
-	        // include JWT token in the response
-	        Map<String, Object> responseBody = new HashMap<>();
-	        responseBody.put("token", token);
-	        responseBody.put("message", "Authenticated success");
-	        responseBody.put("success", true);
 
-	        return ResponseEntity.ok(responseBody);
-		}
-		else {
-			return new ResponseEntity(new ApiResponse("User not found or password is incorrect!",false), HttpStatus.BAD_REQUEST);
+	@GetMapping("/admin/login/{email}/{password}")
+	public ResponseEntity<?> adminLogin(@PathVariable("email") String email,
+			@PathVariable("password") String password) {
+		boolean isAuthenticated = userService.checkAdmin(email, password);
+		if (isAuthenticated) {
+			User user = userService.getAdminByEmail(email);
+			String token = jwtTokenUtil.generateToken(user.getId(), 1); // generate JWT token
+			System.out.println(email + "\n\n-------\n\n");
+			// include JWT token in the response
+			Map<String, Object> responseBody = new HashMap<>();
+			responseBody.put("token", token);
+			responseBody.put("message", "Authenticated success");
+			responseBody.put("success", true);
+
+			return ResponseEntity.ok(responseBody);
+		} else {
+			return new ResponseEntity(new ApiResponse("User not found or password is incorrect!", false),
+					HttpStatus.BAD_REQUEST);
 		}
 	}
 }

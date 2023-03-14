@@ -1,7 +1,10 @@
 
 package nrifintech.busMangementSystem.controllers;
 
+import java.util.Enumeration;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,7 +29,13 @@ public class IssueController {
     private IssueService issueService;
 
     @GetMapping("/unresolved")
-    public ResponseEntity<List<Issue>> getAllunResolvedIssue() {
+    public ResponseEntity<List<Issue>> getAllunResolvedIssue(HttpServletRequest request) { 
+    	Enumeration<String> headerNames = request.getHeaderNames();
+    	System.out.println("issoe\n");
+        while(headerNames.hasMoreElements()) {
+            String headerName = headerNames.nextElement();
+            System.out.println(headerName + ": " + request.getHeader(headerName));
+        }
         List<Issue> issues = issueService.getAllunResolvedIssue();
         return new ResponseEntity<>(issues, HttpStatus.OK);
     }
