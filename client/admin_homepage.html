@@ -15,7 +15,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./admin_homepage.css" />
-    <link rel="stylesheet" href="./index.css"/>
+    <link rel = "stylesheet" href = "./index.css"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -126,156 +126,32 @@
                             
                             <section>
                                 <h1>Add a route</h1><br/>
+                            
                             </section>
-                           
-                            <form action="">
-                               
-                                <div class="from-to-searchbar">
-                                    <button class="add-field-btn" onclick="add_field()">+ Add Destination Field</button>
-                                    <table class="container">
-                                        
-                                    </table>
-                                    <table class="bottom-table">
-                                        <tr>
-                                            <td>
-                                                <div class="from">
-                                                    
-                                                    <div class="from-to-search-text"> <label for="fromtext">Select Bus</label>
-                                                    </div>
-                                                    <div class="options">
-                                                        <select name="" id="select-bus-id" onclick="displayBusID(event)">
-                                                            <option>None</option>
-                                                        </select>
-                                                    </div>
-                                                    
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    
-                                    
-                                    
-                                    
-                                    
-                                </div>
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                <input type="submit" onclick="addRoute(event)" style="margin-left: 4%;" value="+ Add route">
-                                
-                                
-                            </form>
-                            
-                            
-                            
-                            
-                            
-                            <form action="">
-                                <h1>Search a route</h1>
-                                <div class="search">
-                                    
-                                    <table>
-                                        <tr>
-                                            <td>
-                                                <div class="from">
-                                                    
-                                                    <div class="from-to-search-text"> <label for="fromtext">From</label>
-                                                    </div>
-                                                    <div class="options">
-                                                        <select name="" id="select-destination-id-from" onclick="displayDestinationsfrom(event)">
-                                                            <option>None</option>
-                                                        </select>
-                                                    </div>
-                                                    
-                                                </div>
-                                            </td>
-                                            
-                                            <td>
-                                                <div class="to">
-                                                    
-                                                    <div class="from-to-search-text"> <label for="tottext"> TO </label>
-                                                    </div>
-                                                    <div class="options">
-                                                        <select name="" id="select-destination-id-to" onclick="displayDestinationsto(event)">
-                                                            <option>None</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    
-                                    
-                                    
-                                    
-                                    <div class="searchbar">
-                                        
-                                        
-                                        <button class="search-route"> <img class="confirm-cancel-icon"
-                                            src="./public/icons8-search.svg" alt=""> Search</button>
-
+                            <div class = "route_add_div">
+                                <div class = "add_route_field" onclick="add_route_field(event)">Add destination</div>
+                                <select class = "select_bus" id = "select_bus" onclick="displayBusID(event)" >  
+                                    <option>Select your bus</option>
+                                </select>
+                                <div class = "add_field" id = "add_field">
 
                                 </div>
-
-
-                            </div>
-
-                        </form>
-
-                        <section>
-                            
-                            <button class="edit-route" onclick="add_field()">+ Add Destination Field</button>
-                        </section>
-
-                        <form action="">
-
-                            <div class="from-to-searchbar">
-
-
-
-                                <table class="container">
-                                
-                                </table>
-                                <table class="bottom-table">
-                                    <tr>
-                                        <td>
-                                            <div class="from">
-
-                                                <div class="from-to-search-text"> <label for="fromtext">Select Bus</label>
-                                                </div>
-                                                <div class="options">
-                                                    <select name="" id="select-bus-id" onclick="displayBusID(event)">
-                                                        <option>None</option>
-                                                    </select>
-                                                </div>
-
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-
-
-
-
+                                <div class = "route_submit" id = "route_submit" onclick=" addRoute(event)" style = "cursor: pointer;">Submit</div>
 
                             </div>
+                            <section>
+                                <h1>Search a route</h1><br/>
+                            </section>
+                            <div class = "admin_from_to">
+                                <select class = "admin_from" id = "admin_from" onclick="displayDestinations3(event)">
+                                    <option >Select source</option>
+                                </select>
+                                <select class = "admin_to" id = "admin_to" onclick="displayDestinations4(event)"> <option >Select destination</option></select>
+                                <div class = "admin_search_route" style = "cursor: pointer;" onclick="getRoutesAdmin(event)">Search</div>
+                            </div>
+                            <div class = "admin_routes"></div>
 
-
-
-                            
-
-
-
-                            <input type="submit" onclick="addRoute(event)" style="margin-left: 4%;" value="+ Add route">
-
-
-                        </form>
-                        
-
+                    
 
                     </div>
 

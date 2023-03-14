@@ -68,6 +68,7 @@
             const email = $("#email").val();
             const password = $("#mypassword").val();
             $.get("http://localhost:8080/api/v1/user/employee/login/" + email + "/" + password,function(data,status){
+                window.location.replace('/client/index.html');
                 console.log(data);
             }).fail(function(){
                 alert("Invalid credentials!");
