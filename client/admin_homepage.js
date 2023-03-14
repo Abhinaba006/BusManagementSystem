@@ -150,6 +150,34 @@ $(document).ready(function() {
     });
 });
 
+function add_route_field(event){
+    event.preventDefault();
+    const select_div = document.getElementById("add_field");
+    const len = select_div.childElementCount;
+    console.log(len);
+    select_div.innerHTML+=`
+    <div class = "select_content">
+        <select class = "select_class" id = "select_dest_${len+1}" onclick = "add_Destination_toselect(event,${len})">
+            <option>Add destination</option>
+        </select>
+        <input class = "select_time" id = "select_time_${len+1}" placeholder = "HH:MM(24hr-format)"></select>
+    </div> 
+    `
+}
+function add_route_field_edit(event){
+    event.preventDefault();
+    const select_div = document.getElementById("add_field_edit");
+    const len = select_div.childElementCount;
+    console.log(len);
+    select_div.innerHTML+=`
+    <div class = "select_content">
+        <select class = "select_class" id = "select_dest_edit_${len+1}" onclick = "add_Destination_toselect(event,${len})">
+            <option>Add destination</option>
+        </select>
+        <input class = "select_time" id = "select_time_edit_${len+1}" placeholder = "HH:MM(24hr-format)"></select>
+    </div> 
+    `
+}
 function addEmployee(event){
 	event.preventDefault();
 	const name = $("#add-employee-name").val();
@@ -180,6 +208,139 @@ function addEmployee(event){
 		}
 	});
 
+
+}
+
+function getRoutesAdmin(event){
+	event.preventDefault();
+    document.querySelector(".admin_routes").innerHTML = "";
+	console.log("Hitting");
+	const source = $("#admin_from").val();
+	const dest = $("#admin_to").val();
+	const today = new Date();
+const yyyy = today.getFullYear();
+let mm = today.getMonth() + 1; // Months start at 0!
+let dd = today.getDate();
+
+if (dd < 10) dd = '0' + dd;
+if (mm < 10) mm = '0' + mm;
+
+const formattedDate = dd + ':' + mm + ':' + yyyy;
+
+	const result = [];
+	$.get("http://localhost:8080/api/v1/route/getBySrcDest/"+source+"/"+dest, function(data){
+		console.log(data);
+
+		for(var i = 0;i<data.length;i++){
+			const route_id = data[i].id;
+			const obj = {
+				busId:"",
+				busName:"",
+				busNumber:"",
+				destination_name:"",
+				destination_time:"",
+				route_id:"",
+				seatsLeft:"",
+				source_name:"",
+				source_time:"",
+				userId:1, //To be changed
+			};
+			obj["route_id"] = route_id;
+			$.get("http://localhost:8080/api/v1/route/getDestinations/" + route_id,function(data){
+				console.log(data);
+				obj["source_name"] = data[0].destination.name;
+				obj["source_time"] = data[0].time;
+
+				obj["destination_name"] = data[data.length - 1].destination.name;
+				obj["destination_time"] = data[data.length - 1].time;
+
+				$.get("http://localhost:8080/api/v1/route/getReport/" + route_id + "/" + formattedDate,function(data){
+				var diff = data.total_seats - data.total_bookings;
+				obj["seatsLeft"] = Math.max(0,diff);
+				$.get("http://localhost:8080/api/v1/route/getBus/" + route_id,function(data){
+					obj["busName"] = data.name;
+					obj["busId"] = data.id;
+					obj["busNumber"] = data.bus_number;
+
+					//To be changed
+					obj["userId"] = 1;
+					console.log(obj);
+					result.push(obj);
+					// {
+					// 	"routeId":5,
+					// 	"busId":4,
+					// 	"userId":1,
+					// 	"status":"CONFIRMED",
+					// 	"date":"10:03:2023"
+					// }
+					const routeHTML = `
+				 <div class = "index_route_item" style = "width:80%">
+					<div class = "index_source">
+						<div class = "index_heading">Bus details</div>
+						<div class = "index_bus_number">${obj.busName}</div>
+						<div class = "index_bus_name">${obj.busNumber}</div>
+					</div>
+					<div class = "index_source">
+						<div class = "index_heading">Source</div>
+						<div class = "index_value">${obj.source_name}</div>
+						<div class = "index_value">${obj.source_time}</div>
+					</div>
+					<div class = "index_source">
+						<div class = "index_heading">Destination</div>
+						<div class = "index_value">${obj.destination_name}</div>
+						<div class = "index_value">${obj.destination_time}</div>
+					</div>
+					<div class = "index_source">
+						<div class = "index_heading">Seats left</div>
+						<div class = "index_value">${obj.seatsLeft}</div>
+					   
+					</div>
+					<div class = "index_source">
+						<div class = "index_book" route_id = ${obj.route_id} bus_id =  ${obj.busId} user_id = ${obj.userId} date =  ${formattedDate} onclick=" deleteRoute(event,${obj.route_id})" style = "background-color:orangered;">Delete</div>
+					</div>
+				</div>
+								`;
+								const parentDiv = document.querySelector(".admin_routes");
+								parentDiv.innerHTML += routeHTML;
+				}).fail(function(){
+					return alert("Server error! Please try again!")
+				})
+			}).fail(function(){
+				return alert("Server error! Please try again!");
+			});
+			}).fail(function(){
+				return alert("Server error! Please try again!");
+			});
+			
+		
+			
+		
+	}
+	}).fail(function(){
+		alert("Server error! Please try again later.")
+	})
+
+	console.log(result.length);
+
+	  
+}
+function deleteRoute(event,routeId){
+    console.log(routeId);
+    console.log("Hitting");
+    event.preventDefault();
+    const id = $("#bus-id-o").val();
+    $.ajax({
+        url: "http://localhost:8080/api/v1/route/delete/" + routeId,
+        type: "DELETE",
+        success: function(result) {
+            console.log(result);
+            alert("Bus deleted successfully!")
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+            alert("Oops something went wrong! Please try again")
+        }
+    });
 
 }
 function cancelTicket(event){
@@ -297,6 +458,7 @@ function searchTickets(event){
         return alert("Something went wrong. Please try again later!");
     })
 }
+
 function updateEmployee(event){
 	event.preventDefault();
 	const name =  $("#employee-name").val();
@@ -334,6 +496,50 @@ function updateEmployee(event){
 	});
 
 
+}
+function displayDestinations3(event){
+	event.preventDefault();
+	$.get("http://localhost:8080/api/v1/destination/get",function(data){
+		console.log(data);
+		var selectElement = document.getElementById('admin_from');
+
+		// Add options from the data array
+		data.forEach(function(item) {
+		var optionElement = document.createElement('option');
+		optionElement.value = item.id;
+		optionElement.textContent = item.name;
+		var flag = 1;
+		for(var i = 0; i < selectElement.options.length;i++){
+			if(item.id == selectElement.options[i].value) flag = 0;
+		}
+		if(flag || selectElement.options.length == 1)
+			selectElement.appendChild(optionElement);
+});
+	}).fail(function(){
+		return new alert("Server error! Please try again!")
+	})
+}
+function displayDestinations4(event){
+	event.preventDefault();
+	$.get("http://localhost:8080/api/v1/destination/get",function(data){
+		console.log(data);
+		var selectElement = document.getElementById('admin_to');
+
+		// Add options from the data array
+		data.forEach(function(item) {
+		var optionElement = document.createElement('option');
+		optionElement.value = item.id;
+		optionElement.textContent = item.name;
+		var flag = 1;
+		for(var i = 0; i < selectElement.options.length;i++){
+			if(item.id == selectElement.options[i].value) flag = 0;
+		}
+		if(flag || selectElement.options.length == 1)
+			selectElement.appendChild(optionElement);
+});
+	}).fail(function(){
+		return new alert("Server error! Please try again!")
+	})
 }
 function deleteEmployee(event){
 	console.log("Hitting");
@@ -598,7 +804,7 @@ function off3() {
 function displayBusID(event){
     event.preventDefault();
     $.get("http://localhost:8080/api/v1/bus/get",function(data){
-    var selectElement = document.getElementById('select-bus-id');
+    var selectElement = document.getElementById('select_bus');
     
     // Add options from the data array
     data.forEach(function(item) {
@@ -665,11 +871,11 @@ function displayBusID(event){
 
 function addRoute(event){
     event.preventDefault();
-    var table = document.querySelector(".container");
+    var table = document.getElementById("add_field");
     const data = [];
-    for(var i = 0;i<table.rows.length;i++){
-        const destId = $("#select_" + (i+1)).val();
-        const time = $("#time-input_" + (i+1)).val();
+    for(var i = 0;i<table.childElementCount;i++){
+        const destId = $("#select_dest_" + (i+1)).val();
+        const time = $("#select_time" + (i+1)).val();
         if(destId == "" && time == "") continue;
         else if(destId == "" || time == "") return alert("Please provide valid destination/time combination");
         data.push(destId + "_" + i + "_" + time);
@@ -678,7 +884,7 @@ function addRoute(event){
     if(data.length <= 1){
         return alert("Total number of destinations should be greater than 1");
     }
-    const busId = $("#select-bus-id").val();
+    const busId = $("#select_bus").val();
     if(busId == "" || busId == undefined) return alert("Please provide a bus id for this route!");
     console.log(busId);
     $.ajax({
@@ -803,7 +1009,28 @@ function add_field() {
 
 
 }
+function add_Destination_toselect(event,len){
+	event.preventDefault();
+	$.get("http://localhost:8080/api/v1/destination/get",function(data){
+		console.log(data);
+		var selectElement = document.getElementById('select_dest_' + (len+1));
 
+		// Add options from the data array
+		data.forEach(function(item) {
+		var optionElement = document.createElement('option');
+		optionElement.value = item.id;
+		optionElement.textContent = item.name;
+		var flag = 1;
+		for(var i = 0; i < selectElement.options.length;i++){
+			if(item.id == selectElement.options[i].value) flag = 0;
+		}
+		if(flag || selectElement.options.length == 1)
+			selectElement.appendChild(optionElement);
+});
+	}).fail(function(){
+		return new alert("Server error! Please try again!")
+	})
+}
 const save_destination=(evt)=>{
     evt.preventDefault();
     const name = $("#dest-edit-name").val();

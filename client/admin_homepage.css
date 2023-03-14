@@ -3046,7 +3046,72 @@ a {
     width: 100%;
 }
 
+.select_content{
+    width:40%;
+    display: flex;
+    margin-left:20px;
+    justify-content: space-between;
+    margin-top:40px;
+}
+.select_class{
+    width:200px;
+    color:grey;
+}
+.select_time{
+    border:none;
+    border-bottom: 1px solid grey;
+    padding:20px;
+    outline:none;
+}
+.select_time::placeholder{
+    color:grey;
+}
+.route_submit{
+    margin-top:20px;
+    background-color: #082032;
+    color:white;
+    padding:10px;
+    width:100px;
+    text-align: center;
+}
+.admin_search_route{
+    background-color: #2c394b;
+    color:white;
+    padding:10px;
+    width:120px;
+    text-align: center;
+}
+.route_add_div,.route_add_div_edit{
+    margin-left:7%;
+}
+.add_route_field,.add_route_field_edit{
+    margin-bottom:20px;
+    background-color: #082032;
+    color:white;
+    padding:10px;
+    width:150px;
+    text-align: center;
+}
+.select_bus,.select_bus_edit{
+    width:200px;
+}
+.admin_routes{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left!important;
+}
+.admin_from_to{
+    display: flex;
+    width:50%;
+    margin-left:7%;
+    margin-bottom: 20px;
+}
+.admin_from,.admin_to{
+    width:200px;
+    margin-right:20px;
 
+}
 /* Overlay ends here */
 
 /* Media Query */
@@ -3060,6 +3125,9 @@ a {
 @media(max-width: 1008px) {
     .bus-icon {
         display: none;
+    }
+    .select_content{
+        width:80%;
     }
 
 }
@@ -3101,6 +3169,7 @@ a {
 }
 
 @media (min-width:601px) {
+    
     .col.m1 {
         width: 8.33333%
     }
@@ -3464,6 +3533,18 @@ box-shadow: 2px 2px 2px #ddd;background:white;
 }
   /* Responsive styles */
   @media screen and (max-width: 600px) {
+    .select_content{
+        flex-direction: column;
+    }
+    .select_class,.select_time{
+        width:100%!important;;
+    }
+    .select_class{
+        margin-top:30px;
+    }
+    .select_time{
+        margin-top: 20px;
+    }
     .ticket-table {
       font-size: 14px;
     }
