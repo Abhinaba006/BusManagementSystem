@@ -1,9 +1,19 @@
 
+<<<<<<< HEAD
+=======
+/* 
+
+	@author: Arijit Saha
+	@desc: js for all the html files 
+	@file path from root: Ex ./index.js/
+
+*/
+>>>>>>> fec760e6080061d95a16414552cb5d45bf4a795f
 // var cors = require('cors');
-var nrifintech="NRI TRAVEL";
-var booking = `My Bookings`; 
-var logout="Logout";
-var home="Home";
+var nrifintech = "NRI TRAVEL";
+var booking = `My Bookings`;
+var logout = "Logout";
+var home = "Home";
 
 // document.getElementById("nrifintech").innerHTML=nrifintech;
 // document.getElementById("booking").innerHTML = booking; 
@@ -14,55 +24,74 @@ var home="Home";
 // document.querySelector(".logout").innerHTML=logout;
 // document.querySelector(".home").innerHTML=home;
 
-function displayDestinations(event){
+function getTokenCookie() {
+	const cookieName = "token=";
+	const cookies = document.cookie.split("; ");
+	for (let i = 0; i < cookies.length; i++) {
+		const cookie = cookies[i];
+		if (cookie.indexOf(cookieName) === 0) {
+			return cookie.substring(cookieName.length, cookie.length);
+		}
+	}
+	return "";
+}
+
+function deleteAllCookies() {
+	document.cookie.split(";").forEach(function (c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
+}
+function logOut(){
+	deleteAllCookies();
+	window.location = '/client/user_login.html';
+}
+function displayDestinations(event) {
 	event.preventDefault();
-	$.get("http://localhost:8080/api/v1/destination/get",function(data){
+	$.get("http://localhost:8080/api/v1/destination/get", function (data) {
 		console.log(data);
 		var selectElement = document.getElementById('user-from');
 
 		// Add options from the data array
-		data.forEach(function(item) {
-		var optionElement = document.createElement('option');
-		optionElement.value = item.id;
-		optionElement.textContent = item.name;
-		var flag = 1;
-		for(var i = 0; i < selectElement.options.length;i++){
-			if(item.id == selectElement.options[i].value) flag = 0;
-		}
-		if(flag || selectElement.options.length == 1)
-			selectElement.appendChild(optionElement);
-});
-	}).fail(function(){
+		data.forEach(function (item) {
+			var optionElement = document.createElement('option');
+			optionElement.value = item.id;
+			optionElement.textContent = item.name;
+			var flag = 1;
+			for (var i = 0; i < selectElement.options.length; i++) {
+				if (item.id == selectElement.options[i].value) flag = 0;
+			}
+			if (flag || selectElement.options.length == 1)
+				selectElement.appendChild(optionElement);
+		});
+	}).fail(function () {
 		return new alert("Server error! Please try again!")
 	})
 }
-function displayDestinations1(event){
+function displayDestinations1(event) {
 	event.preventDefault();
-	$.get("http://localhost:8080/api/v1/destination/get",function(data){
+	$.get("http://localhost:8080/api/v1/destination/get", function (data) {
 		console.log(data);
 		var selectElement = document.getElementById('user-to');
 
 		// Add options from the data array
-		data.forEach(function(item) {
-		var optionElement = document.createElement('option');
-		optionElement.value = item.id;
-		optionElement.textContent = item.name;
-		var flag = 1;
-		for(var i = 0; i < selectElement.options.length;i++){
-			if(item.id == selectElement.options[i].value) flag = 0;
-		}
-		if(flag || selectElement.options.length == 1)
-			selectElement.appendChild(optionElement);
-});
-	}).fail(function(){
+		data.forEach(function (item) {
+			var optionElement = document.createElement('option');
+			optionElement.value = item.id;
+			optionElement.textContent = item.name;
+			var flag = 1;
+			for (var i = 0; i < selectElement.options.length; i++) {
+				if (item.id == selectElement.options[i].value) flag = 0;
+			}
+			if (flag || selectElement.options.length == 1)
+				selectElement.appendChild(optionElement);
+		});
+	}).fail(function () {
 		return new alert("Server error! Please try again!")
 	})
 }
-function max(a,b){
-	if(a>=b) return a;
+function max(a, b) {
+	if (a >= b) return a;
 	return b;
 }
-function getRoutes(event){
+function getRoutes(event) {
 	event.preventDefault();
 	document.querySelector(".content").innerHTML = "";
 	console.log("Hitting");
@@ -88,19 +117,19 @@ function getRoutes(event){
 		for(var i = 0;i<data.length;i++){
 			const route_id = data[i].id;
 			const obj = {
-				busId:"",
-				busName:"",
-				busNumber:"",
-				destination_name:"",
-				destination_time:"",
-				route_id:"",
-				seatsLeft:"",
-				source_name:"",
-				source_time:"",
-				userId:1, //To be changed
+				busId: "",
+				busName: "",
+				busNumber: "",
+				destination_name: "",
+				destination_time: "",
+				route_id: "",
+				seatsLeft: "",
+				source_name: "",
+				source_time: "",
+				userId: 1, //To be changed
 			};
 			obj["route_id"] = route_id;
-			$.get("http://localhost:8080/api/v1/route/getDestinations/" + route_id,function(data){
+			$.get("http://localhost:8080/api/v1/route/getDestinations/" + route_id, function (data) {
 				console.log(data);
 				obj["source_name"] = data[0].destination.name;
 				obj["source_time"] = data[0].time;
@@ -108,13 +137,13 @@ function getRoutes(event){
 				obj["destination_name"] = data[data.length - 1].destination.name;
 				obj["destination_time"] = data[data.length - 1].time;
 
-				$.get("http://localhost:8080/api/v1/route/getReport/" + route_id + "/" + formattedDate,function(data){
-				var diff = data.total_seats - data.total_bookings;
-				obj["seatsLeft"] = max(0,diff);
-				$.get("http://localhost:8080/api/v1/route/getBus/" + route_id,function(data){
-					obj["busName"] = data.name;
-					obj["busId"] = data.id;
-					obj["busNumber"] = data.bus_number;
+				$.get("http://localhost:8080/api/v1/route/getReport/" + route_id + "/" + formattedDate, function (data) {
+					var diff = data.total_seats - data.total_bookings;
+					obj["seatsLeft"] = max(0, diff);
+					$.get("http://localhost:8080/api/v1/route/getBus/" + route_id, function (data) {
+						obj["busName"] = data.name;
+						obj["busId"] = data.id;
+						obj["busNumber"] = data.bus_number;
 
 					//To be changed
 					obj["userId"] = 1;
@@ -155,32 +184,32 @@ function getRoutes(event){
 					</div>
 				</div>
 								`;
-								const parentDiv = document.querySelector(".content");
-								parentDiv.innerHTML += routeHTML;
-				}).fail(function(){
-					return alert("Server error! Please try again!")
-				})
-			}).fail(function(){
+						const parentDiv = document.querySelector(".content");
+						parentDiv.innerHTML += routeHTML;
+					}).fail(function () {
+						return alert("Server error! Please try again!")
+					})
+				}).fail(function () {
+					return alert("Server error! Please try again!");
+				});
+			}).fail(function () {
 				return alert("Server error! Please try again!");
 			});
-			}).fail(function(){
-				return alert("Server error! Please try again!");
-			});
-			
-		
-			
-		
-	}
-	}).fail(function(){
+
+
+
+
+		}
+	}).fail(function () {
 		alert("Server error! Please try again later.")
 	})
 
 	console.log(result.length);
 
-	  
+
 }
 
-function bookTicket(event){
+function bookTicket(event) {
 	event.preventDefault();
 	const ele = event.target;
 	const route_id = $(ele).attr("route_id");
@@ -188,24 +217,24 @@ function bookTicket(event){
 	const bus_id = $(ele).attr("bus_id");
 	const user_id = $(ele).attr("user_id");
 	const date = $(ele).attr("date");
-	console.log(route_id,bus_id,user_id,date);
+	console.log(route_id, bus_id, user_id, date);
 	$.ajax({
 		url: "http://localhost:8080/api/v1/ticket/create",
 		type: "POST",
 		data: JSON.stringify({
-			"routeId":route_id,
-			"busId":bus_id,
-			"userId":user_id,
-			"status":"CONFIRMED",
-			"date":date
+			"routeId": route_id,
+			"busId": bus_id,
+			"userId": user_id,
+			"status": "CONFIRMED",
+			"date": date
 		}),
 		contentType: "application/json",
-		success: function(result) {
+		success: function (result) {
 			console.log(result);
 			alert("Ticket booked successfully!");
 			location.reload(); 
 		},
-		error: function(xhr, status, error) {
+		error: function (xhr, status, error) {
 			console.log(error);
 			console.log(JSON.parse(xhr.responseText).message);
 			if(JSON.parse(xhr.responseText).message === "Ticket already done by ")
@@ -217,48 +246,45 @@ function bookTicket(event){
 }
 function togglepassword() {
 	var x = document.getElementById("mypassword");
-	var y=document.getElementById("mypassword-icon");
+	var y = document.getElementById("mypassword-icon");
 	if (x.type === "password") {
-		
-	  	
-		y.src="./public/hide-eye.png";
-	  x.type = "text";
+
+
+		y.src = "./public/hide-eye.png";
+		x.type = "text";
 	} else {
-	  x.type = "password";
-	  y.src="./public/eye-icon.svg";
-	  y.class="hidden-eye";
+		x.type = "password";
+		y.src = "./public/eye-icon.svg";
+		y.class = "hidden-eye";
 	}
 }
 
 function on() {
 	// document.getElementById("overlay").style.display = "block";
-	document.querySelector(".cancel-overlay").style.display="block";
+	document.querySelector(".cancel-overlay").style.display = "block";
 }
-  
+
 function off() {
 	// document.getElementById("overlay").style.display = "none";
-	document.querySelector(".cancel-overlay").style.display="none";
+	document.querySelector(".cancel-overlay").style.display = "none";
 }
 
-function onbooking()
-{
-	document.querySelector(".booking-cancel-overlay").style.display="block";
+function onbooking() {
+	document.querySelector(".booking-cancel-overlay").style.display = "block";
 }
-function offbooking()
-{
-	document.querySelector(".booking-cancel-overlay").style.display="none";
+function offbooking() {
+	document.querySelector(".booking-cancel-overlay").style.display = "none";
 }
 
-function onroute()
-{
-	document.querySelector(".route-overlay").style.display="block";
+function onroute() {
+	document.querySelector(".route-overlay").style.display = "block";
 }
-function offroute()
-{
-	document.querySelector(".route-overlay").style.display="none";
+function offroute() {
+	document.querySelector(".route-overlay").style.display = "none";
 }
 function homeonroute() {
 	document.querySelector(".home-route-overlay").style.display = "block";
+
 
 	// get routeId dynamically
 	let routeId = 1
@@ -301,24 +327,27 @@ function homeonroute() {
 function homeoffroute()
 {
 	document.querySelector(".home-route-overlay").style.display="none";
-}
+
+ }
+// function homeoffroute() {
+// 	document.querySelector(".home-route-overlay").style.display = "none";
+// >>>>>>> fec760e6080061d95a16414552cb5d45bf4a795f
+// }
 
 /*Fetching functions*/
- //var fromelement ="";
-function getfrom()
-{
-	selectedElementFrom=document.querySelector(".from-id");
+//var fromelement ="";
+function getfrom() {
+	selectedElementFrom = document.querySelector(".from-id");
 	frontelement = selectedElementFrom.options[selectedElementFrom.selectedIndex].value;
-	console.log("Got from value"+ frontelement);
+	console.log("Got from value" + frontelement);
 	return frontelement;
 }
 
 //var toelement ="";
-function getto()
-{
-	selectedElementTo=document.querySelector(".to-id");
+function getto() {
+	selectedElementTo = document.querySelector(".to-id");
 	toelement = selectedElementTo.options[selectedElementTo.selectedIndex].value;
-	console.log("Got to value"+toelement);
+	console.log("Got to value" + toelement);
 	return toelement;
 }
 

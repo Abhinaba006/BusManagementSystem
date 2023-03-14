@@ -1226,4 +1226,22 @@ function getUnResolvedIssues() {
 }
   //--------------------------------------------------------------------------//
  
-  
+  function getTokenCookie() {
+	const cookieName = "token=";
+	const cookies = document.cookie.split("; ");
+	for (let i = 0; i < cookies.length; i++) {
+		const cookie = cookies[i];
+		if (cookie.indexOf(cookieName) === 0) {
+			return cookie.substring(cookieName.length, cookie.length);
+		}
+	}
+	return "";
+}
+
+function deleteAllCookies() {
+	document.cookie.split(";").forEach(function (c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
+}
+function logOut(){
+	deleteAllCookies();
+	window.location = '/client/admin_login.html';
+}
