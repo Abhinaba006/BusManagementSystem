@@ -1,14 +1,13 @@
 package nrifintech.busMangementSystem.Service.impl;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import java.util.Map;
+import java.util.HashMap;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -20,6 +19,8 @@ import nrifintech.busMangementSystem.entities.Route;
 import nrifintech.busMangementSystem.entities.RouteInfo;
 import nrifintech.busMangementSystem.entities.Ticket;
 import nrifintech.busMangementSystem.entities.User;
+import nrifintech.busMangementSystem.repositories.BusMapRepo;
+import nrifintech.busMangementSystem.repositories.BusRepo;
 import nrifintech.busMangementSystem.repositories.DestinationRepo;
 import nrifintech.busMangementSystem.repositories.RouteInfoRepo;
 import nrifintech.busMangementSystem.repositories.RouteRepo;
@@ -44,6 +45,12 @@ public class ReportService {
 	@Autowired
 	UserRepo userRepo;
 	
+	@Autowired
+	BusMapRepo busMapRepo;
+	
+	@Autowired
+	BusRepo busRepo;
+	
 	public void generateRouteReport(HttpServletResponse response) throws IOException {
 
 	    // create a new workbook
@@ -58,15 +65,14 @@ public class ReportService {
 	    headerRow.createCell(1).setCellValue("Start Destination");
 	    headerRow.createCell(2).setCellValue("End Destination");
 	    headerRow.createCell(3).setCellValue("Total Destination");
-	    headerRow.createCell(4).setCellValue("Total Bookings");
-	    headerRow.createCell(5).setCellValue("Route-Usage(in %)");
+	    headerRow.createCell(4).setCellValue("Total Seats");
+	    headerRow.createCell(5).setCellValue("OVERUSED");
+	    headerRow.createCell(6).setCellValue("UNDERUSED");
 
 	    int totalBookings;
-    	int totalCancellations;
-    	float avgBooking;
-    	float avgCancels;
+    	int totalSeats = 0;
     	int rowNum = 1;
-    	float routeUsage;
+    	String routeUsage;
 	    List<Route> routes = routeRepo.findAll();
 	    for(Route route:routes)
 	    {
@@ -77,21 +83,25 @@ public class ReportService {
 	    	try {
 		    	List<RouteInfo> routeData = routeInfoRepo.getRouteData(route.getId());
 		    	//add all bookings and cancellations from this routeData
-		    	totalBookings = 0;
-		    	totalCancellations = 0;
+		    	int overused = 0,underused = 0;
+
 		    	for(RouteInfo r:routeData)
 		    	{
-		    		totalBookings+=r.getTotal_bookings();
+		    			if(r.getOverall_bookings()>=r.getTotal_seats()) overused++;
+		    			else underused++;
 		    	}
-		    	avgBooking = totalBookings/routeData.size();
-		    	avgCancels = totalCancellations/routeData.size();
-		    	routeUsage = (avgBooking/routeData.get(0).getTotal_seats()) - (avgCancels/avgBooking);
-		   
+		    	
+		    	int bus_id = busMapRepo.findByRouteId(route.getId()).getBus_id();
+		    	totalSeats = busRepo.findById(bus_id).get().getTotalNumberOfseats();
+		    	
+		    	
 		    	row.createCell(1).setCellValue((destinationRepo.findById(route.getStart_destination_id())).get().getName());
 		    	row.createCell(2).setCellValue((destinationRepo.findById(route.getEnd_destination_id())).get().getName());
 		    	row.createCell(3).setCellValue(route.getTotal_destinations());
-		    	row.createCell(4).setCellValue(totalBookings);
-		    	row.createCell(5).setCellValue(routeUsage*100);
+		    	row.createCell(4).setCellValue(totalSeats);
+		
+		    	row.createCell(5).setCellValue(overused);
+		    	row.createCell(6).setCellValue(underused);
 	    	}
 	    	catch(Exception e)
 	    	{
@@ -126,11 +136,10 @@ public class ReportService {
 	    headerRow.createCell(0).setCellValue("Emp Id");
 	    headerRow.createCell(1).setCellValue("Name ");
 	    headerRow.createCell(2).setCellValue("Email");
-	    headerRow.createCell(3).setCellValue("Availed Bookings");
-	    headerRow.createCell(4).setCellValue("Total Cancellations");
+	    headerRow.createCell(3).setCellValue("Total Bookings");
+	
 
 	    int availedBookings;
-    	int totalCancellations;
     	int rowNum = 1;
 
 	    List<User> users = userRepo.findAll();
@@ -145,22 +154,17 @@ public class ReportService {
 	    		List<Ticket> ticketData = ticketRepo.findByUserId(user.getId());
 		    	//add all bookings and cancellations from this routeData
 		    	availedBookings = 0;
-		    	totalCancellations = 0;
 		    	for(Ticket t:ticketData)
 		    	{
-		    		if(t.getStatus().equals("availed"))		
+		    		if(t.getStatus().equals("AVAILED"))		
 		    			availedBookings+=1;
-		    		else if(t.getStatus().equals("cancelled"))
-		    			totalCancellations+=1;
 		    	}
 		    	
 		    	row.createCell(3).setCellValue(availedBookings);
-		    	row.createCell(4).setCellValue(totalCancellations);
 	    	}
 	    	catch(Exception e)
 	    	{
-	    		row.createCell(3).setCellValue(0);
-	    		row.createCell(4).setCellValue(0);	
+	    		row.createCell(3).setCellValue(0);	
 	    	}
 	    }
 

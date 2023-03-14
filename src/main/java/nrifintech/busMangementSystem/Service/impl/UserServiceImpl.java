@@ -69,7 +69,13 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public User getUserByEmail(String email) {
 		// TODO Auto-generated method stub
-		 return this.userRepo.findByOnlyEmail(email).orElseThrow(() -> new ResouceNotFound("User", "email", -1));
+		 return this.userRepo.findByEmail(email, 0).orElseThrow(() -> new ResouceNotFound("User", "email", -1));
+	}
+	
+	@Override
+	public User getAdminByEmail(String email) {
+		// TODO Auto-generated method stub
+		 return this.userRepo.findByEmail(email, 1).orElseThrow(() -> new ResouceNotFound("User", "email", -1));
 	}
 
 
@@ -90,9 +96,9 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public boolean checkUser(String email, String password) {
-		
+
 		User user = userRepo.findByEmail(email,0).orElseThrow(()->new ResouceNotFound("User","Email",0));
-		System.out.println(user.getPassword());
+		
 		return  passwordEncoder.matches(password, user.getPassword());
 		
 		

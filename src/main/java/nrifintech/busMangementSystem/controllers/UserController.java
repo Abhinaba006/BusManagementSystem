@@ -23,6 +23,7 @@ import nrifintech.busMangementSystem.Service.interfaces.UserService;
 import nrifintech.busMangementSystem.entities.User;
 import nrifintech.busMangementSystem.payloads.ApiResponse;
 import nrifintech.busMangementSystem.payloads.UserDto;
+import nrifintech.busMangementSystem.repositories.UserRepo;
 
 @CrossOrigin(origins = "http://localhost:5500")
 @RestController
@@ -66,14 +67,12 @@ public class UserController {
 
 	@GetMapping("/employee/login/{email}/{password}")
 	public ResponseEntity<?> userLogin(@PathVariable("email") String email, @PathVariable("password") String password){
-		System.out.println(email);
-		System.out.println(password);
 		boolean isAuthenticated = userService.checkUser(email,password);
 	
 		if(isAuthenticated) {
 			User user = userService.getUserByEmail(email);
-	        String token = jwtTokenUtil.generateToken(user.getId());  // generate JWT token
-
+	        String token = jwtTokenUtil.generateToken(user.getId(), 0);  // generate JWT token
+	        
 	        // include JWT token in the response
 	        Map<String, Object> responseBody = new HashMap<>();
 	        responseBody.put("token", token);
@@ -90,9 +89,9 @@ public class UserController {
 	public ResponseEntity<?> adminLogin(@PathVariable("email") String email, @PathVariable("password") String password){
 		boolean isAuthenticated = userService.checkAdmin(email,password);
 		if(isAuthenticated) {
-			User user = userService.getUserByEmail(email);
-	        String token = jwtTokenUtil.generateToken(user.getId());  // generate JWT token
-
+			User user = userService.getAdminByEmail(email);
+	        String token = jwtTokenUtil.generateToken(user.getId(), 1);  // generate JWT token
+	        System.out.println(email+"\n\n-------\n\n");
 	        // include JWT token in the response
 	        Map<String, Object> responseBody = new HashMap<>();
 	        responseBody.put("token", token);
