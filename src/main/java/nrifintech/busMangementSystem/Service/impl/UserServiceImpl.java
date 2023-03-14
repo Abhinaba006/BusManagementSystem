@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public boolean checkUser(String email, String password) {
 
-		User user = userRepo.findByEmail(email,0).orElseThrow(()->new ResouceNotFound("User","Email",0));
+		User user = userRepo.findByOnlyEmail(email).orElseThrow(()->new ResouceNotFound("User","Email",0));
 		
 		return  passwordEncoder.matches(password, user.getPassword());
 		
