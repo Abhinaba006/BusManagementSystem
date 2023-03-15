@@ -53,7 +53,13 @@ public class IssueController {
     }
 
     @PostMapping("/{issueId}/resolve")
-    public ResponseEntity<Void> resolveIssue(@PathVariable int issueId){
+    public ResponseEntity<Void> resolveIssue(HttpServletRequest request, @PathVariable int issueId){
+    	Enumeration<String> headerNames = request.getHeaderNames();
+    	System.out.println("issoe resolve \n");
+        while(headerNames.hasMoreElements()) {
+            String headerName = headerNames.nextElement();
+            System.out.println(headerName + ": " + request.getHeader(headerName));
+        }
         issueService.resolveIssue(issueId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

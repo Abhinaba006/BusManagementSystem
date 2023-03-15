@@ -1138,7 +1138,8 @@ function getUnResolvedIssues() {
     $.ajax({
         url: "http://localhost:8080/api/v1/issues/unresolved",
         headers: {
-            "Authorization": getTokenCookie()
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
         },
         success: function (data) {
             // ... the rest of the function code remains the same
@@ -1172,27 +1173,22 @@ function getUnResolvedIssues() {
                 $.ajax({
                     url: "http://localhost:8080/api/v1/user/get/" + user_id,
                     headers: {
-                        "Authorization": getTokenCookie()
+                        "Authorization": getTokenCookie(),
+                        "Content-Type": "application/json"
                     },
                     success: function (data2) {
+                        console.log(data2)
                         obj["username"] = data2.name;
-                        //Get issue divs html here
-                        // const issueHTML = `
-                        // <p class="issue-user">Posted by ${obj.username}</p>
-                        // <p class="issue-text">${obj.issue}</p>
-                        // <button class="resolve-button" data-id="${obj.id}">Resolve</button>
-                        // `;
-
                         const issueHTML = `
-                        <div class = "issue-div">
-                            <div class = "issue-heading">Issue ${obj.id}</div>
-                            <div class = "issue-user">${data2.email} <p class = "issue-date">Created at: ${obj.date}</p></div>
-                            <div class = "issue-text">${obj.issue}
-                            </div>
-                            <br/>
-                            <div class="issue resolve resolve-button" data-id="${obj.id}">Resolve</div>
-                        </div>
-                        `;
+                                <div class = "issue-div">
+                                    <div class = "issue-heading">Issue ${obj.id}</div>
+                                    <div class = "issue-user">${data2.email} <p class = "issue-date">Created at: ${obj.date}</p></div>
+                                    <div class = "issue-text">${obj.issue}
+                                    </div>
+                                    <br/>
+                                    <div class="issue resolve resolve-button" data-id="${obj.id}">Resolve</div>
+                                </div>
+                                `;
                         const parentDiv = document.querySelector(".issue-manage");
                         parentDiv.innerHTML += issueHTML;
                         // Add a click event handler for the dynamically created buttons
@@ -1202,16 +1198,13 @@ function getUnResolvedIssues() {
                             // Make an AJAX call to post the data to the database
                             console.log("clicked")
 
-                            /* fixed it, make another function
-
                             $.ajax({
                                 url: 'http://localhost:8080/api/v1/issues/' + id + '/resolve',
-                                type: 'POST',
-                                data: {
-                                    // Add any data you want to post to the database here
-                                    //id: id,
-                                    // ...
+                                headers: {
+                                    "Authorization": getTokenCookie(),
+                                    "Content-Type": "application/json"
                                 },
+                                type:"POST",
                                 success: function (response) {
                                     // Do something if the POST request is successful
                                     console.log('Data posted to database');
@@ -1225,21 +1218,16 @@ function getUnResolvedIssues() {
                                     console.log(error);
                                 }
                             });
-                            */
+
 
                         });
 
-                    },
-                    error: function (e) {
-                        return console.log(e)
                     }
-                });
+                })
 
             }
-
-
-
-        },
+        }
+        ,
         error: function () {
             return alert("Something went wrong. Please try again later!");
         }
