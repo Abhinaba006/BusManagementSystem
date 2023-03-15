@@ -14,6 +14,7 @@ var booking = `My Bookings`;
 var logout = "Logout";
 var home = "Home";
 
+
 // document.getElementById("nrifintech").innerHTML=nrifintech;
 // document.getElementById("booking").innerHTML = booking; 
 // document.getElementById("logout").innerHTML = logout;
@@ -33,6 +34,20 @@ function getTokenCookie() {
 		}
 	}
 	return "";
+}
+
+function getIdCookie() {
+    const cookieString = document.cookie;
+    if (cookieString) {
+        const cookies = cookieString.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.startsWith('id=')) {
+                return parseInt(cookie.substring('id='.length, cookie.length));
+            }
+        }
+    }
+    return null;
 }
 
 function deleteAllCookies() {
@@ -192,7 +207,7 @@ function getRoutes(event) {
 										obj["busNumber"] = data.bus_number;
 								
 									//To be changed
-									obj["userId"] = 1;
+									obj["userId"] = getIdCookie();
 									console.log(obj);
 									result.push(obj);
 									// {

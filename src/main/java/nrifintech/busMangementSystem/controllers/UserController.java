@@ -1,11 +1,14 @@
 package nrifintech.busMangementSystem.controllers;
 
+
+
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +29,6 @@ import nrifintech.busMangementSystem.entities.User;
 import nrifintech.busMangementSystem.exception.UnauthorizedAction;
 import nrifintech.busMangementSystem.payloads.ApiResponse;
 import nrifintech.busMangementSystem.payloads.UserDto;
-import nrifintech.busMangementSystem.repositories.UserRepo;
 
 @CrossOrigin(origins = "http://localhost:5500")
 @RestController
@@ -83,7 +85,7 @@ public class UserController {
 	}
 
 	@GetMapping("/employee/login/{email}/{password}")
-	public ResponseEntity<?> userLogin(@PathVariable("email") String email, @PathVariable("password") String password) {
+	public ResponseEntity<?> userLogin(HttpServletRequest request, @PathVariable("email") String email, @PathVariable("password") String password) {
 		boolean isAuthenticated = userService.checkUser(email, password);
 
 		if (isAuthenticated) {
@@ -93,8 +95,11 @@ public class UserController {
 			// include JWT token in the response
 			Map<String, Object> responseBody = new HashMap<>();
 			responseBody.put("token", token);
+			responseBody.put("userId", user.getId());
 			responseBody.put("message", "Authenticated success");
 			responseBody.put("success", true);
+			
+			HttpSession session = request.getSession();
 
 			return ResponseEntity.ok(responseBody);
 		} else {
@@ -123,5 +128,11 @@ public class UserController {
 			return new ResponseEntity(new ApiResponse("User not found or password is incorrect!", false),
 					HttpStatus.BAD_REQUEST);
 		}
+	}
+	
+	@GetMapping("/validateToken")
+	public ResponseEntity<?> ValidateToken(@PathVariable("token") String token) {
+		System.out.println("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+		return new ResponseEntity(new ApiResponse("token validated", true), HttpStatus.OK);
 	}
 }

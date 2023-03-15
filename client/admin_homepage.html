@@ -11,25 +11,53 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./admin_homepage.css" />
-    <link rel = "stylesheet" href = "./index.css"/>
+    <link rel="stylesheet" href="./index.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <title>Admin</title>
+    <script type="text/javascript" language="javascript">
+        function getTokenCookie() {
+            const cookieName = "token=";
+            const cookies = document.cookie.split("; ");
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i];
+                if (cookie.indexOf(cookieName) === 0) {
+                    return cookie.substring(cookieName.length, cookie.length);
+                }
+            }
+            return "";
+        }
+
+        console.log(getTokenCookie());
+        $.ajax({
+            url: "http://localhost:8080/api/v1/user/get/",
+            type: "GET",
+            headers: {
+                "Authorization": getTokenCookie(),
+                "Content-Type": "application/json"
+            },
+            error: function () {
+                alert("wrong cookie")
+                window.location.replace("admin_login.html");
+            }
+        });
+    </script>
 </head>
 
 <body>
-    
+
     <div class="main">
         <!-- Header -->
         <div class="header">
 
             <div class="header-div">
-<!-- <<<<<<< HEAD
+                <!-- <<<<<<< HEAD
                  <a href="index.html" class="nrifintech">
                      <div> NRI TRAVEL</div>
                  </a>
@@ -58,7 +86,8 @@
 
                 <div class="header-end-items">
                     <img class="vector-icon" alt="" src="public/vector1.svg" />
-                    <p class="header-end-items-text logout"> <a href="#" onclick="logOut()" class="logout">Logout </a> </p>
+                    <p class="header-end-items-text logout"> <a href="#" onclick="logOut()" class="logout">Logout </a>
+                    </p>
                 </div>
 
             </div>
@@ -67,18 +96,18 @@
 
         <!-- Body -->
         <div class="body-part">
-            
+
             <div>
-                
+
                 <!--
                     Write your body code within this div
                     
                     
                 -->
-                
-                
+
+
                 <!--sidebar-->
-                
+
                 <div class="sidebar bar-block collapse card animate-left" id="mySidebar">
                     <button class="bar-item button large hide-large" onclick="closeSidebar()">Close &times;</button>
                     <a href="#" class="bar-item button" onclick="firstdiv()" id="text1">Employees</a>
@@ -86,90 +115,95 @@
                     <a href="#" class="bar-item button" onclick="thirddiv()" id="text3">Bus</a>
                     <a href="#" class="bar-item button" onclick="fourthdiv()" id="text4">Report</a>
                     <a href="#" class="bar-item button" onclick="fifthdiv()" id="text5">Destination</a>
-                    <a href="#" class="bar-item button" onclick="sixthdiv(); getUnResolvedIssues();" id="text6">Issues</a>
+                    <a href="#" class="bar-item button" onclick="sixthdiv(); getUnResolvedIssues();"
+                        id="text6">Issues</a>
                     <a href="#" class="bar-item button" onclick="seventhdiv()" id="text7">Tickets</a>
 
                 </div>
-                
+
                 <div class="main" style="margin-left:200px;">
                     <div class="red">
                         <button class="button red xlarge hide-large" onclick="openSidebar()">&#9776;</button>
-                        
+
                     </div>
-                    
+
                     <!--first div-->
-                    
+
                     <div id="firstdiv" style="display:block;">
-                        
+
                         <form>
                             <h1>Add an employee</h1>
-                            
+
                             <input type="text" id="add-employee-name" name="name" placeholder="Name">
-                            
-                            
+
+
                             <input type="email" id="add-employee-email" name="email" placeholder="Email">
-                            
-                            
+
+
                             <input type="password" id="add-employee-password" name="password" placeholder="Password">
-                            
-                            <input type = "text" id = "add-employee-id" name = "empId" placeholder="Employee id"><br>
+
+                            <input type="text" id="add-employee-id" name="empId" placeholder="Employee id"><br>
                             <input type="submit" value="+ Add Employee" onclick="addEmployee(event)">
-                            
+
                             <h1>Search/edit an employee</h1>
-                            
-                            <input type="text" id = "search-email" placeholder="Enter employee email">
-                            
-                            
-                            
+
+                            <input type="text" id="search-email" placeholder="Enter employee email">
+
+
+
                         </form>
-                        
+
                         <button class="search-btn" onclick="on()"> <img class="confirm-cancel-icon"
-                            src="./public/icons8-search.svg" alt=""> Search</button>
-                            <script>
-                                function on() {
-                                    
-                                    document.querySelector(".search-overlay").style.display="block";
-                                }
-                            </script>
+                                src="./public/icons8-search.svg" alt=""> Search</button>
+                        <script>
+                            function on() {
+
+                                document.querySelector(".search-overlay").style.display = "block";
+                            }
+                        </script>
+                    </div>
+
+                    <!--second div-->
+
+                    <div id="seconddiv" style="display:none;">
+
+
+
+
+
+
+                        <section>
+                            <h1>Add a route</h1><br />
+
+                        </section>
+                        <div class="route_add_div">
+                            <div class="add_route_field" onclick="add_route_field(event)">Add destination</div>
+                            <select class="select_bus" id="select_bus" onclick="displayBusID(event)">
+                                <option>Select your bus</option>
+                            </select>
+                            <div class="add_field" id="add_field">
+
+                            </div>
+                            <div class="route_submit" id="route_submit" onclick=" addRoute(event)"
+                                style="cursor: pointer;">Submit</div>
+
                         </div>
-                        
-                        <!--second div-->
-                        
-                        <div id="seconddiv" style="display:none;">
-                            
-                            
-                            
-                            
-                            
-                            
-                            <section>
-                                <h1>Add a route</h1><br/>
-                            
-                            </section>
-                            <div class = "route_add_div">
-                                <div class = "add_route_field" onclick="add_route_field(event)">Add destination</div>
-                                <select class = "select_bus" id = "select_bus" onclick="displayBusID(event)" >  
-                                    <option>Select your bus</option>
-                                </select>
-                                <div class = "add_field" id = "add_field">
+                        <section>
+                            <h1>Search a route</h1><br />
+                        </section>
+                        <div class="admin_from_to">
+                            <select class="admin_from" id="admin_from" onclick="displayDestinations3(event)">
+                                <option>Select source</option>
+                            </select>
+                            <select class="admin_to" id="admin_to" onclick="displayDestinations4(event)">
+                                <option>Select destination</option>
+                            </select>
+                            <div class="admin_search_route" style="cursor: pointer;" onclick="getRoutesAdmin(event)">
+                                Search</div>
+                        </div>
+                        <div class="admin_routes"></div>
 
-                                </div>
-                                <div class = "route_submit" id = "route_submit" onclick=" addRoute(event)" style = "cursor: pointer;">Submit</div>
 
-                            </div>
-                            <section>
-                                <h1>Search a route</h1><br/>
-                            </section>
-                            <div class = "admin_from_to">
-                                <select class = "admin_from" id = "admin_from" onclick="displayDestinations3(event)">
-                                    <option >Select source</option>
-                                </select>
-                                <select class = "admin_to" id = "admin_to" onclick="displayDestinations4(event)"> <option >Select destination</option></select>
-                                <div class = "admin_search_route" style = "cursor: pointer;" onclick="getRoutesAdmin(event)">Search</div>
-                            </div>
-                            <div class = "admin_routes"></div>
-
-                    
 
                     </div>
 
@@ -192,9 +226,7 @@
 
                             <h1>Search/edit a bus</h1>
 
-                            <input type="text"
-                                id = "bus-search-name"Bus-number-search" 
-                                placeholder="Enter bus number">
+                            <input type="text" id="bus-search-name" Bus-number-search" placeholder="Enter bus number">
 
 
 
@@ -206,104 +238,104 @@
                     <!--fourth div-->
 
                     <div id="fourthdiv" style="display:none;overflow-x: scroll;">
-                        <input type = "text" id = "report-route-id" placeholder="Enter route id"/>
+                        <input type="text" id="report-route-id" placeholder="Enter route id" />
                         <button onclick="getReportById(event)" class="generate-report">Search</button>
-                        
+
                         <canvas id="myChart">
-                            
+
                         </canvas>
                         <script>
-                         var xValues = new Array(31);
-                        var yValues = new Array(31);
-                        var barColors = new Array(31);
+                            var xValues = new Array(31);
+                            var yValues = new Array(31);
+                            var barColors = new Array(31);
 
-                        //Create a chart for demo 
-                        new Chart("myChart", {
-                                    type: "bar",
-                                    data: {
+                            //Create a chart for demo 
+                            new Chart("myChart", {
+                                type: "bar",
+                                data: {
                                     labels: xValues,
                                     datasets: [{
                                         backgroundColor: barColors,
                                         data: yValues
                                     }]
-                                    },
-                                    options: {
-                                    legend: {display: false},
+                                },
+                                options: {
+                                    legend: { display: false },
                                     title: {
                                         display: true,
                                         text: "Usage report for month of march"
-                                    }
-                                    }
-                                });
-                        for(let i = 0;i<31;i++){
-                            xValues[i] = i+1;
-                            yValues[i] = 0;
-                        }
-                        var positiveColor = 'rgba(54, 162, 235, 0.2)';
-                        var negativeColor = 'rgba(255, 99, 132, 0.2)';
-                    
-                        function getReportById(event){
-                            event.preventDefault();
-                            const id = $("#report-route-id").val();
-                            if(id == "") return alert("Please provide a valid route id");
-                            $.ajax({
-                            url:  "http://localhost:8080/api/v1/route/getReport/" + id,
-                            type: "GET",
-                            headers: {
-                                "Authorization": getTokenCookie(),
-                                "Content-Type": "application/json"
-                            },
-                            success: function(data){
-                                console.log(data);
-                                for(var i = 0;i<data.length;i++){
-                                    var date = data[i].date;
-                                    var index = parseInt(date.split(':')[0]);
-                                    var diff = data[i].total_seats - data[i].overall_bookings;
-                                    console.log(index,diff);
-                                    index--;
-                                    if(diff >= 0 ){
-                                        yValues[index] = diff;
-                                        barColors[index] = negativeColor;
-                                    }
-                                    else{
-                                        //overused
-                                        yValues[index] = -diff;
-                                        barColors[index] = positiveColor;
                                     }
                                 }
-                                console.log(yValues);
-                                new Chart("myChart", {
-                                    type: "bar",
-                                    data: {
-                                    labels: xValues,
-                                    datasets: [{
-                                        backgroundColor: barColors,
-                                        data: yValues
-                                    }]
+                            });
+                            for (let i = 0; i < 31; i++) {
+                                xValues[i] = i + 1;
+                                yValues[i] = 0;
+                            }
+                            var positiveColor = 'rgba(54, 162, 235, 0.2)';
+                            var negativeColor = 'rgba(255, 99, 132, 0.2)';
+
+                            function getReportById(event) {
+                                event.preventDefault();
+                                const id = $("#report-route-id").val();
+                                if (id == "") return alert("Please provide a valid route id");
+                                $.ajax({
+                                    url: "http://localhost:8080/api/v1/route/getReport/" + id,
+                                    type: "GET",
+                                    headers: {
+                                        "Authorization": getTokenCookie(),
+                                        "Content-Type": "application/json"
                                     },
-                                    options: {
-                                    legend: {display: false},
-                                    title: {
-                                        display: true,
-                                        text: "Usage report for month of march"
-                                    }
+                                    success: function (data) {
+                                        console.log(data);
+                                        for (var i = 0; i < data.length; i++) {
+                                            var date = data[i].date;
+                                            var index = parseInt(date.split(':')[0]);
+                                            var diff = data[i].total_seats - data[i].overall_bookings;
+                                            console.log(index, diff);
+                                            index--;
+                                            if (diff >= 0) {
+                                                yValues[index] = diff;
+                                                barColors[index] = negativeColor;
+                                            }
+                                            else {
+                                                //overused
+                                                yValues[index] = -diff;
+                                                barColors[index] = positiveColor;
+                                            }
+                                        }
+                                        console.log(yValues);
+                                        new Chart("myChart", {
+                                            type: "bar",
+                                            data: {
+                                                labels: xValues,
+                                                datasets: [{
+                                                    backgroundColor: barColors,
+                                                    data: yValues
+                                                }]
+                                            },
+                                            options: {
+                                                legend: { display: false },
+                                                title: {
+                                                    display: true,
+                                                    text: "Usage report for month of march"
+                                                }
+                                            }
+                                        });
+                                    },
+                                    error: function () {
+                                        return alert("Server error! Please try again!")
                                     }
                                 });
-                            }, 
-                            error: function(){
-                                return alert("Server error! Please try again!")
+
                             }
-                        });
-                    
-                        }
-                       
-                        
-                          </script>
-                          <div>
-                          <button class="user-status" onclick="generateReport('user')">User Status</button>
-        
-                          <button class="route-status" onclick="generateReport('route')">Route Status</button>
-                          </div>
+
+
+                        </script>
+                        <div>
+                            <button class="user-status" onclick="generateReport('user')">User Status</button>
+
+                            <button class="route-status" onclick="generateReport('route')">Route Status</button>
+                        </div>
                     </div>
 
                     <!--fifth div-->
@@ -311,191 +343,191 @@
                     <div id="fifthdiv" style="display:none;">
                         <form>
                             <h1>Add a destination</h1>
-                            
+
                             <input type="text" id="dest-name" name="name" placeholder="Enter destination name">
-                            <div id = "results"></div>
+                            <div id="results"></div>
                             <script>
-                                        const places = [
-                                        {
-                                            "name": "Ecospace",
-                                            "latitude": 22.576951,
-                                            "longitude": 88.433728
-                                        },
-                                        {
-                                            "name": "SDF more",
-                                            "latitude": 22.577187,
-                                            "longitude": 88.428692
-                                        },
-                                        {
-                                            "name": "Unitech",
-                                            "latitude": 22.577587,
-                                            "longitude": 88.433714
-                                        },
-                                        {
-                                            "name": "SDF Building",
-                                            "latitude": 22.577858,
-                                            "longitude": 88.429189
-                                        },
-                                        {
-                                            "name": "Wipro more",
-                                            "latitude": 22.577601,
-                                            "longitude": 88.429674
-                                        },
-                                        {
-                                            "name": "College More",
-                                            "latitude": 22.579856,
-                                            "longitude": 88.428441
-                                        },
-                                        {
-                                            "name": "Webel More",
-                                            "latitude": 22.576576,
-                                            "longitude": 88.426511
-                                        },
-                                        {
-                                            "name": "Technopolis",
-                                            "latitude": 22.580815,
-                                            "longitude": 88.428056
-                                        },
-                                        {
-                                            "name": "RDB",
-                                            "latitude": 22.580548,
-                                            "longitude": 88.433063
-                                        },
-                                        {
-                                            "name": "Tata Medical Centre",
-                                            "latitude": 22.579414,
-                                            "longitude": 88.436316
-                                        },
-                                        {
-                                            "name": "Eco Station",
-                                            "latitude": 22.575468,
-                                            "longitude": 88.432514
-                                        },
-                                        {
-                                            "name": "Infinity",
-                                            "latitude": 22.580441,
-                                            "longitude": 88.427693
-                                        },
-                                        {
-                                            "name": "SDF 2",
-                                            "latitude": 22.576925,
-                                            "longitude": 88.430089
-                                        },
-                                        {
-                                            "name": "Techno India",
-                                            "latitude": 22.582547,
-                                            "longitude": 88.422847
-                                        },
-                                        {
-                                            "name": "Wipro Gate 2",
-                                            "latitude": 22.575606,
-                                            "longitude": 88.428674
-                                        },
-                                        {
-                                            "name": "Aloft",
-                                            "latitude": 22.584686,
-                                            "longitude": 88.423684
-                                        },
-                                        {
-                                            "name": "Idea Building",
-                                            "latitude": 22.576154,
-                                            "longitude": 88.426277
-                                        },
-                                        {
-                                            "name": "Capgemini",
-                                            "latitude": 22.581013,
-                                            "longitude": 88.427693
-                                        },
-                                        {
-                                            "name": "SDF 3",
-                                            "latitude": 22.574778,
-                                            "longitude": 88.427151
-                                        },
-                                        {
-                                            "name": "SDF 4",
-                                            "latitude": 22.575109,
-                                            "longitude": 88.429193
-                                        },
-                                        {
-                                            "name": "Charnock Hospital",
-                                            "latitude": 22.586247,
-                                            "longitude": 88.427778
-                                        },
-                                        {
-                                            "name": "Ecospace Gate 2",
-                                            "latitude": 22.577304,
-                                            "longitude": 88.431006
-                                        },
-                                        {
-                                            "name": "Tollygunge Tram Depot",
-                                            "latitude": 22.5085,
-                                            "longitude": 88.3358
-                                        },
-                                        {
-                                            "name": "Esplanade",
-                                            "latitude": 22.5641,
-                                            "longitude": 88.3488
-                                        },
-                                        {
-                                            "name": "Park Circus Maidan",
-                                            "latitude": 22.5415,
-                                            "longitude": 88.3957
-                                        },
-                                        {
-                                            "name": "Garia Bus Stand",
-                                            "latitude": 22.4767,
-                                            "longitude": 88.3942
-                                        },
-                                        {
-                                            "name": "Shyambazar",
-                                            "latitude": 22.6024,
-                                            "longitude": 88.3749
-                                        },
-                                        {
-                                            "name": "Ruby Crossing",
-                                            "latitude": 22.5113,
-                                            "longitude": 88.3939
-                                        },
-                                        {
-                                            "name": "Kudghat Bus Stand",
-                                            "latitude": 22.4981,
-                                            "longitude": 88.3244
-                                        },
-                                        {
-                                            "name": "Barasat Bus Stand",
-                                            "latitude": 22.7256,
-                                            "longitude": 88.4798
-                                        },
-                                        
-                                        ];
+                                const places = [
+                                    {
+                                        "name": "Ecospace",
+                                        "latitude": 22.576951,
+                                        "longitude": 88.433728
+                                    },
+                                    {
+                                        "name": "SDF more",
+                                        "latitude": 22.577187,
+                                        "longitude": 88.428692
+                                    },
+                                    {
+                                        "name": "Unitech",
+                                        "latitude": 22.577587,
+                                        "longitude": 88.433714
+                                    },
+                                    {
+                                        "name": "SDF Building",
+                                        "latitude": 22.577858,
+                                        "longitude": 88.429189
+                                    },
+                                    {
+                                        "name": "Wipro more",
+                                        "latitude": 22.577601,
+                                        "longitude": 88.429674
+                                    },
+                                    {
+                                        "name": "College More",
+                                        "latitude": 22.579856,
+                                        "longitude": 88.428441
+                                    },
+                                    {
+                                        "name": "Webel More",
+                                        "latitude": 22.576576,
+                                        "longitude": 88.426511
+                                    },
+                                    {
+                                        "name": "Technopolis",
+                                        "latitude": 22.580815,
+                                        "longitude": 88.428056
+                                    },
+                                    {
+                                        "name": "RDB",
+                                        "latitude": 22.580548,
+                                        "longitude": 88.433063
+                                    },
+                                    {
+                                        "name": "Tata Medical Centre",
+                                        "latitude": 22.579414,
+                                        "longitude": 88.436316
+                                    },
+                                    {
+                                        "name": "Eco Station",
+                                        "latitude": 22.575468,
+                                        "longitude": 88.432514
+                                    },
+                                    {
+                                        "name": "Infinity",
+                                        "latitude": 22.580441,
+                                        "longitude": 88.427693
+                                    },
+                                    {
+                                        "name": "SDF 2",
+                                        "latitude": 22.576925,
+                                        "longitude": 88.430089
+                                    },
+                                    {
+                                        "name": "Techno India",
+                                        "latitude": 22.582547,
+                                        "longitude": 88.422847
+                                    },
+                                    {
+                                        "name": "Wipro Gate 2",
+                                        "latitude": 22.575606,
+                                        "longitude": 88.428674
+                                    },
+                                    {
+                                        "name": "Aloft",
+                                        "latitude": 22.584686,
+                                        "longitude": 88.423684
+                                    },
+                                    {
+                                        "name": "Idea Building",
+                                        "latitude": 22.576154,
+                                        "longitude": 88.426277
+                                    },
+                                    {
+                                        "name": "Capgemini",
+                                        "latitude": 22.581013,
+                                        "longitude": 88.427693
+                                    },
+                                    {
+                                        "name": "SDF 3",
+                                        "latitude": 22.574778,
+                                        "longitude": 88.427151
+                                    },
+                                    {
+                                        "name": "SDF 4",
+                                        "latitude": 22.575109,
+                                        "longitude": 88.429193
+                                    },
+                                    {
+                                        "name": "Charnock Hospital",
+                                        "latitude": 22.586247,
+                                        "longitude": 88.427778
+                                    },
+                                    {
+                                        "name": "Ecospace Gate 2",
+                                        "latitude": 22.577304,
+                                        "longitude": 88.431006
+                                    },
+                                    {
+                                        "name": "Tollygunge Tram Depot",
+                                        "latitude": 22.5085,
+                                        "longitude": 88.3358
+                                    },
+                                    {
+                                        "name": "Esplanade",
+                                        "latitude": 22.5641,
+                                        "longitude": 88.3488
+                                    },
+                                    {
+                                        "name": "Park Circus Maidan",
+                                        "latitude": 22.5415,
+                                        "longitude": 88.3957
+                                    },
+                                    {
+                                        "name": "Garia Bus Stand",
+                                        "latitude": 22.4767,
+                                        "longitude": 88.3942
+                                    },
+                                    {
+                                        "name": "Shyambazar",
+                                        "latitude": 22.6024,
+                                        "longitude": 88.3749
+                                    },
+                                    {
+                                        "name": "Ruby Crossing",
+                                        "latitude": 22.5113,
+                                        "longitude": 88.3939
+                                    },
+                                    {
+                                        "name": "Kudghat Bus Stand",
+                                        "latitude": 22.4981,
+                                        "longitude": 88.3244
+                                    },
+                                    {
+                                        "name": "Barasat Bus Stand",
+                                        "latitude": 22.7256,
+                                        "longitude": 88.4798
+                                    },
 
-                                        const input = document.getElementById("dest-name");
-                                        
-                                        
-                                        function searchPlaces(term) {
+                                ];
 
-                                            return places.filter(place => place.name.toLowerCase().includes(term.toLowerCase()));
-                                        }
+                                const input = document.getElementById("dest-name");
 
-                                        </script>
-                                        
-                                        <!-- <input type="number" id="dest-latitude-input" name="latitude" min="-90" max="90" step="any" placeholder="Enter latitude">
+
+                                function searchPlaces(term) {
+
+                                    return places.filter(place => place.name.toLowerCase().includes(term.toLowerCase()));
+                                }
+
+                            </script>
+
+                            <!-- <input type="number" id="dest-latitude-input" name="latitude" min="-90" max="90" step="any" placeholder="Enter latitude">
                                         
                                         
                                         <input type="number" id="dest-longitude-input" name="longitude" min="-180" max="180" step="any" placeholder="Enter longitude"><br> -->
-                                        
-                                        <script>
-                                        function displayResults(places) {
-                                            const results = document.getElementById("results");
-                                            results.innerHTML = ""; // clear previous results
-                                            if (places.length > 0) {
-                                            const ul = document.createElement("ul");
-                                            ul.style.listStyleType = "none";
-                                            ul.style.marginLeft = "2%";
-                                            places.forEach(place => {
-                                                const li = document.createElement("li");
-                                                li.textContent = place.name;
-                                                li.addEventListener("click", () => {
+
+                            <script>
+                                function displayResults(places) {
+                                    const results = document.getElementById("results");
+                                    results.innerHTML = ""; // clear previous results
+                                    if (places.length > 0) {
+                                        const ul = document.createElement("ul");
+                                        ul.style.listStyleType = "none";
+                                        ul.style.marginLeft = "2%";
+                                        places.forEach(place => {
+                                            const li = document.createElement("li");
+                                            li.textContent = place.name;
+                                            li.addEventListener("click", () => {
                                                 console.log(`Name: ${place.name}, Latitude: ${place.latitude}, Longitude: ${place.longitude}`);
                                                 const placeInput = document.getElementById("dest-name");
                                                 const latitudeInput = document.getElementById("dest-latitude-input");
@@ -505,48 +537,46 @@
                                                 longitudeInput.value = place.longitude;
 
                                             });
-                                                ul.appendChild(li);
-                                            });
-                                            results.appendChild(ul);
-                                            } else {
-                                            results.textContent = "No matching places found.";
-                                            }
-                                        }
-                                        
-                                        input.addEventListener("input", () => {
-
-                                            const term = input.value.trim();
-                                            console.log(term=="");
-                                            if(term == "") document.getElementById("results").innerHTML = "";
-                                            if(term!=""){
-                                                const matchingPlaces = searchPlaces(term);
-                                                displayResults(matchingPlaces);
-                                            }
+                                            ul.appendChild(li);
                                         });
+                                        results.appendChild(ul);
+                                    } else {
+                                        results.textContent = "No matching places found.";
+                                    }
+                                }
+
+                                input.addEventListener("input", () => {
+
+                                    const term = input.value.trim();
+                                    console.log(term == "");
+                                    if (term == "") document.getElementById("results").innerHTML = "";
+                                    if (term != "") {
+                                        const matchingPlaces = searchPlaces(term);
+                                        displayResults(matchingPlaces);
+                                    }
+                                });
                             </script>
 
-                            <input type="number" id="dest-latitude-input" name="latitude" min="-90" max="90" step="any" placeholder="Enter latitude">
+                            <input type="number" id="dest-latitude-input" name="latitude" min="-90" max="90" step="any"
+                                placeholder="Enter latitude">
 
 
-                            <input type="number" id="dest-longitude-input" name="longitude" min="-180" max="180" step="any" placeholder="Enter longitude"><br>
+                            <input type="number" id="dest-longitude-input" name="longitude" min="-180" max="180"
+                                step="any" placeholder="Enter longitude"><br>
 
 
-                            <input type="submit" 
-                            onclick="addDestination(event)"
-                            value="+ Add Destination">
+                            <input type="submit" onclick="addDestination(event)" value="+ Add Destination">
 
                             <h1>Search/Edit destination</h1>
 
-                            <input type="text"
-                                id = "dest-search-name"
-                                placeholder="Enter destination name">
+                            <input type="text" id="dest-search-name" placeholder="Enter destination name">
                         </form>
                         <button class="search-destination" onclick="on3(event)"> <img class="confirm-cancel-icon"
                                 src="./public/icons8-search.svg" alt=""> Search</button>
                     </div>
 
                     <!--sixth div-->
-                                <!-- <div id="sixthdiv" style = "display: none;">
+                    <!-- <div id="sixthdiv" style = "display: none;">
                                     <h1 class="issue-main-heading">Manage Issues</h1>
                                     <div class = "issue-div">
                                         <div class = "issue-heading">Issue 1</div>
@@ -569,42 +599,42 @@
                                         <div class = "issue-resolve">Resolve</div>
                                     </div>
                                 </div> -->
-                    
 
-                                <div id="sixthdiv" style="display:none" class="issue-manage">
-                                    <!-- <h2 class="issue-title">Issue Title</h2>
+
+                    <div id="sixthdiv" style="display:none" class="issue-manage">
+                        <!-- <h2 class="issue-title">Issue Title</h2>
                                     <p class="issue-user">Posted by John Doe</p>
                                     <p class="issue-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed efficitur, lorem ac hendrerit aliquam, mauris nunc ultrices mauris, a tristique mauris nisi ut sapien. Sed ullamcorper nulla sed mi luctus congue. Nullam vel justo euismod, feugiat augue non, dapibus urna. Nam sit amet ligula ac risus bibendum iaculis. Suspendisse vehicula dui sed augue ultrices maximus. Praesent vel nunc lorem. Duis vulputate auctor massa at accumsan.</p>
                                     <button class="resolve-button">Resolve</button> -->
-                                </div>
-            
-            
+                    </div>
+
+
                     <!--seventh div-->
-                                    <div id="seventhdiv" style="display:none">
-                                        <h1>Search Tickets</h1>
-                                            <input type="text" id="search-tickets-admin" placeholder="Enter Employee's Name">
-                                            <button id="search-ticket-button" onclick="searchTickets(event)">Search</button>  
-                                            <p style = "margin-left:15px;color: goldenrod;" id = "admin_ticket_count">Total results: 0 </p>
-                                            <div class = "admin-ticket-header">
-                                                <div class = "admin-ticket-value">Date</div>
-                                                <div class = "admin-ticket-value">Source</div>
-                                                <div class = "admin-ticket-value">Destination</div>
-                                                <div class = "admin-ticket-value">Bus number</div>
-                                                <div class = "admin-ticket-value">Status</div>
-                                                <div class = "admin-ticket-value" >Cancel</div>
-                                            </div>  
-                                            <div class ="admin-ticket-content"></div>                          
-                                    </div>
+                    <div id="seventhdiv" style="display:none">
+                        <h1>Search Tickets</h1>
+                        <input type="text" id="search-tickets-admin" placeholder="Enter Employee's Name">
+                        <button id="search-ticket-button" onclick="searchTickets(event)">Search</button>
+                        <p style="margin-left:15px;color: goldenrod;" id="admin_ticket_count">Total results: 0 </p>
+                        <div class="admin-ticket-header">
+                            <div class="admin-ticket-value">Date</div>
+                            <div class="admin-ticket-value">Source</div>
+                            <div class="admin-ticket-value">Destination</div>
+                            <div class="admin-ticket-value">Bus number</div>
+                            <div class="admin-ticket-value">Status</div>
+                            <div class="admin-ticket-value">Cancel</div>
+                        </div>
+                        <div class="admin-ticket-content"></div>
+                    </div>
+
+
+                </div>
+
 
 
             </div>
 
-
-
-        </div>
-
-        <!-- Footer -->
-        <!-- <div class="footer">
+            <!-- Footer -->
+            <!-- <div class="footer">
 
             <div class="footer-element">
                 NRI includes a copyright notice that reserves all rights for itself,
@@ -620,11 +650,11 @@
         <!-- Footer -->
         <div class="footer" style="padding: 1%;">
 
-            <div class="footer-element"  >
+            <div class="footer-element">
                 NRI includes a copyright notice that reserves all rights for itself,
                 and has protected material
             </div>
-            <div class="footer-element-smallerscreen" >
+            <div class="footer-element-smallerscreen">
                 All rights reserved by NRI
             </div>
         </div>
@@ -636,29 +666,31 @@
 
     <!-- Employee Search Overlay -->
 
-    <div class="search-overlay" >
+    <div class="search-overlay">
         <div class="search-div">
 
             <div class="search-overlay-main-div">
-                <div class = "close-button" onclick="off()">x</div>
+                <div class="close-button" onclick="off()">x</div>
                 <div class="cancel-text">
                     <form style="text-align: left;margin: auto;">
-                        <p class = "overlay-label">Name</p>
-                        <input class = "overlay-input" type="text" id="employee-name" name="name" placeholder="Name"><br>
-                        <p class = "overlay-label">Email</p>
-                        <input class = "overlay-input"type="text" id="employee-email" name="email" placeholder="Email"><br>
-                        <p class = "overlay-label">Password</p>
-                        <input class = "overlay-input"type="text" id = "employee-password" name="employee-password" placeholder="Update password"><br>
-                        <p class = "overlay-label">Employee id</p>
-                        <input class = "overlay-input"type="text" id = "employee-id" placeholder="Employee ID"><br>
+                        <p class="overlay-label">Name</p>
+                        <input class="overlay-input" type="text" id="employee-name" name="name" placeholder="Name"><br>
+                        <p class="overlay-label">Email</p>
+                        <input class="overlay-input" type="text" id="employee-email" name="email"
+                            placeholder="Email"><br>
+                        <p class="overlay-label">Password</p>
+                        <input class="overlay-input" type="text" id="employee-password" name="employee-password"
+                            placeholder="Update password"><br>
+                        <p class="overlay-label">Employee id</p>
+                        <input class="overlay-input" type="text" id="employee-id" placeholder="Employee ID"><br>
 
-                        <input type = "text" id = "emp-inp-id" style = "display: none;">
+                        <input type="text" id="emp-inp-id" style="display: none;">
                     </form>
                 </div>
                 <div class="confirm-cancel-buttons">
-                    <button class="confirm-button" onclick="updateEmployee(event)"> <img class="confirm-cancel-icon" src="./public/arrow-right-circle-fill.svg"
-                            alt=""> Save</button>
-                    <button class="cancel-button"  onclick = "deleteEmployee(event)">Delete</button>
+                    <button class="confirm-button" onclick="updateEmployee(event)"> <img class="confirm-cancel-icon"
+                            src="./public/arrow-right-circle-fill.svg" alt=""> Save</button>
+                    <button class="cancel-button" onclick="deleteEmployee(event)">Delete</button>
                 </div>
 
             </div>
@@ -674,60 +706,66 @@
         <div class="search-div">
 
             <div class="search-overlay-main-div">
-                <div class = "close-button" onclick="off2()">x</div>
+                <div class="close-button" onclick="off2()">x</div>
                 <div class="cancel-text">
                     <form style="text-align: left;margin: auto;">
-                        <p class = "overlay-label">Bus number</p>
-                        <input class = "overlay-input" type="text" id="bus-number-o" name="number" placeholder="Bus Number">
-                        <p class = "overlay-label">Bus name</p>
-                        <input class = "overlay-input" type="text" id="bus-name-o" name="name" placeholder="Bus Name">
-                        <p class = "overlay-label">Total seats</p>
-                        <input class = "overlay-input"type="text" id="bus-seats-o" name="seats" placeholder="Total Seats">
-                        <input class = "overlay-input" type = "text" id="bus-id-o" style = "display: none;"/>
+                        <p class="overlay-label">Bus number</p>
+                        <input class="overlay-input" type="text" id="bus-number-o" name="number"
+                            placeholder="Bus Number">
+                        <p class="overlay-label">Bus name</p>
+                        <input class="overlay-input" type="text" id="bus-name-o" name="name" placeholder="Bus Name">
+                        <p class="overlay-label">Total seats</p>
+                        <input class="overlay-input" type="text" id="bus-seats-o" name="seats"
+                            placeholder="Total Seats">
+                        <input class="overlay-input" type="text" id="bus-id-o" style="display: none;" />
 
                     </form>
                 </div>
                 <div class="confirm-cancel-buttons">
-                    <button class="confirm-button" onclick="updateBus(event)"> <img class="search-cancel-icon" src="./public/arrow-right-circle-fill.svg"
-                            alt=""> Save</button>
+                    <button class="confirm-button" onclick="updateBus(event)"> <img class="search-cancel-icon"
+                            src="./public/arrow-right-circle-fill.svg" alt=""> Save</button>
                     <button class="cancel-button" onclick="deleteBus(event)">Delete</button>
                 </div>
 
             </div>
 
         </div>
-        
+
     </div>
 
     <!-- Bus Search Overlay Ends Here-->
 
     <!-- Destination Search Overlay -->
 
-    <div class="destination-overlay" >
+    <div class="destination-overlay">
         <div class="search-div">
-            
+
             <div class="search-overlay-main-div">
-                <div class = "close-button" onclick="off3()">x</div>
+                <div class="close-button" onclick="off3()">x</div>
                 <div class="cancel-text">
-                    
+
                     <form style="text-align: left;margin: auto;">
-                        <p class = "overlay-label">Destinatino name</p>
-                        <input class = "overlay-input" type="text" id="dest-edit-name" name="name" placeholder="Destination Name">
-                        <p class = "overlay-label">Latitude</p>
-                        <input class = "overlay-input"  type="number" id="dest-edit-latitude-input" name="latitude" min="-90" max="90" step="any" placeholder="Enter latitude">
-                        <p class = "overlay-label">Longitude</p>
-                        <input class = "overlay-input" type="number" id="dest-edit-longitude-input" name="longitude" min="-180" max="180" step="any" placeholder="Enter longitude"><br>
-                        <input class = "overlay-input" type = "number" id = "dest-edit-id" name = "id" style = "display: none;"></input>
+                        <p class="overlay-label">Destinatino name</p>
+                        <input class="overlay-input" type="text" id="dest-edit-name" name="name"
+                            placeholder="Destination Name">
+                        <p class="overlay-label">Latitude</p>
+                        <input class="overlay-input" type="number" id="dest-edit-latitude-input" name="latitude"
+                            min="-90" max="90" step="any" placeholder="Enter latitude">
+                        <p class="overlay-label">Longitude</p>
+                        <input class="overlay-input" type="number" id="dest-edit-longitude-input" name="longitude"
+                            min="-180" max="180" step="any" placeholder="Enter longitude"><br>
+                        <input class="overlay-input" type="number" id="dest-edit-id" name="id"
+                            style="display: none;"></input>
                     </form>
                 </div>
                 <div class="confirm-cancel-buttons">
-                    <button class="confirm-button" onclick="updateDestination(event)"> <img class="search-cancel-icon" src="./public/arrow-right-circle-fill.svg"
-                            alt="" > Save</button>
+                    <button class="confirm-button" onclick="updateDestination(event)"> <img class="search-cancel-icon"
+                            src="./public/arrow-right-circle-fill.svg" alt=""> Save</button>
                     <button class="cancel-button" onclick="deleteDestination(event)">Delete</button>
                 </div>
 
             </div>
-           
+
         </div>
     </div>
 

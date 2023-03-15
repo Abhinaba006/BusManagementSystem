@@ -1471,3 +1471,12 @@ function logOut() {
     deleteAllCookies();
     window.location = '/client/admin_login.html';
 }
+
+
+
+$(document).ready(function validateToken()
+{
+    console.log("loading")
+});
+
+
