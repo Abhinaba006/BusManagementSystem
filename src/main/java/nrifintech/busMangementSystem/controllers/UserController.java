@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import nrifintech.busMangementSystem.JwtTokenUtil;
 import nrifintech.busMangementSystem.Service.interfaces.UserService;
 import nrifintech.busMangementSystem.entities.User;
+import nrifintech.busMangementSystem.exception.UnauthorizedAction;
 import nrifintech.busMangementSystem.payloads.ApiResponse;
 import nrifintech.busMangementSystem.payloads.UserDto;
 import nrifintech.busMangementSystem.repositories.UserRepo;
@@ -102,6 +103,7 @@ public class UserController {
 		boolean isAuthenticated = userService.checkAdmin(email, password);
 		if (isAuthenticated) {
 			User user = userService.getAdminByEmail(email);
+			if(user.getType()==0) throw new UnauthorizedAction(email, "trying to login");
 			String token = jwtTokenUtil.generateToken(user.getId(), 1); // generate JWT token
 			System.out.println(email + "\n\n-------\n\n");
 			// include JWT token in the response
