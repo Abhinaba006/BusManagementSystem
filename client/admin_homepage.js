@@ -190,6 +190,10 @@ function addEmployee(event) {
     }
     $.ajax({
         url: "http://localhost:8080/api/v1/user/create",
+        headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
         type: "POST",
         data: JSON.stringify({
             name: name,
@@ -324,6 +328,7 @@ function getRoutesAdmin(event) {
 
 
 }
+
 function deleteRoute(event, routeId) {
     console.log(routeId);
     console.log("Hitting");
@@ -331,6 +336,10 @@ function deleteRoute(event, routeId) {
     const id = $("#bus-id-o").val();
     $.ajax({
         url: "http://localhost:8080/api/v1/route/delete/" + routeId,
+        headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
         type: "DELETE",
         success: function (result) {
             console.log(result);
@@ -349,6 +358,10 @@ function cancelTicket(event) {
     $.ajax({
         type: "POST",
         url: "http://localhost:8080/api/v1/ticket/cancel",
+        headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
         data: JSON.stringify(ticket_id),
         headers: {
             "Content-Type": "application/json"
@@ -480,6 +493,10 @@ function updateEmployee(event) {
     }
     $.ajax({
         url: "http://localhost:8080/api/v1/user/update/" + id,
+        headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
         type: "POST",
         data: JSON.stringify(
             newObj
@@ -549,6 +566,10 @@ function deleteEmployee(event) {
     console.log(id);
     $.ajax({
         url: "http://localhost:8080/api/v1/user/delete/" + id,
+        headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
         type: "DELETE",
         success: function (result) {
             console.log(result);
@@ -601,6 +622,10 @@ function addDestination(event) {
     }
     $.ajax({
         url: "http://localhost:8080/api/v1/destination/create",
+        headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
         type: "POST",
         data: JSON.stringify({
             name: name,
@@ -687,6 +712,10 @@ function updateDestination(event) {
     console.log(name, latitude, longitude, id);
     $.ajax({
         url: "http://localhost:8080/api/v1/destination/update/" + id,
+        headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
         type: "POST",
         data: JSON.stringify({
             name: name,
@@ -714,6 +743,10 @@ function deleteDestination(event) {
     console.log(name, latitude, longitude, id);
     $.ajax({
         url: "http://localhost:8080/api/v1/destination/delete/" + id,
+        headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
         type: "DELETE",
         success: function (result) {
             console.log(result);
@@ -734,6 +767,10 @@ function updateBus(event) {
     console.log(bus_name, bus_number, total_seats, id);
     $.ajax({
         url: "http://localhost:8080/api/v1/bus/update/" + id,
+        headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
         type: "POST",
         data: JSON.stringify({
             name: bus_name,
@@ -757,6 +794,10 @@ function deleteBus(event) {
     const id = $("#bus-id-o").val();
     $.ajax({
         url: "http://localhost:8080/api/v1/bus/delete/" + id,
+        headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
         type: "DELETE",
         success: function (result) {
             console.log(result);
@@ -779,6 +820,10 @@ function addBus(event) {
     }
     $.ajax({
         url: "http://localhost:8080/api/v1/bus/create",
+        headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
         type: "POST",
         data: JSON.stringify({
             name: busName,
@@ -890,6 +935,10 @@ function addRoute(event) {
     console.log(busId);
     $.ajax({
         url: "http://localhost:8080/api/v1/route/create/" + busId,
+        headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
         type: "POST",
         data: JSON.stringify(data),
         contentType: "application/json",
@@ -1040,6 +1089,10 @@ const save_destination = (evt) => {
 
     $.ajax({
         url: "http://localhost:8080/api/v1/destination/update",
+        headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
         type: "POST",
         data: JSON.stringify({
             name: name,
@@ -1101,6 +1154,10 @@ const delete_destination = (evt) => {
 function generateReport(reportType) {
     $.ajax({
         url: "http://localhost:8080/api/v1/report/" + reportType,
+        headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
         type: "GET",
         xhrFields: {
             responseType: 'blob' // This sets the response type to Blob

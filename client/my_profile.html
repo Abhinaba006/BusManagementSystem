@@ -173,11 +173,19 @@
     $.ajax({
         //fetch user data
       url: "http://localhost:8080/api/v1/user/get/1",
+      headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
       dataType: "json"
     }),
     $.ajax({
         //fetch corresponding user data from tickets 
       url: "http://localhost:8080/api/v1/ticket/get/1/totalTickets",
+      headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
       dataType: "json"
     })
   ).done(function(data1, data2) {
@@ -206,6 +214,10 @@
 				$.ajax({
 					type: "POST",
 					url: "http://localhost:8080/api/v1/issues/add",
+                    headers: {
+                    "Authorization": getTokenCookie(),
+                    "Content-Type": "application/json"
+                     },
 					data: JSON.stringify({
                     issue:$("._profile_textarea").val(),
                     user_id:1,

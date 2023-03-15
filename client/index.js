@@ -219,6 +219,10 @@ function bookTicket(event) {
 	console.log(route_id, bus_id, user_id, date);
 	$.ajax({
 		url: "http://localhost:8080/api/v1/ticket/create",
+		headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
 		type: "POST",
 		data: JSON.stringify({
 			"routeId": route_id,
@@ -292,8 +296,12 @@ function homeonroute() {
 
 	fetch('http://localhost:8080/api/v1/route/getDestinations/1', {
 		headers: {
-			'Authorization': `{authToken}`
-		}
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        }
+		// headers: {
+		// 	'Authorization': `{authToken}`
+		// }
 	})
 		.then(response => response.json())
 		.then(data => {
@@ -361,9 +369,13 @@ function homeonroute(routeId) {
 	const authToken = 'your-auth-token-here';
 
 	fetch('http://localhost:8080/api/v1/route/getDestinations/'+routeId, {
+		// headers: {
+		// 	'Authorization': `{authToken}`
+		// }
 		headers: {
-			'Authorization': `{authToken}`
-		}
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        }
 	})
 		.then(response => response.json())
 		.then(data => {
