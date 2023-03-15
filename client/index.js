@@ -44,47 +44,66 @@ function logOut(){
 }
 function displayDestinations(event) {
 	event.preventDefault();
-	$.get("http://localhost:8080/api/v1/destination/get", function (data) {
-		console.log(data);
-		var selectElement = document.getElementById('user-from');
-
-		// Add options from the data array
-		data.forEach(function (item) {
-			var optionElement = document.createElement('option');
-			optionElement.value = item.id;
-			optionElement.textContent = item.name;
-			var flag = 1;
-			for (var i = 0; i < selectElement.options.length; i++) {
-				if (item.id == selectElement.options[i].value) flag = 0;
-			}
-			if (flag || selectElement.options.length == 1)
-				selectElement.appendChild(optionElement);
-		});
-	}).fail(function () {
-		return new alert("Server error! Please try again!")
-	})
+	$.ajax({
+		url:  "http://localhost:8080/api/v1/destination/get",
+		type: "GET",
+		headers: {
+			"Authorization": getTokenCookie(),
+			"Content-Type": "application/json"
+		},
+		success: function (data) {
+			console.log(data);
+			var selectElement = document.getElementById('user-from');
+	
+			// Add options from the data array
+			data.forEach(function (item) {
+				var optionElement = document.createElement('option');
+				optionElement.value = item.id;
+				optionElement.textContent = item.name;
+				var flag = 1;
+				for (var i = 0; i < selectElement.options.length; i++) {
+					if (item.id == selectElement.options[i].value) flag = 0;
+				}
+				if (flag || selectElement.options.length == 1)
+					selectElement.appendChild(optionElement);
+			});
+		}, 
+		error: function () {
+			return new alert("Server error! Please try again!")
+		}
+	});
 }
 function displayDestinations1(event) {
 	event.preventDefault();
-	$.get("http://localhost:8080/api/v1/destination/get", function (data) {
-		console.log(data);
-		var selectElement = document.getElementById('user-to');
-
-		// Add options from the data array
-		data.forEach(function (item) {
-			var optionElement = document.createElement('option');
-			optionElement.value = item.id;
-			optionElement.textContent = item.name;
-			var flag = 1;
-			for (var i = 0; i < selectElement.options.length; i++) {
-				if (item.id == selectElement.options[i].value) flag = 0;
-			}
-			if (flag || selectElement.options.length == 1)
-				selectElement.appendChild(optionElement);
-		});
-	}).fail(function () {
-		return new alert("Server error! Please try again!")
-	})
+	$.ajax({
+		url: "http://localhost:8080/api/v1/destination/get" ,
+		type: "GET",
+		headers: {
+			"Authorization": getTokenCookie(),
+			"Content-Type": "application/json"
+		},
+		success: function (data) {
+			console.log(data);
+			var selectElement = document.getElementById('user-to');
+	
+			// Add options from the data array
+			data.forEach(function (item) {
+				var optionElement = document.createElement('option');
+				optionElement.value = item.id;
+				optionElement.textContent = item.name;
+				var flag = 1;
+				for (var i = 0; i < selectElement.options.length; i++) {
+					if (item.id == selectElement.options[i].value) flag = 0;
+				}
+				if (flag || selectElement.options.length == 1)
+					selectElement.appendChild(optionElement);
+			});
+		}, 
+		error: function () {
+			return new alert("Server error! Please try again!")
+		}
+	});
+	
 }
 function max(a, b) {
 	if (a >= b) return a;
@@ -102,106 +121,143 @@ function getRoutes(event) {
 	var formattedDate = d[1] + ":" + d[0] + ":" + d[2];
 	console.log(formattedDate);
 	const result = [];
-	$.get("http://localhost:8080/api/v1/route/getBySrcDest/"+source+"/"+dest, function(data){
-		console.log(data);
-	
-		document.querySelector(".content").innerHTML+=`
-		<div class = "index_show_results">
-                <p class = "index_show_results_p">${data.length} results found!</p>
-        </div>`
-		document.querySelector(".content").innerHTML+=`
-		<div class = "index_show_line"></div>
+	$.ajax({
+		url:  "http://localhost:8080/api/v1/route/getBySrcDest/"+source+"/"+dest,
+		type: "GET",
+		headers: {
+			"Authorization": getTokenCookie(),
+			"Content-Type": "application/json"
+		},
+		success:function(data){
+			console.log(data);
 		
-		`
-		for(var i = 0;i<data.length;i++){
-			const route_id = data[i].id;
-			const obj = {
-				busId: "",
-				busName: "",
-				busNumber: "",
-				destination_name: "",
-				destination_time: "",
-				route_id: "",
-				seatsLeft: "",
-				source_name: "",
-				source_time: "",
-				userId: 1, //To be changed
-			};
-			obj["route_id"] = route_id;
-			$.get("http://localhost:8080/api/v1/route/getDestinations/" + route_id, function (data) {
-				console.log(data);
-				obj["source_name"] = data[0].destination.name;
-				obj["source_time"] = data[0].time;
-
-				obj["destination_name"] = data[data.length - 1].destination.name;
-				obj["destination_time"] = data[data.length - 1].time;
-
-				$.get("http://localhost:8080/api/v1/route/getReport/" + route_id + "/" + formattedDate, function (data) {
-					var diff = data.total_seats - data.total_bookings;
-					obj["seatsLeft"] = max(0, diff);
-					$.get("http://localhost:8080/api/v1/route/getBus/" + route_id, function (data) {
-						obj["busName"] = data.name;
-						obj["busId"] = data.id;
-						obj["busNumber"] = data.bus_number;
-
-					//To be changed
-					obj["userId"] = 1;
-					console.log(obj);
-					result.push(obj);
-					// {
-					// 	"routeId":5,
-					// 	"busId":4,
-					// 	"userId":1,
-					// 	"status":"CONFIRMED",
-					// 	"date":"10:03:2023"
-					// }
-					const routeHTML = `
-				 <div class = "index_route_item">
-					<div class = "index_source">
-						<div class = "index_heading">Bus details</div>
-						<div class = "index_bus_number">${obj.busName}</div>
-						<div class = "index_bus_name">${obj.busNumber}</div>
-					</div>
-					<div class = "index_source">
-						<div class = "index_heading">Source</div>
-						<div class = "index_value">${obj.source_name}</div>
-						<div class = "index_value">${obj.source_time}</div>
-					</div>
-					<div class = "index_source">
-						<div class = "index_heading">Destination</div>
-						<div class = "index_value">${obj.destination_name}</div>
-						<div class = "index_value">${obj.destination_time}</div>
-					</div>
-					<div class = "index_source">
-						<div class = "index_heading">Seats left</div>
-						<div class = "index_value">${obj.seatsLeft}</div>
-					   
-					</div>
-					<div class = "index_source">
-						<div class = "index_route" on onclick="homeonroute(${obj.route_id})">See route</div>
-						<div class = "index_book" route_id = ${obj.route_id} bus_id =  ${obj.busId} user_id = ${obj.userId} date =  ${formattedDate} onclick=" bookTicket(event)">Book</div>
-					</div>
-				</div>
-								`;
-						const parentDiv = document.querySelector(".content");
-						parentDiv.innerHTML += routeHTML;
-					}).fail(function () {
-						return alert("Server error! Please try again!")
-					})
-				}).fail(function () {
-					return alert("Server error! Please try again!");
+			document.querySelector(".content").innerHTML+=`
+			<div class = "index_show_results">
+					<p class = "index_show_results_p">${data.length} results found!</p>
+			</div>`
+			document.querySelector(".content").innerHTML+=`
+			<div class = "index_show_line"></div>
+			
+			`
+			for(var i = 0;i<data.length;i++){
+				const route_id = data[i].id;
+				const obj = {
+					busId: "",
+					busName: "",
+					busNumber: "",
+					destination_name: "",
+					destination_time: "",
+					route_id: "",
+					seatsLeft: "",
+					source_name: "",
+					source_time: "",
+					userId: 1, //To be changed
+				};
+				obj["route_id"] = route_id;
+				$.ajax({
+					url:  "http://localhost:8080/api/v1/route/getDestinations/" + route_id,
+					type: "GET",
+					headers: {
+						"Authorization": getTokenCookie(),
+						"Content-Type": "application/json"
+					},
+					success: function (data) {
+						console.log(data);
+						obj["source_name"] = data[0].destination.name;
+						obj["source_time"] = data[0].time;
+				
+						obj["destination_name"] = data[data.length - 1].destination.name;
+						obj["destination_time"] = data[data.length - 1].time;
+				
+						$.ajax({
+							url:  "http://localhost:8080/api/v1/route/getReport/" + route_id + "/" + formattedDate,
+							type: "GET",
+							headers: {
+								"Authorization": getTokenCookie(),
+								"Content-Type": "application/json"
+							},
+							success: function (data) {
+								var diff = data.total_seats - data.total_bookings;
+								obj["seatsLeft"] = max(0, diff);
+								$.ajax({
+									url:  "http://localhost:8080/api/v1/route/getBus/" + route_id,
+									type: "GET",
+									headers: {
+										"Authorization": getTokenCookie(),
+										"Content-Type": "application/json"
+									},
+									success: function (data) {
+										obj["busName"] = data.name;
+										obj["busId"] = data.id;
+										obj["busNumber"] = data.bus_number;
+								
+									//To be changed
+									obj["userId"] = 1;
+									console.log(obj);
+									result.push(obj);
+									// {
+									// 	"routeId":5,
+									// 	"busId":4,
+									// 	"userId":1,
+									// 	"status":"CONFIRMED",
+									// 	"date":"10:03:2023"
+									// }
+									const routeHTML = `
+								 <div class = "index_route_item">
+									<div class = "index_source">
+										<div class = "index_heading">Bus details</div>
+										<div class = "index_bus_number">${obj.busName}</div>
+										<div class = "index_bus_name">${obj.busNumber}</div>
+									</div>
+									<div class = "index_source">
+										<div class = "index_heading">Source</div>
+										<div class = "index_value">${obj.source_name}</div>
+										<div class = "index_value">${obj.source_time}</div>
+									</div>
+									<div class = "index_source">
+										<div class = "index_heading">Destination</div>
+										<div class = "index_value">${obj.destination_name}</div>
+										<div class = "index_value">${obj.destination_time}</div>
+									</div>
+									<div class = "index_source">
+										<div class = "index_heading">Seats left</div>
+										<div class = "index_value">${obj.seatsLeft}</div>
+									   
+									</div>
+									<div class = "index_source">
+										<div class = "index_route" on onclick="homeonroute(${obj.route_id})">See route</div>
+										<div class = "index_book" route_id = ${obj.route_id} bus_id =  ${obj.busId} user_id = ${obj.userId} date =  ${formattedDate} onclick=" bookTicket(event)">Book</div>
+									</div>
+								</div>
+												`;
+										const parentDiv = document.querySelector(".content");
+										parentDiv.innerHTML += routeHTML;
+									}, 
+									error: function () {
+										return alert("Server error! Please try again!")
+									}
+								});
+							}, 
+							error: function () {
+								return alert("Server error! Please try again!");
+							}
+						});
+					}, 
+					error: function () {
+						return alert("Server error! Please try again!");
+					}
 				});
-			}).fail(function () {
-				return alert("Server error! Please try again!");
-			});
-
-
-
-
+				
+	
+	
+	
+	
+			}
+		} , 
+		error: function () {
+			alert("Server error! Please try again later.")
 		}
-	}).fail(function () {
-		alert("Server error! Please try again later.")
-	})
+	});
 
 	console.log(result.length);
 

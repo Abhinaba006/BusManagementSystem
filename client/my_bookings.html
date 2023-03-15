@@ -1,22 +1,18 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./index.css" />
     <link rel="stylesheet" href="./home.css" />
-    <link rel="stylesheet" href="./my_bookings.css"/>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap"
-    />
+    <link rel="stylesheet" href="./my_bookings.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <title>Document</title>
 </head>
+
 <body>
 
     <div class="main">
@@ -32,42 +28,43 @@
                 <a href="index.html" class="nrifintech">
                     <div> NRI TRAVEL</div>
                 </a>
-                
+
             </div>
             <div class="header-end">
 
                 <!--Monidepa Ghosh-->
 
                 <div class="header-end-items">
-                    <img class="vector-icon" alt="" src="public/abstract-user-flat-4.svg" style="height: 25px; margin: auto;margin-right: 10px;" />
-                    <p class="header-end-items-text"> 
-                        <a href="my_profile.html" class="profile">  My Profile  </a>
-                    </p>     
+                    <img class="vector-icon" alt="" src="public/abstract-user-flat-4.svg"
+                        style="height: 25px; margin: auto;margin-right: 10px;" />
+                    <p class="header-end-items-text">
+                        <a href="my_profile.html" class="profile"> My Profile </a>
+                    </p>
                 </div>
 
-                        <div class="header-end-items">
-                            <img class="vector-icon" alt="" src="public/vector2.svg" />
-                            <p class="header-end-items-text"> 
-                                <a href="my_bookings.html" class="booking">  Booking  </a>
-                            </p>     
-                        </div>
+                <div class="header-end-items">
+                    <img class="vector-icon" alt="" src="public/vector2.svg" />
+                    <p class="header-end-items-text">
+                        <a href="my_bookings.html" class="booking"> Booking </a>
+                    </p>
+                </div>
 
-                        <div class="header-end-items">
-                                <img class="vector-icon" alt="" src="public/vector1.svg" />
-                                <p class="header-end-items-text"> 
-                                    <a href="" class="logout"> Logout  </a>  
-                                </p>
-                        </div>
-                
+                <div class="header-end-items">
+                    <img class="vector-icon" alt="" src="public/vector1.svg" />
+                    <p class="header-end-items-text">
+                        <a href="" class="logout"> Logout </a>
+                    </p>
+                </div>
+
             </div>
         </div>
 
         <!-- Body -->
         <div class="body-part" style="min-height:100%;">
-            
-                    <div>
 
-                        <!--
+            <div>
+
+                <!--
 
                             Write your body code within this div
 
@@ -75,264 +72,304 @@
                             
                              -->
 
-                             <div class="body-part-maindiv">
+                <div class="body-part-maindiv">
 
 
-                                    <div class="my-booking-div">
-                                        <div class="my-booking-div-text">My Bookings</div>
-                                        <div class="my-booking-icon-div"> <img  src="./public/down-icon.svg" alt=""> </div>
-                                    </div>
-                                    
+                    <div class="my-booking-div">
+                        <div class="my-booking-div-text">My Bookings</div>
+                        <div class="my-booking-icon-div"> <img src="./public/down-icon.svg" alt=""> </div>
+                    </div>
 
-                                    <div class="content">
 
-                                
-                             </div>
+                    <div class="content">
 
 
                     </div>
-            
-           
-                        
+
+
+                </div>
+
+
+
             </div>
 
-        <!-- Footer -->
-        <div class="footer">
+            <!-- Footer -->
+            <div class="footer">
 
-            <div class="footer-element">
-                NRI includes a copyright notice that reserves all rights for itself,
-                and has protected material
+                <div class="footer-element">
+                    NRI includes a copyright notice that reserves all rights for itself,
+                    and has protected material
+                </div>
+                <div class="footer-element-smallerscreen">
+                    All rights reserved by NRI
+                </div>
             </div>
-            <div class="footer-element-smallerscreen">
-                All rights reserved by NRI
-            </div>
+
         </div>
-    
-    </div>
 
 
-    <!-- 
+        <!-- 
         *****   OverLays   ****** 
     -->
 
-    <!-- Cancel Overlay -->
+        <!-- Cancel Overlay -->
 
-    <div class="cancel-overlay" onclick="off()">
-        <div class="cancel-div">
-            
-            <div class="cancel-overlay-main-div">
+        <div class="cancel-overlay" onclick="off()">
+            <div class="cancel-div">
 
-                <div class="cancel-text">Are you sure you want to cancel your booking ?</div>
-                <div class="confirm-cancel-buttons">
-                    <button class="confirm-button"> <img class="confirm-cancel-icon" src="./public/confirm-icon.svg" alt=""> Confirm</button>
-                    <button class="cancel-button"> <img class="confirm-cancel-icon" src="./public/cancel-icon.svg" alt=""> Cancel</button>
-                </div>
+                <div class="cancel-overlay-main-div">
 
-            </div>
+                    <div class="cancel-text">Are you sure you want to cancel your booking ?</div>
+                    <div class="confirm-cancel-buttons">
+                        <button class="confirm-button"> <img class="confirm-cancel-icon" src="./public/confirm-icon.svg"
+                                alt=""> Confirm</button>
+                        <button class="cancel-button"> <img class="confirm-cancel-icon" src="./public/cancel-icon.svg"
+                                alt=""> Cancel</button>
+                    </div>
 
-        </div>
-    </div>
-
-    <!-- Cancel Overlay Ends Here-->
-
-
-    <!-- Routes Overlay -->
-
-    <div class="route-overlay" onclick="offroute()">
-        <div class="route-div"> 
-            <div class="route-overlay-main-div">
-
-                <!-- Cross div -->
-                <div class="route-overlay-crossdiv">
-                    <img class="route-cross-icon" src="./public/route-overlay-cancel-icon.svg" alt="">
-                </div>
-                <!-- Cross div ends here -->
-                
-                <div class="route-overlay-main-div-elements-div">
-                    <div class="route-overlay-time">8:00 am </div> 
-                    <img class="route-overlay-icon" src="./public/route-overlay-icon.svg" alt=""> 
-                    <div class="route-overlay-place">Ultodanga</div>
-                </div>
-
-                <div class="route-overlay-main-div-elements-div">
-                    <div class="route-overlay-time">8:15 am </div> 
-                    <img class="route-overlay-icon" src="./public/route-overlay-icon.svg" alt=""> 
-                    <div class="route-overlay-place">Sapoorji</div>
-                </div>
-
-                <div class="route-overlay-main-div-elements-div">
-                    <div class="route-overlay-time">8:30 am </div> 
-                    <img class="route-overlay-icon" src="./public/route-overlay-icon.svg" alt=""> 
-                    <div class="route-overlay-place">Saltlake</div>
-                </div>
-
-                <div class="route-overlay-main-div-elements-div">
-                    <div class="route-overlay-time">8:45 am </div> 
-                    <img class="route-overlay-icon" src="./public/route-overlay-icon.svg" alt=""> 
-                    <div class="route-overlay-place">Chingrighata</div>
-                </div>
-
-                <div class="route-overlay-main-div-elements-div">
-                    <div class="route-overlay-time">9:00 am </div> 
-                    <img class="route-overlay-icon" src="./public/route-overlay-icon.svg" alt=""> 
-                    <div class="route-overlay-place">Nri Fintech</div>
                 </div>
 
             </div>
         </div>
-    </div>
-    <!-- Routes OverLay End here -->
 
-    <!-- 
+        <!-- Cancel Overlay Ends Here-->
+
+
+        <!-- Routes Overlay -->
+
+        <div class="route-overlay" onclick="offroute()">
+            <div class="route-div">
+                <div class="route-overlay-main-div">
+
+                    <!-- Cross div -->
+                    <div class="route-overlay-crossdiv">
+                        <img class="route-cross-icon" src="./public/route-overlay-cancel-icon.svg" alt="">
+                    </div>
+                    <!-- Cross div ends here -->
+
+                    <div class="route-overlay-main-div-elements-div">
+                        <div class="route-overlay-time">8:00 am </div>
+                        <img class="route-overlay-icon" src="./public/route-overlay-icon.svg" alt="">
+                        <div class="route-overlay-place">Ultodanga</div>
+                    </div>
+
+                    <div class="route-overlay-main-div-elements-div">
+                        <div class="route-overlay-time">8:15 am </div>
+                        <img class="route-overlay-icon" src="./public/route-overlay-icon.svg" alt="">
+                        <div class="route-overlay-place">Sapoorji</div>
+                    </div>
+
+                    <div class="route-overlay-main-div-elements-div">
+                        <div class="route-overlay-time">8:30 am </div>
+                        <img class="route-overlay-icon" src="./public/route-overlay-icon.svg" alt="">
+                        <div class="route-overlay-place">Saltlake</div>
+                    </div>
+
+                    <div class="route-overlay-main-div-elements-div">
+                        <div class="route-overlay-time">8:45 am </div>
+                        <img class="route-overlay-icon" src="./public/route-overlay-icon.svg" alt="">
+                        <div class="route-overlay-place">Chingrighata</div>
+                    </div>
+
+                    <div class="route-overlay-main-div-elements-div">
+                        <div class="route-overlay-time">9:00 am </div>
+                        <img class="route-overlay-icon" src="./public/route-overlay-icon.svg" alt="">
+                        <div class="route-overlay-place">Nri Fintech</div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- Routes OverLay End here -->
+
+        <!-- 
         ******* Overlays End Here *******
     -->
 
-    <script src="./index.js">
-    </script>
-     <div class="home-route-overlay" onclick="homeoffroute()">
-        <div class="route-div"> 
-            <div class="route-overlay-main-div ">
+        <script src="./index.js">
+        </script>
+        <div class="home-route-overlay" onclick="homeoffroute()">
+            <div class="route-div">
+                <div class="route-overlay-main-div ">
 
-                <!-- Cross div -->
-                <div class="route-overlay-crossdiv">
-                    <img class="route-cross-icon" src="./public/route-overlay-cancel-icon.svg" alt="">
+                    <!-- Cross div -->
+                    <div class="route-overlay-crossdiv">
+                        <img class="route-cross-icon" src="./public/route-overlay-cancel-icon.svg" alt="">
+                    </div>
+                    <div id="route-container"></div>
+                    <!-- Cross div ends here -->
+
+
                 </div>
-                <div id="route-container"></div>
-                <!-- Cross div ends here -->
-    
-
             </div>
         </div>
-    </div>
 
 </body>
+
 </html>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         //Change it the user that is calling
-        $.get("http://localhost:8080/api/v1/ticket/get/1",function(data){
-            // "id": 28,
-            // "routeId": 5,
-            // "busId": 4,
-            // "userId": 1,
-            // "status": "CANCELLED",
-            // "date": "09:03:2023"
-            for(var i = 0;i<data.length;i++){
-			const route_id = data[i].routeId;
-            const ticket_id = data[i].id;
-            const formattedDate = data[i].date;
-            const status = data[i].status;
-			const obj = {
-				busId:"",
-				busName:"",
-				busNumber:"",
-				destination_name:"",
-				destination_time:"",
-				route_id:"",
-				source_name:"",
-				source_time:"",
-				userId:1, //To be changed
-                date:formattedDate
-			};
-			obj["route_id"] = route_id;
-			$.get("http://localhost:8080/api/v1/route/getDestinations/" + route_id,function(data){
-				console.log(data);
-				obj["source_name"] = data[0].destination.name;
-				obj["source_time"] = data[0].time;
+        $.ajax({
+            url: "http://localhost:8080/api/v1/ticket/get/1",
+            type: "GET",
+            headers: {
+                "Authorization": getTokenCookie(),
+                "Content-Type": "application/json"
+            },
+            success: function (data) {
+                // "id": 28,
+                // "routeId": 5,
+                // "busId": 4,
+                // "userId": 1,
+                // "status": "CANCELLED",
+                // "date": "09:03:2023"
+                for (var i = 0; i < data.length; i++) {
+                    const route_id = data[i].routeId;
+                    const ticket_id = data[i].id;
+                    const formattedDate = data[i].date;
+                    const status = data[i].status;
+                    const obj = {
+                        busId: "",
+                        busName: "",
+                        busNumber: "",
+                        destination_name: "",
+                        destination_time: "",
+                        route_id: "",
+                        source_name: "",
+                        source_time: "",
+                        userId: 1, //To be changed
+                        date: formattedDate
+                    };
+                    obj["route_id"] = route_id;
+                    $.ajax({
+                        url: "http://localhost:8080/api/v1/route/getDestinations/" + route_id,
+                        type: "GET",
+                        headers: {
+                            "Authorization": getTokenCookie(),
+                            "Content-Type": "application/json"
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            obj["source_name"] = data[0].destination.name;
+                            obj["source_time"] = data[0].time;
 
-				obj["destination_name"] = data[data.length - 1].destination.name;
-				obj["destination_time"] = data[data.length - 1].time;
+                            obj["destination_name"] = data[data.length - 1].destination.name;
+                            obj["destination_time"] = data[data.length - 1].time;
 
-				$.get("http://localhost:8080/api/v1/route/getReport/" + route_id + "/" + formattedDate,function(data){
-				var diff = data.total_seats - data.total_bookings;
-				obj["seatsLeft"] = max(0,diff);
-				$.get("http://localhost:8080/api/v1/route/getBus/" + route_id,function(data){
-					obj["busName"] = data.name;
-					obj["busId"] = data.id;
-					obj["busNumber"] = data.bus_number;
+                            $.ajax({
+                                url: "http://localhost:8080/api/v1/route/getReport/" + route_id + "/" + formattedDate,
+                                type: "GET",
+                                headers: {
+                                    "Authorization": getTokenCookie(),
+                                    "Content-Type": "application/json"
+                                },
+                                success: function (data) {
+                                    var diff = data.total_seats - data.total_bookings;
+                                    obj["seatsLeft"] = max(0, diff);
+                                    $.ajax({
+                                        url: "http://localhost:8080/api/v1/route/getDestinations/" + route_id,
+                                        type: "GET",
+                                        headers: {
+                                            "Authorization": getTokenCookie(),
+                                            "Content-Type": "application/json"
+                                        },
+                                        success: function (data) {
+                                            obj["busName"] = data.name;
+                                            obj["busId"] = data.id;
+                                            obj["busNumber"] = data.bus_number;
 
-					//To be changed
-					obj["userId"] = 1;
-					console.log(obj);
-                    let color;
-                    if(status == "CONFIRMED"){
-                            color = "green";
-                    }
-                    else if(status == "CANCELLED"){
-                        color = "red";
-                    }
-                    else if(status = "WAITING"){
-                        color = "yellow";
-                    }
-                    const routeHTML = `
-				 <div class = "index_route_item">
-					<div class = "index_source">
-						<div class = "index_heading">Bus details</div>
-						<div class = "index_bus_number">${obj.busName}</div>
-						<div class = "index_bus_name">${obj.busNumber}</div>
-					</div>
-					<div class = "index_source">
-						<div class = "index_heading">Source</div>
-						<div class = "index_value">${obj.source_name}</div>
-						<div class = "index_value">${obj.source_time}</div>
-					</div>
-					<div class = "index_source">
-						<div class = "index_heading">Destination</div>
-						<div class = "index_value">${obj.destination_name}</div>
-						<div class = "index_value">${obj.destination_time}</div>
-					</div>
-					<div class = "index_source">
-						<div class = "index_heading">Status</div>
-						<div class = "index_value"  style = 'color:${color};'>${status}</div>
-					   
-					</div>
-					<div class = "index_source">
+                                            //To be changed
+                                            obj["userId"] = 1;
+                                            console.log(obj);
+                                            let color;
+                                            if (status == "CONFIRMED") {
+                                                color = "green";
+                                            }
+                                            else if (status == "CANCELLED") {
+                                                color = "red";
+                                            }
+                                            else if (status = "WAITING") {
+                                                color = "yellow";
+                                            }
+                                            const routeHTML = `
+<div class = "index_route_item">
+<div class = "index_source">
+<div class = "index_heading">Bus details</div>
+<div class = "index_bus_number">${obj.busName}</div>
+<div class = "index_bus_name">${obj.busNumber}</div>
+</div>
+<div class = "index_source">
+<div class = "index_heading">Source</div>
+<div class = "index_value">${obj.source_name}</div>
+<div class = "index_value">${obj.source_time}</div>
+</div>
+<div class = "index_source">
+<div class = "index_heading">Destination</div>
+<div class = "index_value">${obj.destination_name}</div>
+<div class = "index_value">${obj.destination_time}</div>
+</div>
+<div class = "index_source">
+<div class = "index_heading">Status</div>
+<div class = "index_value"  style = 'color:${color};'>${status}</div>
 
-						<div class = "index_route" onclick="homeonroute(${obj.route_id})">See route</div>
-						<div class = "index_value" style = 'font-weight:500;color:grey;margin-top:10px;'>${obj.date}</div>
-                        <div class="index_cancel_button" ticket_id = ${ticket_id} onclick="cancelTicket(event)">  
-                                                             Cancel
-                        </div>
-					</div>
-				</div>
-								`; 
-								const parentDiv = document.querySelector(".content");
-								parentDiv.innerHTML += routeHTML;
-				}).fail(function(){
-					return alert("Server error! Please try again!")
-				})
-			}).fail(function(){
-				return alert("Server error! Please try again!");
-			});
-			}).fail(function(){
-				return alert("Server error! Please try again!");
-			});
-			
-		
-			
-		
-	}
-        }).fail(function(){
-            return alert("Something went wrong. Please try again later!");
-        })
+</div>
+<div class = "index_source">
+
+<div class = "index_route" onclick="homeonroute(${obj.route_id})">See route</div>
+<div class = "index_value" style = 'font-weight:500;color:grey;margin-top:10px;'>${obj.date}</div>
+<div class="index_cancel_button" ticket_id = ${ticket_id} onclick="cancelTicket(event)">  
+                 Cancel
+</div>
+</div>
+</div>
+`;
+                                            const parentDiv = document.querySelector(".content");
+                                            parentDiv.innerHTML += routeHTML;
+                                        },
+                                        error: function () {
+                                            return alert("Server error! Please try again!")
+                                        }
+                                    });
+
+                                },
+                                error: function () {
+                                    return alert("Server error! Please try again!");
+                                }
+                            });
+                        },
+                        error: function () {
+                            return alert("Server error! Please try again!");
+                        }
+                    });
+
+
+
+
+                }
+            },
+            error: function () {
+                return alert("Something went wrong. Please try again later!");
+            }
+        });
     })
-    function cancelTicket(event){
+    function cancelTicket(event) {
         const ticket_id = $(event.target).attr("ticket_id");
-        
+
         $.ajax({
             type: "POST",
             url: "http://localhost:8080/api/v1/ticket/cancel",
             data: JSON.stringify(ticket_id),
             headers: {
-            "Authorization": getTokenCookie(),
-            "Content-Type": "application/json"
+                "Authorization": getTokenCookie(),
+                "Content-Type": "application/json"
             },
-            success: function(response) {
+            success: function (response) {
                 console.log("Ticket cancelled successfully");
                 alert("Ticket cancelled sucessfully!");
                 // Handle success response here
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.log("Error cancelling ticket: " + error);
                 alert("Server error! Please try again!");
                 // Handle error response here
@@ -341,50 +378,50 @@
     }
 
     function homeonroute(routeId) {
-	document.querySelector(".home-route-overlay").style.display = "block";
+        document.querySelector(".home-route-overlay").style.display = "block";
         console.log(routeId)
-	// get routeId dynamically
-	// let routeId = 1
-	// put the auth token here
-	const authToken = 'your-auth-token-here';
+        // get routeId dynamically
+        // let routeId = 1
+        // put the auth token here
+        const authToken = 'your-auth-token-here';
 
-	fetch('http://localhost:8080/api/v1/route/getDestinations/'+routeId, {
-		// headers: {
-		// 	'Authorization': `{authToken}`
-		// }
-        headers: {
-            "Authorization": getTokenCookie(),
-            "Content-Type": "application/json"
-        }
-	})
-		.then(response => response.json())
-		.then(data => {
-			// format the data to use it in html
-			data.forEach(d => {
-				d["destinationName"] = d.destination.name
-				delete d.destination
-			})
-			// console.log(data)
-			let containerElem = document.getElementById('route-container')
-			containerElem.innerHTML =""
-            console.log(data)
-			for (let i = 0; i < data.length; i++) {
-				const time = data[i].time;
-				const destinationName = data[i].destinationName;
+        fetch('http://localhost:8080/api/v1/route/getDestinations/' + routeId, {
+            // headers: {
+            // 	'Authorization': `{authToken}`
+            // }
+            headers: {
+                "Authorization": getTokenCookie(),
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                // format the data to use it in html
+                data.forEach(d => {
+                    d["destinationName"] = d.destination.name
+                    delete d.destination
+                })
+                // console.log(data)
+                let containerElem = document.getElementById('route-container')
+                containerElem.innerHTML = ""
+                console.log(data)
+                for (let i = 0; i < data.length; i++) {
+                    const time = data[i].time;
+                    const destinationName = data[i].destinationName;
 
-				const elem = document.createElement('div');
-				elem.className = 'route-overlay-main-div-elements-div';
-				elem.innerHTML = `
+                    const elem = document.createElement('div');
+                    elem.className = 'route-overlay-main-div-elements-div';
+                    elem.innerHTML = `
 								<div class="route-overlay-time">${time}</div> 
 								<img class="route-overlay-icon" src="./public/route-overlay-icon.svg" alt=""> 
 								<div class="route-overlay-place">${destinationName}</div>
 							`;
 
-				containerElem.appendChild(elem);
-			}
-            console.log(containerElem)
-		})
-		.catch(error => console.error(error));
-}
+                    containerElem.appendChild(elem);
+                }
+                console.log(containerElem)
+            })
+            .catch(error => console.error(error));
+    }
 
 </script>

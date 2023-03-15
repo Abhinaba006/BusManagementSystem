@@ -68,13 +68,22 @@
             event.preventDefault();
             const email = $("#email").val();
             const password = $("#mypassword").val();
-            $.get("http://localhost:8080/api/v1/user/employee/login/" + email + "/" + password, function (data, status) {
-                const token = data.token;
-                setTokenCookie(token);
-                window.location.replace("/client/index.html");
-            }).fail(function () {
-                alert("Invalid credentials!");
-            })
+            $.ajax({
+                url: "http://localhost:8080/api/v1/user/employee/login/" + email + "/" + password,
+                type: "GET",
+                headers: {
+                    "Authorization": getTokenCookie(),
+                    "Content-Type": "application/json"
+                },
+                success: function (data, status) {
+                    const token = data.token;
+                    setTokenCookie(token);
+                    window.location.replace("/client/index.html");
+                },
+                error: function () {
+                    alert("Invalid credentials!");
+                }
+            });
 
         })
     </script>

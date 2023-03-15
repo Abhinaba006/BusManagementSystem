@@ -246,7 +246,14 @@
                             event.preventDefault();
                             const id = $("#report-route-id").val();
                             if(id == "") return alert("Please provide a valid route id");
-                            $.get("http://localhost:8080/api/v1/route/getReport/" + id,function(data){
+                            $.ajax({
+                            url:  "http://localhost:8080/api/v1/route/getReport/" + id,
+                            type: "GET",
+                            headers: {
+                                "Authorization": getTokenCookie(),
+                                "Content-Type": "application/json"
+                            },
+                            success: function(data){
                                 console.log(data);
                                 for(var i = 0;i<data.length;i++){
                                     var date = data[i].date;
@@ -282,9 +289,11 @@
                                     }
                                     }
                                 });
-                            }).fail(function(){
+                            }, 
+                            error: function(){
                                 return alert("Server error! Please try again!")
-                            })
+                            }
+                        });
                     
                         }
                        

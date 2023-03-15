@@ -232,97 +232,133 @@ function getRoutesAdmin(event) {
     const formattedDate = dd + ':' + mm + ':' + yyyy;
 
     const result = [];
-    $.get("http://localhost:8080/api/v1/route/getBySrcDest/" + source + "/" + dest, function (data) {
-        console.log(data);
-
-        for (var i = 0; i < data.length; i++) {
-            const route_id = data[i].id;
-            const obj = {
-                busId: "",
-                busName: "",
-                busNumber: "",
-                destination_name: "",
-                destination_time: "",
-                route_id: "",
-                seatsLeft: "",
-                source_name: "",
-                source_time: "",
-                userId: 1, //To be changed
-            };
-            obj["route_id"] = route_id;
-            $.get("http://localhost:8080/api/v1/route/getDestinations/" + route_id, function (data) {
-                console.log(data);
-                obj["source_name"] = data[0].destination.name;
-                obj["source_time"] = data[0].time;
-
-                obj["destination_name"] = data[data.length - 1].destination.name;
-                obj["destination_time"] = data[data.length - 1].time;
-
-                $.get("http://localhost:8080/api/v1/route/getReport/" + route_id + "/" + formattedDate, function (data) {
-                    var diff = data.total_seats - data.total_bookings;
-                    obj["seatsLeft"] = Math.max(0, diff);
-                    $.get("http://localhost:8080/api/v1/route/getBus/" + route_id, function (data) {
-                        obj["busName"] = data.name;
-                        obj["busId"] = data.id;
-                        obj["busNumber"] = data.bus_number;
-
-                        //To be changed
-                        obj["userId"] = 1;
-                        console.log(obj);
-                        result.push(obj);
-                        // {
-                        // 	"routeId":5,
-                        // 	"busId":4,
-                        // 	"userId":1,
-                        // 	"status":"CONFIRMED",
-                        // 	"date":"10:03:2023"
-                        // }
-                        const routeHTML = `
-				 <div class = "index_route_item" style = "width:80%">
-					<div class = "index_source">
-						<div class = "index_heading">Bus details</div>
-						<div class = "index_bus_number">${obj.busName}</div>
-						<div class = "index_bus_name">${obj.busNumber}</div>
-					</div>
-					<div class = "index_source">
-						<div class = "index_heading">Source</div>
-						<div class = "index_value">${obj.source_name}</div>
-						<div class = "index_value">${obj.source_time}</div>
-					</div>
-					<div class = "index_source">
-						<div class = "index_heading">Destination</div>
-						<div class = "index_value">${obj.destination_name}</div>
-						<div class = "index_value">${obj.destination_time}</div>
-					</div>
-					<div class = "index_source">
-						<div class = "index_heading">Seats left</div>
-						<div class = "index_value">${obj.seatsLeft}</div>
-					   
-					</div>
-					<div class = "index_source">
-						<div class = "index_book" route_id = ${obj.route_id} bus_id =  ${obj.busId} user_id = ${obj.userId} date =  ${formattedDate} onclick=" deleteRoute(event,${obj.route_id})" style = "background-color:orangered;">Delete</div>
-					</div>
-				</div>
-								`;
-                        const parentDiv = document.querySelector(".admin_routes");
-                        parentDiv.innerHTML += routeHTML;
-                    }).fail(function () {
-                        return alert("Server error! Please try again!")
-                    })
-                }).fail(function () {
-                    return alert("Server error! Please try again!");
+    $.ajax({
+        url:  "http://localhost:8080/api/v1/route/getBySrcDest/" + source + "/" + dest,
+        type: "GET",
+        headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
+        success: function (data) {
+            console.log(data);
+    
+            for (var i = 0; i < data.length; i++) {
+                const route_id = data[i].id;
+                const obj = {
+                    busId: "",
+                    busName: "",
+                    busNumber: "",
+                    destination_name: "",
+                    destination_time: "",
+                    route_id: "",
+                    seatsLeft: "",
+                    source_name: "",
+                    source_time: "",
+                    userId: 1, //To be changed
+                };
+                obj["route_id"] = route_id;
+                $.ajax({
+                    url:  "http://localhost:8080/api/v1/route/getDestinations/" + route_id,
+                    type: "GET",
+                    headers: {
+                        "Authorization": getTokenCookie(),
+                        "Content-Type": "application/json"
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        obj["source_name"] = data[0].destination.name;
+                        obj["source_time"] = data[0].time;
+                
+                        obj["destination_name"] = data[data.length - 1].destination.name;
+                        obj["destination_time"] = data[data.length - 1].time;
+                
+                        $.ajax({
+                            url:  "http://localhost:8080/api/v1/route/getReport/" + route_id + "/" + formattedDate,
+                            type: "GET",
+                            headers: {
+                                "Authorization": getTokenCookie(),
+                                "Content-Type": "application/json"
+                            },
+                            success: function (data) {
+                                var diff = data.total_seats - data.total_bookings;
+                                obj["seatsLeft"] = Math.max(0, diff);
+                                $.ajax({
+                                    url:  "http://localhost:8080/api/v1/route/getBus/" + route_id,
+                                    type: "GET",
+                                    headers: {
+                                        "Authorization": getTokenCookie(),
+                                        "Content-Type": "application/json"
+                                    },
+                                    success: function (data) {
+                                        obj["busName"] = data.name;
+                                        obj["busId"] = data.id;
+                                        obj["busNumber"] = data.bus_number;
+                                
+                                        //To be changed
+                                        obj["userId"] = 1;
+                                        console.log(obj);
+                                        result.push(obj);
+                                        // {
+                                        // 	"routeId":5,
+                                        // 	"busId":4,
+                                        // 	"userId":1,
+                                        // 	"status":"CONFIRMED",
+                                        // 	"date":"10:03:2023"
+                                        // }
+                                        const routeHTML = `
+                                 <div class = "index_route_item" style = "width:80%">
+                                    <div class = "index_source">
+                                        <div class = "index_heading">Bus details</div>
+                                        <div class = "index_bus_number">${obj.busName}</div>
+                                        <div class = "index_bus_name">${obj.busNumber}</div>
+                                    </div>
+                                    <div class = "index_source">
+                                        <div class = "index_heading">Source</div>
+                                        <div class = "index_value">${obj.source_name}</div>
+                                        <div class = "index_value">${obj.source_time}</div>
+                                    </div>
+                                    <div class = "index_source">
+                                        <div class = "index_heading">Destination</div>
+                                        <div class = "index_value">${obj.destination_name}</div>
+                                        <div class = "index_value">${obj.destination_time}</div>
+                                    </div>
+                                    <div class = "index_source">
+                                        <div class = "index_heading">Seats left</div>
+                                        <div class = "index_value">${obj.seatsLeft}</div>
+                                       
+                                    </div>
+                                    <div class = "index_source">
+                                        <div class = "index_book" route_id = ${obj.route_id} bus_id =  ${obj.busId} user_id = ${obj.userId} date =  ${formattedDate} onclick=" deleteRoute(event,${obj.route_id})" style = "background-color:orangered;">Delete</div>
+                                    </div>
+                                </div>
+                                                `;
+                                        const parentDiv = document.querySelector(".admin_routes");
+                                        parentDiv.innerHTML += routeHTML;
+                                    }, 
+                                    error: function () {
+                                        return alert("Server error! Please try again!")
+                                    }
+                                });
+                            }, 
+                            error: function () {
+                                return alert("Server error! Please try again!");
+                            }
+                        });
+                    }, 
+                    error: function () {
+                        return alert("Server error! Please try again!");
+                    }
                 });
-            }).fail(function () {
-                return alert("Server error! Please try again!");
-            });
-
-
-
-
+    
+    
+    
+    
+            }
+        }, 
+        error: function () {
+            alert("Server error! Please try again later.")
         }
-    }).fail(function () {
-        alert("Server error! Please try again later.")
-    })
+    });
 
     console.log(result.length);
 
@@ -385,91 +421,129 @@ function searchTickets(event) {
     const email = $('#admin-user-ticket-search-val').val();
     const id = 1; //To be changed the the id that is to be fetched by the email
 
-    $.get("http://localhost:8080/api/v1/ticket/get/1", function (data) {
-        // "id": 28,
-        // "routeId": 5,
-        // "busId": 4,
-        // "userId": 1,
-        // "status": "CANCELLED",
-        // "date": "09:03:2023"
-        document.getElementById("admin_ticket_count").innerHTML = "Total count: " + data.length;
-        for (var i = 0; i < data.length; i++) {
-            const route_id = data[i].routeId;
-            const ticket_id = data[i].id;
-            const formattedDate = data[i].date;
-            const status = data[i].status;
-            const obj = {
-                busId: "",
-                busName: "",
-                busNumber: "",
-                destination_name: "",
-                destination_time: "",
-                route_id: "",
-                source_name: "",
-                source_time: "",
-                userId: 1, //To be changed
-                date: formattedDate
-            };
-            obj["route_id"] = route_id;
-            $.get("http://localhost:8080/api/v1/route/getDestinations/" + route_id, function (data) {
-                console.log(data);
-                obj["source_name"] = data[0].destination.name;
-                obj["source_time"] = data[0].time;
-
-                obj["destination_name"] = data[data.length - 1].destination.name;
-                obj["destination_time"] = data[data.length - 1].time;
-
-                $.get("http://localhost:8080/api/v1/route/getReport/" + route_id + "/" + formattedDate, function (data) {
-                    var diff = data.total_seats - data.total_bookings;
-                    obj["seatsLeft"] = Math.max(0, diff);
-                    $.get("http://localhost:8080/api/v1/route/getBus/" + route_id, function (data) {
-                        obj["busName"] = data.name;
-                        obj["busId"] = data.id;
-                        obj["busNumber"] = data.bus_number;
-
-                        //To be changed
-                        obj["userId"] = 1;
-                        console.log(obj);
-                        let color;
-                        if (status == "CONFIRMED") {
-                            color = "green";
-                        }
-                        else if (status == "CANCELLED") {
-                            color = "red";
-                        }
-                        else if (status = "WAITING") {
-                            color = "yellow";
-                        }
-                        const routeHTML = `
-                       
-                <div class = "admin-ticket-values">
-                    <div class = "admin-ticket-user-value">${obj.date}</div>
-                    <div class = "admin-ticket-user-value">${obj.source_name}</div>
-                    <div class = "admin-ticket-user-value">${obj.destination_name}</div>
-                    <div class = "admin-ticket-user-value">${obj.busNumber}</div>
-                    <div class = "admin-ticket-user-value">${status}</div>
-                    <div class = "admin-ticket-user-value" style = "color:red;cursor: pointer;" onclick="cancelTicket(event)"  ticket_id = ${ticket_id}>Cancel</div>
-                </div> 
-    `;
-                        const parentDiv = document.querySelector(".admin-ticket-content");
-                        parentDiv.innerHTML += routeHTML;
-                    }).fail(function () {
-                        return alert("Server error! Please try again!")
-                    })
-                }).fail(function () {
-                    return alert("Server error! Please try again!");
+    $.ajax({
+        url:  "http://localhost:8080/api/v1/ticket/get/1",
+        type: "GET",
+        headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
+        success: function (data) {
+            // "id": 28,
+            // "routeId": 5,
+            // "busId": 4,
+            // "userId": 1,
+            // "status": "CANCELLED",
+            // "date": "09:03:2023"
+            document.getElementById("admin_ticket_count").innerHTML = "Total count: " + data.length;
+            for (var i = 0; i < data.length; i++) {
+                const route_id = data[i].routeId;
+                const ticket_id = data[i].id;
+                const formattedDate = data[i].date;
+                const status = data[i].status;
+                const obj = {
+                    busId: "",
+                    busName: "",
+                    busNumber: "",
+                    destination_name: "",
+                    destination_time: "",
+                    route_id: "",
+                    source_name: "",
+                    source_time: "",
+                    userId: 1, //To be changed
+                    date: formattedDate
+                };
+                obj["route_id"] = route_id;
+                $.ajax({
+                    url:  "http://localhost:8080/api/v1/route/getDestinations/" + route_id,
+                    type: "GET",
+                    headers: {
+                        "Authorization": getTokenCookie(),
+                        "Content-Type": "application/json"
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        obj["source_name"] = data[0].destination.name;
+                        obj["source_time"] = data[0].time;
+                
+                        obj["destination_name"] = data[data.length - 1].destination.name;
+                        obj["destination_time"] = data[data.length - 1].time;
+                
+                        $.ajax({
+                            url:  "http://localhost:8080/api/v1/route/getReport/" + route_id + "/" + formattedDate,
+                            type: "GET",
+                            headers: {
+                                "Authorization": getTokenCookie(),
+                                "Content-Type": "application/json"
+                            },
+                            success: function (data) {
+                                var diff = data.total_seats - data.total_bookings;
+                                obj["seatsLeft"] = Math.max(0, diff);
+                                $.ajax({
+                                    url:  "http://localhost:8080/api/v1/route/getBus/" + route_id,
+                                    type: "GET",
+                                    headers: {
+                                        "Authorization": getTokenCookie(),
+                                        "Content-Type": "application/json"
+                                    },
+                                    success: function (data) {
+                                        obj["busName"] = data.name;
+                                        obj["busId"] = data.id;
+                                        obj["busNumber"] = data.bus_number;
+                                
+                                        //To be changed
+                                        obj["userId"] = 1;
+                                        console.log(obj);
+                                        let color;
+                                        if (status == "CONFIRMED") {
+                                            color = "green";
+                                        }
+                                        else if (status == "CANCELLED") {
+                                            color = "red";
+                                        }
+                                        else if (status = "WAITING") {
+                                            color = "yellow";
+                                        }
+                                        const routeHTML = `
+                                       
+                                <div class = "admin-ticket-values">
+                                    <div class = "admin-ticket-user-value">${obj.date}</div>
+                                    <div class = "admin-ticket-user-value">${obj.source_name}</div>
+                                    <div class = "admin-ticket-user-value">${obj.destination_name}</div>
+                                    <div class = "admin-ticket-user-value">${obj.busNumber}</div>
+                                    <div class = "admin-ticket-user-value">${status}</div>
+                                    <div class = "admin-ticket-user-value" style = "color:red;cursor: pointer;" onclick="cancelTicket(event)"  ticket_id = ${ticket_id}>Cancel</div>
+                                </div> 
+                                `;
+                                        const parentDiv = document.querySelector(".admin-ticket-content");
+                                        parentDiv.innerHTML += routeHTML;
+                                    }, 
+                                    error: function () {
+                                        return alert("Server error! Please try again!")
+                                    }
+                                });
+                        
+                            }, 
+                            error: function () {
+                                return alert("Server error! Please try again!");
+                            }
+                        });
+                        
+                    }, 
+                    error: function () {
+                        return alert("Server error! Please try again!");
+                    }
                 });
-            }).fail(function () {
-                return alert("Server error! Please try again!");
-            });
-
-
-
-
+    
+    
+    
+    
+            }
+        }, 
+        error: function () {
+            return alert("Something went wrong. Please try again later!");
         }
-    }).fail(function () {
-        return alert("Something went wrong. Please try again later!");
-    })
+    });
 }
 
 function updateEmployee(event) {
@@ -516,47 +590,65 @@ function updateEmployee(event) {
 }
 function displayDestinations3(event) {
     event.preventDefault();
-    $.get("http://localhost:8080/api/v1/destination/get", function (data) {
-        console.log(data);
-        var selectElement = document.getElementById('admin_from');
-
-        // Add options from the data array
-        data.forEach(function (item) {
-            var optionElement = document.createElement('option');
-            optionElement.value = item.id;
-            optionElement.textContent = item.name;
-            var flag = 1;
-            for (var i = 0; i < selectElement.options.length; i++) {
-                if (item.id == selectElement.options[i].value) flag = 0;
-            }
-            if (flag || selectElement.options.length == 1)
-                selectElement.appendChild(optionElement);
-        });
-    }).fail(function () {
-        return new alert("Server error! Please try again!")
-    })
+    $.ajax({
+        url:  "http://localhost:8080/api/v1/destination/get",
+        type: "GET",
+        headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
+        success: function (data) {
+            console.log(data);
+            var selectElement = document.getElementById('admin_from');
+    
+            // Add options from the data array
+            data.forEach(function (item) {
+                var optionElement = document.createElement('option');
+                optionElement.value = item.id;
+                optionElement.textContent = item.name;
+                var flag = 1;
+                for (var i = 0; i < selectElement.options.length; i++) {
+                    if (item.id == selectElement.options[i].value) flag = 0;
+                }
+                if (flag || selectElement.options.length == 1)
+                    selectElement.appendChild(optionElement);
+            });
+        }, 
+        error: function () {
+            return new alert("Server error! Please try again!")
+        }
+    });
 }
 function displayDestinations4(event) {
     event.preventDefault();
-    $.get("http://localhost:8080/api/v1/destination/get", function (data) {
-        console.log(data);
-        var selectElement = document.getElementById('admin_to');
-
-        // Add options from the data array
-        data.forEach(function (item) {
-            var optionElement = document.createElement('option');
-            optionElement.value = item.id;
-            optionElement.textContent = item.name;
-            var flag = 1;
-            for (var i = 0; i < selectElement.options.length; i++) {
-                if (item.id == selectElement.options[i].value) flag = 0;
-            }
-            if (flag || selectElement.options.length == 1)
-                selectElement.appendChild(optionElement);
-        });
-    }).fail(function () {
-        return new alert("Server error! Please try again!")
-    })
+    $.ajax({
+        url:  "http://localhost:8080/api/v1/destination/get",
+        type: "GET",
+        headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
+        success: function (data) {
+            console.log(data);
+            var selectElement = document.getElementById('admin_to');
+    
+            // Add options from the data array
+            data.forEach(function (item) {
+                var optionElement = document.createElement('option');
+                optionElement.value = item.id;
+                optionElement.textContent = item.name;
+                var flag = 1;
+                for (var i = 0; i < selectElement.options.length; i++) {
+                    if (item.id == selectElement.options[i].value) flag = 0;
+                }
+                if (flag || selectElement.options.length == 1)
+                    selectElement.appendChild(optionElement);
+            });
+        }, 
+        error: function () {
+            return new alert("Server error! Please try again!")
+        }
+    });
 }
 function deleteEmployee(event) {
     console.log("Hitting");
@@ -583,32 +675,42 @@ function deleteEmployee(event) {
 }
 function on() {
     //Getall user
-    $.get("http://localhost:8080/api/v1/user/get", function (data) {
-        console.log(data)
-        const email = $("#search-email").val();
-        if (email == "") {
-            return alert("Please provide an email");
-        }
-        var found = 0;
-        let user = null;
-        for (var i = 0; i < data.length; i++) {
-            if ((data[i].email).toLowerCase() == email.toLowerCase()) {
-                found = 1;
-                user = data[i];
-                document.querySelector(".search-overlay").style.display = "block";
+    $.ajax({
+        url: "http://localhost:8080/api/v1/user/get",
+        type: "GET",
+        headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
+        success: function (data) {
+            console.log(data)
+            const email = $("#search-email").val();
+            if (email == "") {
+                return alert("Please provide an email");
             }
+            var found = 0;
+            let user = null;
+            for (var i = 0; i < data.length; i++) {
+                if ((data[i].email).toLowerCase() == email.toLowerCase()) {
+                    found = 1;
+                    user = data[i];
+                    document.querySelector(".search-overlay").style.display = "block";
+                }
+            }
+            if (found == 0) {
+                return alert("No employee found!")
+            }
+            $("#employee-name").val(user.name);
+            $("#employee-email").val(user.email);
+            $("#employee-id").val(user.employeeId);
+            $("#emp-inp-id").val(user.id);
+            $("#employee-password").val("");
+        },
+        error: function () {
+            alert("Server error");
         }
-        if (found == 0) {
-            return alert("No employee found!")
-        }
-        $("#employee-name").val(user.name);
-        $("#employee-email").val(user.email);
-        $("#employee-id").val(user.employeeId);
-        $("#emp-inp-id").val(user.id);
-        $("#employee-password").val("");
-    }).fail(function () {
-        alert("Server error");
-    })
+    });
+    
 
 }
 function addDestination(event) {
@@ -652,24 +754,32 @@ function on2(event) {
     event.preventDefault();
     const busNumber = $("#bus-search-name").val();
     console.log(busNumber);
-    $.get("http://localhost:8080/api/v1/bus/get", function (data) {
-        console.log(data[0]);
-        let bus = null;
-        for (var i = 0; i < data.length; i++) {
-            if ((data[i].bus_number).toLowerCase() == busNumber.toLowerCase()) {
-                bus = data[i];
+    $.ajax({
+        url:  "http://localhost:8080/api/v1/bus/get",
+        type: "GET",
+        headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
+        success: function (data) {
+            console.log(data[0]);
+            let bus = null;
+            for (var i = 0; i < data.length; i++) {
+                if ((data[i].bus_number).toLowerCase() == busNumber.toLowerCase()) {
+                    bus = data[i];
+                }
             }
+            if (bus == null) {
+                return alert("No bus found!");
+            }
+            console.log(bus);
+            document.querySelector(".bus-overlay").style.display = "block";
+            $("#bus-number-o").val(bus.bus_number);
+            $("#bus-name-o").val(bus.name);
+            $("#bus-seats-o").val(bus.totalNumberOfseats);
+            $("#bus-id-o").val(bus.id);
+    
         }
-        if (bus == null) {
-            return alert("No bus found!");
-        }
-        console.log(bus);
-        document.querySelector(".bus-overlay").style.display = "block";
-        $("#bus-number-o").val(bus.bus_number);
-        $("#bus-name-o").val(bus.name);
-        $("#bus-seats-o").val(bus.totalNumberOfseats);
-        $("#bus-id-o").val(bus.id);
-
     });
 
 }
@@ -682,23 +792,31 @@ function on3(event) {
     event.preventDefault();
     const destName = $("#dest-search-name").val();
     console.log(destName);
-    $.get("http://localhost:8080/api/v1/destination/get", function (data) {
-        console.log(data[0]);
-        let dest = null;
-        for (var i = 0; i < data.length; i++) {
-            if ((data[i].name).toLowerCase() == destName.toLowerCase()) {
-                dest = data[i];
+    $.ajax({
+        url: "http://localhost:8080/api/v1/destination/get" ,
+        type: "GET",
+        headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
+        success: function (data) {
+            console.log(data[0]);
+            let dest = null;
+            for (var i = 0; i < data.length; i++) {
+                if ((data[i].name).toLowerCase() == destName.toLowerCase()) {
+                    dest = data[i];
+                }
             }
+            if (dest == null) {
+                return alert("No destinations found!");
+            }
+            document.querySelector(".destination-overlay").style.display = "block";
+            $("#dest-edit-name").val(dest.name);
+            $("#dest-edit-longitude-input").val(dest.longitude)
+            $("#dest-edit-latitude-input").val(dest.latitude);
+            $("#dest-edit-id").val(dest.id);
         }
-        if (dest == null) {
-            return alert("No destinations found!");
-        }
-        document.querySelector(".destination-overlay").style.display = "block";
-        $("#dest-edit-name").val(dest.name);
-        $("#dest-edit-longitude-input").val(dest.longitude)
-        $("#dest-edit-latitude-input").val(dest.latitude);
-        $("#dest-edit-id").val(dest.id);
-    })
+    });
 
 }
 
@@ -849,24 +967,33 @@ function off3() {
 //For display of the destinations and bus dynamically
 function displayBusID(event) {
     event.preventDefault();
-    $.get("http://localhost:8080/api/v1/bus/get", function (data) {
-        var selectElement = document.getElementById('select_bus');
-
-        // Add options from the data array
-        data.forEach(function (item) {
-            var optionElement = document.createElement('option');
-            optionElement.value = item.id;
-            optionElement.textContent = item.bus_number;
-            var flag = 1;
-            for (var i = 0; i < selectElement.options.length; i++) {
-                if (item.id == selectElement.options[i].value) flag = 0;
-            }
-            if (flag || selectElement.options.length == 1)
-                selectElement.appendChild(optionElement);
-        });
-    }).fail(function () {
-        return new alert("Server error! Please try again!")
-    })
+    $.ajax({
+        url: "http://localhost:8080/api/v1/bus/get" ,
+        type: "GET",
+        headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
+        success: function (data) {
+            var selectElement = document.getElementById('select_bus');
+    
+            // Add options from the data array
+            data.forEach(function (item) {
+                var optionElement = document.createElement('option');
+                optionElement.value = item.id;
+                optionElement.textContent = item.bus_number;
+                var flag = 1;
+                for (var i = 0; i < selectElement.options.length; i++) {
+                    if (item.id == selectElement.options[i].value) flag = 0;
+                }
+                if (flag || selectElement.options.length == 1)
+                    selectElement.appendChild(optionElement);
+            });
+        }, 
+        error: function () {
+            return new alert("Server error! Please try again!")
+        }
+    });
 }
 
 //For display of the destinations dynamically in search a route - from
@@ -955,93 +1082,101 @@ function addRoute(event) {
 }
 function add_field() {
 
-    $.get("http://localhost:8080/api/v1/destination/get", function (data) {
-        console.log(data);
-        data.unshift({
-            name: "Select destination",
-            id: -1
-        })
-
-        // Get the table element
-        var table = document.querySelector(".container");
-
-        // Get the number of rows already present in the table
-        var rowLength = table.rows.length;
-
-        // Create the new table row element
-        var newRow = document.createElement('tr');
-
-        // Create the first table cell for the "from" column
-        var fromCell = document.createElement('td');
-
-        // Create the "from" div element with the select element and label
-        var fromDiv = document.createElement('div');
-        fromDiv.className = "from";
-
-        var fromToSearchText = document.createElement('div');
-        fromToSearchText.className = "from-to-search-text";
-
-        var fromText = document.createElement('label');
-        fromText.htmlFor = "fromtext";
-        fromText.textContent = "Add Bus Stop";
-        fromToSearchText.appendChild(fromText);
-
-        var optionsDiv = document.createElement('div');
-        optionsDiv.className = "options";
-
-        var selectElement = document.createElement('select');
-        selectElement.name = "";
-        selectElement.id = "select_" + (rowLength + 1);
-
-        // Add options from the data array
-        data.forEach(function (item) {
-            var optionElement = document.createElement('option');
-            optionElement.value = item.id;
-            optionElement.textContent = item.name;
-            selectElement.appendChild(optionElement);
-        });
-
-        optionsDiv.appendChild(selectElement);
-        fromDiv.appendChild(fromToSearchText);
-        fromDiv.appendChild(optionsDiv);
-        fromCell.appendChild(fromDiv);
-
-        // Create the second table cell for the "to" column
-        var toCell = document.createElement('td');
-
-        // Create the "to" div element with the input element and label
-        var toDiv = document.createElement('div');
-        toDiv.className = "to";
-
-        var toToSearchText = document.createElement('div');
-        toToSearchText.className = "from-to-search-text";
-
-        var toText = document.createElement('label');
-        toText.htmlFor = "timetext";
-        toText.textContent = "Add Timing";
-        toToSearchText.appendChild(toText);
-
-        var toOptionsDiv = document.createElement('div');
-        toOptionsDiv.className = "options";
-
-        var timeInput = document.createElement('input');
-        timeInput.type = "time";
-        timeInput.id = "time-input_" + (rowLength + 1);
-        timeInput.name = "time";
-
-        toOptionsDiv.appendChild(timeInput);
-        toDiv.appendChild(toToSearchText);
-        toDiv.appendChild(toOptionsDiv);
-        toCell.appendChild(toDiv);
-
-        // Add the cells to the row
-        newRow.appendChild(fromCell);
-        newRow.appendChild(toCell);
-
-        // Add the new row to the table
-        table.appendChild(newRow);
-
-    })
+    $.ajax({
+        url:  "http://localhost:8080/api/v1/destination/get",
+        type: "GET",
+        headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
+        success: function (data) {
+            console.log(data);
+            data.unshift({
+                name: "Select destination",
+                id: -1
+            })
+    
+            // Get the table element
+            var table = document.querySelector(".container");
+    
+            // Get the number of rows already present in the table
+            var rowLength = table.rows.length;
+    
+            // Create the new table row element
+            var newRow = document.createElement('tr');
+    
+            // Create the first table cell for the "from" column
+            var fromCell = document.createElement('td');
+    
+            // Create the "from" div element with the select element and label
+            var fromDiv = document.createElement('div');
+            fromDiv.className = "from";
+    
+            var fromToSearchText = document.createElement('div');
+            fromToSearchText.className = "from-to-search-text";
+    
+            var fromText = document.createElement('label');
+            fromText.htmlFor = "fromtext";
+            fromText.textContent = "Add Bus Stop";
+            fromToSearchText.appendChild(fromText);
+    
+            var optionsDiv = document.createElement('div');
+            optionsDiv.className = "options";
+    
+            var selectElement = document.createElement('select');
+            selectElement.name = "";
+            selectElement.id = "select_" + (rowLength + 1);
+    
+            // Add options from the data array
+            data.forEach(function (item) {
+                var optionElement = document.createElement('option');
+                optionElement.value = item.id;
+                optionElement.textContent = item.name;
+                selectElement.appendChild(optionElement);
+            });
+    
+            optionsDiv.appendChild(selectElement);
+            fromDiv.appendChild(fromToSearchText);
+            fromDiv.appendChild(optionsDiv);
+            fromCell.appendChild(fromDiv);
+    
+            // Create the second table cell for the "to" column
+            var toCell = document.createElement('td');
+    
+            // Create the "to" div element with the input element and label
+            var toDiv = document.createElement('div');
+            toDiv.className = "to";
+    
+            var toToSearchText = document.createElement('div');
+            toToSearchText.className = "from-to-search-text";
+    
+            var toText = document.createElement('label');
+            toText.htmlFor = "timetext";
+            toText.textContent = "Add Timing";
+            toToSearchText.appendChild(toText);
+    
+            var toOptionsDiv = document.createElement('div');
+            toOptionsDiv.className = "options";
+    
+            var timeInput = document.createElement('input');
+            timeInput.type = "time";
+            timeInput.id = "time-input_" + (rowLength + 1);
+            timeInput.name = "time";
+    
+            toOptionsDiv.appendChild(timeInput);
+            toDiv.appendChild(toToSearchText);
+            toDiv.appendChild(toOptionsDiv);
+            toCell.appendChild(toDiv);
+    
+            // Add the cells to the row
+            newRow.appendChild(fromCell);
+            newRow.appendChild(toCell);
+    
+            // Add the new row to the table
+            table.appendChild(newRow);
+    
+        }
+    });
     // var table = document.querySelector(".container");
     // var row = table.insertRow(-1);
     // var cell1 = row.insertCell(0);
@@ -1061,25 +1196,34 @@ function add_field() {
 }
 function add_Destination_toselect(event, len) {
     event.preventDefault();
-    $.get("http://localhost:8080/api/v1/destination/get", function (data) {
-        console.log(data);
-        var selectElement = document.getElementById('select_dest_' + (len + 1));
-
-        // Add options from the data array
-        data.forEach(function (item) {
-            var optionElement = document.createElement('option');
-            optionElement.value = item.id;
-            optionElement.textContent = item.name;
-            var flag = 1;
-            for (var i = 0; i < selectElement.options.length; i++) {
-                if (item.id == selectElement.options[i].value) flag = 0;
-            }
-            if (flag || selectElement.options.length == 1)
-                selectElement.appendChild(optionElement);
-        });
-    }).fail(function () {
-        return new alert("Server error! Please try again!")
-    })
+    $.ajax({
+        url:  "http://localhost:8080/api/v1/destination/get",
+        type: "GET",
+        headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
+        success:function (data) {
+            console.log(data);
+            var selectElement = document.getElementById('select_dest_' + (len + 1));
+    
+            // Add options from the data array
+            data.forEach(function (item) {
+                var optionElement = document.createElement('option');
+                optionElement.value = item.id;
+                optionElement.textContent = item.name;
+                var flag = 1;
+                for (var i = 0; i < selectElement.options.length; i++) {
+                    if (item.id == selectElement.options[i].value) flag = 0;
+                }
+                if (flag || selectElement.options.length == 1)
+                    selectElement.appendChild(optionElement);
+            });
+        } , 
+        error: function () {
+            return new alert("Server error! Please try again!")
+        }
+    });
 }
 const save_destination = (evt) => {
     evt.preventDefault();
