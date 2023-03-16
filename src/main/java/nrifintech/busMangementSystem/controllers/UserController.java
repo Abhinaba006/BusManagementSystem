@@ -77,6 +77,7 @@ public class UserController {
             String headerName = headerNames.nextElement();
             System.out.println(headerName + ": " + request.getHeader(headerName));
         }
+		user.setType(1);
 		User createdUser = userService.createUser(user);
 		user.setType(1);
 		return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
