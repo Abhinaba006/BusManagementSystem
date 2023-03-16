@@ -37,25 +37,20 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 
-		// Get the custom header from the request
-//		 String authorizationHeader  = request.getHeader("x-auth-token");
 		try {
-
+			
 			String authorizationHeader = request.getHeader("Authorization");
-
 			String url = request.getRequestURI();
-			if (url.contains("login")) {
+			if (url.contains("login") || url.contains("createAdmin")) {
 				filterChain.doFilter(request, response);
 				return;
 			}
-
 			String token = authorizationHeader;
 			String payload = jwtTokenUtil.extractUsername(token);
 			int userId = Integer.parseInt(payload);
 			int type = jwtTokenUtil.extractType(token);
-
 			if (userService.getUser(userId) != null) {
-				if(url.contains("admin") && type==0) throw new UnauthorizedAction("trying to access admin role", "user");
+				if(url.contains("secure") && type==0) throw new UnauthorizedAction("trying to access admin role", "user");
 				filterChain.doFilter(request, response);
 				return;
 			}
