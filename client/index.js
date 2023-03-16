@@ -54,6 +54,7 @@ function deleteAllCookies() {
 	document.cookie.split(";").forEach(function (c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
 }
 function logOut(){
+	console.log("lof")
 	deleteAllCookies();
 	window.location = '/client/user_login.html';
 }
@@ -166,7 +167,7 @@ function getRoutes(event) {
 					seatsLeft: "",
 					source_name: "",
 					source_time: "",
-					userId: 1, //To be changed
+					userId: getIdCookie(), //To be changed
 				};
 				obj["route_id"] = route_id;
 				$.ajax({
@@ -356,16 +357,14 @@ function onroute() {
 function offroute() {
 	document.querySelector(".route-overlay").style.display = "none";
 }
-function homeonroute() {
+function homeonroute(routeId) {
 	document.querySelector(".home-route-overlay").style.display = "block";
 
 
 	// get routeId dynamically
-	let routeId = 1
 	// put the auth token here
-	const authToken = 'your-auth-token-here';
 
-	fetch('http://localhost:8080/api/v1/route/getDestinations/1', {
+	fetch('http://localhost:8080/api/v1/route/getDestinations/'+routeId, {
 		headers: {
             "Authorization": getTokenCookie(),
             "Content-Type": "application/json"
