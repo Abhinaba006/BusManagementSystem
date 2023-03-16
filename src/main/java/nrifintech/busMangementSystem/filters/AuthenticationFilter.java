@@ -1,75 +1,70 @@
-	package nrifintech.busMangementSystem.filters;
-	
-	import java.io.IOException;
-	
-	import javax.servlet.FilterChain;
-	import javax.servlet.ServletException;
-	import javax.servlet.http.HttpServletRequest;
-	import javax.servlet.http.HttpServletResponse;
-	
-	import org.springframework.beans.factory.annotation.Autowired;
-	import org.springframework.stereotype.Component;
-	import org.springframework.web.filter.OncePerRequestFilter;
-	
-	import nrifintech.busMangementSystem.JwtTokenUtil;
-	import nrifintech.busMangementSystem.Service.interfaces.UserService;
-	import nrifintech.busMangementSystem.exception.UnauthorizedAction;
-	import nrifintech.busMangementSystem.repositories.UserRepo;
-	
-	@Component
-	public class AuthenticationFilter extends OncePerRequestFilter {
-	
-		@Autowired
-		private UserRepo userRepo;
-	
-		@Autowired
-		JwtTokenUtil jwtTokenUtil;
-	
-		@Autowired
-		UserService userService;
-	
-		@Override
-		protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-				throws ServletException, IOException {
-	
-			// Get the custom header from the request
-	//		 String authorizationHeader  = request.getHeader("x-auth-token");
+package nrifintech.busMangementSystem.filters;
+
+import java.io.IOException;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import nrifintech.busMangementSystem.JwtTokenUtil;
+import nrifintech.busMangementSystem.Service.interfaces.UserService;
+import nrifintech.busMangementSystem.exception.UnauthorizedAction;
+import nrifintech.busMangementSystem.payloads.ApiResponse;
+import nrifintech.busMangementSystem.repositories.UserRepo;
+
+@Component
+public class AuthenticationFilter extends OncePerRequestFilter {
+
+	@Autowired
+	private UserRepo userRepo;
+
+	@Autowired
+	JwtTokenUtil jwtTokenUtil;
+
+	@Autowired
+	UserService userService;
+
+	@Override
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+			throws ServletException, IOException {
+
+		// Get the custom header from the request
+//		 String authorizationHeader  = request.getHeader("x-auth-token");
+		try {
+
 			String authorizationHeader = request.getHeader("Authorization");
-			System.out.println("\n--------------------------------\n----------------------\n");
-			System.out.println("authorizationHeader: " + authorizationHeader);
-			System.out.println("\n--------------------------------\n----------------------\n");
-	
-	
-		
-			
+
 			String url = request.getRequestURI();
 			if (url.contains("login")) {
 				filterChain.doFilter(request, response);
 				return;
 			}
-			
-			
-////	
+
 			String token = authorizationHeader;
 			String payload = jwtTokenUtil.extractUsername(token);
 			int userId = Integer.parseInt(payload);
 			int type = jwtTokenUtil.extractType(token);
-//			
-//	
-			System.out.println("\n--------------------------------\n----------------------\n");
-			System.out.println("USERID136 TYPE0: " + userId+" "+type);
-			System.out.println("\n--------------------------------\n----------------------\n");
-			
 
-			
 			if (userService.getUser(userId) != null) {
+				if(url.contains("admin") && type==0) throw new UnauthorizedAction("trying to access admin role", "user");
 				filterChain.doFilter(request, response);
 				return;
 			}
-			
-				
-			throw new UnauthorizedAction("Invalid token provided", "undefiened user");
-			
-//			
+
+		} catch (UnauthorizedAction e) {
+			ObjectMapper mapper = new ObjectMapper();
+			response.setStatus(HttpStatus.UNAUTHORIZED.value());
+			response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+			response.getWriter().write(mapper.writeValueAsString(new ApiResponse(e.getMessage(), false)));
 		}
 	}
+}
