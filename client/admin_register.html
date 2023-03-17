@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./admin_login.css" />
+    <link rel="stylesheet" href="./admin_register.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <title>Document</title>
 </head>
@@ -27,9 +27,11 @@
         <div class="nri-login-side">
 
             <form class="login-side-div" action="">
-                <div class="login-text">ADMIN LOGIN</div>
+                <div class="login-text">ADMIN REGISTER</div>
                 <div class="login-inputs">
 
+                    <div> <input type="text" placeholder="Name" id="name"> </div>
+                    <div> <input type="text" placeholder="employeeId" id="employeeId"> </div>
                     <div> <input type="email" placeholder="Email" id="email"></div>
                     <div>
                         <input type="password" placeholder="Password" id="mypassword">
@@ -38,13 +40,14 @@
                     </div>
                     <div class="submit-div">
 
-                        <a href="" class="submit-div-login">
-                            <div class="normal-login-text">Login</div>
+                        <a href="#" class="submit-div-register" onclick="console.log('sd')">
+                            <div class="normal-login-text">Register</div>
                         </a>
 
                     </div>
                     <div>
-                        <div class="register-div"> New to the Platform ? <a href="./admin_register.html"> Register</a>  </div>
+                        <div class="login-div"> Already have an account ? <a href="./admin_login.html"> Login </a>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -60,29 +63,58 @@
             const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
             document.cookie = `token=${token}; expires=${expires}; path=/`;
         }
-        $(".submit-div-login").on("click", function (event) {
+        $(".submit-div-register").on("click", function (event) {
             event.preventDefault();
             const email = $("#email").val();
+            
+            if(email==undefined || email==""){
+                alert("please fill email")
+                return
+            }
+
             const password = $("#mypassword").val();
+
+            if(password==undefined || password==""){
+                alert("please fill password")
+                return
+            }
+
+            const name = $("#name").val();
+
+            if(name==undefined || name==""){
+                alert("please fill name")
+                return
+            }
+
+            const employeeId = $("#employeeId").val();
+
+
+            if(employeeId==undefined || employeeId==""){
+                alert("please fill employeeId")
+                return
+            }
+            
+
+            const data = {
+                name,
+                email,
+                password,
+                employeeId
+            }
+
+            console.log(data)
             $.ajax({
-                url: "http://localhost:8080/api/v1/user/admin/login/" + email + "/" + password,
-                type: "GET",
+                url: "http://localhost:8080/api/v1/user/createAdmin",
+                type: "POST",
                 headers: {
-                    "Authorization": getTokenCookie(),
                     "Content-Type": "application/json"
                 },
+                data: JSON.stringify(data),
                 success: function (data, status) {
-                    console.log(data);
-                    if (data.success == true) {
-                        const token = data.token;
-                        setTokenCookie(token);
-                        localStorage.setItem("isAuthenticated", "true");
-                        window.location.replace("./admin_homepage.html");
-                    }
-                    else localStorage.setItem("isAuthenticated", "false");
+                    window.location.replace("admin_login.html")
                 },
-                error: function () {
-                    alert("Invalid credentials!");
+                error: function (e) {
+                    console.log(e);
                 }
             });
 

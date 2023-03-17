@@ -69,6 +69,19 @@ public class UserController {
 		User createdUser = userService.createUser(user);
 		return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
 	}
+	@PostMapping(path = "/createAdmin", consumes = "application/json", produces = "application/json")
+	ResponseEntity<User> createAdmin(HttpServletRequest request,@Valid @RequestBody User user) {
+		Enumeration<String> headerNames = request.getHeaderNames();
+    	System.out.println("user create resolve \n");
+        while(headerNames.hasMoreElements()) {
+            String headerName = headerNames.nextElement();
+            System.out.println(headerName + ": " + request.getHeader(headerName));
+        }
+		user.setType(1);
+		User createdUser = userService.createUser(user);
+		user.setType(1);
+		return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+	}
 
 	// update
 	@PostMapping("/update/{userId}")

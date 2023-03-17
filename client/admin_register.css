@@ -124,6 +124,7 @@ input::-ms-reveal {
     margin-left: auto;
     margin-right: auto;
     margin-top: auto;
+    margin-bottom: 50px;
     font-family: Montserrat;
     font-size: 50px;
     font-weight: 400;
@@ -164,7 +165,7 @@ input:focus {
     display: flex;
 }
 
-.submit-div-login {
+.submit-div-register {
     height: 100%;
     width: 40%;
     /* background-color: blue; */
@@ -186,7 +187,7 @@ input:focus {
 
     color: rgba(255, 255, 255, 1);
 }
-.register-div{
+.login-div{
     margin-top: 30px;
     font-family: Montserrat;
     font-size: 20px;
