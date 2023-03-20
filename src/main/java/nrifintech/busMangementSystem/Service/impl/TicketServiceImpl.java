@@ -47,16 +47,6 @@ public class TicketServiceImpl implements TicketService {
 
 	@Autowired
 	private TicketRepo ticketRepo;
-	@Autowired
-	private BusRepo busRepo;
-	@Autowired
-	private RouteRepo routeRepo;
-	@Autowired
-	private UserRepo userRepo;
-	@Autowired
-	private RouteInfoRepo routeInfoRepo;
-	@Autowired
-	private BusMapRepo busMapRepo;
 
 	@Autowired
 	RouteService routeService;

@@ -59,12 +59,16 @@ public class TicketController {
 	@PostMapping("/create")
 	ResponseEntity<?> createTicket(@Valid @RequestBody Ticket ticket){
 		 ticketService.createTicket(ticket);
-		 return new ResponseEntity(new ApiResponse("Ticket booked successfully!", true), HttpStatus.OK);
+		 ApiResponse response = new ApiResponse("Ticket booked successfully!", true);
+		 return new ResponseEntity<>(response, HttpStatus.OK);
+		 //return new ResponseEntity(new ApiResponse("Ticket booked successfully!", true), HttpStatus.OK);
 	}
 	@PostMapping("/cancel")
 	ResponseEntity<?> cancleTicket(@Valid @RequestBody int ticket_id){
 		ticketService.cancelTicket(ticket_id);
-		return new ResponseEntity(new ApiResponse("Ticket cancelled successfully!", true), HttpStatus.OK);
+		ApiResponse response = new ApiResponse("Ticket cancelled successfully!", true);
+		 return new ResponseEntity<>(response, HttpStatus.OK);
+		//return new ResponseEntity(new ApiResponse("Ticket cancelled successfully!", true), HttpStatus.OK);
 	}
 	@GetMapping("/get/{userId}")
 	ResponseEntity<?> getUserTickets(@PathVariable("userId") int userId){

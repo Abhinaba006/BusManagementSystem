@@ -28,7 +28,12 @@ public class RouteInfoServiceImpl implements RouteInfoService {
 	@Autowired
 	BusRepo busRepo;
 
-
+	@Autowired
+    public RouteInfoServiceImpl(RouteInfoRepo routeInfoRepo, BusMapRepo busMapRepo, BusRepo busRepo) {
+        this.routeInfoRepo = routeInfoRepo;
+        this.busMapRepo = busMapRepo;
+        this.busRepo = busRepo;
+    }
 
 	@Override
 	public void preCheck(int route_id,String date) {

@@ -56,7 +56,9 @@ public class DestinationController {
     @DeleteMapping("/destination/delete/{destinationId}")
     public ResponseEntity<?> deleteDestination(@PathVariable("destinationId") int destinationId){
         destinationService.deleteDestination(destinationId);
-        return new ResponseEntity(new ApiResponse("destination deleted", true), HttpStatus.OK);
+        ApiResponse response = new ApiResponse("Destination deleted successfully!", true);
+		 return new ResponseEntity<>(response, HttpStatus.OK);
+        //return new ResponseEntity(new ApiResponse("destination deleted", true), HttpStatus.OK);
     }
 
     

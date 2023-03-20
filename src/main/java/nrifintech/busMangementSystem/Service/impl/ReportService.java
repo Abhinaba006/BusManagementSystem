@@ -115,13 +115,11 @@ public class ReportService {
 	    	}
 	    }
 	    
-
 	    ServletOutputStream outputStream = response.getOutputStream();
 	    workbook.write(outputStream);
 	    workbook.close();
 	    outputStream.close();
 	}
-
 	
 	public void generateUserReport(HttpServletResponse response) throws IOException {
 
