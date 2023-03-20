@@ -85,7 +85,7 @@ function displayDestinations(event) {
 			});
 		}, 
 		error: function () {
-			return new alert("Server error! Please try again!")
+			return new createAlert("Server error! Please try again!","failure"); //alert("Server error! Please try again!")
 		}
 	});
 }
@@ -116,7 +116,7 @@ function displayDestinations1(event) {
 			});
 		}, 
 		error: function () {
-			return new alert("Server error! Please try again!")
+			return new createAlert("Server error! Please try again!","failure");//alert("Server error! Please try again!")
 		}
 	});
 	
@@ -250,17 +250,20 @@ function getRoutes(event) {
 										parentDiv.innerHTML += routeHTML;
 									}, 
 									error: function () {
-										return alert("Server error! Please try again!")
+										return createAlert("Server error! Please try again!","failure");
+										//return alert("Server error! Please try again!")
 									}
 								});
 							}, 
 							error: function () {
-								return alert("Server error! Please try again!");
+								return createAlert("Server error! Please try again!","failure");
+								//return alert("Server error! Please try again!");
 							}
 						});
 					}, 
 					error: function () {
-						return alert("Server error! Please try again!");
+						return createAlert("Server error! Please try again!","failure");
+						//return alert("Server error! Please try again!");
 					}
 				});
 				
@@ -271,7 +274,8 @@ function getRoutes(event) {
 			}
 		} , 
 		error: function () {
-			alert("Server error! Please try again later.")
+             createAlert("Server error! Please try again later.","failure");
+			//alert("Server error! Please try again later.")
 		}
 	});
 
@@ -306,16 +310,18 @@ function bookTicket(event) {
 		contentType: "application/json",
 		success: function (result) {
 			console.log(result);
-			alert("Ticket booked successfully!");
+			createAlert("Ticket booked successfully!","success");
+			//alert("Ticket booked successfully!");
 			location.reload(); 
 		},
 		error: function (xhr, status, error) {
 			console.log(error);
 			console.log(JSON.parse(xhr.responseText).message);
 			if(JSON.parse(xhr.responseText).message === "Ticket already done by ")
-			  alert("First cancel 1 confirmed ticket, then book a ticket.");
+			  createAlert("First cancel 1 confirmed ticket, then book a ticket.","info"); //alert("First cancel 1 confirmed ticket, then book a ticket.");
 			else
-			alert("Oops something went wrong! Please try again ");
+			createAlert("Oops something went wrong! Please try again","failure");
+			//alert("Oops something went wrong! Please try again ");
 		}
 	});
 }
@@ -477,5 +483,22 @@ function homeonroute(routeId) {
 		.catch(error => console.error(error));
 }
 
+
+function createAlert(message, type) {
+    var alertContainer = document.getElementById("alert-container");
+    var alertBox = document.createElement("div");
+    var closeButton = document.createElement("span");
+
+    alertBox.textContent = message;
+    closeButton.textContent = "×";
+    closeButton.className = "closebtn";
+    closeButton.onclick = function() {
+      alertContainer.removeChild(alertBox);
+    };
+
+    alertBox.className = "alert " + type;
+    alertBox.appendChild(closeButton);
+    alertContainer.appendChild(alertBox);
+  }
 
 

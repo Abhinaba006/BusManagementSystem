@@ -186,7 +186,7 @@ function addEmployee(event) {
     const employeeId = $("#add-employee-id").val();
 
     if (name == "" || email == "" || password == "" || employeeId == "") {
-        return alert("Please provide valide credentials for a employee");
+        return createAlert("Please provide valid credentials for a employee", "info");//alert("Please provide valide credentials for a employee");
     }
     $.ajax({
         url: "http://localhost:8080/api/v1/user/create",
@@ -204,11 +204,13 @@ function addEmployee(event) {
         contentType: "application/json",
         success: function (result) {
             console.log(result);
-            alert("User added successfully!")
+            createAlert("User added successfully", "success");
+            //alert("User added successfully!")
         },
         error: function (xhr, status, error) {
             console.log(error);
-            alert("Oops something went wrong! Please try again")
+            createAlert("Oops something went wrong! Please try again", "failure");
+            //alert("Oops something went wrong! Please try again")
         }
     });
 
@@ -336,17 +338,20 @@ function getRoutesAdmin(event) {
                                         parentDiv.innerHTML += routeHTML;
                                     }, 
                                     error: function () {
-                                        return alert("Server error! Please try again!")
+                                        return createAlert("Server error! Please try again!", "failure");
+                                        //return alert("Server error! Please try again!")
                                     }
                                 });
                             }, 
                             error: function () {
-                                return alert("Server error! Please try again!");
+                                return createAlert("Server error! Please try again!", "failure");
+                                //return alert("Server error! Please try again!");
                             }
                         });
                     }, 
                     error: function () {
-                        return alert("Server error! Please try again!");
+                        return createAlert("Server error! Please try again!", "failure");
+                        //return alert("Server error! Please try again!");
                     }
                 });
     
@@ -356,7 +361,8 @@ function getRoutesAdmin(event) {
             }
         }, 
         error: function () {
-            alert("Server error! Please try again later.")
+            createAlert("Server error! Please try again!", "failure");
+            //alert("Server error! Please try again later.")
         }
     });
 
@@ -379,11 +385,13 @@ function deleteRoute(event, routeId) {
         type: "DELETE",
         success: function (result) {
             console.log(result);
-            alert("Bus deleted successfully!")
+            createAlert("Bus deleted successfully", "success");
+            //alert("Bus deleted successfully!")
         },
         error: function (xhr, status, error) {
             console.log(error);
-            alert("Oops something went wrong! Please try again")
+            createAlert("Oops something went wrong! Please try again!", "failure");
+            //alert("Oops something went wrong! Please try again")
         }
     });
 
@@ -404,12 +412,14 @@ function cancelTicket(event) {
         },
         success: function (response) {
             console.log("Ticket cancelled successfully");
-            alert("Ticket cancelled sucessfully!");
+            createAlert("Ticket cancelled sucessfully!", "success");
+            //alert("Ticket cancelled sucessfully!");
             // Handle success response here
         },
         error: function (xhr, status, error) {
             console.log("Error cancelling ticket: " + error);
-            alert("Server error! Please try again!");
+            createAlert("Server error! Please try again!", "failure");
+            //alert("Server error! Please try again!");
             // Handle error response here
         }
     });
@@ -422,7 +432,7 @@ function searchTickets(event) {
     const id = 1; //To be changed the the id that is to be fetched by the email
 
     $.ajax({
-        url:  "http://localhost:8080/api/v1/ticket/get/1",
+        url:  "http://localhost:8080/api/v1/ticket/get/"+getIdCookie(),
         type: "GET",
         headers: {
             "Authorization": getTokenCookie(),
@@ -519,19 +529,22 @@ function searchTickets(event) {
                                         parentDiv.innerHTML += routeHTML;
                                     }, 
                                     error: function () {
-                                        return alert("Server error! Please try again!")
+                                        return createAlert("Server error! Please try again!", "failure");
+                                        //return alert("Server error! Please try again!")
                                     }
                                 });
                         
                             }, 
                             error: function () {
-                                return alert("Server error! Please try again!");
+                                return createAlert("Server error! Please try again!", "failure");
+                                //return alert("Server error! Please try again!");
                             }
                         });
                         
                     }, 
                     error: function () {
-                        return alert("Server error! Please try again!");
+                        return createAlert("Server error! Please try again!", "failure");
+                        //return alert("Server error! Please try again!");
                     }
                 });
     
@@ -541,7 +554,8 @@ function searchTickets(event) {
             }
         }, 
         error: function () {
-            return alert("Something went wrong. Please try again later!");
+            return createAlert("Something went wrong. Please try again later!", "failure");
+            //return alert("Something went wrong. Please try again later!");
         }
     });
 }
@@ -555,7 +569,7 @@ function updateEmployee(event) {
     const id = $("#emp-inp-id").val();
     console.log(name, email, empId, password, id);
     if (name == "" || email == "" || empId == "") {
-        return alert("Please provide valide credentials for a employee");
+        return createAlert("Please provide valid credentials for a employee!", "info");//alert("Please provide valide credentials for a employee");
     }
     const newObj = {
         name: name,
@@ -578,11 +592,13 @@ function updateEmployee(event) {
         contentType: "application/json",
         success: function (result) {
             console.log(result);
-            alert("User updated successfully!")
+            createAlert("User updated successfully!", "success");
+            //alert("User updated successfully!")
         },
         error: function (xhr, status, error) {
             console.log(error);
-            alert("Oops something went wrong! Please try again")
+            createAlert("Oops something went wrong! Please try again", "failure");
+            //alert("Oops something went wrong! Please try again")
         }
     });
 
@@ -615,7 +631,7 @@ function displayDestinations3(event) {
             });
         }, 
         error: function () {
-            return new alert("Server error! Please try again!")
+            return new createAlert("Server error! Please try again", "failure");//alert("Server error! Please try again!")
         }
     });
 }
@@ -646,7 +662,7 @@ function displayDestinations4(event) {
             });
         }, 
         error: function () {
-            return new alert("Server error! Please try again!")
+            return new createAlert("Server error! Please try again later!", "failure");//alert("Server error! Please try again!")
         }
     });
 }
@@ -665,11 +681,14 @@ function deleteEmployee(event) {
         type: "DELETE",
         success: function (result) {
             console.log(result);
-            alert("Employee details deleted successfully!")
+            //alert("Employee details deleted successfully!")
+            createAlert("Employee details deleted successfully!", "success");
+
         },
         error: function (xhr, status, error) {
             console.log(error);
-            alert("Oops something went wrong! Please try again")
+            createAlert("Oops something went wrong. Please try again", "failure");
+            //alert("Oops something went wrong! Please try again")
         }
     });
 }
@@ -686,7 +705,7 @@ function on() {
             console.log(data)
             const email = $("#search-email").val();
             if (email == "") {
-                return alert("Please provide an email");
+                return createAlert("Please provide an email", "info");//alert("Please provide an email");
             }
             var found = 0;
             let user = null;
@@ -698,7 +717,7 @@ function on() {
                 }
             }
             if (found == 0) {
-                return alert("No employee found!")
+                return createAlert("No employee found!", "info");//alert("No employee found!")
             }
             $("#employee-name").val(user.name);
             $("#employee-email").val(user.email);
@@ -707,7 +726,7 @@ function on() {
             $("#employee-password").val("");
         },
         error: function () {
-            alert("Server error");
+            createAlert("Server error!", "failure");
         }
     });
     
@@ -720,7 +739,7 @@ function addDestination(event) {
     const longitude = $("#dest-longitude-input").val();
     console.log(name, latitude, longitude);
     if (name == "" || latitude == "" || longitude == "") {
-        return alert("Please provide all details!");
+        return createAlert("Please provide all details!", "info");//alert("Please provide all details!");
     }
     $.ajax({
         url: "http://localhost:8080/api/v1/destination/create",
@@ -737,11 +756,13 @@ function addDestination(event) {
         contentType: "application/json",
         success: function (result) {
             console.log(result);
-            alert("Destination added successfully!")
+            createAlert("Destination added successfully!", "success");
+            //alert("Destination added successfully!")
         },
         error: function (xhr, status, error) {
             console.log(error);
-            alert("Oops something went wrong! Please try again")
+            createAlert("Oops something went wrong! Please try again", "failure");
+            //alert("Oops something went wrong! Please try again")
         }
     });
 }
@@ -770,7 +791,8 @@ function on2(event) {
                 }
             }
             if (bus == null) {
-                return alert("No bus found!");
+                return createAlert("No bus found!", "info");
+                //return alert("No bus found!");
             }
             console.log(bus);
             document.querySelector(".bus-overlay").style.display = "block";
@@ -808,7 +830,8 @@ function on3(event) {
                 }
             }
             if (dest == null) {
-                return alert("No destinations found!");
+                return createAlert("No Destinations found!", "info");
+                //return alert("No destinations found!");
             }
             document.querySelector(".destination-overlay").style.display = "block";
             $("#dest-edit-name").val(dest.name);
@@ -843,11 +866,13 @@ function updateDestination(event) {
         contentType: "application/json",
         success: function (result) {
             console.log(result);
-            alert("Destination updated successfully!")
+            createAlert("Destination updated successfully!", "success");
+            //alert("Destination updated successfully!")
         },
         error: function (xhr, status, error) {
             console.log(error);
-            alert("Oops something went wrong! Please try again")
+            createAlert("Oops something went wrong! Please try again", "failure");
+            //alert("Oops something went wrong! Please try again")
         }
     });
 }
@@ -868,11 +893,13 @@ function deleteDestination(event) {
         type: "DELETE",
         success: function (result) {
             console.log(result);
-            alert("Destination deleted successfully!")
+            createAlert("Destination deleted successfully!", "success");
+            //alert("Destination deleted successfully!")
         },
         error: function (xhr, status, error) {
             console.log(error);
-            alert("Oops something went wrong! Please try again")
+            createAlert("Oops something went wrong! Please try again!", "failure");
+            //alert("Oops something went wrong! Please try again")
         }
     });
 }
@@ -898,11 +925,13 @@ function updateBus(event) {
         contentType: "application/json",
         success: function (result) {
             console.log(result);
-            alert("Bus updated successfully!")
+            createAlert("Bus added successfully!", "success");
+            //alert("Bus updated successfully!")
         },
         error: function (xhr, status, error) {
             console.log(error);
-            alert("Oops something went wrong! Please try again")
+            createAlert("Oops something went wrong! Please try again", "failure");
+            //alert("Oops something went wrong! Please try again")
         }
     });
 }
@@ -919,11 +948,13 @@ function deleteBus(event) {
         type: "DELETE",
         success: function (result) {
             console.log(result);
-            alert("Bus deleted successfully!")
+            createAlert("Bus deleted successfully!", "success");
+            //alert("Bus deleted successfully!")
         },
         error: function (xhr, status, error) {
             console.log(error);
-            alert("Oops something went wrong! Please try again")
+            createAlert("Oops something went wrong! Please try again", "failure");
+            //alert("Oops something went wrong! Please try again")
         }
     });
 }
@@ -934,7 +965,7 @@ function addBus(event) {
     const busName = $("#bus-name").val();
     console.log(busNumber, seats, busName);
     if (busNumber == "" || seats == "" || busName == "") {
-        return alert("Please provide all fields");
+        return createAlert("Please provide all details", "info");//alert("Please provide all fields");
     }
     $.ajax({
         url: "http://localhost:8080/api/v1/bus/create",
@@ -951,11 +982,13 @@ function addBus(event) {
         contentType: "application/json",
         success: function (result) {
             console.log(result);
-            alert("Bus added successfully!")
+           // alert("Bus added successfully!")
+           createAlert("Bus added successfully!", "success");
         },
         error: function (xhr, status, error) {
             console.log(error);
-            alert("Oops something went wrong! Please try again")
+            createAlert("Oops something went wrong! Please try again", "failure");
+            //alert("Oops something went wrong! Please try again")
         }
     });
 
@@ -991,7 +1024,7 @@ function displayBusID(event) {
             });
         }, 
         error: function () {
-            return new alert("Server error! Please try again!")
+            return new createAlert("Server error! Please try again", "failure");//alert("Server error! Please try again!")
         }
     });
 }
@@ -1050,15 +1083,15 @@ function addRoute(event) {
         const destId = $("#select_dest_" + (i + 1)).val();
         const time = $("#select_time" + (i + 1)).val();
         if (destId == "" && time == "") continue;
-        else if (destId == "" || time == "") return alert("Please provide valid destination/time combination");
+        else if (destId == "" || time == "") return createAlert("Please provide valid destination/time combination!", "info");//alert("Please provide valid destination/time combination");
         data.push(destId + "_" + i + "_" + time);
     }
     console.log(data);
     if (data.length <= 1) {
-        return alert("Total number of destinations should be greater than 1");
+        return createAlert("Total number of destinations should be greater than 1!", "info");//alert("Total number of destinations should be greater than 1");
     }
     const busId = $("#select_bus").val();
-    if (busId == "" || busId == undefined) return alert("Please provide a bus id for this route!");
+    if (busId == "" || busId == undefined) return createAlert("Please provide a bus id for this route!", "info");//alert("Please provide a bus id for this route!");
     console.log(busId);
     $.ajax({
         url: "http://localhost:8080/api/v1/route/create/" + busId,
@@ -1071,11 +1104,13 @@ function addRoute(event) {
         contentType: "application/json",
         success: function (result) {
             console.log(result);
-            alert("Route added successfully!")
+            createAlert("Route added successfully!", "success");
+            //alert("Route added successfully!")
         },
         error: function (xhr, status, error) {
             console.log(error);
-            alert("Oops something went wrong! Please try again")
+            createAlert("Oops something went wrong! Please try again", "failure");
+            //alert("Oops something went wrong! Please try again")
         }
     });
 
@@ -1221,7 +1256,7 @@ function add_Destination_toselect(event, len) {
             });
         } , 
         error: function () {
-            return new alert("Server error! Please try again!")
+            return new createAlert("Server error! Please try again", "failure");//alert("Server error! Please try again!")
         }
     });
 }
@@ -1246,11 +1281,13 @@ const save_destination = (evt) => {
         contentType: "application/json",
         success: function (result) {
             console.log(result);
-            alert("Destination updated successfully!")
+            createAlert("Destination updated successfully!", "success");
+            //alert("Destination updated successfully!")
         },
         error: function (xhr, status, error) {
             console.log(error);
-            alert("Oops something went wrong! Please try again")
+            createAlert("Oops something went wrong! Please try again", "failure");
+            //alert("Oops something went wrong! Please try again")
         }
     });
 }
@@ -1312,12 +1349,14 @@ function generateReport(reportType) {
             link.href = window.URL.createObjectURL(blob); // Set the href to the URL of the Blob
             link.download = reportType + '.xlsx'; // Set the download attribute to the file name
             link.click(); // Trigger the click event to start the download
-            alert("Report generated successfully!");
+            createAlert("Report generated successfully!", "success");
+            //alert("Report generated successfully!");
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log("Error generating report:", textStatus, errorThrown);
             console.log(textStatus, errorThrown);
-            alert("Error generating report!");
+            createAlert("Error generating report!", "failure");
+            //alert("Error generating report!");
         }
     });
 }
@@ -1430,7 +1469,7 @@ function getUnResolvedIssues() {
         }
         ,
         error: function () {
-            return alert("Something went wrong. Please try again later!");
+            return createAlert("Something went wrong. Please try again later!", "failure");//alert("Something went wrong. Please try again later!");
         }
     });
 }
@@ -1479,4 +1518,25 @@ $(document).ready(function validateToken()
     console.log("loading")
 });
 
+
+   function createAlert(message, type) {
+    var alertContainer = document.getElementById("alert-container");
+    var alertBox = document.createElement("div");
+    var closeButton = document.createElement("span");
+
+    alertBox.textContent = message;
+    closeButton.textContent = "×";
+    closeButton.className = "closebtn";
+    closeButton.onclick = function() {
+      alertContainer.removeChild(alertBox);
+    };
+
+    alertBox.className = "alert " + type;
+    alertBox.appendChild(closeButton);
+    alertContainer.appendChild(alertBox);
+  }
+
+  
+
+   
 

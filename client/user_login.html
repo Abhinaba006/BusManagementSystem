@@ -11,7 +11,7 @@
 </head>
 
 <body>
-
+    <div id="alert-container"></div>
     <div class="login-main-div">
 
         <div class="nri-travel-side">
@@ -87,11 +87,31 @@
                     window.location.replace("/client/index.html");
                 },
                 error: function () {
-                    alert("Invalid credentials!");
+                    createAlert("Invalid credentials","info");
+                    //alert("Invalid credentials!");
                 }
             });
 
         })
+
+
+
+        function createAlert(message, type) {
+    var alertContainer = document.getElementById("alert-container");
+    var alertBox = document.createElement("div");
+    var closeButton = document.createElement("span");
+
+    alertBox.textContent = message;
+    closeButton.textContent = "×";
+    closeButton.className = "closebtn";
+    closeButton.onclick = function() {
+      alertContainer.removeChild(alertBox);
+    };
+
+    alertBox.className = "alert " + type;
+    alertBox.appendChild(closeButton);
+    alertContainer.appendChild(alertBox);
+  }
     </script>
 </body>
 

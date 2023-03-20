@@ -43,7 +43,7 @@
                 "Content-Type": "application/json"
             },
             error: function () {
-                alert("wrong cookie")
+                //alert("wrong cookie")
                 window.location.replace("admin_login.html");
             }
         });
@@ -51,7 +51,7 @@
 </head>
 
 <body>
-
+<div id="alert-container"></div>
     <div class="main">
         <!-- Header -->
         <div class="header">
@@ -277,7 +277,7 @@
                             function getReportById(event) {
                                 event.preventDefault();
                                 const id = $("#report-route-id").val();
-                                if (id == "") return alert("Please provide a valid route id");
+                                if (id == "") return createAlert("Please provide a valid route id", "info");//alert("Please provide a valid route id");
                                 $.ajax({
                                     url: "http://localhost:8080/api/v1/route/getReport/" + id,
                                     type: "GET",
@@ -323,7 +323,7 @@
                                         });
                                     },
                                     error: function () {
-                                        return alert("Server error! Please try again!")
+                                        return createAlert("Server error. Please try again!", "failure");//alert("Server error! Please try again!")
                                     }
                                 });
 
@@ -777,6 +777,8 @@
     <script src="./admin_homepage.js">
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
 </body>
 
 </html>

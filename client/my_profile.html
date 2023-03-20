@@ -38,14 +38,14 @@
                 "Content-Type": "application/json"
             },
             error: function () {
-                alert("wrong cookie")
+                //alert("wrong cookie")
                 window.location.replace("admin_login.html");
             }
         });
     </script>
 </head>
 <body>
-
+    <div id="alert-container"></div>
     <div class="main">
         <!-- Header -->
         <div class="header">
@@ -199,7 +199,7 @@
   $.when(
     $.ajax({
         //fetch user data
-      url: "http://localhost:8080/api/v1/user/get/1",
+      url: "http://localhost:8080/api/v1/user/get/"+getIdCookie(),
       headers: {
             "Authorization": getTokenCookie(),
             "Content-Type": "application/json"
@@ -208,7 +208,7 @@
     }),
     $.ajax({
         //fetch corresponding user data from tickets 
-      url: "http://localhost:8080/api/v1/ticket/get/1/totalTickets",
+      url: "http://localhost:8080/api/v1/ticket/get/"+getIdCookie()+"/totalTickets",
       headers: {
             "Authorization": getTokenCookie(),
             "Content-Type": "application/json"
@@ -253,12 +253,61 @@
                 }), 
                     contentType: "application/json",
 					success: function() {
-						alert("Feedback/Query submitted successfully");
+                        createAlert("Feedback/Query submitted successfully","success");
+						//alert("Feedback/Query submitted successfully");
 					},
 					error: function() {
-						alert("Error submitting data");
+                        createAlert("Error submitting data","failure");
+						//alert("Error submitting data");
 					}
 				});
 			});
 		});
+
+
+
+        function getTokenCookie() {
+	const cookieName = "token=";
+	const cookies = document.cookie.split("; ");
+	for (let i = 0; i < cookies.length; i++) {
+		const cookie = cookies[i];
+		if (cookie.indexOf(cookieName) === 0) {
+			return cookie.substring(cookieName.length, cookie.length);
+		}
+	}
+	return "";
+}
+
+function getIdCookie() {
+    const cookieString = document.cookie;
+    if (cookieString) {
+        const cookies = cookieString.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.startsWith('id=')) {
+                return parseInt(cookie.substring('id='.length, cookie.length));
+            }
+        }
+    }
+    return null;
+}
+
+
+
+function createAlert(message, type) {
+    var alertContainer = document.getElementById("alert-container");
+    var alertBox = document.createElement("div");
+    var closeButton = document.createElement("span");
+
+    alertBox.textContent = message;
+    closeButton.textContent = "×";
+    closeButton.className = "closebtn";
+    closeButton.onclick = function() {
+      alertContainer.removeChild(alertBox);
+    };
+
+    alertBox.className = "alert " + type;
+    alertBox.appendChild(closeButton);
+    alertContainer.appendChild(alertBox);
+  }
 </script>

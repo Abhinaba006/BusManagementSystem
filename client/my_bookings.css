@@ -508,3 +508,45 @@
 } */
 
 /* Media Query Ends Here*/
+
+.alert {
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    position: fixed;
+    top: 0;
+    width: 70%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align:center;
+  }
+  
+  .success {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .failure {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .info{
+      background-color: #37d5e0;
+      color: white;
+  }
+  
+  .closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .closebtn:hover {
+    color: black;
+  }

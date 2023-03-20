@@ -14,7 +14,7 @@
 </head>
 
 <body>
-
+    <div id="alert-container"></div>
     <div class="main">
         <!-- Header -->
         <div class="header">
@@ -211,7 +211,7 @@
     $(document).ready(function () {
         //Change it the user that is calling
         $.ajax({
-            url: "http://localhost:8080/api/v1/ticket/get/1",
+            url: "http://localhost:8080/api/v1/ticket/get/"+getIdCookie(),
             type: "GET",
             headers: {
                 "Authorization": getTokenCookie(),
@@ -328,18 +328,18 @@
                                             parentDiv.innerHTML += routeHTML;
                                         },
                                         error: function () {
-                                            return alert("Server error! Please try again!")
+                                            return createAlert("Server error! Please try again!","failure");//alert("Server error! Please try again!")
                                         }
                                     });
 
                                 },
                                 error: function () {
-                                    return alert("Server error! Please try again!");
+                                    return createAlert("Server error! Please try again!","failure");//alert("Server error! Please try again!");
                                 }
                             });
                         },
                         error: function () {
-                            return alert("Server error! Please try again!");
+                            return createAlert("Server error! Please try again!","failure");//alert("Server error! Please try again!");
                         }
                     });
 
@@ -349,7 +349,7 @@
                 }
             },
             error: function () {
-                return alert("Something went wrong. Please try again later!");
+                return createAlert("Server error! Please try again!","failure");//alert("Something went wrong. Please try again later!");
             }
         });
     })
@@ -366,12 +366,14 @@
             },
             success: function (response) {
                 console.log("Ticket cancelled successfully");
-                alert("Ticket cancelled sucessfully!");
+                createAlert("Ticket cancelled successfully","success");
+                //alert("Ticket cancelled sucessfully!");
                 // Handle success response here
             },
             error: function (xhr, status, error) {
                 console.log("Error cancelling ticket: " + error);
-                alert("Server error! Please try again!");
+                createAlert("Server error! Please try again!","failure");
+                //alert("Server error! Please try again!");
                 // Handle error response here
             }
         });
@@ -424,4 +426,50 @@
             .catch(error => console.error(error));
     }
 
+
+
+
+    function getTokenCookie() {
+	const cookieName = "token=";
+	const cookies = document.cookie.split("; ");
+	for (let i = 0; i < cookies.length; i++) {
+		const cookie = cookies[i];
+		if (cookie.indexOf(cookieName) === 0) {
+			return cookie.substring(cookieName.length, cookie.length);
+		}
+	}
+	return "";
+}
+
+function getIdCookie() {
+    const cookieString = document.cookie;
+    if (cookieString) {
+        const cookies = cookieString.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.startsWith('id=')) {
+                return parseInt(cookie.substring('id='.length, cookie.length));
+            }
+        }
+    }
+    return null;
+}
+
+
+function createAlert(message, type) {
+    var alertContainer = document.getElementById("alert-container");
+    var alertBox = document.createElement("div");
+    var closeButton = document.createElement("span");
+
+    alertBox.textContent = message;
+    closeButton.textContent = "×";
+    closeButton.className = "closebtn";
+    closeButton.onclick = function() {
+      alertContainer.removeChild(alertBox);
+    };
+
+    alertBox.className = "alert " + type;
+    alertBox.appendChild(closeButton);
+    alertContainer.appendChild(alertBox);
+  }
 </script>

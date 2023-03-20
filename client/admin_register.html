@@ -11,7 +11,7 @@
 </head>
 
 <body>
-
+    <div id="alert-container"></div>
     <div class="login-main-div">
 
         <div class="nri-travel-side">
@@ -68,29 +68,33 @@
             const email = $("#email").val();
             
             if(email==undefined || email==""){
-                alert("please fill email")
+                createAlert("Please fill email", "info");
+                //alert("please fill email")
                 return
             }
 
             const password = $("#mypassword").val();
 
             if(password==undefined || password==""){
-                alert("please fill password")
+                createAlert("Please fill password!", "info");
+                //alert("please fill password")
                 return
             }
 
             const name = $("#name").val();
 
             if(name==undefined || name==""){
-                alert("please fill name")
-                return
+                //createAlert("Please fill name!", "info");
+                //alert("please fill name")
+                return createAlert("Please fill name!", "info");
             }
 
             const employeeId = $("#employeeId").val();
 
 
             if(employeeId==undefined || employeeId==""){
-                alert("please fill employeeId")
+                createAlert("Please fill employeeId!", "info");
+                //alert("please fill employeeId")
                 return
             }
             
@@ -119,7 +123,30 @@
             });
 
         })
+        
     </script>
+
+
+<script>
+
+    function createAlert(message, type) {
+    var alertContainer = document.getElementById("alert-container");
+    var alertBox = document.createElement("div");
+    var closeButton = document.createElement("span");
+
+    alertBox.textContent = message;
+    closeButton.textContent = "×";
+    closeButton.className = "closebtn";
+    closeButton.onclick = function() {
+      alertContainer.removeChild(alertBox);
+    };
+
+    alertBox.className = "alert " + type;
+    alertBox.appendChild(closeButton);
+    alertContainer.appendChild(alertBox);
+  }
+</script>
+</script>
 
 </body>
 

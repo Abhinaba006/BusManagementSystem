@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import nrifintech.busMangementSystem.JwtTokenUtil;
+import nrifintech.busMangementSystem.Service.impl.MailService;
 import nrifintech.busMangementSystem.Service.interfaces.UserService;
 import nrifintech.busMangementSystem.entities.User;
 import nrifintech.busMangementSystem.exception.UnauthorizedAction;
@@ -39,6 +41,9 @@ public class UserController {
 
 	@Autowired
 	JwtTokenUtil jwtTokenUtil;
+	
+	@Autowired
+    private MailService mailService;
 
 	// get
 	@GetMapping("/get")
@@ -59,7 +64,8 @@ public class UserController {
 
 	// post
 	@PostMapping(path = "/create", consumes = "application/json", produces = "application/json")
-	ResponseEntity<User> createUser(HttpServletRequest request,@Valid @RequestBody User user) {
+	ResponseEntity<User> createUser(HttpServletRequest request,@Valid @RequestBody User user) throws MessagingException {
+		mailService.sendCredentials(user.getEmail(), user.getEmployeeId(), user.getPassword());
 		Enumeration<String> headerNames = request.getHeaderNames();
     	System.out.println("user create resolve \n");
         while(headerNames.hasMoreElements()) {
@@ -67,6 +73,7 @@ public class UserController {
             System.out.println(headerName + ": " + request.getHeader(headerName));
         }
 		User createdUser = userService.createUser(user);
+		
 		return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
 	}
 	@PostMapping(path = "/createAdmin", consumes = "application/json", produces = "application/json")
