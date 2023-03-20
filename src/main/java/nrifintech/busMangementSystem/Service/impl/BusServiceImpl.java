@@ -29,6 +29,7 @@ public class BusServiceImpl implements BusService {
 			.orElseThrow(() -> new ResouceNotFound("Bus", "id", id));
 		System.out.println("prev bus is "+ bus);
 		System.out.println("updated bus is "+ updatedBus);
+		if(updatedBus.getBus_number()!=null) bus.setBus_number(updatedBus.getBus_number());
 		if(updatedBus.getName()!=null) bus.setName(updatedBus.getName());
 		if(updatedBus.getTotalNumberOfseats()>0) bus.setTotalNumberOfseats(updatedBus.getTotalNumberOfseats());
 

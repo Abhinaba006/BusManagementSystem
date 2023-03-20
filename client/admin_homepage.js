@@ -592,6 +592,7 @@ function updateEmployee(event) {
         contentType: "application/json",
         success: function (result) {
             console.log(result);
+            document.querySelector(".search-overlay").style.display = "none";
             createAlert("User updated successfully!", "success");
             //alert("User updated successfully!")
         },
@@ -682,6 +683,7 @@ function deleteEmployee(event) {
         success: function (result) {
             console.log(result);
             //alert("Employee details deleted successfully!")
+            document.querySelector(".search-overlay").style.display = "none";
             createAlert("Employee details deleted successfully!", "success");
 
         },
@@ -866,6 +868,7 @@ function updateDestination(event) {
         contentType: "application/json",
         success: function (result) {
             console.log(result);
+            document.querySelector(".destination-overlay").style.display = "none";
             createAlert("Destination updated successfully!", "success");
             //alert("Destination updated successfully!")
         },
@@ -893,6 +896,7 @@ function deleteDestination(event) {
         type: "DELETE",
         success: function (result) {
             console.log(result);
+            document.querySelector(".destination-overlay").style.display = "none";
             createAlert("Destination deleted successfully!", "success");
             //alert("Destination deleted successfully!")
         },
@@ -925,7 +929,9 @@ function updateBus(event) {
         contentType: "application/json",
         success: function (result) {
             console.log(result);
-            createAlert("Bus added successfully!", "success");
+            
+            document.querySelector(".bus-overlay").style.display = "none";
+            createAlert("Bus updated successfully!", "success");
             //alert("Bus updated successfully!")
         },
         error: function (xhr, status, error) {
@@ -948,6 +954,7 @@ function deleteBus(event) {
         type: "DELETE",
         success: function (result) {
             console.log(result);
+            document.querySelector(".bus-overlay").style.display = "none";
             createAlert("Bus deleted successfully!", "success");
             //alert("Bus deleted successfully!")
         },
