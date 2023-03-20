@@ -37,17 +37,17 @@ public class IssueServiceImpl implements IssueService {
     }
 
     @Override
-    public void addIssue(Issue issue){
-        issueRepo.save(issue);
+    public Issue addIssue(Issue issue){
+        return issueRepo.save(issue);
     }
 
     @Override
-    public void resolveIssue(int issueId){
+    public Issue resolveIssue(int issueId){
         Optional<Issue> _issue = issueRepo.findById(issueId);
         Issue issue = _issue.get();
 
         issue.setIsResolved(1);
-        issueRepo.save(issue);
+        return issueRepo.save(issue);
     }
 
 	

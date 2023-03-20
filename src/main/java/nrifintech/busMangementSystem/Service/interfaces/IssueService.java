@@ -14,6 +14,6 @@ import nrifintech.busMangementSystem.entities.RouteInfo;
 public interface IssueService {
 	List<Issue> getAllunResolvedIssue();
     List<Issue> getIssuesByUserId(int userId);
-    void addIssue(Issue issue);
-    void resolveIssue(int issueId);
+    Issue addIssue(Issue issue);
+    Issue resolveIssue(int issueId);
 }

@@ -47,21 +47,21 @@ public class IssueController {
     }
 
     @PostMapping(path = "/add", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Void> addIssue(@RequestBody Issue issue){
-        issueService.addIssue(issue);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<Issue> addIssue(@RequestBody Issue issue){
+        Issue createdIssue = issueService.addIssue(issue);
+        return new ResponseEntity<>(createdIssue, HttpStatus.CREATED);
     }
 
     @PostMapping("/{issueId}/resolve")
-    public ResponseEntity<Void> resolveIssue(HttpServletRequest request, @PathVariable int issueId){
+    public ResponseEntity<Issue> resolveIssue(HttpServletRequest request, @PathVariable int issueId){
     	Enumeration<String> headerNames = request.getHeaderNames();
     	System.out.println("issoe resolve \n");
         while(headerNames.hasMoreElements()) {
             String headerName = headerNames.nextElement();
             System.out.println(headerName + ": " + request.getHeader(headerName));
         }
-        issueService.resolveIssue(issueId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        Issue resolvedIssue = issueService.resolveIssue(issueId);
+        return new ResponseEntity<>(resolvedIssue,HttpStatus.CREATED);
     }
 }
 
