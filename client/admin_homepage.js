@@ -155,14 +155,17 @@ function add_route_field(event) {
     const select_div = document.getElementById("add_field");
     const len = select_div.childElementCount;
     console.log(len);
-    select_div.innerHTML += `
-    <div class = "select_content">
-        <select class = "select_class" id = "select_dest_${len + 1}" onclick = "add_Destination_toselect(event,${len})">
-            <option>Add destination</option>
-        </select>
-        <input class = "select_time" id = "select_time_${len + 1}" placeholder = "HH:MM(24hr-format)"></select>
-    </div> 
-    `
+
+    const newDiv = document.createElement("div");
+    newDiv.className = "select_content";
+    newDiv.innerHTML = `
+    <select class="select_class" id="select_dest_${len + 1}" onclick="add_Destination_toselect(event, ${len})">
+        <option>Add destination</option>
+    </select>
+    <input class="select_time" id="select_time_${len + 1}" placeholder="HH:MM (24hr-format)">
+`;
+    select_div.appendChild(newDiv);
+
 }
 function add_route_field_edit(event) {
     event.preventDefault();
@@ -235,7 +238,7 @@ function getRoutesAdmin(event) {
 
     const result = [];
     $.ajax({
-        url:  "http://localhost:8080/api/v1/route/getBySrcDest/" + source + "/" + dest,
+        url: "http://localhost:8080/api/v1/route/getBySrcDest/" + source + "/" + dest,
         type: "GET",
         headers: {
             "Authorization": getTokenCookie(),
@@ -243,7 +246,7 @@ function getRoutesAdmin(event) {
         },
         success: function (data) {
             console.log(data);
-    
+
             for (var i = 0; i < data.length; i++) {
                 const route_id = data[i].id;
                 const obj = {
@@ -260,7 +263,7 @@ function getRoutesAdmin(event) {
                 };
                 obj["route_id"] = route_id;
                 $.ajax({
-                    url:  "http://localhost:8080/api/v1/route/getDestinations/" + route_id,
+                    url: "http://localhost:8080/api/v1/route/getDestinations/" + route_id,
                     type: "GET",
                     headers: {
                         "Authorization": getTokenCookie(),
@@ -270,12 +273,12 @@ function getRoutesAdmin(event) {
                         console.log(data);
                         obj["source_name"] = data[0].destination.name;
                         obj["source_time"] = data[0].time;
-                
+
                         obj["destination_name"] = data[data.length - 1].destination.name;
                         obj["destination_time"] = data[data.length - 1].time;
-                
+
                         $.ajax({
-                            url:  "http://localhost:8080/api/v1/route/getReport/" + route_id + "/" + formattedDate,
+                            url: "http://localhost:8080/api/v1/route/getReport/" + route_id + "/" + formattedDate,
                             type: "GET",
                             headers: {
                                 "Authorization": getTokenCookie(),
@@ -285,7 +288,7 @@ function getRoutesAdmin(event) {
                                 var diff = data.total_seats - data.total_bookings;
                                 obj["seatsLeft"] = Math.max(0, diff);
                                 $.ajax({
-                                    url:  "http://localhost:8080/api/v1/route/getBus/" + route_id,
+                                    url: "http://localhost:8080/api/v1/route/getBus/" + route_id,
                                     type: "GET",
                                     headers: {
                                         "Authorization": getTokenCookie(),
@@ -295,7 +298,7 @@ function getRoutesAdmin(event) {
                                         obj["busName"] = data.name;
                                         obj["busId"] = data.id;
                                         obj["busNumber"] = data.bus_number;
-                                
+
                                         //To be changed
                                         obj["userId"] = 1;
                                         console.log(obj);
@@ -336,30 +339,30 @@ function getRoutesAdmin(event) {
                                                 `;
                                         const parentDiv = document.querySelector(".admin_routes");
                                         parentDiv.innerHTML += routeHTML;
-                                    }, 
+                                    },
                                     error: function () {
                                         return createAlert("Server error! Please try again!", "failure");
                                         //return alert("Server error! Please try again!")
                                     }
                                 });
-                            }, 
+                            },
                             error: function () {
                                 return createAlert("Server error! Please try again!", "failure");
                                 //return alert("Server error! Please try again!");
                             }
                         });
-                    }, 
+                    },
                     error: function () {
                         return createAlert("Server error! Please try again!", "failure");
                         //return alert("Server error! Please try again!");
                     }
                 });
-    
-    
-    
-    
+
+
+
+
             }
-        }, 
+        },
         error: function () {
             createAlert("Server error! Please try again!", "failure");
             //alert("Server error! Please try again later.")
@@ -432,7 +435,7 @@ function searchTickets(event) {
     const id = 1; //To be changed the the id that is to be fetched by the email
 
     $.ajax({
-        url:  "http://localhost:8080/api/v1/ticket/get/"+getIdCookie(),
+        url: "http://localhost:8080/api/v1/ticket/get/" + getIdCookie(),
         type: "GET",
         headers: {
             "Authorization": getTokenCookie(),
@@ -465,7 +468,7 @@ function searchTickets(event) {
                 };
                 obj["route_id"] = route_id;
                 $.ajax({
-                    url:  "http://localhost:8080/api/v1/route/getDestinations/" + route_id,
+                    url: "http://localhost:8080/api/v1/route/getDestinations/" + route_id,
                     type: "GET",
                     headers: {
                         "Authorization": getTokenCookie(),
@@ -475,12 +478,12 @@ function searchTickets(event) {
                         console.log(data);
                         obj["source_name"] = data[0].destination.name;
                         obj["source_time"] = data[0].time;
-                
+
                         obj["destination_name"] = data[data.length - 1].destination.name;
                         obj["destination_time"] = data[data.length - 1].time;
-                
+
                         $.ajax({
-                            url:  "http://localhost:8080/api/v1/route/getReport/" + route_id + "/" + formattedDate,
+                            url: "http://localhost:8080/api/v1/route/getReport/" + route_id + "/" + formattedDate,
                             type: "GET",
                             headers: {
                                 "Authorization": getTokenCookie(),
@@ -490,7 +493,7 @@ function searchTickets(event) {
                                 var diff = data.total_seats - data.total_bookings;
                                 obj["seatsLeft"] = Math.max(0, diff);
                                 $.ajax({
-                                    url:  "http://localhost:8080/api/v1/route/getBus/" + route_id,
+                                    url: "http://localhost:8080/api/v1/route/getBus/" + route_id,
                                     type: "GET",
                                     headers: {
                                         "Authorization": getTokenCookie(),
@@ -500,7 +503,7 @@ function searchTickets(event) {
                                         obj["busName"] = data.name;
                                         obj["busId"] = data.id;
                                         obj["busNumber"] = data.bus_number;
-                                
+
                                         //To be changed
                                         obj["userId"] = 1;
                                         console.log(obj);
@@ -527,32 +530,32 @@ function searchTickets(event) {
                                 `;
                                         const parentDiv = document.querySelector(".admin-ticket-content");
                                         parentDiv.innerHTML += routeHTML;
-                                    }, 
+                                    },
                                     error: function () {
                                         return createAlert("Server error! Please try again!", "failure");
                                         //return alert("Server error! Please try again!")
                                     }
                                 });
-                        
-                            }, 
+
+                            },
                             error: function () {
                                 return createAlert("Server error! Please try again!", "failure");
                                 //return alert("Server error! Please try again!");
                             }
                         });
-                        
-                    }, 
+
+                    },
                     error: function () {
                         return createAlert("Server error! Please try again!", "failure");
                         //return alert("Server error! Please try again!");
                     }
                 });
-    
-    
-    
-    
+
+
+
+
             }
-        }, 
+        },
         error: function () {
             return createAlert("Something went wrong. Please try again later!", "failure");
             //return alert("Something went wrong. Please try again later!");
@@ -607,7 +610,7 @@ function updateEmployee(event) {
 function displayDestinations3(event) {
     event.preventDefault();
     $.ajax({
-        url:  "http://localhost:8080/api/v1/destination/get",
+        url: "http://localhost:8080/api/v1/destination/get",
         type: "GET",
         headers: {
             "Authorization": getTokenCookie(),
@@ -616,7 +619,7 @@ function displayDestinations3(event) {
         success: function (data) {
             console.log(data);
             var selectElement = document.getElementById('admin_from');
-    
+
             // Add options from the data array
             data.forEach(function (item) {
                 var optionElement = document.createElement('option');
@@ -629,7 +632,7 @@ function displayDestinations3(event) {
                 if (flag || selectElement.options.length == 1)
                     selectElement.appendChild(optionElement);
             });
-        }, 
+        },
         error: function () {
             return new createAlert("Server error! Please try again", "failure");//alert("Server error! Please try again!")
         }
@@ -638,7 +641,7 @@ function displayDestinations3(event) {
 function displayDestinations4(event) {
     event.preventDefault();
     $.ajax({
-        url:  "http://localhost:8080/api/v1/destination/get",
+        url: "http://localhost:8080/api/v1/destination/get",
         type: "GET",
         headers: {
             "Authorization": getTokenCookie(),
@@ -647,7 +650,7 @@ function displayDestinations4(event) {
         success: function (data) {
             console.log(data);
             var selectElement = document.getElementById('admin_to');
-    
+
             // Add options from the data array
             data.forEach(function (item) {
                 var optionElement = document.createElement('option');
@@ -660,7 +663,7 @@ function displayDestinations4(event) {
                 if (flag || selectElement.options.length == 1)
                     selectElement.appendChild(optionElement);
             });
-        }, 
+        },
         error: function () {
             return new createAlert("Server error! Please try again later!", "failure");//alert("Server error! Please try again!")
         }
@@ -729,7 +732,7 @@ function on() {
             createAlert("Server error!", "failure");
         }
     });
-    
+
 
 }
 function addDestination(event) {
@@ -776,7 +779,7 @@ function on2(event) {
     const busNumber = $("#bus-search-name").val();
     console.log(busNumber);
     $.ajax({
-        url:  "http://localhost:8080/api/v1/bus/get",
+        url: "http://localhost:8080/api/v1/bus/get",
         type: "GET",
         headers: {
             "Authorization": getTokenCookie(),
@@ -800,7 +803,7 @@ function on2(event) {
             $("#bus-name-o").val(bus.name);
             $("#bus-seats-o").val(bus.totalNumberOfseats);
             $("#bus-id-o").val(bus.id);
-    
+
         }
     });
 
@@ -815,7 +818,7 @@ function on3(event) {
     const destName = $("#dest-search-name").val();
     console.log(destName);
     $.ajax({
-        url: "http://localhost:8080/api/v1/destination/get" ,
+        url: "http://localhost:8080/api/v1/destination/get",
         type: "GET",
         headers: {
             "Authorization": getTokenCookie(),
@@ -982,8 +985,8 @@ function addBus(event) {
         contentType: "application/json",
         success: function (result) {
             console.log(result);
-           // alert("Bus added successfully!")
-           createAlert("Bus added successfully!", "success");
+            // alert("Bus added successfully!")
+            createAlert("Bus added successfully!", "success");
         },
         error: function (xhr, status, error) {
             console.log(error);
@@ -1001,7 +1004,7 @@ function off3() {
 function displayBusID(event) {
     event.preventDefault();
     $.ajax({
-        url: "http://localhost:8080/api/v1/bus/get" ,
+        url: "http://localhost:8080/api/v1/bus/get",
         type: "GET",
         headers: {
             "Authorization": getTokenCookie(),
@@ -1009,7 +1012,7 @@ function displayBusID(event) {
         },
         success: function (data) {
             var selectElement = document.getElementById('select_bus');
-    
+
             // Add options from the data array
             data.forEach(function (item) {
                 var optionElement = document.createElement('option');
@@ -1022,7 +1025,7 @@ function displayBusID(event) {
                 if (flag || selectElement.options.length == 1)
                     selectElement.appendChild(optionElement);
             });
-        }, 
+        },
         error: function () {
             return new createAlert("Server error! Please try again", "failure");//alert("Server error! Please try again!")
         }
@@ -1081,7 +1084,7 @@ function addRoute(event) {
     const data = [];
     for (var i = 0; i < table.childElementCount; i++) {
         const destId = $("#select_dest_" + (i + 1)).val();
-        const time = $("#select_time" + (i + 1)).val();
+        const time = $("#select_time_" + (i + 1)).val();
         if (destId == "" && time == "") continue;
         else if (destId == "" || time == "") return createAlert("Please provide valid destination/time combination!", "info");//alert("Please provide valid destination/time combination");
         data.push(destId + "_" + i + "_" + time);
@@ -1092,7 +1095,7 @@ function addRoute(event) {
     }
     const busId = $("#select_bus").val();
     if (busId == "" || busId == undefined) return createAlert("Please provide a bus id for this route!", "info");//alert("Please provide a bus id for this route!");
-    console.log(busId);
+    console.log("data: ", data);
     $.ajax({
         url: "http://localhost:8080/api/v1/route/create/" + busId,
         headers: {
@@ -1118,7 +1121,7 @@ function addRoute(event) {
 function add_field() {
 
     $.ajax({
-        url:  "http://localhost:8080/api/v1/destination/get",
+        url: "http://localhost:8080/api/v1/destination/get",
         type: "GET",
         headers: {
             "Authorization": getTokenCookie(),
@@ -1130,38 +1133,38 @@ function add_field() {
                 name: "Select destination",
                 id: -1
             })
-    
+
             // Get the table element
             var table = document.querySelector(".container");
-    
+
             // Get the number of rows already present in the table
             var rowLength = table.rows.length;
-    
+
             // Create the new table row element
             var newRow = document.createElement('tr');
-    
+
             // Create the first table cell for the "from" column
             var fromCell = document.createElement('td');
-    
+
             // Create the "from" div element with the select element and label
             var fromDiv = document.createElement('div');
             fromDiv.className = "from";
-    
+
             var fromToSearchText = document.createElement('div');
             fromToSearchText.className = "from-to-search-text";
-    
+
             var fromText = document.createElement('label');
             fromText.htmlFor = "fromtext";
             fromText.textContent = "Add Bus Stop";
             fromToSearchText.appendChild(fromText);
-    
+
             var optionsDiv = document.createElement('div');
             optionsDiv.className = "options";
-    
+
             var selectElement = document.createElement('select');
             selectElement.name = "";
             selectElement.id = "select_" + (rowLength + 1);
-    
+
             // Add options from the data array
             data.forEach(function (item) {
                 var optionElement = document.createElement('option');
@@ -1169,47 +1172,47 @@ function add_field() {
                 optionElement.textContent = item.name;
                 selectElement.appendChild(optionElement);
             });
-    
+
             optionsDiv.appendChild(selectElement);
             fromDiv.appendChild(fromToSearchText);
             fromDiv.appendChild(optionsDiv);
             fromCell.appendChild(fromDiv);
-    
+
             // Create the second table cell for the "to" column
             var toCell = document.createElement('td');
-    
+
             // Create the "to" div element with the input element and label
             var toDiv = document.createElement('div');
             toDiv.className = "to";
-    
+
             var toToSearchText = document.createElement('div');
             toToSearchText.className = "from-to-search-text";
-    
+
             var toText = document.createElement('label');
             toText.htmlFor = "timetext";
             toText.textContent = "Add Timing";
             toToSearchText.appendChild(toText);
-    
+
             var toOptionsDiv = document.createElement('div');
             toOptionsDiv.className = "options";
-    
+
             var timeInput = document.createElement('input');
             timeInput.type = "time";
             timeInput.id = "time-input_" + (rowLength + 1);
             timeInput.name = "time";
-    
+
             toOptionsDiv.appendChild(timeInput);
             toDiv.appendChild(toToSearchText);
             toDiv.appendChild(toOptionsDiv);
             toCell.appendChild(toDiv);
-    
+
             // Add the cells to the row
             newRow.appendChild(fromCell);
             newRow.appendChild(toCell);
-    
+
             // Add the new row to the table
             table.appendChild(newRow);
-    
+
         }
     });
     // var table = document.querySelector(".container");
@@ -1232,16 +1235,16 @@ function add_field() {
 function add_Destination_toselect(event, len) {
     event.preventDefault();
     $.ajax({
-        url:  "http://localhost:8080/api/v1/destination/get",
+        url: "http://localhost:8080/api/v1/destination/get",
         type: "GET",
         headers: {
             "Authorization": getTokenCookie(),
             "Content-Type": "application/json"
         },
-        success:function (data) {
+        success: function (data) {
             console.log(data);
             var selectElement = document.getElementById('select_dest_' + (len + 1));
-    
+
             // Add options from the data array
             data.forEach(function (item) {
                 var optionElement = document.createElement('option');
@@ -1254,7 +1257,7 @@ function add_Destination_toselect(event, len) {
                 if (flag || selectElement.options.length == 1)
                     selectElement.appendChild(optionElement);
             });
-        } , 
+        },
         error: function () {
             return new createAlert("Server error! Please try again", "failure");//alert("Server error! Please try again!")
         }
@@ -1444,7 +1447,7 @@ function getUnResolvedIssues() {
                                     "Authorization": getTokenCookie(),
                                     "Content-Type": "application/json"
                                 },
-                                type:"POST",
+                                type: "POST",
                                 success: function (response) {
                                     // Do something if the POST request is successful
                                     console.log('Data posted to database');
@@ -1513,13 +1516,12 @@ function logOut() {
 
 
 
-$(document).ready(function validateToken()
-{
+$(document).ready(function validateToken() {
     console.log("loading")
 });
 
 
-   function createAlert(message, type) {
+function createAlert(message, type) {
     var alertContainer = document.getElementById("alert-container");
     var alertBox = document.createElement("div");
     var closeButton = document.createElement("span");
@@ -1527,16 +1529,16 @@ $(document).ready(function validateToken()
     alertBox.textContent = message;
     closeButton.textContent = "×";
     closeButton.className = "closebtn";
-    closeButton.onclick = function() {
-      alertContainer.removeChild(alertBox);
+    closeButton.onclick = function () {
+        alertContainer.removeChild(alertBox);
     };
 
     alertBox.className = "alert " + type;
     alertBox.appendChild(closeButton);
     alertContainer.appendChild(alertBox);
-  }
+}
 
-  
 
-   
+
+
 
