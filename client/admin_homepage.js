@@ -1541,6 +1541,7 @@ function createAlert(message, type) {
     closeButton.className = "closebtn";
     closeButton.onclick = function () {
         alertContainer.removeChild(alertBox);
+        window.reload();
     };
 
     alertBox.className = "alert " + type;

@@ -3623,3 +3623,26 @@ box-shadow: 2px 2px 2px #ddd;background:white;
 .closebtn:hover {
   color: black;
 }
+
+.results-list {
+    list-style-type: none;
+    margin-left: 2%;
+    padding: 0;
+  }
+  
+  .results-item {
+    width: fit-content;
+    cursor: pointer;
+    display: inline-block;
+    background-color: #f2f2f2;
+    margin-top: 1%;
+    margin-left: 1%;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .results-item:hover {
+    background-color: #ddd;
+  }
+  
