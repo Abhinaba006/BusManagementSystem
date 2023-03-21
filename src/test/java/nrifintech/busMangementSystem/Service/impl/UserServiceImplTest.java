@@ -11,14 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import nrifintech.busMangementSystem.entities.User;
@@ -28,6 +29,9 @@ import nrifintech.busMangementSystem.repositories.UserRepo;
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
 
+	@Spy
+    private ModelMapper modelMapper;
+	
 	@Mock
     private UserRepo userRepo;
 
@@ -134,7 +138,7 @@ class UserServiceImplTest {
 	@Test
 	void testCheckUser() {
 		user.setPassword(passwordEncoder.encode("demo123"));
-		when(userRepo.findByEmail("demo12@gmail.com", 0)).thenReturn(Optional.of(user));
+		when(userRepo.findByOnlyEmail("demo12@gmail.com")).thenReturn(Optional.of(user));
 		boolean result = userService.checkUser(user.getEmail(), "demo123");
 		assertTrue(result);
 	}
@@ -148,8 +152,8 @@ class UserServiceImplTest {
 		admin.setName("admin");
 		admin.setType(1);
 		
-		when(userRepo.findByEmail("admin12@gmail.com", 0)).thenReturn(Optional.of(admin));
-		boolean result = userService.checkUser(admin.getEmail(), "admin123");
+		when(userRepo.findByEmail("admin12@gmail.com", 1)).thenReturn(Optional.of(admin));
+		boolean result = userService.checkAdmin(admin.getEmail(), "admin123");
 		assertTrue(result);
 	}
 

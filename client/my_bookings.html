@@ -224,13 +224,14 @@
                 // "userId": 1,
                 // "status": "CANCELLED",
                 // "date": "09:03:2023"
+                console.log(227, data) //route
                 for (var i = 0; i < data.length; i++) {
                     const route_id = data[i].routeId;
                     const ticket_id = data[i].id;
                     const formattedDate = data[i].date;
                     const status = data[i].status;
                     const obj = {
-                        busId: "",
+                        busId: data[i].busId,
                         busName: "",
                         busNumber: "",
                         destination_name: "",
@@ -250,7 +251,7 @@
                             "Content-Type": "application/json"
                         },
                         success: function (data) {
-                            console.log(data);
+                            console.log('all destination on prev route' ,data);
                             obj["source_name"] = data[0].destination.name;
                             obj["source_time"] = data[0].time;
 
@@ -264,34 +265,36 @@
                                     "Authorization": getTokenCookie(),
                                     "Content-Type": "application/json"
                                 },
-                                success: function (data) {
+                                success: function (data) { // hata dena if possible
+                                    console.log("repott ", data)
                                     var diff = data.total_seats - data.total_bookings;
                                     obj["seatsLeft"] = max(0, diff);
                                     $.ajax({
-                                        url: "http://localhost:8080/api/v1/route/getDestinations/" + route_id,
+                                        url: "http://localhost:8080/api/v1/bus/get/" + obj.busId,
                                         type: "GET",
                                         headers: {
                                             "Authorization": getTokenCookie(),
                                             "Content-Type": "application/json"
                                         },
                                         success: function (data) {
+                                            console.log(data)
                                             obj["busName"] = data.name;
                                             obj["busId"] = data.id;
                                             obj["busNumber"] = data.bus_number;
-                                            console.log(data.name);
+                                            // console.log(data.name);
                                             
 
                                             //To be changed
-                                            obj["userId"] = 1;
+                                            obj["userId"] = getIdCookie();
                                             console.log(obj);
                                             let color;
-                                            if (status == "CONFIRMED") {
+                                            if (status === "CONFIRMED") {
                                                 color = "green";
                                             }
-                                            else if (status == "CANCELLED") {
+                                            else if (status === "CANCELLED") {
                                                 color = "red";
                                             }
-                                            else if (status = "WAITING") {
+                                            else if (status === "WAITING") {
                                                 color = "yellow";
                                             }
                                             const routeHTML = `

@@ -60,24 +60,26 @@ class TicketServiceImplTest {
 
 	@Test
 	public void createTicketTest() {
-		Ticket ticket = new Ticket();
-		ticket.setRouteId(1);
+	    Ticket ticket = new Ticket();
+	    ticket.setRouteId(1);
 
-		when(ticketRepo.save(ticket)).thenReturn(ticket);
+	    when(ticketRepo.save(ticket)).thenReturn(ticket);
 
-		LocalDate date = LocalDate.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
-		String formattedDate = date.format(formatter);
-		RouteInfo routeInfo = new RouteInfo();
-		routeInfo.setTotal_bookings(2);
-		routeInfo.setTotal_seats(3);
+	    LocalDate date = LocalDate.now();
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
+	    String formattedDate = date.format(formatter);
+	    
+	    RouteInfo routeInfo = new RouteInfo();
+	    routeInfo.setId(1); // set the id value
+	    routeInfo.setTotal_bookings(2);
+	    routeInfo.setTotal_seats(3);
 
-		when(routeInfoService.getRouteInfo(1, formattedDate)).thenReturn(routeInfo);
+	    when(routeInfoService.getRouteInfo(routeInfo.getId(), null)).thenReturn(routeInfo);
 
-		ticketService.createTicket(ticket);
-		assertEquals("CONFIRMED", ticket.getStatus());
-
+	    ticketService.createTicket(ticket);
+	    assertEquals("CONFIRMED", ticket.getStatus());
 	}
+
 
 	@Test
 	public void createTicketStatusWaitingTest() {
@@ -93,7 +95,7 @@ class TicketServiceImplTest {
 		routeInfo.setTotal_bookings(2);
 		routeInfo.setTotal_seats(2);
 
-		when(routeInfoService.getRouteInfo(1, formattedDate)).thenReturn(routeInfo);
+		when(routeInfoService.getRouteInfo(1, null)).thenReturn(routeInfo);
 
 		ticketService.createTicket(ticket);
 		assertEquals("WAITING", ticket.getStatus());

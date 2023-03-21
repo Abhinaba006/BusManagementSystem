@@ -1393,6 +1393,7 @@ function getUnResolvedIssues() {
         },
         success: function (data) {
             // ... the rest of the function code remains the same
+            //console.log(data);
             const parentDiv = document.querySelector(".issue-manage");
             parentDiv.innerHTML = "";
             const h1Element = document.createElement("h1");

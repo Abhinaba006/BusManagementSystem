@@ -52,7 +52,7 @@ class UserRepoTest {
 	@Test
 	public void findByOnlyEmail() {
 		Optional<User> result = userRepo.findByOnlyEmail("demo123@gmail.com");
-		assertThat(result.getEmail()).isEqualTo("demo123@gmail.com");
+		assertThat(result.get().getEmail()).isEqualTo("demo123@gmail.com");
 	}
 
 	@BeforeEach

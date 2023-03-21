@@ -52,26 +52,27 @@ public class UserController {
 	}
 
 	@GetMapping("/get/{id}")
-	public ResponseEntity<UserDto> getUserById(HttpServletRequest request, @PathVariable("id") int uid) {
-		Enumeration<String> headerNames = request.getHeaderNames();
-		System.out.println("user  sdsssssssssssssssssssss \n");
-		while (headerNames.hasMoreElements()) {
-			String headerName = headerNames.nextElement();
-			System.out.println(headerName + ": " + request.getHeader(headerName));
-		}
+	public ResponseEntity<UserDto> getUserById(@PathVariable("id") int uid) {
+ // HttpServletRequest request param to check for jwt token
+		//		Enumeration<String> headerNames = request.getHeaderNames();
+//		System.out.println("user  sdsssssssssssssssssssss \n");
+//		while (headerNames.hasMoreElements()) {
+//			String headerName = headerNames.nextElement();
+//			System.out.println(headerName + ": " + request.getHeader(headerName));
+//		}
 		return ResponseEntity.ok(this.userService.getUser(uid));
 	}
 
 	// post
 	@PostMapping(path = "/create", consumes = "application/json", produces = "application/json")
-	ResponseEntity<User> createUser(HttpServletRequest request,@Valid @RequestBody User user) throws MessagingException {
+	ResponseEntity<User> createUser(@Valid @RequestBody User user) throws MessagingException {
 		mailService.sendCredentials(user.getEmail(), user.getEmployeeId(), user.getPassword());
-		Enumeration<String> headerNames = request.getHeaderNames();
-    	System.out.println("user create resolve \n");
-        while(headerNames.hasMoreElements()) {
-            String headerName = headerNames.nextElement();
-            System.out.println(headerName + ": " + request.getHeader(headerName));
-        }
+//		Enumeration<String> headerNames = request.getHeaderNames();
+//    	System.out.println("user create resolve \n");
+//        while(headerNames.hasMoreElements()) {
+//            String headerName = headerNames.nextElement();
+//            System.out.println(headerName + ": " + request.getHeader(headerName));
+//        }
 		User createdUser = userService.createUser(user);
 		
 		return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
