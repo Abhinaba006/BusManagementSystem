@@ -51,7 +51,7 @@
 </head>
 
 <body>
-<div id="alert-container"></div>
+    <div id="alert-container"></div>
     <div class="main">
         <!-- Header -->
         <div class="header">
@@ -122,7 +122,7 @@
                 </div>
 
                 <div class="main" style="margin-left:200px;">
-                    <div >
+                    <div>
                         <button class="button xlarge hide-large" onclick="openSidebar()">&#9776;</button>
 
                     </div>
@@ -137,7 +137,8 @@
                             <input type="text" id="add-employee-name" name="name" placeholder="Name">
 
 
-                            <input type="email" id="add-employee-email" name="email" placeholder="Email" autocomplete="off" >
+                            <input type="email" id="add-employee-email" name="email" placeholder="Email"
+                                autocomplete="off">
 
 
                             <input type="password" id="add-employee-password" name="password" placeholder="Password">
@@ -522,20 +523,21 @@
                                     results.innerHTML = ""; // clear previous results
                                     if (places.length > 0) {
                                         const ul = document.createElement("ul");
-                                        ul.style.listStyleType = "none";
-                                        ul.style.marginLeft = "2%";
-                                        places.forEach(place => {
+                                        ul.classList.add("results-list"); // add a class for styling
+                                        places.forEach((place) => {
                                             const li = document.createElement("li");
                                             li.textContent = place.name;
+                                            li.classList.add("results-item"); // add a class for styling
                                             li.addEventListener("click", () => {
-                                                console.log(`Name: ${place.name}, Latitude: ${place.latitude}, Longitude: ${place.longitude}`);
+                                                console.log(
+                                                    `Name: ${place.name}, Latitude: ${place.latitude}, Longitude: ${place.longitude}`
+                                                );
                                                 const placeInput = document.getElementById("dest-name");
                                                 const latitudeInput = document.getElementById("dest-latitude-input");
                                                 const longitudeInput = document.getElementById("dest-longitude-input");
                                                 placeInput.value = place.name;
                                                 latitudeInput.value = place.latitude;
                                                 longitudeInput.value = place.longitude;
-
                                             });
                                             ul.appendChild(li);
                                         });
@@ -544,6 +546,7 @@
                                         results.textContent = "No matching places found.";
                                     }
                                 }
+
 
                                 input.addEventListener("input", () => {
 
@@ -777,8 +780,8 @@
     <script src="./admin_homepage.js">
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    
-    
+
+
 </body>
 
 </html>

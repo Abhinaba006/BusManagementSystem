@@ -27,11 +27,13 @@ public class DestinationController {
     DestinationService destinationService;
     
     //get
+    @CrossOrigin(origins = "http://localhost:5500")
     @GetMapping("/destination/get")
     public ResponseEntity<List<Destination>> getAllDestination(){
         return ResponseEntity.ok(this.destinationService.getDestination());
     }
     
+    @CrossOrigin(origins = "http://localhost:5500")
     @GetMapping("/destination/get/{id}")
     public ResponseEntity<Destination> getDestinationById(@PathVariable("id") int destinationId){
         return ResponseEntity.ok(this.destinationService.getDestination(destinationId));

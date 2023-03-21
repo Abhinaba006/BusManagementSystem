@@ -312,7 +312,7 @@ function bookTicket(event) {
 			console.log(result);
 			createAlert("Ticket booked successfully!","success");
 			//alert("Ticket booked successfully!");
-			location.reload(); 
+			// location.reload(); 
 		},
 		error: function (xhr, status, error) {
 			console.log(error);
@@ -494,6 +494,7 @@ function createAlert(message, type) {
     closeButton.className = "closebtn";
     closeButton.onclick = function() {
       alertContainer.removeChild(alertBox);
+	  location.reload()
     };
 
     alertBox.className = "alert " + type;

@@ -156,6 +156,7 @@ public class ReportService {
 		    	{
 		    		if(t.getStatus().equals("AVAILED"))		
 		    			availedBookings+=1;
+		    	
 		    	}
 		    	
 		    	row.createCell(3).setCellValue(availedBookings);
