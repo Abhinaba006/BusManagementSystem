@@ -405,23 +405,22 @@ function cancelTicket(event) {
     $.ajax({
         type: "POST",
         url: "http://localhost:8080/api/v1/ticket/cancel",
+        data: JSON.stringify(ticket_id),
         headers: {
             "Authorization": getTokenCookie(),
             "Content-Type": "application/json"
         },
-        data: JSON.stringify(ticket_id),
-        headers: {
-            "Content-Type": "application/json"
-        },
         success: function (response) {
             console.log("Ticket cancelled successfully");
-            createAlert("Ticket cancelled sucessfully!", "success");
+    
+            createAlert("Ticket cancelled successfully","success");
+            
             //alert("Ticket cancelled sucessfully!");
             // Handle success response here
         },
-        error: function (error) {
-            console.log(error);
-            createAlert("Server error! Please try again!", "failure");
+        error: function (xhr, status, error) {
+            console.log("Error cancelling ticket: " + error);
+            createAlert("Server error! Please try again!","failure");
             //alert("Server error! Please try again!");
             // Handle error response here
         }

@@ -250,11 +250,12 @@ input {
     margin-bottom: 15px;
     border-radius: 4px;
     position: fixed;
-    top: 0;
-    width: 70%;
+    top: 70;
+    overflow: auto;
     left: 50%;
     transform: translateX(-50%);
     text-align:center;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   }
   
   .success {

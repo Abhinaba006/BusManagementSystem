@@ -66,7 +66,11 @@ public class TicketServiceImpl implements TicketService {
 			throw new UnauthorizedAction("Ticket already","");
 		
 		//change the status of the past ticket.
-		 List<Ticket> pastTickets = this.ticketRepo.findPastTickets(ticket.getDate());
+		Date now = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd:MM:yyyy");
+        formatter.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
+        String currentDate = formatter.format(now);
+		 List<Ticket> pastTickets = this.ticketRepo.findPastTickets(currentDate);
 	        //System.out.println("size iss " + ticketsCreatedToday.size());
 	        // check if it is the first ticket of the day
 			for(Ticket t:pastTickets)

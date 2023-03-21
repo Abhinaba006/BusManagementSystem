@@ -371,7 +371,9 @@
             },
             success: function (response) {
                 console.log("Ticket cancelled successfully");
+        
                 createAlert("Ticket cancelled successfully","success");
+                
                 //alert("Ticket cancelled sucessfully!");
                 // Handle success response here
             },
@@ -471,10 +473,12 @@ function createAlert(message, type) {
     closeButton.className = "closebtn";
     closeButton.onclick = function() {
       alertContainer.removeChild(alertBox);
+      location.reload();
     };
 
     alertBox.className = "alert " + type;
     alertBox.appendChild(closeButton);
     alertContainer.appendChild(alertBox);
+    
   }
 </script>
