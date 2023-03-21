@@ -401,7 +401,7 @@ function deleteRoute(event, routeId) {
 }
 function cancelTicket(event) {
     const ticket_id = $(event.target).attr("ticket_id");
-
+    // console.log(getTokenCookie())
     $.ajax({
         type: "POST",
         url: "http://localhost:8080/api/v1/ticket/cancel",
@@ -419,8 +419,8 @@ function cancelTicket(event) {
             //alert("Ticket cancelled sucessfully!");
             // Handle success response here
         },
-        error: function (xhr, status, error) {
-            console.log("Error cancelling ticket: " + error);
+        error: function (error) {
+            console.log(error);
             createAlert("Server error! Please try again!", "failure");
             //alert("Server error! Please try again!");
             // Handle error response here
@@ -431,11 +431,12 @@ function searchTickets(event) {
     event.preventDefault();
     document.querySelector(".admin-ticket-content").innerHTML = "";
     const html = ``;
-    const email = $('#admin-user-ticket-search-val').val();
+    const email = document.getElementById("search-tickets-admin").value
     const id = 1; //To be changed the the id that is to be fetched by the email
-
+    
+    console.log(email)
     $.ajax({
-        url: "http://localhost:8080/api/v1/ticket/get/" + getIdCookie(),
+        url: "http://localhost:8080/api/v1/ticket/getByUserEmail/" + email,
         type: "GET",
         headers: {
             "Authorization": getTokenCookie(),
@@ -511,10 +512,10 @@ function searchTickets(event) {
                                         if (status == "CONFIRMED") {
                                             color = "green";
                                         }
-                                        else if (status == "CANCELLED") {
+                                        else if (status === "CANCELLED") {
                                             color = "red";
                                         }
-                                        else if (status = "WAITING") {
+                                        else if (status === "WAITING") {
                                             color = "yellow";
                                         }
                                         const routeHTML = `
@@ -556,7 +557,8 @@ function searchTickets(event) {
 
             }
         },
-        error: function () {
+        error: function (e) {
+            console.log(e)
             return createAlert("Something went wrong. Please try again later!", "failure");
             //return alert("Something went wrong. Please try again later!");
         }

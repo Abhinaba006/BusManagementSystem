@@ -70,9 +70,11 @@ public class TicketController {
 		 return new ResponseEntity<>(response, HttpStatus.OK);
 		//return new ResponseEntity(new ApiResponse("Ticket cancelled successfully!", true), HttpStatus.OK);
 	}
-	@GetMapping("/get/{userId}")
-	ResponseEntity<?> getUserTickets(@PathVariable("userId") int userId){
-		List<Ticket> tickets = ticketService.getAllTicketByPersonId(userId);
+	@GetMapping("/getByUserEmail/{userEmail}")
+	ResponseEntity<?> getUserTickets(@PathVariable("userEmail") String userEmail){
+		System.out.println(71);
+		System.out.println( userEmail);
+		List<Ticket> tickets = ticketService.getAllTicketByPersonEmail(userEmail);
 		return  ResponseEntity.ok(tickets);
 	}
 	
