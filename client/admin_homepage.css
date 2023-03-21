@@ -88,7 +88,18 @@ a:link {
     overflow-x: hidden;
     
 }
-
+.index_route_item {
+    width: 50%;
+    height: 130px;
+    /* margin: 0px auto 20px auto; */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-right: 35%;
+    margin-left: 5% !important;
+   
+    box-shadow: rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px;
+}
 /* .header{
     height: 89px;
     width: 100%;
