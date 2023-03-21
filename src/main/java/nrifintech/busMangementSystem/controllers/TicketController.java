@@ -82,5 +82,11 @@ public class TicketController {
 	public ResponseEntity<Integer> myInteger(@PathVariable("userId") int userId) {
         return ResponseEntity.ok().body(this.ticketService.getTotalTicketsDoneByUser(userId));
     }
+	@GetMapping("/get/{userId}")
+	ResponseEntity<?> getUserTickets(@PathVariable("userId") int userId){
+		List<Ticket> tickets = ticketService.getAllTicketByPersonId(userId);
+		return  ResponseEntity.ok(tickets);
+	}
+
 	
 }
