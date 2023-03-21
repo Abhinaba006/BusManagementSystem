@@ -157,5 +157,12 @@ public class TicketServiceImpl implements TicketService {
 	public Integer getTotalTicketsDoneByUser(int userId) {
 		return this.ticketRepo.getTotalTicketsDoneByUser(userId);
 	}
+	@Override
+	public List<Ticket> getAllTicketByPersonEmail(String userEmail) {
+		// TODO Auto-generated method stub
+		System.out.println(userEmail);
+		User user = userService.getUserByEmail(userEmail);
+		return getAllTicketByPersonId(user.getId());
+	}
 
 }

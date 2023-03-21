@@ -13,4 +13,5 @@ public interface TicketService {
     void cancelTicket(int ticket_id);
     List<Ticket> getAllTicketByPersonId(int userId);
     Integer getTotalTicketsDoneByUser(int userId);
+	List<Ticket> getAllTicketByPersonEmail(String userEmail);
 }
