@@ -512,6 +512,46 @@
     /* background-color: green; */
 }
 
+/* .confirmed,.CONFIRMED", "WAITING", "AVAILED", "CANCELLED */
+.confirmed
+{
+    color: green;
+    background-color:transparent;
+}
+.waiting
+{
+    color: rgb(191, 144, 63);
+    background-color:transparent;
+}
+.availed 
+{
+    color: grey;
+    background-color:transparent;
+}
+.cancelled
+{
+    color: red;
+    background-color:transparent;
+}
+select {
+    padding: 10px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    /* or any other styles you want to apply to the select element */
+  }
+  
+
+  
+  select option:hover {
+    /* background-color: red;
+    color: #fff; */
+    appearance: none;
+
+    /* or any other styles you want to apply to the options on hover */
+  }
+  
+
+
 @media only screen and (max-width:400px){
     .route-div{
         width:94%;
