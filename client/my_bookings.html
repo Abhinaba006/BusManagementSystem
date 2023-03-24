@@ -9,8 +9,36 @@
     <link rel="stylesheet" href="./home.css" />
     <link rel="stylesheet" href="./my_bookings.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <title>Document</title>
+    <script type="text/javascript" language="javascript">
+        function getTokenCookie() {
+            const cookieName = "token=";
+            const cookies = document.cookie.split("; ");
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i];
+                if (cookie.indexOf(cookieName) === 0) {
+                    return cookie.substring(cookieName.length, cookie.length);
+                }
+            }
+            return "";
+        }
+
+        console.log(getTokenCookie());
+        $.ajax({
+            url: "http://localhost:8080/api/v1/user/get/",
+            type: "GET",
+            headers: {
+                "Authorization": getTokenCookie(),
+                "Content-Type": "application/json"
+            },
+            error: function () {
+                //alert("wrong cookie")
+                window.location.replace("admin_login.html");
+            }
+        });
+    </script>
 </head>
 
 <body>
