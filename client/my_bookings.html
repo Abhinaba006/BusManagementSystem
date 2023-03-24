@@ -80,7 +80,7 @@
                         <div class="my-booking-div-ticket-filter">
                             <label for="status">Filter by Status:</label>
                             <select id="status">
-                                <option value="">All</option>
+                                <!-- <option value="">Filter by Status:</option> -->
                             </select>
                         </div>
                         <!-- <div class="my-booking-icon-div"> <img src="./public/down-icon.svg" alt=""> </div> -->
@@ -249,7 +249,7 @@
 
                 // Populate dropdown menu with available statuses
                 const statusDropdown = document.getElementById("status");
-                const statusSet = Object.keys(tickets)
+                const statusSet = ["CONFIRMED", "WAITING", "AVAILED", "CANCELLED"]
                 for (const status of statusSet) {
                     const option = document.createElement("option");
                     option.value = status;
@@ -402,7 +402,7 @@
                 });
 
                 // // Render initial ticket list
-                renderTicketList("");
+                renderTicketList("CONFIRMED");
 
             },
             error: function () {
