@@ -2,6 +2,8 @@ package nrifintech.busMangementSystem.Service.impl;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,11 +28,20 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserRepo userRepo;
 	
+	@Autowired
+    private MailService mailService;
+	
 	@Override
 	public User createUser(User user) {
 		// TODO Auto-generated method stub
 		//same user can't be created multiple times for each role type.
-		System.out.println(userRepo.findByOnlyEmail(user.getEmail()));
+		//System.out.println(userRepo.findByOnlyEmail(user.getEmail()));
+		try {
+			mailService.sendCredentials(user.getEmail(), user.getName(), user.getPassword(), "created");
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if(userRepo.findByOnlyEmail(user.getEmail()).isEmpty())
 		{
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -45,14 +56,20 @@ public class UserServiceImpl implements UserService{
 	public User updateUser(User newUser, int id) {
 		// TODO Auto-generated method stub
 		User  user = userRepo.findById(id).orElseThrow(() -> new ResouceNotFound("User", "id", id));
+		String newPassword = newUser.getPassword();
 		// if(userRepo.findByOnlyEmail(user.getEmail()) != null) throw new UnauthorizedAction("similiar user create","user");
 		if(newUser.getName()!=null) user.setName(newUser.getName());
 		if(newUser.getEmail()!=null) user.setEmail(newUser.getEmail());
 		if(newUser.getPassword()!=null) user.setPassword(passwordEncoder.encode(newUser.getPassword()));
 		if(newUser.getEmployeeId()!=null) user.setEmployeeId(newUser.getEmployeeId());
-
-//		if(newUser.getPassword()!=null) user.setPassword(newUser.getPassword());
-
+		
+		//mail user their updated credentials.
+		try {
+			mailService.sendCredentials(user.getEmail(), user.getName(), newPassword, "updated");
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return this.userRepo.save(user);
 	}

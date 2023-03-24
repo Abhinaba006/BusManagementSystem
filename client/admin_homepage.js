@@ -208,7 +208,18 @@ function addEmployee(event) {
         success: function (result) {
             console.log(result);
             createAlert("User added successfully", "success");
-            //alert("User added successfully!")
+
+            //clear all text fields
+            $("#add-employee-name").val("");
+            $("#add-employee-email").val("");
+            $("#add-employee-password").val("");
+            $("#add-employee-id").val("");
+            //but add email in search field
+            $("#search-email").val(email);
+
+
+
+
         },
         error: function (xhr, status, error) {
             console.log(error);
@@ -412,15 +423,15 @@ function cancelTicket(event) {
         },
         success: function (response) {
             console.log("Ticket cancelled successfully");
-    
-            createAlert("Ticket cancelled successfully","success");
-            
+
+            createAlert("Ticket cancelled successfully", "success");
+
             //alert("Ticket cancelled sucessfully!");
             // Handle success response here
         },
         error: function (xhr, status, error) {
             console.log("Error cancelling ticket: " + error);
-            createAlert("Server error! Please try again!","failure");
+            createAlert("Server error! Please try again!", "failure");
             //alert("Server error! Please try again!");
             // Handle error response here
         }
@@ -432,7 +443,7 @@ function searchTickets(event) {
     const html = ``;
     const email = document.getElementById("search-tickets-admin").value
     const id = 1; //To be changed the the id that is to be fetched by the email
-    
+
     console.log(email)
     $.ajax({
         url: "http://localhost:8080/api/v1/ticket/getByUserEmail/" + email,
@@ -598,7 +609,9 @@ function updateEmployee(event) {
             console.log(result);
             document.querySelector(".search-overlay").style.display = "none";
             createAlert("User updated successfully!", "success");
-            //alert("User updated successfully!")
+            
+
+
         },
         error: function (xhr, status, error) {
             console.log(error);
@@ -764,6 +777,14 @@ function addDestination(event) {
             console.log(result);
             createAlert("Destination added successfully!", "success");
             //alert("Destination added successfully!")
+
+            //clear text fields
+            $("#dest-name").val("");
+            $("#dest-latitude-input").val("");
+            $("#dest-longitude-input").val("");
+
+            //add destinatio name in search bar
+            $("#dest-search-name").val(name);
         },
         error: function (xhr, status, error) {
             console.log(error);
@@ -933,7 +954,7 @@ function updateBus(event) {
         contentType: "application/json",
         success: function (result) {
             console.log(result);
-            
+
             document.querySelector(".bus-overlay").style.display = "none";
             createAlert("Bus updated successfully!", "success");
             //alert("Bus updated successfully!")
@@ -995,6 +1016,15 @@ function addBus(event) {
             console.log(result);
             // alert("Bus added successfully!")
             createAlert("Bus added successfully!", "success");
+
+            //clear all the text fields
+            $("#bus-number").val("");
+            $("#bus-seats").val("");
+            $("#bus-name").val("");
+
+            //add bus number in the search bar
+            $("#bus-search-name").val(busNumber);
+
         },
         error: function (xhr, status, error) {
             console.log(error);
@@ -1460,6 +1490,7 @@ function getUnResolvedIssues() {
                                 success: function (response) {
                                     // Do something if the POST request is successful
                                     console.log('Data posted to database');
+                                    createAlert("Issue Number"+id+" resolved","success");
                                     //refresh the page if any issue is resolved.
                                     var link = document.getElementById('text6');
                                     link.click();
@@ -1546,7 +1577,12 @@ function createAlert(message, type) {
     alertBox.className = "alert " + type;
     alertBox.appendChild(closeButton);
     alertContainer.appendChild(alertBox);
+
 }
+
+
+
+
 
 
 

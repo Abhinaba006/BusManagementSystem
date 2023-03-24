@@ -3590,7 +3590,11 @@ box-shadow: 2px 2px 2px #ddd;background:white;
     }
   }
 
-
+  .admin-ticket-user-value{
+    width:240px;
+    margin-right:40px;
+    text-align: center;
+  }
   .results-list {
     list-style-type: none;
     margin-left: 2%;
@@ -3613,3 +3617,10 @@ box-shadow: 2px 2px 2px #ddd;background:white;
     background-color: #ddd;
   }
 
+@media only screen and (max-width:600px){
+    .admin-ticket-user-value{
+        width:200px;
+        margin-right:0px;
+        text-align: center;
+      }
+}

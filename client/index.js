@@ -311,6 +311,7 @@ function bookTicket(event) {
 		success: function (result) {
 			console.log(result);
 			createAlert("Ticket booked successfully!","success");
+			
 			//alert("Ticket booked successfully!");
 			// location.reload(); 
 		},

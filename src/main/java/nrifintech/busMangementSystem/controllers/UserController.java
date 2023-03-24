@@ -66,7 +66,6 @@ public class UserController {
 	// post
 	@PostMapping(path = "/create", consumes = "application/json", produces = "application/json")
 	ResponseEntity<User> createUser(@Valid @RequestBody User user) throws MessagingException {
-		mailService.sendCredentials(user.getEmail(), user.getEmployeeId(), user.getPassword());
 //		Enumeration<String> headerNames = request.getHeaderNames();
 //    	System.out.println("user create resolve \n");
 //        while(headerNames.hasMoreElements()) {
