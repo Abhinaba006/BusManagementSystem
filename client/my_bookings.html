@@ -77,11 +77,21 @@
 
                     <div class="my-booking-div">
                         <div class="my-booking-div-text">My Bookings</div>
-                        <div class="my-booking-icon-div"> <img src="./public/down-icon.svg" alt=""> </div>
+                        <div class="my-booking-div-ticket-filter">
+                            <label for="status">Filter by Status:</label>
+                            <select id="status">
+                                <option value="">All</option>
+                            </select>
+                        </div>
+                        <!-- <div class="my-booking-icon-div"> <img src="./public/down-icon.svg" alt=""> </div> -->
                     </div>
 
+                    
 
-                    <div class="content">
+
+                    <div class="content" id="ticketList">
+                    </div>
+
 
 
                     </div>
@@ -208,153 +218,195 @@
 
 </html>
 <script>
+    function groupTicketsByStatus(tickets) {
+        const groupedTickets = {};
+
+        for (let i = 0; i < tickets.length; i++) {
+            const ticket = tickets[i];
+
+            if (groupedTickets[ticket.status]) {
+                groupedTickets[ticket.status].push(ticket);
+            } else {
+                groupedTickets[ticket.status] = [ticket];
+            }
+        }
+
+        return groupedTickets;
+    }
+
     $(document).ready(function () {
         //Change it the user that is calling
         $.ajax({
-            url: "http://localhost:8080/api/v1/ticket/get/"+getIdCookie(),
+            url: "http://localhost:8080/api/v1/ticket/get/" + getIdCookie(),
             type: "GET",
             headers: {
                 "Authorization": getTokenCookie(),
                 "Content-Type": "application/json"
             },
             success: function (data) {
-                // "id": 28,
-                // "routeId": 5,
-                // "busId": 4,
-                // "userId": 1,
-                // "status": "CANCELLED",
-                // "date": "09:03:2023"
-                console.log(227, data) //route
-                for (var i = 0; i < data.length; i++) {
-                    const route_id = data[i].routeId;
-                    const ticket_id = data[i].id;
-                    const formattedDate = data[i].date;
-                    const status = data[i].status;
-                    const obj = {
-                        busId: data[i].busId,
-                        busName: "",
-                        busNumber: "",
-                        destination_name: "",
-                        destination_time: "",
-                        route_id: "",
-                        source_name: "",
-                        source_time: "",
-                        userId: 1, //To be changed
-                        date: formattedDate
-                    };
-                    obj["route_id"] = route_id;
-                    $.ajax({
-                        url: "http://localhost:8080/api/v1/route/getDestinations/" + route_id,
-                        type: "GET",
-                        headers: {
-                            "Authorization": getTokenCookie(),
-                            "Content-Type": "application/json"
-                        },
-                        success: function (data) {
-                            console.log('all destination on prev route' ,data);
-                            obj["source_name"] = data[0].destination.name;
-                            obj["source_time"] = data[0].time;
+                const tickets = groupTicketsByStatus(data)
+                console.log(tickets)
 
-                            obj["destination_name"] = data[data.length - 1].destination.name;
-                            obj["destination_time"] = data[data.length - 1].time;
+                // Populate dropdown menu with available statuses
+                const statusDropdown = document.getElementById("status");
+                const statusSet = Object.keys(tickets)
+                for (const status of statusSet) {
+                    const option = document.createElement("option");
+                    option.value = status;
+                    option.textContent = status;
+                    statusDropdown.appendChild(option);
+                }
 
-                            $.ajax({
-                                url: "http://localhost:8080/api/v1/route/getReport/" + route_id + "/" + formattedDate,
-                                type: "GET",
-                                headers: {
-                                    "Authorization": getTokenCookie(),
-                                    "Content-Type": "application/json"
-                                },
-                                success: function (data) { // hata dena if possible
-                                    console.log("repott ", data)
-                                    var diff = data.total_seats - data.total_bookings;
-                                    obj["seatsLeft"] = max(0, diff);
-                                    $.ajax({
-                                        url: "http://localhost:8080/api/v1/bus/get/" + obj.busId,
-                                        type: "GET",
-                                        headers: {
-                                            "Authorization": getTokenCookie(),
-                                            "Content-Type": "application/json"
-                                        },
-                                        success: function (data) {
-                                            console.log(data)
-                                            obj["busName"] = data.name;
-                                            obj["busId"] = data.id;
-                                            obj["busNumber"] = data.bus_number;
-                                            // console.log(data.name);
-                                            
+                // Render ticket list based on selected status
+                const ticketList = document.querySelector(".content");
+                function renderTicketList(status) {
+                    ticketList.innerHTML = "";
+                    const filteredTickets = status ? tickets[status] : Object.values(tickets).flat();
+                    console.log("now each ticket will be printed", filteredTickets)
+                    for (var i = 0; i < filteredTickets.length; i++) {
+                        console.log("printing each tkt", filteredTickets[i])
+                        const route_id = filteredTickets[i].routeId;
+                        const ticket_id = filteredTickets[i].id;
+                        const formattedDate = filteredTickets[i].date;
+                        const status = filteredTickets[i].status;
+                        const obj = {
+                            busId: filteredTickets[i].busId,
+                            busName: "",
+                            busNumber: "",
+                            destination_name: "",
+                            destination_time: "",
+                            route_id: "",
+                            source_name: "",
+                            source_time: "",
+                            userId: 1, //To be changed
+                            date: formattedDate
+                        };
+                        obj["route_id"] = route_id;
 
-                                            //To be changed
-                                            obj["userId"] = getIdCookie();
-                                            console.log(obj);
-                                            let color;
-                                            if (status === "CONFIRMED") {
-                                                color = "green";
+                        console.log(284, obj)
+                        $.ajax({
+                            url: "http://localhost:8080/api/v1/route/getDestinations/" + route_id,
+                            type: "GET",
+                            headers: {
+                                "Authorization": getTokenCookie(),
+                                "Content-Type": "application/json"
+                            },
+                            success: function (data) {
+                                console.log('all destination on prev route', data);
+                                obj["source_name"] = data[0].destination.name;
+                                obj["source_time"] = data[0].time;
+
+                                obj["destination_name"] = data[data.length - 1].destination.name;
+                                obj["destination_time"] = data[data.length - 1].time;
+
+                                $.ajax({
+                                    url: "http://localhost:8080/api/v1/route/getReport/" + route_id + "/" + formattedDate,
+                                    type: "GET",
+                                    headers: {
+                                        "Authorization": getTokenCookie(),
+                                        "Content-Type": "application/json"
+                                    },
+                                    success: function (data) { // hata dena if possible
+                                        console.log("repott ", data)
+                                        var diff = data.total_seats - data.total_bookings;
+                                        obj["seatsLeft"] = max(0, diff);
+                                        $.ajax({
+                                            url: "http://localhost:8080/api/v1/bus/get/" + obj.busId,
+                                            type: "GET",
+                                            headers: {
+                                                "Authorization": getTokenCookie(),
+                                                "Content-Type": "application/json"
+                                            },
+                                            success: function (data) {
+                                                // console.log(364data)
+                                                obj["busName"] = data.name;
+                                                obj["busId"] = data.id;
+                                                obj["busNumber"] = data.bus_number;
+                                                // console.log(data.name);
+
+
+                                                //To be changed
+                                                obj["userId"] = getIdCookie();
+                                                console.log(obj);
+                                                let color;
+                                                if (status === "CONFIRMED") {
+                                                    color = "green";
+                                                }
+                                                else if (status === "CANCELLED") {
+                                                    color = "red";
+                                                }
+                                                else if (status === "WAITING") {
+                                                    color = "yellow";
+                                                }
+                                                const routeHTML = `
+                                        <div class = "index_route_item">
+                                        <div class = "index_source">
+                                        <div class = "index_heading">Bus details</div>
+                                        <div class = "index_bus_number">${obj.busName}</div>
+                                        <div class = "index_bus_name">${obj.busNumber}</div>
+                                        </div>
+                                        <div class = "index_source">
+                                        <div class = "index_heading">Source</div>
+                                        <div class = "index_value">${obj.source_name}</div>
+                                        <div class = "index_value">${obj.source_time}</div>
+                                        </div>
+                                        <div class = "index_source">
+                                        <div class = "index_heading">Destination</div>
+                                        <div class = "index_value">${obj.destination_name}</div>
+                                        <div class = "index_value">${obj.destination_time}</div>
+                                        </div>
+                                        <div class = "index_source">
+                                        <div class = "index_heading">Status</div>
+                                        <div class = "index_value"  style = 'color:${color};'>${status}</div>
+
+                                        </div>
+                                        <div class = "index_source">
+
+                                        <div class = "index_route" onclick="homeonroute(${obj.route_id})">See route</div>
+                                        <div class = "index_value" style = 'font-weight:500;color:grey;margin-top:10px;'>${obj.date}</div>
+                                        <div class="index_cancel_button" ticket_id = ${ticket_id} onclick="cancelTicket(event)">  
+                                                        Cancel
+                                        </div>
+                                        </div>
+                                        </div>
+                                        `;
+                                        
+                                                const parentDiv = document.querySelector(".content");
+                                                parentDiv.innerHTML += routeHTML;
+                                                console.log("addingg")
+                                            },
+                                            error: function () {
+                                                return createAlert("Server error! Please try again!", "failure");//alert("Server error! Please try again!")
                                             }
-                                            else if (status === "CANCELLED") {
-                                                color = "red";
-                                            }
-                                            else if (status === "WAITING") {
-                                                color = "yellow";
-                                            }
-                                            const routeHTML = `
-<div class = "index_route_item">
-<div class = "index_source">
-<div class = "index_heading">Bus details</div>
-<div class = "index_bus_number">${obj.busName}</div>
-<div class = "index_bus_name">${obj.busNumber}</div>
-</div>
-<div class = "index_source">
-<div class = "index_heading">Source</div>
-<div class = "index_value">${obj.source_name}</div>
-<div class = "index_value">${obj.source_time}</div>
-</div>
-<div class = "index_source">
-<div class = "index_heading">Destination</div>
-<div class = "index_value">${obj.destination_name}</div>
-<div class = "index_value">${obj.destination_time}</div>
-</div>
-<div class = "index_source">
-<div class = "index_heading">Status</div>
-<div class = "index_value"  style = 'color:${color};'>${status}</div>
+                                        });
 
-</div>
-<div class = "index_source">
-
-<div class = "index_route" onclick="homeonroute(${obj.route_id})">See route</div>
-<div class = "index_value" style = 'font-weight:500;color:grey;margin-top:10px;'>${obj.date}</div>
-<div class="index_cancel_button" ticket_id = ${ticket_id} onclick="cancelTicket(event)">  
-                 Cancel
-</div>
-</div>
-</div>
-`;
-                                            const parentDiv = document.querySelector(".content");
-                                            parentDiv.innerHTML += routeHTML;
-                                        },
-                                        error: function () {
-                                            return createAlert("Server error! Please try again!","failure");//alert("Server error! Please try again!")
-                                        }
-                                    });
-
-                                },
-                                error: function () {
-                                    return createAlert("Server error! Please try again!","failure");//alert("Server error! Please try again!");
-                                }
-                            });
-                        },
-                        error: function () {
-                            return createAlert("Server error! Please try again!","failure");//alert("Server error! Please try again!");
-                        }
-                    });
-
-
-
+                                    },
+                                    error: function () {
+                                        return createAlert("Server error! Please try again!", "failure");//alert("Server error! Please try again!");
+                                    }
+                                });
+                            
+                            },
+                            error: function () {
+                                return createAlert("Server error! Please try again!", "failure");//alert("Server error! Please try again!");
+                            }
+                        });
+                    
+                    }
 
                 }
+
+                // Update ticket list when dropdown value changes
+                statusDropdown.addEventListener("change", event => {
+                    renderTicketList(event.target.value);
+                });
+
+                // // Render initial ticket list
+                renderTicketList("");
+
             },
             error: function () {
-                return createAlert("Server error! Please try again!","failure");//alert("Something went wrong. Please try again later!");
+                return createAlert("Server error! Please try again!", "failure");//alert("Something went wrong. Please try again later!");
             }
         });
     })
@@ -371,15 +423,15 @@
             },
             success: function (response) {
                 console.log("Ticket cancelled successfully");
-        
-                createAlert("Ticket cancelled successfully","success");
-                
+
+                createAlert("Ticket cancelled successfully", "success");
+
                 //alert("Ticket cancelled sucessfully!");
                 // Handle success response here
             },
             error: function (xhr, status, error) {
                 console.log("Error cancelling ticket: " + error);
-                createAlert("Server error! Please try again!","failure");
+                createAlert("Server error! Please try again!", "failure");
                 //alert("Server error! Please try again!");
                 // Handle error response here
             }
@@ -395,9 +447,6 @@
         const authToken = 'your-auth-token-here';
 
         fetch('http://localhost:8080/api/v1/route/getDestinations/' + routeId, {
-            // headers: {
-            // 	'Authorization': `{authToken}`
-            // }
             headers: {
                 "Authorization": getTokenCookie(),
                 "Content-Type": "application/json"
@@ -405,6 +454,7 @@
         })
             .then(response => response.json())
             .then(data => {
+
                 // format the data to use it in html
                 data.forEach(d => {
                     d["destinationName"] = d.destination.name
@@ -437,48 +487,48 @@
 
 
     function getTokenCookie() {
-	const cookieName = "token=";
-	const cookies = document.cookie.split("; ");
-	for (let i = 0; i < cookies.length; i++) {
-		const cookie = cookies[i];
-		if (cookie.indexOf(cookieName) === 0) {
-			return cookie.substring(cookieName.length, cookie.length);
-		}
-	}
-	return "";
-}
-
-function getIdCookie() {
-    const cookieString = document.cookie;
-    if (cookieString) {
-        const cookies = cookieString.split(';');
+        const cookieName = "token=";
+        const cookies = document.cookie.split("; ");
         for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.startsWith('id=')) {
-                return parseInt(cookie.substring('id='.length, cookie.length));
+            const cookie = cookies[i];
+            if (cookie.indexOf(cookieName) === 0) {
+                return cookie.substring(cookieName.length, cookie.length);
             }
         }
+        return "";
     }
-    return null;
-}
+
+    function getIdCookie() {
+        const cookieString = document.cookie;
+        if (cookieString) {
+            const cookies = cookieString.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.startsWith('id=')) {
+                    return parseInt(cookie.substring('id='.length, cookie.length));
+                }
+            }
+        }
+        return null;
+    }
 
 
-function createAlert(message, type) {
-    var alertContainer = document.getElementById("alert-container");
-    var alertBox = document.createElement("div");
-    var closeButton = document.createElement("span");
+    function createAlert(message, type) {
+        var alertContainer = document.getElementById("alert-container");
+        var alertBox = document.createElement("div");
+        var closeButton = document.createElement("span");
 
-    alertBox.textContent = message;
-    closeButton.textContent = "×";
-    closeButton.className = "closebtn";
-    closeButton.onclick = function() {
-      alertContainer.removeChild(alertBox);
-      location.reload();
-    };
+        alertBox.textContent = message;
+        closeButton.textContent = "×";
+        closeButton.className = "closebtn";
+        closeButton.onclick = function () {
+            alertContainer.removeChild(alertBox);
+            location.reload();
+        };
 
-    alertBox.className = "alert " + type;
-    alertBox.appendChild(closeButton);
-    alertContainer.appendChild(alertBox);
-    
-  }
+        alertBox.className = "alert " + type;
+        alertBox.appendChild(closeButton);
+        alertContainer.appendChild(alertBox);
+
+    }
 </script>

@@ -41,6 +41,8 @@
     flex-direction: column;
 }
 
+
+
 .bus-name-div {
     display: flex;
     margin-bottom: 17px;
@@ -256,7 +258,7 @@
 .my-booking-div {
     height: 43px;
     /* width: 225px; */
-    width: 60%;
+    width: 50%;
     margin: auto;
     border-radius: nullpx;
 
@@ -264,6 +266,7 @@
     padding-bottom: 50px;
 
     display: flex;
+    margin: auto;
 
 }
 
@@ -276,6 +279,24 @@
     letter-spacing: 0em;
     text-align: left;
     color: rgba(0, 0, 0, 1);
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: auto;
+    margin-left: 3%;
+}
+.my-booking-div-ticket-filter {
+    font-family: Montserrat;
+    font-size: 15px;
+    font-weight: 200;
+    line-height: 43px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: rgba(0, 0, 0, 1);
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: 3%;
+
 }
 
 .my-booking-icon-div {
@@ -507,7 +528,36 @@
     {
         margin-left: 10px;
     }
+    
 }
+@media only screen and (max-width:1050px)
+{
+    .my-booking-div
+    {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+    }
+    .my-booking-div-ticket-filter
+    {
+        margin-right: auto;
+        margin-left: 3%;
+    }
+}
+@media only screen and (max-width:515px)
+{
+    .my-booking-div-text
+    {
+        font-family: Montserrat;
+        font-size: 25px;
+        font-weight: 400;
+        line-height: 20px;
+        letter-spacing: 0em;
+        text-align: left;
+        color: rgba(0, 0, 0, 1);
+    }
+}
+
 /* Overlay ends here */
 
 /* Media Query */
@@ -533,3 +583,26 @@
 
 /* Media Query Ends Here*/
 
+.ticket-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  /* Individual ticket item */
+  .ticket-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Status label */
+  .ticket-status {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
