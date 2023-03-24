@@ -110,7 +110,7 @@ public class UserController {
 
 		if (isAuthenticated) {
 			User user = userService.getUserByEmail(email);
-			String token = jwtTokenUtil.generateToken(user.getId(), 0); // generate JWT token
+			String token = jwtTokenUtil.generateToken(user.getId(), user.getType()); // generate JWT token
 
 			// include JWT token in the response
 			Map<String, Object> responseBody = new HashMap<>();
