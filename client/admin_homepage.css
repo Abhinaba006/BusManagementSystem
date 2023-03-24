@@ -3116,7 +3116,7 @@ a {
     display: flex;
     width:50%;
     margin-left:7%;
-    margin-bottom: 100px;
+    margin-bottom: 20px;
 }
 .admin_from,.admin_to{
     width:200px;
@@ -3590,6 +3590,7 @@ box-shadow: 2px 2px 2px #ddd;background:white;
     }
   }
 
+
   .admin-ticket-user-value{
     width:240px;
     margin-right:40px;
@@ -3616,6 +3617,7 @@ box-shadow: 2px 2px 2px #ddd;background:white;
   .results-item:hover {
     background-color: #ddd;
   }
+
 
 @media only screen and (max-width:600px){
     .admin-ticket-user-value{
