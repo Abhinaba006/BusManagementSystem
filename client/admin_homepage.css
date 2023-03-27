@@ -3526,6 +3526,35 @@ box-shadow: 2px 2px 2px #ddd;background:white;
     padding:10px;
   }
 
+  .admin-ticket-pagination
+  {
+    width: auto;
+    height: 30px;
+    position: fixed;
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: 0.035em;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    margin-left: 3%;
+    margin-top: 3%;
+  }
+
+  .pagination-divs
+  {
+    margin-right: 10px ;
+    width: 25px;
+    text-align: center;
+    border-radius: 40%;
+    border: solid 2px #334756;
+    background-color: black;
+    cursor: pointer;
+  }
+
   
   @media only screen and (max-width:1000px){
     .issue-div{

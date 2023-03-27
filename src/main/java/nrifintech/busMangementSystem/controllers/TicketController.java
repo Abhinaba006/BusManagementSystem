@@ -28,6 +28,7 @@ import nrifintech.busMangementSystem.entities.Ticket;
 import nrifintech.busMangementSystem.exception.ResouceNotFound;
 import nrifintech.busMangementSystem.payloads.ApiResponse;
 import nrifintech.busMangementSystem.payloads.TicketDto;
+import nrifintech.busMangementSystem.payloads.TicketResponse;
 import nrifintech.busMangementSystem.repositories.BusMapRepo;
 import nrifintech.busMangementSystem.repositories.TicketRepo;
 
@@ -70,12 +71,22 @@ public class TicketController {
 		 return new ResponseEntity<>(response, HttpStatus.OK);
 		//return new ResponseEntity(new ApiResponse("Ticket cancelled successfully!", true), HttpStatus.OK);
 	}
+	// @GetMapping("/getByUserEmail/{userEmail}")
+	// ResponseEntity<?> getUserTickets(@PathVariable("userEmail") String userEmail){
+	// 	System.out.println(71);
+	// 	System.out.println( userEmail);
+	// 	List<Ticket> tickets = ticketService.getAllTicketByPersonEmail(userEmail);
+	// 	return  ResponseEntity.ok(tickets);
+	// }
+
 	@GetMapping("/getByUserEmail/{userEmail}")
-	ResponseEntity<?> getUserTickets(@PathVariable("userEmail") String userEmail){
+	ResponseEntity<TicketResponse> getUserTickets(@PathVariable("userEmail") String userEmail ,
+	@RequestParam(value="pageNumber",defaultValue = "0",required=false) Integer pno,
+	@RequestParam(value="pageSize",defaultValue = "1",required=false) Integer psize){
 		System.out.println(71);
 		System.out.println( userEmail);
-		List<Ticket> tickets = ticketService.getAllTicketByPersonEmail(userEmail);
-		return  ResponseEntity.ok(tickets);
+		TicketResponse ticketResponse = ticketService.getAllTicketByPersonEmail(userEmail,pno,psize);
+		return new ResponseEntity<>(ticketResponse,HttpStatus.OK);
 	}
 	
 	@GetMapping("/get/{userId}/totalTickets")

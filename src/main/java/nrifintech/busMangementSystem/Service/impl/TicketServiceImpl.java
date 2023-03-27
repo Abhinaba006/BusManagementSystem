@@ -8,6 +8,9 @@ import java.util.Optional;
 import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +24,7 @@ import nrifintech.busMangementSystem.entities.RouteInfo;
 import nrifintech.busMangementSystem.entities.Ticket;
 import nrifintech.busMangementSystem.entities.User;
 import nrifintech.busMangementSystem.exception.CustomException;
+import nrifintech.busMangementSystem.payloads.TicketResponse;
 import nrifintech.busMangementSystem.repositories.TicketRepo;
 
 @Service
@@ -139,12 +143,58 @@ public class TicketServiceImpl implements TicketService {
 	public Integer getTotalTicketsDoneByUser(int userId) {
 		return this.ticketRepo.getTotalTicketsDoneByUser(userId);
 	}
+	// @Override
+	// public List<Ticket> getAllTicketByPersonEmail(String userEmail) {
+	// 	// TODO Auto-generated method stub
+	// 	System.out.println(userEmail);
+	// 	User user = userService.getUserByEmail(userEmail);
+	// 	return getAllTicketByPersonId(user.getId());
+	// }
+
 	@Override
-	public List<Ticket> getAllTicketByPersonEmail(String userEmail) {
+	public TicketResponse getAllTicketByPersonEmail(String userEmail,Integer pageNumber,Integer pageSize) {
+
 		// TODO Auto-generated method stub
+
+		/*Status Change Logic */
+		Date now = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd:MM:yyyy");
+        formatter.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
+        String currentDate = formatter.format(now);
+
+		//change the status of the past ticket.
+		 List<Ticket> pastTickets = this.ticketRepo.findPastTickets(currentDate);
+	        //System.out.println("size iss " + ticketsCreatedToday.size());
+	        // check if it is the first ticket of the day
+			for(Ticket t:pastTickets)
+			{
+				if(t.getStatus().equals("WAITING"))
+					t.setStatus("EXPIRED");
+				else if(t.getStatus().equals("CONFIRMED"))
+					t.setStatus("AVAILED");
+				this.ticketRepo.save(t);
+			}
+		/* Ends here */
+		User user= this.userService.getUserByEmail(userEmail);
+		int userId=user.getId();
 		System.out.println(userEmail);
-		User user = userService.getUserByEmail(userEmail);
-		return getAllTicketByPersonId(user.getId());
+		
+
+		Pageable p = PageRequest.of(pageNumber, pageSize);
+		Page<Ticket> pagetickets=this.ticketRepo.findByUserId(userId,p);	
+		List<Ticket> posts=pagetickets.getContent();
+		
+		 TicketResponse ticketResponse=new TicketResponse();
+		 ticketResponse.setContent(posts);
+		 ticketResponse.setPageNumber(pagetickets.getNumber());
+		 ticketResponse.setPageSize(pagetickets.getSize());
+		 ticketResponse.setTotalElements(pagetickets.getTotalElements());
+		 ticketResponse.setTotalPages(pagetickets.getTotalPages());
+		 ticketResponse.setLastPage(pagetickets.isLast());
+		 //return posts;
+		//User user = userService.getUserByEmail(userEmail);
+		//return getAllTicketByPersonId(user.getId());
+		return ticketResponse;
 	}
 
 }

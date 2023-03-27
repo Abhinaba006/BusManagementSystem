@@ -443,7 +443,13 @@ function cancelTicket(event) {
         }
     });
 }
-function searchTickets(event) {
+
+function clikit()
+{
+    console.log("click hjua bhaissdsa");
+}
+
+function searchTickets(event,optionalValue) {
     event.preventDefault();
     document.querySelector(".admin-ticket-content").innerHTML = "";
     const html = ``;
@@ -452,20 +458,34 @@ function searchTickets(event) {
 
     console.log(email)
     $.ajax({
-        url: "http://localhost:8080/api/v1/ticket/getByUserEmail/" + email,
+        url: "http://localhost:8080/api/v1/ticket/getByUserEmail/"+email+ "?pageNumber="+optionalValue,
         type: "GET",
         headers: {
             "Authorization": getTokenCookie(),
             "Content-Type": "application/json"
         },
-        success: function (data) {
+        success: function (d) {
             // "id": 28,
             // "routeId": 5,
             // "busId": 4,
             // "userId": 1,
             // "status": "CANCELLED",
             // "date": "09:03:2023"
-            document.getElementById("admin_ticket_count").innerHTML = "Total count: " + data.length;
+            var data=d.content;
+            var total_pages=d.totalPages;
+            // var page_number=d.pageNumber+1;
+            const parentDiv = document.querySelector(".admin-ticket-pagination");
+            parentDiv.innerHTML="";
+            for(var i=1;i<=total_pages;i++)
+            {
+                
+                const pagediv=`<div class="pagination-divs" onclick="searchTickets(event, ${i}-1 )"> ${i} </div>`;
+                
+                parentDiv.innerHTML +=pagediv;
+            }
+    
+
+            document.getElementById("admin_ticket_count").innerHTML = "Total count: " + data.length*total_pages;
             for (var i = 0; i < data.length; i++) {
                 const route_id = data[i].routeId;
                 const ticket_id = data[i].id;
@@ -601,7 +621,9 @@ function searchTickets(event) {
             }
         },
         error: function (e) {
-            console.log(e)
+            console.log(e);
+            const parentDiv = document.querySelector(".admin-ticket-pagination");
+            parentDiv.innerHTML="";
             return createAlert("Something went wrong. Please try again later!", "failure");
             //return alert("Something went wrong. Please try again later!");
         }

@@ -13,6 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 import nrifintech.busMangementSystem.entities.Ticket;
 import nrifintech.busMangementSystem.entities.User;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+
 
 public interface TicketRepo extends JpaRepository<Ticket, Integer> {
     @Query(value = "SELECT * FROM ticket WHERE user_id = :user_id order by id desc", nativeQuery = true)
@@ -36,4 +39,7 @@ public interface TicketRepo extends JpaRepository<Ticket, Integer> {
     @Modifying
     @Query(value = "DELETE FROM ticket WHERE route_id = :route_id and date>=:currentDate", nativeQuery = true)
     void DeleteUpcomingTicketsByRouteId(int route_id,String currentDate);
+
+    @Query(value = "SELECT * FROM ticket WHERE user_id = :user_id order by id desc", nativeQuery = true)
+    Page<Ticket> findByUserId(@Param("user_id") int userId, Pageable pageable);
 }
