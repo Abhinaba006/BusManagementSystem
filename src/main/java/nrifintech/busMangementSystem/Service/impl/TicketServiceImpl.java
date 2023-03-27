@@ -2,11 +2,6 @@ package nrifintech.busMangementSystem.Service.impl;
 
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -22,25 +17,11 @@ import nrifintech.busMangementSystem.Service.interfaces.RouteInfoService;
 import nrifintech.busMangementSystem.Service.interfaces.RouteService;
 import nrifintech.busMangementSystem.Service.interfaces.TicketService;
 import nrifintech.busMangementSystem.Service.interfaces.UserService;
-
-import nrifintech.busMangementSystem.Service.interfaces.TicketService;
-
-import nrifintech.busMangementSystem.entities.Bus;
-import nrifintech.busMangementSystem.entities.Route;
 import nrifintech.busMangementSystem.entities.RouteInfo;
 import nrifintech.busMangementSystem.entities.Ticket;
 import nrifintech.busMangementSystem.entities.User;
-import nrifintech.busMangementSystem.exception.ResouceNotFound;
-
-import nrifintech.busMangementSystem.exception.UnauthorizedAction;
-
-import nrifintech.busMangementSystem.payloads.TicketDto;
-import nrifintech.busMangementSystem.repositories.BusMapRepo;
-import nrifintech.busMangementSystem.repositories.BusRepo;
-import nrifintech.busMangementSystem.repositories.RouteInfoRepo;
-import nrifintech.busMangementSystem.repositories.RouteRepo;
+import nrifintech.busMangementSystem.exception.CustomException;
 import nrifintech.busMangementSystem.repositories.TicketRepo;
-import nrifintech.busMangementSystem.repositories.UserRepo;
 
 @Service
 public class TicketServiceImpl implements TicketService {
@@ -60,10 +41,11 @@ public class TicketServiceImpl implements TicketService {
 	@Transactional
 	@Modifying
 	public void createTicket(Ticket ticket){
+		boolean waiting=false;
 		//dont allow user to book a ticket if their ticket is already booked.
 		//check from db if user data is present for today or not.
 		if(ticketRepo.findUserByPresentDate(ticket.getUserId(), ticket.getDate())!=null)
-			throw new UnauthorizedAction("Ticket already","");
+			throw new CustomException("Ticket already booked");
 		
 		//change the status of the past ticket.
 		Date now = new Date();
@@ -88,6 +70,8 @@ public class TicketServiceImpl implements TicketService {
 		//Check first if there is seat or not
 		routeInfoService.preCheck(_ticket.getRouteId(),ticket.getDate());
 		RouteInfo _routeInfo = routeInfoService.getRouteInfo(_ticket.getRouteId(), ticket.getDate());
+		System.out.println(_routeInfo.getTotal_bookings());
+		System.out.println(_routeInfo.getTotal_seats());
 		if(_routeInfo.getTotal_bookings() < _routeInfo.getTotal_seats()){
 			_ticket.setStatus("CONFIRMED");
 			routeInfoService.changeTotalBooking(_ticket.getRouteId(), 1,_ticket.getDate());
@@ -96,8 +80,12 @@ public class TicketServiceImpl implements TicketService {
 		else{
 			_ticket.setStatus("WAITING");
 			ticketRepo.save(_ticket);
+			waiting=true;
 		}
 		routeInfoService.incrementOverallBooking(_ticket.getRouteId(),_ticket.getDate());
+		
+		if(waiting)
+			throw new CustomException("waiting");
 		//If not then add it to the queue and set the status of the ticket as waiting
 
 		//If there is seat then update the route info

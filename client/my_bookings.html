@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./home.css" />
     <link rel="stylesheet" href="./my_bookings.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <title>Document</title>
     <script type="text/javascript" language="javascript">
@@ -35,7 +35,7 @@
             },
             error: function () {
                 //alert("wrong cookie")
-                window.location.replace("admin_login.html");
+                window.location.replace("user_login.html");
             }
         });
     </script>
@@ -64,21 +64,21 @@
 
                 <div class="header-end-items">
                     <img class="vector-icon" alt="" src="public/abstract-user-flat-4.svg"
-                        style="height: 25px; margin: auto;margin-right: 10px;" />
+                        style="height: 25px; margin: auto;margin-right: 10px;" onclick="window.location.href='/client/my_profile.html';"/>
                     <p class="header-end-items-text">
                         <a href="my_profile.html" class="profile"> My Profile </a>
                     </p>
                 </div>
 
                 <div class="header-end-items">
-                    <img class="vector-icon" alt="" src="public/vector2.svg" />
+                    <img class="vector-icon" alt="" src="public/vector2.svg" onclick="window.location.href='/client/my_bookings.html';"/>
                     <p class="header-end-items-text">
                         <a href="my_bookings.html" class="booking"> Booking </a>
                     </p>
                 </div>
 
                 <div class="header-end-items">
-                    <img class="vector-icon" alt="" src="public/vector1.svg" />
+                    <img class="vector-icon" alt="" src="public/vector1.svg" onclick="logOut()"/>
                     <p class="header-end-items-text">
                         <a href="#" class="logout" onclick="logOut()"> Logout </a>
                     </p>
@@ -365,44 +365,89 @@
                                                     color = "red";
                                                 }
                                                 else if (status === "WAITING") {
-                                                    color = "yellow";
+                                                    color = "orange";
                                                 }
-                                                const routeHTML = `
-                                        <div class = "index_route_item">
-                                        <div class = "index_source">
-                                        <div class = "index_heading">Bus details</div>
-                                        <div class = "index_bus_number">${obj.busName}</div>
-                                        <div class = "index_bus_name">${obj.busNumber}</div>
-                                        </div>
-                                        <div class = "index_source">
-                                        <div class = "index_heading">Source</div>
-                                        <div class = "index_value">${obj.source_name}</div>
-                                        <div class = "index_value">${obj.source_time}</div>
-                                        </div>
-                                        <div class = "index_source">
-                                        <div class = "index_heading">Destination</div>
-                                        <div class = "index_value">${obj.destination_name}</div>
-                                        <div class = "index_value">${obj.destination_time}</div>
-                                        </div>
-                                        <div class = "index_source">
-                                        <div class = "index_heading">Status</div>
-                                        <div class = "index_value"  style = 'color:${color};'>${status}</div>
 
-                                        </div>
-                                        <div class = "index_source">
+                                                
+                                                if(status === "WAITING" || status === "CONFIRMED")
+                                                {
 
-                                        <div class = "index_route" onclick="homeonroute(${obj.route_id})">See route</div>
-                                        <div class = "index_value" style = 'font-weight:500;color:grey;margin-top:10px;'>${obj.date}</div>
-                                        <div class="index_cancel_button" ticket_id = ${ticket_id} onclick="cancelTicket(event)">  
-                                                        Cancel
-                                        </div>
-                                        </div>
-                                        </div>
-                                        `;
-                                        
-                                                const parentDiv = document.querySelector(".content");
-                                                parentDiv.innerHTML += routeHTML;
-                                                console.log("addingg")
+                                                            const routeHTML = `
+                                                    <div class = "index_route_item">
+                                                    <div class = "index_source">
+                                                    <div class = "index_heading">Bus details</div>
+                                                    <div class = "index_bus_number">${obj.busName}</div>
+                                                    <div class = "index_bus_name">${obj.busNumber}</div>
+                                                    </div>
+                                                    <div class = "index_source">
+                                                    <div class = "index_heading">Source</div>
+                                                    <div class = "index_value">${obj.source_name}</div>
+                                                    <div class = "index_value">${obj.source_time}</div>
+                                                    </div>
+                                                    <div class = "index_source">
+                                                    <div class = "index_heading">Destination</div>
+                                                    <div class = "index_value">${obj.destination_name}</div>
+                                                    <div class = "index_value">${obj.destination_time}</div>
+                                                    </div>
+                                                    <div class = "index_source">
+                                                    <div class = "index_heading">Status</div>
+                                                    <div class = "index_value"  style = 'color:${color};'>${status}</div>
+
+                                                    </div>
+                                                    <div class = "index_source">
+
+                                                    <div class = "index_route" onclick="homeonroute(${obj.route_id})">See route</div>
+                                                    <div class = "index_value" style = 'font-weight:500;color:grey;margin-top:10px;'>${obj.date}</div>
+                                                    <div class="index_cancel_button" ticket_id = ${ticket_id} onclick="cancelTicket(event)" style="cursor:pointer;">  
+                                                                    Cancel
+                                                    </div>
+                                                    </div>
+                                                    </div>
+                                                    `;
+                                                    
+                                                            const parentDiv = document.querySelector(".content");
+                                                            parentDiv.innerHTML += routeHTML;
+                                                            console.log("addingg")
+                                                }
+                                                else{
+
+                                                    const routeHTML = `
+                                                    <div class = "index_route_item">
+                                                    <div class = "index_source">
+                                                    <div class = "index_heading">Bus details</div>
+                                                    <div class = "index_bus_number">${obj.busName}</div>
+                                                    <div class = "index_bus_name">${obj.busNumber}</div>
+                                                    </div>
+                                                    <div class = "index_source">
+                                                    <div class = "index_heading">Source</div>
+                                                    <div class = "index_value">${obj.source_name}</div>
+                                                    <div class = "index_value">${obj.source_time}</div>
+                                                    </div>
+                                                    <div class = "index_source">
+                                                    <div class = "index_heading">Destination</div>
+                                                    <div class = "index_value">${obj.destination_name}</div>
+                                                    <div class = "index_value">${obj.destination_time}</div>
+                                                    </div>
+                                                    <div class = "index_source">
+                                                    <div class = "index_heading">Status</div>
+                                                    <div class = "index_value"  style = 'color:${color};'>${status}</div>
+
+                                                    </div>
+                                                    <div class = "index_source">
+
+                                                    <div class = "index_route" onclick="homeonroute(${obj.route_id})">See route</div>
+                                                    <div class = "index_value" style = 'font-weight:500;color:grey;margin-top:10px;'>${obj.date}</div>
+                                                    <div class="index_cancel_button" ticket_id = ${ticket_id}>  
+                                                                    Cancel
+                                                    </div>
+                                                    </div>
+                                                    </div>
+                                                    `;
+                                                    
+                                                            const parentDiv = document.querySelector(".content");
+                                                            parentDiv.innerHTML += routeHTML;
+                                                            console.log("addingg")
+                                                }
                                             },
                                             error: function () {
                                                 return createAlert("Server error! Please try again!", "failure");//alert("Server error! Please try again!")

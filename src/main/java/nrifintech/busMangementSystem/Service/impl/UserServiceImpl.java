@@ -10,10 +10,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import nrifintech.busMangementSystem.Service.interfaces.UserService;
+import nrifintech.busMangementSystem.entities.Issue;
+import nrifintech.busMangementSystem.entities.Ticket;
 import nrifintech.busMangementSystem.entities.User;
+import nrifintech.busMangementSystem.exception.CustomException;
 import nrifintech.busMangementSystem.exception.ResouceNotFound;
 import nrifintech.busMangementSystem.exception.UnauthorizedAction;
 import nrifintech.busMangementSystem.payloads.UserDto;
+import nrifintech.busMangementSystem.repositories.IssueRepo;
+import nrifintech.busMangementSystem.repositories.TicketRepo;
 import nrifintech.busMangementSystem.repositories.UserRepo;
 
 @Service
@@ -29,13 +34,22 @@ public class UserServiceImpl implements UserService{
 	private UserRepo userRepo;
 	
 	@Autowired
+	private IssueRepo issueRepo;
+	
+	@Autowired
+	private TicketRepo ticketRepo;
+	
+	@Autowired
     private MailService mailService;
 	
 	@Override
 	public User createUser(User user) {
 		// TODO Auto-generated method stub
 		//same user can't be created multiple times for each role type.
-		//System.out.println(userRepo.findByOnlyEmail(user.getEmail()));
+		//System.out.println("Hello helo"+userRepo.findByOnlyEmail(user.getEmail()));
+		if(userRepo.findByOnlyEmail(user.getEmail()).isPresent())
+			throw new CustomException("user exists");
+			
 		try {
 			mailService.sendCredentials(user.getEmail(), user.getName(), user.getPassword(), "created");
 		} catch (MessagingException e) {
@@ -106,6 +120,15 @@ public class UserServiceImpl implements UserService{
 	public void deleteUser(int id) {
 		// TODO Auto-generated method stub
 		User user = this.userRepo.findById(id).orElseThrow(() -> new ResouceNotFound("User", "id", id));
+		//delete user data from issues
+		List<Issue> userIssues= issueRepo.getIssuesByUserId(id);
+		for(Issue i:userIssues)
+			issueRepo.delete(i);
+		//delete user data from tickets
+		List<Ticket> userTickets = ticketRepo.findByUserId(id);
+		for(Ticket t:userTickets)
+			ticketRepo.delete(t);
+		//now delete user data from user table.
 		userRepo.delete(user);	
 	}
 

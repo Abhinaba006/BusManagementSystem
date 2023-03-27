@@ -160,7 +160,7 @@ function add_route_field(event) {
     newDiv.className = "select_content";
     newDiv.innerHTML = `
     <select class="select_class" id="select_dest_${len + 1}" onclick="add_Destination_toselect(event, ${len})">
-        <option>Add destination</option>
+        <option style="color:grey;">Add destination</option>
     </select>
     <input class="select_time" id="select_time_${len + 1}" placeholder="HH:MM (24hr-format)">
 `;
@@ -223,7 +223,10 @@ function addEmployee(event) {
         },
         error: function (xhr, status, error) {
             console.log(error);
-            createAlert("Oops something went wrong! Please try again", "failure");
+            if(JSON.parse(xhr.responseText).message === "user exists")
+              createAlert("user with this email already exists!","info");
+            else
+              createAlert("Oops something went wrong! Please try again", "failure");
             //alert("Oops something went wrong! Please try again")
         }
     });
@@ -257,6 +260,8 @@ function getRoutesAdmin(event) {
         },
         success: function (data) {
             console.log(data);
+            if(data.length===0)
+               createAlert("No routes found for the given source and destination!","info");
 
             for (var i = 0; i < data.length; i++) {
                 const route_id = data[i].id;
@@ -399,8 +404,9 @@ function deleteRoute(event, routeId) {
         type: "DELETE",
         success: function (result) {
             console.log(result);
-            createAlert("Bus deleted successfully", "success");
+            createAlert("Route deleted successfully", "success");
             //alert("Bus deleted successfully!")
+            
         },
         error: function (xhr, status, error) {
             console.log(error);
@@ -519,28 +525,55 @@ function searchTickets(event) {
                                         obj["userId"] = 1;
                                         console.log(obj);
                                         let color;
-                                        if (status == "CONFIRMED") {
+                                        if (status === "CONFIRMED") {
                                             color = "green";
                                         }
                                         else if (status === "CANCELLED") {
                                             color = "red";
+                                            
                                         }
                                         else if (status === "WAITING") {
-                                            color = "yellow";
+                                            color = "orange";
                                         }
-                                        const routeHTML = `
-                                       
-                                <div class = "admin-ticket-values">
-                                    <div class = "admin-ticket-user-value">${obj.date}</div>
-                                    <div class = "admin-ticket-user-value">${obj.source_name}</div>
-                                    <div class = "admin-ticket-user-value">${obj.destination_name}</div>
-                                    <div class = "admin-ticket-user-value">${obj.busNumber}</div>
-                                    <div class = "admin-ticket-user-value">${status}</div>
-                                    <div class = "admin-ticket-user-value" style = "color:red;cursor: pointer;" onclick="cancelTicket(event)"  ticket_id = ${ticket_id}>Cancel</div>
-                                </div> 
-                                `;
-                                        const parentDiv = document.querySelector(".admin-ticket-content");
-                                        parentDiv.innerHTML += routeHTML;
+                                        else if(status === "AVAILED")
+                                        {
+                                            color = "grey";
+                                        }
+                                        
+                                        if(status === "CONFIRMED" || status === "WAITING")
+                                        {
+                                            const routeHTML = `
+                                        
+                                            <div class = "admin-ticket-values">
+                                                <div class = "admin-ticket-user-value">${obj.date}</div>
+                                                <div class = "admin-ticket-user-value">${obj.source_name}</div>
+                                                <div class = "admin-ticket-user-value">${obj.destination_name}</div>
+                                                <div class = "admin-ticket-user-value">${obj.busNumber}</div>
+                                                <div class = "admin-ticket-user-value" style="color:${color}">${status}</div>
+                                                <div class = "admin-ticket-user-value" style = "color:red;cursor: pointer;" onclick="cancelTicket(event)"  ticket_id = ${ticket_id}>Cancel</div>
+                                            </div> 
+                                            `;
+                                                    
+                                            const parentDiv = document.querySelector(".admin-ticket-content");
+                                            parentDiv.innerHTML += routeHTML;
+                                        }
+                                        else
+                                        {
+                                            const routeHTML = `
+                                        
+                                            <div class = "admin-ticket-values">
+                                                <div class = "admin-ticket-user-value">${obj.date}</div>
+                                                <div class = "admin-ticket-user-value">${obj.source_name}</div>
+                                                <div class = "admin-ticket-user-value">${obj.destination_name}</div>
+                                                <div class = "admin-ticket-user-value">${obj.busNumber}</div>
+                                                <div class = "admin-ticket-user-value"  style="color:${color}">${status}</div>
+                                                <div class = "admin-ticket-user-value" style = "color:black;" ticket_id = ${ticket_id}>-</div>
+                                            </div> 
+                                            `;
+                                                    
+                                            const parentDiv = document.querySelector(".admin-ticket-content");
+                                            parentDiv.innerHTML += routeHTML;
+                                        }
                                     },
                                     error: function () {
                                         return createAlert("Server error! Please try again!", "failure");
@@ -788,7 +821,10 @@ function addDestination(event) {
         },
         error: function (xhr, status, error) {
             console.log(error);
-            createAlert("Oops something went wrong! Please try again", "failure");
+            if(JSON.parse(xhr.responseText).message === "destination exists")
+              createAlert("destination with this name already exists!","info");
+            else
+              createAlert("Oops something went wrong! Please try again", "failure");
             //alert("Oops something went wrong! Please try again")
         }
     });
@@ -1028,7 +1064,10 @@ function addBus(event) {
         },
         error: function (xhr, status, error) {
             console.log(error);
-            createAlert("Oops something went wrong! Please try again", "failure");
+            if(JSON.parse(xhr.responseText).message === "bus exists")
+              createAlert("bus with this bus number already exists!","info");
+            else
+              createAlert("Oops something went wrong! Please try again", "failure");
             //alert("Oops something went wrong! Please try again")
         }
     });
@@ -1042,7 +1081,7 @@ function off3() {
 function displayBusID(event) {
     event.preventDefault();
     $.ajax({
-        url: "http://localhost:8080/api/v1/bus/get",
+        url: "http://localhost:8080/api/v1/bus/get/unalloted",
         type: "GET",
         headers: {
             "Authorization": getTokenCookie(),
@@ -1145,8 +1184,15 @@ function addRoute(event) {
         contentType: "application/json",
         success: function (result) {
             console.log(result);
+            
             createAlert("Route added successfully!", "success");
             //alert("Route added successfully!")
+            //refresh the input fields and put the start and end destination name in the search bar.
+            $(".route_add_div").load(window.location.href+".route_add_div");
+
+            
+
+
         },
         error: function (xhr, status, error) {
             console.log(error);
@@ -1490,7 +1536,7 @@ function getUnResolvedIssues() {
                                 success: function (response) {
                                     // Do something if the POST request is successful
                                     console.log('Data posted to database');
-                                    createAlert("Issue Number"+id+" resolved","success");
+                                    createAlert("Issue Number "+id+" resolved","success");
                                     //refresh the page if any issue is resolved.
                                     var link = document.getElementById('text6');
                                     link.click();
@@ -1579,6 +1625,9 @@ function createAlert(message, type) {
     alertContainer.appendChild(alertBox);
 
 }
+
+
+
 
 
 

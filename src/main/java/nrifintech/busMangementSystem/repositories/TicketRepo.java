@@ -4,10 +4,11 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import org.springframework.data.repository.query.Param;
-
+import org.springframework.transaction.annotation.Transactional;
 
 import nrifintech.busMangementSystem.entities.Ticket;
 import nrifintech.busMangementSystem.entities.User;
@@ -29,4 +30,10 @@ public interface TicketRepo extends JpaRepository<Ticket, Integer> {
     //get total ticket done by user u.
     @Query(value="SELECT COUNT(*) FROM ticket where user_id = :user_id and status='AVAILED'",nativeQuery = true)
     Integer getTotalTicketsDoneByUser(int user_id);
+    
+    //delete all tickets with given route_id.
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM ticket WHERE route_id = :route_id and date>=:currentDate", nativeQuery = true)
+    void DeleteUpcomingTicketsByRouteId(int route_id,String currentDate);
 }

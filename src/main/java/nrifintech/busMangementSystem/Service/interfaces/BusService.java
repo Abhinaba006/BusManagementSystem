@@ -13,5 +13,6 @@ public interface BusService {
 	Bus getBus(int id);
 	List<Bus> getBus();
 	void deleteBus(int id);
+	List<Bus> getUnAllotedBus();
 
 }

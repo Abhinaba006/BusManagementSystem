@@ -2853,6 +2853,7 @@ a {
     width:calc(100% - 200px)!important;
     margin-left:10px;
     height:70%!important;
+    margin-bottom: -30px;
 }
 /*  ends here*/
 
@@ -3066,8 +3067,9 @@ a {
 }
 .select_class{
     width:200px;
-    color:grey;
+    color:rgb(44, 40, 40);
 }
+  
 .select_time{
     border:none;
     border-bottom: 1px solid grey;
@@ -3102,6 +3104,7 @@ a {
     padding:10px;
     width:150px;
     text-align: center;
+    cursor:default;
 }
 .select_bus,.select_bus_edit{
     width:200px;
@@ -3522,6 +3525,8 @@ box-shadow: 2px 2px 2px #ddd;background:white;
     justify-content: space-around;
     padding:10px;
   }
+
+  
   @media only screen and (max-width:1000px){
     .issue-div{
         width: 80%;

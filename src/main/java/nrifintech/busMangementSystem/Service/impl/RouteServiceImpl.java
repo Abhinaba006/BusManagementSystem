@@ -2,11 +2,14 @@ package nrifintech.busMangementSystem.Service.impl;
 
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +29,7 @@ import nrifintech.busMangementSystem.repositories.BusRepo;
 import nrifintech.busMangementSystem.repositories.RouteInfoRepo;
 import nrifintech.busMangementSystem.repositories.RouteMapRepo;
 import nrifintech.busMangementSystem.repositories.RouteRepo;
+import nrifintech.busMangementSystem.repositories.TicketRepo;
 @Service
 public class RouteServiceImpl implements RouteService{
 
@@ -51,6 +55,9 @@ public class RouteServiceImpl implements RouteService{
 
 	@Autowired
 	private BusRepo busRepo;
+	
+	@Autowired
+	private TicketRepo ticketRepo;
 	
 	@Override
 	@Transactional
@@ -147,7 +154,16 @@ public class RouteServiceImpl implements RouteService{
 	public void deleteRoute(int id) {
 		// TODO Auto-generated method stub
 		Route route = this.routeRepo.findById(id).orElseThrow(() -> new ResouceNotFound("Route", "id", id));
-		
+		//delete from route_info entry
+		routeInfoRepo.deleteRouteInfo(id);
+		Date now = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd:MM:yyyy");
+        formatter.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
+        String currentDate = formatter.format(now);
+		//delete upcoming tickets for this route too.
+		ticketRepo.DeleteUpcomingTicketsByRouteId(id, currentDate);
+		//delete from routeInfo entry.
+		routeInfoRepo.deleteRouteInfo(id);
 		//Delete from the routeMap entry
 		routeMapRepo.deleteFromRepoByRouteId(id);
 		//Delete from busMap entry

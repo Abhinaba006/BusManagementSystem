@@ -23,4 +23,7 @@ public interface RouteInfoRepo extends JpaRepository<RouteInfo, Integer> {
 
 	@Query(value = "SELECT * FROM route_info WHERE route_id = :routeId",nativeQuery = true)
 	List<RouteInfo> getRouteData(@Param("routeId") int routeId);
+	
+	@Query(value = "SELECT * FROM route_info WHERE route_id = :routeId AND date >= :date",nativeQuery = true)
+	List<RouteInfo> getAllUpcomingRouteInfo(@Param("routeId") int routeId, @Param("date") String date);
 }

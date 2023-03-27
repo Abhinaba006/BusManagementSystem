@@ -37,6 +37,13 @@ public class BusController {
 	public ResponseEntity<Bus> getBusById(@PathVariable("id") int uid){
 		return ResponseEntity.ok(this.busService.getBus(uid));
 	}
+	
+	//get unalloted bus
+		@GetMapping("/get/unalloted")
+		public ResponseEntity<List<Bus>> getAllUnallotedbus(){
+			return ResponseEntity.ok(this.busService.getUnAllotedBus());
+		}
+		
 	//post
 	
 	@PostMapping("/create")
@@ -56,5 +63,6 @@ public class BusController {
 		busService.deleteBus(busId);
 		return new ResponseEntity(new ApiResponse("bus deleted", true), HttpStatus.OK);
 	}
+
 
 }

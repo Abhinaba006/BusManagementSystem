@@ -312,14 +312,16 @@ function bookTicket(event) {
 			console.log(result);
 			createAlert("Ticket booked successfully!","success");
 			
+			
 			//alert("Ticket booked successfully!");
 			// location.reload(); 
 		},
 		error: function (xhr, status, error) {
 			console.log(error);
-			console.log(JSON.parse(xhr.responseText).message);
-			if(JSON.parse(xhr.responseText).message === "Ticket already done by ")
+			if(JSON.parse(xhr.responseText).message === "Ticket already booked")
 			  createAlert("First cancel 1 confirmed ticket, then book a ticket.","info"); //alert("First cancel 1 confirmed ticket, then book a ticket.");
+			else if(JSON.parse(xhr.responseText).message === "waiting")
+			  createAlert("Your ticket is in a waiting list","info");
 			else
 			createAlert("Oops something went wrong! Please try again","failure");
 			//alert("Oops something went wrong! Please try again ");
@@ -495,12 +497,14 @@ function createAlert(message, type) {
     closeButton.className = "closebtn";
     closeButton.onclick = function() {
       alertContainer.removeChild(alertBox);
-	  location.reload()
+	  //location.reload();
+	  window.location = '/client/my_bookings.html';
     };
 
     alertBox.className = "alert " + type;
     alertBox.appendChild(closeButton);
     alertContainer.appendChild(alertBox);
+
   }
 
 

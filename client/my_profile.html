@@ -58,21 +58,21 @@
             <div class="header-end">
 
                 <div class="header-end-items">
-                    <img class="vector-icon" alt="" src="public/abstract-user-flat-4.svg" style="height: 25px; margin: auto;margin-right: 10px;" />
+                    <img class="vector-icon" alt="" src="public/abstract-user-flat-4.svg" style="height: 25px; margin: auto;margin-right: 10px;" onclick="window.location.href='/client/my_profile.html';"/>
                     <p class="header-end-items-text"> 
                         <a href="my_profile.html" class="profile">  My Profile  </a>
                     </p>     
                 </div>
 
                         <div class="header-end-items">
-                            <img class="vector-icon" alt="" src="public/vector2.svg" />
+                            <img class="vector-icon" alt="" src="public/vector2.svg" onclick="window.location.href='/client/my_bookings.html';"/>
                             <p class="header-end-items-text"> 
                                 <a href="my_bookings.html" class="booking">  Booking  </a>
                             </p>     
                         </div>
 
                         <div class="header-end-items">
-                                <img class="vector-icon" alt="" src="public/vector1.svg" />
+                                <img class="vector-icon" alt="" src="public/vector1.svg" onclick="logOut()"/>
                                 <p class="header-end-items-text"> 
                                      <a href="#" class="logout" onclick="logOut()"> Logout  </a>  
                                 </p>
@@ -85,6 +85,7 @@
         <div class="body-part">
             
             <div class = "_profile">
+                <h2 class="_profile_header">My Profile</h2>
                 <div class = "_profile_label">Name</div>
                 <input class = "_profile_data _profile_name" disabled = true/>
                 <div class = "_profile_label">Email</div>

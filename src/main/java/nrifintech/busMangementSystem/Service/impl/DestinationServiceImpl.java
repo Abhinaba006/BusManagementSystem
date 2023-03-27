@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import nrifintech.busMangementSystem.Service.interfaces.DestinationService;
 import nrifintech.busMangementSystem.entities.Destination;
+import nrifintech.busMangementSystem.exception.CustomException;
 import nrifintech.busMangementSystem.exception.ResouceNotFound;
 
 import nrifintech.busMangementSystem.exception.UnauthorizedAction;
@@ -23,13 +24,11 @@ public class DestinationServiceImpl implements DestinationService {
 
 	@Override
 	public Destination createDestination(Destination destination) {
-		//return destinationRepo.save(destination);
-		if(destinationRepo.checkIfExistsByName(destination.getName()) == null)
-		{
+		//check if same destination already exists in the db.
+		if(destinationRepo.checkIfExistsByName(destination.getName())!=null)
+			throw new CustomException("destination exists");
 			return destinationRepo.save(destination);
-		}
-		else
-			throw new UnauthorizedAction("similiar destination create","Admin");
+		
 
 //		return destinationRepo.save(destination);
 
