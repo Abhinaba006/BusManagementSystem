@@ -644,6 +644,7 @@ function searchTickets(event,optionalValue) {
         error: function (e) {
             console.log(e);
             const parentDiv = document.querySelector(".admin-ticket-pagination");
+            console.log(parentDiv);
             parentDiv.innerHTML="";
             return createAlert("Something went wrong. Please try again later!", "failure");
             //return alert("Something went wrong. Please try again later!");
@@ -1521,7 +1522,7 @@ function getUnResolvedIssues() {
             h1Element.classList.add("issue-main-heading");
             parentDiv.appendChild(h1Element);
 
-
+            let now
             for (var i = 0; i < data.length; i++) {
                 const id = data[i].id;
                 const is_resolved = data[i].is_resolved;
@@ -1539,7 +1540,7 @@ function getUnResolvedIssues() {
                 obj["is_resolved"] = is_resolved;
                 obj["issue"] = issue;
                 obj["user_id"] = user_id;
-                obj["date"] = date;
+                obj["date"] = moment(date).format('DD MMMM YYYY');;
 
                 $.ajax({
                     url: "http://localhost:8080/api/v1/user/get/" + user_id,
