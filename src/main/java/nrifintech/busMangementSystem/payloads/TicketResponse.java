@@ -16,5 +16,6 @@ public class TicketResponse {
 	private int pageSize;
 	private long totalElements;
 	private int totalPages;
+	private boolean firstpage;
 	private boolean lastPage;
 }
