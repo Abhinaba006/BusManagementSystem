@@ -480,10 +480,11 @@ function searchTickets(event,optionalValue) {
             console.log(current_page);
             if(d.firstpage==false)
             {
+                
                 const prevdiv=`<div class="pagination-divs-nextprev" onclick="searchTickets(event, ${current_page}-1 )"> Prev </div>`;
                 parentDiv.innerHTML +=prevdiv;
             }
-            for(var i=current_page+1;i <= current_page+2 && i <= total_pages;i++)
+            for(var i=current_page+1;i <= current_page+3 && i <= total_pages;i++)
             {
 
                 if(i==current_page+1)
