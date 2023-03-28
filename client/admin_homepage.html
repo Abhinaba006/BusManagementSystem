@@ -7,8 +7,6 @@
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +18,7 @@
     <link rel="stylesheet" href="./admin_homepage.css" />
     <link rel="stylesheet" href="./index.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <title>Admin</title>
     <script type="text/javascript" language="javascript">
@@ -50,6 +48,7 @@
             }
         });
     </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -625,7 +624,7 @@
                     <div id="seventhdiv" style="display:none">
                         <h1>Search Tickets</h1>
                         <input type="text" id="search-tickets-admin" placeholder="Enter Employee's Name">
-                        <button id="search-ticket-button" onclick="searchTickets(event)">Search</button>
+                        <button id="search-ticket-button" onclick="searchTickets(event,'0')">Search</button>
                         <p style="margin-left:15px;color: goldenrod;" id="admin_ticket_count">Total results: 0 </p>
                         <div class="admin-ticket-header">
                             <div class="admin-ticket-value">Date</div>
@@ -636,6 +635,7 @@
                             <div class="admin-ticket-value">Cancel</div>
                         </div>
                         <div class="admin-ticket-content"></div>
+                        <div class="admin-ticket-pagination"></div>
                     </div>
 
 

@@ -506,7 +506,7 @@ function searchTickets(event,optionalValue) {
             }
     
 
-            document.getElementById("admin_ticket_count").innerHTML = "Total tickets found : " + data.length*total_pages;
+            document.getElementById("admin_ticket_count").innerHTML = "Total tickets found : " + d.totalElements;
             for (var i = 0; i < data.length; i++) {
                 const route_id = data[i].routeId;
                 const ticket_id = data[i].id;
