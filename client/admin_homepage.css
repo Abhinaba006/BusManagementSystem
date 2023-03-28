@@ -3540,7 +3540,7 @@ box-shadow: 2px 2px 2px #ddd;background:white;
     font-weight: 500;
     line-height: 22px;
     letter-spacing: 0.035em;
-    color: white;
+    color: black;
     display: flex;
     flex-direction: row;
     justify-content: left;
@@ -3554,10 +3554,13 @@ box-shadow: 2px 2px 2px #ddd;background:white;
     margin-right: 10px ;
     width: 25px;
     text-align: center;
-    border-radius: 40%;
-    border: solid 2px #334756;
-    background-color: black;
+    
+ 
     cursor: pointer;
+  }
+  .pagination-divs:hover
+  {
+    background-color: #ede3d9;
   }
   .pagination-divs-nextprev
   {
@@ -3565,9 +3568,9 @@ box-shadow: 2px 2px 2px #ddd;background:white;
     margin-right: 10px ;
     width: 50px;
     text-align: center;
-    border-radius: 30%;
-    border: solid 2px #334756;
-    background-color: black;
+   
+   
+   
     cursor: pointer;
   }
 
