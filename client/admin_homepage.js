@@ -485,8 +485,17 @@ function searchTickets(event,optionalValue) {
             }
             for(var i=current_page+1;i <= current_page+2 && i <= total_pages;i++)
             {
-                const pagediv=`<div class="pagination-divs" onclick="searchTickets(event, ${i}-1 )"> ${i} </div>`;
-                parentDiv.innerHTML +=pagediv;
+
+                if(i==current_page+1)
+                {
+                    const pagediv=`<div class="pagination-divs" style="border-bottom: 2px solid blue;" onclick="searchTickets(event, ${i}-1 )"> ${i} </div>`;
+                    parentDiv.innerHTML +=pagediv;
+                }
+                else{
+                    const pagediv=`<div class="pagination-divs" onclick="searchTickets(event, ${i}-1 )"> ${i} </div>`;
+                    parentDiv.innerHTML +=pagediv;
+                }
+                
             }
             if(d.lastPage==false && d.pageNumber+2 <d.totalPages )
             {
@@ -1221,7 +1230,7 @@ function addRoute(event) {
             createAlert("Route added successfully!", "success");
             //alert("Route added successfully!")
             //refresh the input fields and put the start and end destination name in the search bar.
-            $(".route_add_div").load(window.location.href+".route_add_div");
+            // $(".route_add_div").load(window.location.href+".route_add_div");
 
             
 
