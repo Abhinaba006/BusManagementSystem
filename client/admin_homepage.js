@@ -1540,7 +1540,7 @@ function getUnResolvedIssues() {
                 obj["is_resolved"] = is_resolved;
                 obj["issue"] = issue;
                 obj["user_id"] = user_id;
-                obj["date"] = moment(date).format('DD MMMM YYYY');;
+                obj["date"] = moment(date).format('DD MMMM YYYY')+" "+moment(date).format('HH:MM');;
 
                 $.ajax({
                     url: "http://localhost:8080/api/v1/user/get/" + user_id,
