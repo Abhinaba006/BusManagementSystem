@@ -8,9 +8,9 @@ import java.util.Optional;
 import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +20,8 @@ import nrifintech.busMangementSystem.Service.interfaces.RouteInfoService;
 import nrifintech.busMangementSystem.Service.interfaces.RouteService;
 import nrifintech.busMangementSystem.Service.interfaces.TicketService;
 import nrifintech.busMangementSystem.Service.interfaces.UserService;
+import nrifintech.busMangementSystem.entities.Bus;
+import nrifintech.busMangementSystem.entities.Route;
 import nrifintech.busMangementSystem.entities.RouteInfo;
 import nrifintech.busMangementSystem.entities.Ticket;
 import nrifintech.busMangementSystem.entities.User;
@@ -68,7 +70,8 @@ public class TicketServiceImpl implements TicketService {
 				this.ticketRepo.save(t);
 			}
 
-		
+		Route route = routeService.getRoute(ticket.getRouteId());
+		Bus bus = busService.getBus(ticket.getBusId());
 		Ticket _ticket = ticketRepo.save(ticket);
          
 		//Check first if there is seat or not
