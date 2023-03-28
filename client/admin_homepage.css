@@ -2495,7 +2495,7 @@ a {
   .issue-heading{
     font-size:25px;
     font-weight: bold;
-    color:red;
+    color:#ff2151;
   }
   .issue-user {
     font-size: 16px;
@@ -2506,7 +2506,7 @@ a {
   }
   .issue-date{
     display: inline;
-    color:goldenrod;
+    color:#8578789f;
     font-weight: 300;
     margin-left:20px;
   }
