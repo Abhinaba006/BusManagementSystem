@@ -473,19 +473,30 @@ function searchTickets(event,optionalValue) {
             // "date": "09:03:2023"
             var data=d.content;
             var total_pages=d.totalPages;
+            var current_page=d.pageNumber;
             // var page_number=d.pageNumber+1;
             const parentDiv = document.querySelector(".admin-ticket-pagination");
             parentDiv.innerHTML="";
-            for(var i=1;i<=total_pages;i++)
+            console.log(current_page);
+            if(d.firstpage==false)
             {
-                
+                const prevdiv=`<div class="pagination-divs-nextprev" onclick="searchTickets(event, ${current_page}-1 )"> Prev </div>`;
+                parentDiv.innerHTML +=prevdiv;
+            }
+            for(var i=current_page+1;i <= current_page+2 && i <= total_pages;i++)
+            {
                 const pagediv=`<div class="pagination-divs" onclick="searchTickets(event, ${i}-1 )"> ${i} </div>`;
-                
                 parentDiv.innerHTML +=pagediv;
+            }
+            if(d.lastPage==false && d.pageNumber+2 <d.totalPages )
+            {
+                const nextPagetoGo=current_page+2;
+                const nextdiv=`<div class="pagination-divs-nextprev" onclick="searchTickets(event, ${nextPagetoGo} )"> Next </div>`;
+                parentDiv.innerHTML +=nextdiv;
             }
     
 
-            document.getElementById("admin_ticket_count").innerHTML = "Total count: " + data.length*total_pages;
+            document.getElementById("admin_ticket_count").innerHTML = "Total tickets found : " + data.length*total_pages;
             for (var i = 0; i < data.length; i++) {
                 const route_id = data[i].routeId;
                 const ticket_id = data[i].id;
