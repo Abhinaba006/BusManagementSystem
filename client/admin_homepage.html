@@ -48,7 +48,9 @@
             }
         });
     </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+        integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -135,14 +137,16 @@
                         <form>
                             <h1>Add an employee</h1>
 
-                            <input type="text" id="add-employee-name" name="name" placeholder="Name" autocomplete="new-password">
+                            <input type="text" id="add-employee-name" name="name" placeholder="Name"
+                                autocomplete="new-password">
 
 
                             <input type="email" id="add-employee-email" name="email" placeholder="Email"
                                 autocomplete="off">
 
 
-                            <input type="password" id="add-employee-password" name="password" placeholder="Password" autocomplete="new-password">
+                            <input type="password" id="add-employee-password" name="password" placeholder="Password"
+                                autocomplete="new-password">
 
                             <input type="text" id="add-employee-id" name="empId" placeholder="Employee id"><br>
                             <input type="submit" value="+ Add Employee" onclick="addEmployee(event)">
@@ -548,7 +552,7 @@
                                         const ul = document.createElement("ul");
                                         ul.classList.add("results-list"); // add a class for styling
                                         const li = document.createElement("li");
-                                        li.textContent = "No matching places found."           ;
+                                        li.textContent = "No matching places found.";
                                         li.classList.add("results-item");
                                         ul.appendChild(li);
                                         results.appendChild(ul);
@@ -613,6 +617,12 @@
 
 
                     <div id="sixthdiv" style="display:none" class="issue-manage">
+                        <h1 class="issue-main-heading">Manage Issues</h1>
+                        <input type="text" id="search-issues-admin" placeholder="Search Issues By Employee's Email">
+                        <button id="search-issue-button" onclick="searchIssues(event)">Search</button>
+                        <p style="margin-left:10%;color: goldenrod;" id="admin_issue_count">Total results: 0 </p>
+
+                        <div class="issue-manage-content"></div>
                         <!-- <h2 class="issue-title">Issue Title</h2>
                                     <p class="issue-user">Posted by John Doe</p>
                                     <p class="issue-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed efficitur, lorem ac hendrerit aliquam, mauris nunc ultrices mauris, a tristique mauris nisi ut sapien. Sed ullamcorper nulla sed mi luctus congue. Nullam vel justo euismod, feugiat augue non, dapibus urna. Nam sit amet ligula ac risus bibendum iaculis. Suspendisse vehicula dui sed augue ultrices maximus. Praesent vel nunc lorem. Duis vulputate auctor massa at accumsan.</p>
@@ -622,10 +632,10 @@
 
                     <!--seventh div-->
                     <div id="seventhdiv" style="display:none">
-                        <h1>Search Tickets</h1>
-                        <input type="text" id="search-tickets-admin" placeholder="Enter Employee's Name">
+                        <h1 class="ticket-main-heading">Search Tickets</h1>
+                        <input type="text" id="search-tickets-admin" placeholder="Enter Employee's Email">
                         <button id="search-ticket-button" onclick="searchTickets(event)">Search</button>
-                        <p style="margin-left:15px;color: goldenrod;" id="admin_ticket_count">Total results: 0 </p>
+                        <p style="margin-left:10%;color: goldenrod;" id="admin_ticket_count">Total results: 0 </p>
                         <div class="admin-ticket-header">
                             <div class="admin-ticket-value">Date</div>
                             <div class="admin-ticket-value">Source</div>
@@ -782,6 +792,34 @@
 
     <!-- Destination Search Overlay Ends Here-->
 
+    <!--Route search overlay-->
+    <div class="route-overlay">
+        <div class="search-div">
+
+            <div class="search-overlay-main-div">
+                <div class="close-button" onclick="off4()">x</div>
+                <div class="cancel-text">
+                    <form style="text-align: left;margin: auto;">
+                        <div class="add_route_field" onclick="add_route_field_edit(event)">Add destination</div>
+                            <select class="select_bus_overlay" id="select_bus_overlay" onclick="displayBusIDOverlay(event)">
+                                <option>Select your bus</option>
+                            </select>
+                            <div class="add_field_edit" id="add_field_edit">
+
+                            </div>
+                            <!-- <div class="route_submit" id="route_submit" onclick=" addRoute(event)"
+                                style="cursor: pointer;">SAVE</div> -->
+                    </form>
+                </div>
+                <div class="confirm-cancel-buttons">
+                    <button class="confirm-button" > <img class="confirm-cancel-icon"
+                            src="./public/arrow-right-circle-fill.svg" alt=""> Save</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
     <!--Overlay ends here-->
 
 
@@ -789,7 +827,10 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+    <script>
 
+    
+    </script>
 </body>
 
 </html>

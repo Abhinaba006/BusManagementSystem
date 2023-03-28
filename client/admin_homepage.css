@@ -2471,10 +2471,12 @@ a {
     bottom: 0
 }
 
-.issue-main-heading{
+.issue-main-heading,.ticket-main-heading{
     font-family: var(--font-montserrat);
     margin-left: 5%;
 }
+
+
 
 .issue-div {
     position: relative;
@@ -3438,7 +3440,7 @@ box-shadow: 2px 2px 2px #ddd;background:white;
     margin-left: 10px;
 }
 
-#search-ticket-button{
+#search-ticket-button,#search-issue-button{
     font-family: Montserrat;
     font-size: 18px;
     font-weight: 500;
@@ -3456,6 +3458,7 @@ box-shadow: 2px 2px 2px #ddd;background:white;
     display: inline-block;
     /* margin-left: 8%; */
   }
+
 
 /* Table styles */
 .ticket-table {
@@ -3505,12 +3508,18 @@ box-shadow: 2px 2px 2px #ddd;background:white;
     cursor: pointer;
   }
   #search-tickets-admin{
+    margin-left: 10%;
+    width:65%!important;
+  }
+
+  #search-issues-admin{
+    margin-left: 10%;
     width:65%!important;
   }
   .admin-ticket-header{
     display: flex;
-    width:calc(100% - 250px);
-    margin-left:20px;
+    width:calc(100% - 550px);
+    margin-left:10%;
     justify-content: space-around;
     height:30px;
     background-color: #334756;
@@ -3519,8 +3528,8 @@ box-shadow: 2px 2px 2px #ddd;background:white;
   }
   .admin-ticket-values{
     display: flex;
-    width: calc(100% - 250px);
-    margin-left:20px;
+    width: calc(100% - 550px);
+    margin-left:10%;
     background-color: rgb(247, 247, 247);
     justify-content: space-around;
     padding:10px;
@@ -3583,7 +3592,7 @@ box-shadow: 2px 2px 2px #ddd;background:white;
         width:90%;
         margin-left:15px;
     }
-    #search-ticket-button{
+    #search-ticket-button,#search-issue-button{
         margin-left:15px;
     }
     #search-tickets-admin{
