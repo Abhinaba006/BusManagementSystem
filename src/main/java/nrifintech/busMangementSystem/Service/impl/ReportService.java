@@ -1,13 +1,12 @@
 package nrifintech.busMangementSystem.Service.impl;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
-import java.util.HashMap;
+
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -173,6 +172,23 @@ public class ReportService {
 	    workbook.close();
 //	    outputStream.flush();
 	    outputStream.close();
+	}
+
+	public List<Integer> getMonthWiseNumberOfUsers() {
+		// TODO Auto-generated method stub
+		//create a list of size 13, 1st value is total registered user
+		//rest 12 is number of users using the bus service for each month.
+		List<Integer> data = new ArrayList<Integer>();
+		//fetch total registered user.
+		data.add((int) userRepo.count());
+		//fetch the number of users for each month using tickets table.
+		List<Integer> fetcheddata = new ArrayList<Integer>();
+		fetcheddata = ticketRepo.countUniqueUsersByMonth();
+		data.addAll(fetcheddata);
+		int length = fetcheddata.size();
+		for(int i=0;i<12-length;i++)
+			data.add(0);
+		return data;
 	}
 
 }

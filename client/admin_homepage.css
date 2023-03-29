@@ -238,7 +238,7 @@ input[type=text],[type=email],[type=password],[type=time],[type=number],select {
 
   #report-route-id{
     margin-right: 0%;
-    width:70%;
+    max-width:90%;
   }
   
 #employee-name,#employee-email,#employee-password,#employee-id,#bus-number-o,#bus-name-o,#bus-seats-o,#dest-edit-name,#dest-edit-latitude-input,#dest-edit-longitude-input{
@@ -535,6 +535,8 @@ form {
     display: inline-block;
     margin: 0% 1%;
 }
+
+
 
 .user-status, .route-status{
     font-family: Montserrat;
@@ -2852,11 +2854,39 @@ a {
 }
 
 #myChart{
-    width:calc(100% - 200px)!important;
-    margin-left:10px;
+    width:calc(100% - 50px)!important;
     height:70%!important;
-    margin-bottom: -30px;
 }
+
+#myChart2{
+    height:60%!important;
+}
+
+#chart1 {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin: auto;
+    margin: -2% 5% 5% 5%;
+    display: inline-block;
+    width: 80%;
+    padding: 20px;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 10px;
+    overflow-x: auto;
+  }
+
+  #chart3 {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 10px;
+  }
+  
 /*  ends here*/
 
 
@@ -3555,6 +3585,22 @@ box-shadow: 2px 2px 2px #ddd;background:white;
         min-width: 700px!important;
         min-height:500px!important;
     }
+    #report-route-id{
+        margin-right: 0%;
+        max-width:90%;
+      }
+
+    #chart1 {
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        margin: auto;
+        margin: -2% 5% 5% 5%;
+        display: inline-block;
+        width: 80%;
+        padding: 20px;
+        align-items: center;
+        background-color: #ffffff;
+        border-radius: 10px;
+      }
 }
   /* Responsive styles */
   @media screen and (max-width: 600px) {

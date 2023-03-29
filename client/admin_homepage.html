@@ -244,12 +244,22 @@
                     <!--fourth div-->
 
                     <div id="fourthdiv" style="display:none;overflow-x: scroll;">
+                        <h1 style="margin-left: 3%;">Analytics and Reports</h1>
+                        <div id="chart1">
                         <input type="text" id="report-route-id" placeholder="Enter route id" />
                         <button onclick="getReportById(event)" class="generate-report">Search</button>
 
                         <canvas id="myChart">
 
                         </canvas>
+                        </div>
+
+                        <div id="chart1">
+                        <div>
+                            <canvas id="myChart2"></canvas>
+                        </div>
+                        </div>
+
                         <script>
                             var xValues = new Array(31);
                             var yValues = new Array(31);
@@ -269,7 +279,8 @@
                                     legend: { display: false },
                                     title: {
                                         display: true,
-                                        text: "Usage report for month of march"
+                                        text: "Usage report for month of march",
+                                        fontSize:20
                                     }
                                 }
                             });
@@ -323,7 +334,8 @@
                                                 legend: { display: false },
                                                 title: {
                                                     display: true,
-                                                    text: "Usage report for month of march"
+                                                    text: "Usage report for month of march",
+                                                    fontSize:20
                                                 }
                                             }
                                         });
@@ -337,11 +349,188 @@
 
 
                         </script>
-                        <div>
-                            <button class="user-status" onclick="generateReport('user')">User Status</button>
 
-                            <button class="route-status" onclick="generateReport('route')">Route Status</button>
-                        </div>
+                        <script>
+
+                            //fetch the y values from an api.
+                            var benchMark=0;
+                            var xValues2 = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                            var yValues2 = new Array(12);
+
+                            //Create a chart for demo 
+                            new Chart("myChart2", {
+                                type: "line",
+                                data: {
+                                    labels: xValues2,
+                                    datasets: [{
+                                        fill: true,
+                                        lineTension: 0,
+                                        backgroundColor: createGradient(),
+                                        borderColor: "rgba(255, 255, 255, 1.0)",
+                                        borderWidth: 2,
+                                        data: yValues2
+                                    }]
+                                },
+                                options: {
+                                    title: {
+                                                display: true,
+                                                text: 'Active Users Per Month',
+                                                fontSize: 20
+                                                },
+                                                legend: {
+                                                display: false
+                                                },
+                                                scales: {
+                                                    yAxes: [{
+                                                        ticks: {
+                                                        min: 0,
+                                                        max: 5,
+                                                        stepSize: 1
+                                                        },
+                                                        scaleLabel: {
+                                                            display: true,
+                                                            labelString: 'Active Users',
+                                                            fontSize: 16
+                                                        }
+                                                    }],
+                                                    xAxes: [{
+                                                        scaleLabel: {
+                                                            display: true,
+                                                            labelString: 'Months',
+                                                            fontSize: 16
+                                                        }
+                                                    }]
+                                                },
+                                                elements: {
+                                                point: {
+                                                    radius: 5,
+                                                    backgroundColor: 'rgba(255,255,255,1.0)',
+                                            borderColor: 'rgba(255, 255, 255, 1.0)',
+                                            borderWidth: 1
+                                                },
+                                        line: {
+                                            borderColor: 'rgba(255, 255, 255, 0.8)',
+                                            borderWidth: 3
+                                        }
+                                            }
+                                }
+                            });
+                           
+                            var positiveColor = 'rgba(54, 162, 235, 0.2)';
+                            var negativeColor = 'rgba(255, 99, 132, 0.2)';
+
+                            for (let i = 0; i < 12; i++) {
+                                yValues2[i] = 0;
+                            }
+
+                           $.ajax({
+                                    url: "http://localhost:8080/api/v1/report/month-wise-user-usage",
+                                    type: "GET",
+                                    headers: {
+                                        "Authorization": getTokenCookie(),
+                                        "Content-Type": "application/json"
+                                    },
+                                    success: function (data) {
+                                        console.log(data);
+                                        benchMark = data[0];
+                                        for (var i = 1; i < data.length; i++) {
+                                            yValues2[i-1]=data[i];
+                                        }
+                                        console.log(yValues2);
+                                        new Chart("myChart2", {
+                                            type: "line",
+                                            data: {
+                                                labels: xValues2,
+                                                datasets: [{
+                                                    fill: true,
+                                                    lineTension: 0,
+                                                    backgroundColor: createGradient(),
+                                                    borderColor: "rgba(255, 255, 255, 1.0)",
+                                                    borderWidth: 2,
+                                                    data: yValues2
+                                                }]
+                                            },
+                                            options: {
+                                                title: {
+                                                display: true,
+                                                text: 'Active Users Per Month',
+                                                fontSize: 20
+                                                },
+                                                legend: {
+                                                display: false
+                                                },
+                                                scales: {
+                                                    yAxes: [{
+                                                        ticks: {
+                                                        min: 0,
+                                                        max: benchMark,
+                                                        stepSize: benchMark/5
+                                                        },
+                                                        scaleLabel: {
+                                                            display: true,
+                                                            labelString: 'Active Users',
+                                                            fontSize: 16
+                                                        }
+                                                    }],
+                                                    xAxes: [{
+                                                        scaleLabel: {
+                                                            display: true,
+                                                            labelString: 'Months',
+                                                            fontSize: 16
+                                                        }
+                                                    }]
+                                                },
+                                                elements: {
+                                                point: {
+                                                    radius: 5,
+                                                    backgroundColor: 'rgba(255,255,255,1.0)',
+                                            borderColor: 'rgba(255, 255, 255, 1.0)',
+                                            borderWidth: 1
+                                                },
+                                        line: {
+                                            borderColor: 'rgba(255, 255, 255, 0.8)',
+                                            borderWidth: 3
+                                        }
+                                            }
+                                            }
+                                        });
+                                    },
+                                    error: function () {
+                                        return createAlert("Server error. Please try again!", "failure");//alert("Server error! Please try again!")
+                                    }
+                                });
+
+                            
+
+
+                        function createGradient() {
+                        var gradient = document.getElementById("myChart2").getContext("2d").createLinearGradient(0, 0, 0, 400);
+                        gradient.addColorStop(0, "rgba(12, 70, 153, 1.0)");
+                        gradient.addColorStop(1, "rgba(12, 70, 153, 0.1)");
+                        return gradient;
+                        }
+                        </script>
+                        <div>
+                            <table style="width: 80%;margin-left: 5%;">
+                              <tr>
+                                <td style="width: 50%;height:100px;text-align: center;">
+                                  <div id="chart3" style="text-align:center;cursor: pointer;color:grey;" onclick="generateReport('user')">
+                                    <img src="http://127.0.0.1:5500/client/public/download-icon.png" alt="" style="width:70px;height:70px;">
+                                    <p>Download user status report.</p>
+                                    <p>Contains information about users and their total bookings.</p>
+                                  </div>
+                                </td>
+                                <td style="width: 50%;height: 100px;text-align: center;">
+                                  <div id="chart3" style="text-align:center;cursor: pointer;color: grey;" onclick="generateReport('route')">
+                                    <img src="http://127.0.0.1:5500/client/public/download-icon.png" alt="" style="width:70px;height:70px;">
+                                    <p>Download route status report</p>
+                                    <p>Contains information about routes and their underused and overused status.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
+                          
                     </div>
 
                     <!--fifth div-->
