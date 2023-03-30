@@ -82,7 +82,7 @@ public class TicketController {
 	@GetMapping("/getByUserEmail/{userEmail}")
 	ResponseEntity<TicketResponse> getUserTickets(@PathVariable("userEmail") String userEmail ,
 	@RequestParam(value="pageNumber",defaultValue = "0",required=false) Integer pno,
-	@RequestParam(value="pageSize",defaultValue = "5",required=false) Integer psize){
+	@RequestParam(value="pageSize",defaultValue = "4",required=false) Integer psize){
 		System.out.println(71);
 		System.out.println( userEmail);
 		TicketResponse ticketResponse = ticketService.getAllTicketByPersonEmail(userEmail,pno,psize);
