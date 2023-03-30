@@ -1,6 +1,7 @@
 package nrifintech.busMangementSystem.Service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +40,7 @@ public class IssueServiceImpl implements IssueService {
 
     @Override
     public Issue addIssue(Issue issue){
+    	issue.setDate(new Date());
         return issueRepo.save(issue);
     }
 

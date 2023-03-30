@@ -449,7 +449,13 @@ function cancelTicket(event) {
         }
     });
 }
-function searchTickets(event) {
+
+function clikit()
+{
+    console.log("click hjua bhaissdsa");
+}
+
+function searchTickets(event,optionalValue) {
     event.preventDefault();
     document.querySelector(".admin-ticket-content").innerHTML = "";
     const html = ``;
@@ -458,20 +464,55 @@ function searchTickets(event) {
 
     console.log(email)
     $.ajax({
-        url: "http://localhost:8080/api/v1/ticket/getByUserEmail/" + email,
+        url: "http://localhost:8080/api/v1/ticket/getByUserEmail/"+email+ "?pageNumber="+optionalValue,
         type: "GET",
         headers: {
             "Authorization": getTokenCookie(),
             "Content-Type": "application/json"
         },
-        success: function (data) {
+        success: function (d) {
             // "id": 28,
             // "routeId": 5,
             // "busId": 4,
             // "userId": 1,
             // "status": "CANCELLED",
             // "date": "09:03:2023"
-            document.getElementById("admin_ticket_count").innerHTML = "Total count: " + data.length;
+            var data=d.content;
+            var total_pages=d.totalPages;
+            var current_page=d.pageNumber;
+            // var page_number=d.pageNumber+1;
+            const parentDiv = document.querySelector(".admin-ticket-pagination");
+            parentDiv.innerHTML="";
+            console.log(current_page);
+            if(d.firstpage==false)
+            {
+                
+                const prevdiv=`<div class="pagination-divs-nextprev" onclick="searchTickets(event, ${current_page}-1 )"> Prev </div>`;
+                parentDiv.innerHTML +=prevdiv;
+            }
+            for(var i=current_page+1;i <= current_page+3 && i <= total_pages;i++)
+            {
+
+                if(i==current_page+1)
+                {
+                    const pagediv=`<div class="pagination-divs" style="border-bottom: 2px solid blue;" onclick="searchTickets(event, ${i}-1 )"> ${i} </div>`;
+                    parentDiv.innerHTML +=pagediv;
+                }
+                else{
+                    const pagediv=`<div class="pagination-divs" onclick="searchTickets(event, ${i}-1 )"> ${i} </div>`;
+                    parentDiv.innerHTML +=pagediv;
+                }
+                
+            }
+            if(d.lastPage==false && d.pageNumber+2 <d.totalPages )
+            {
+                const nextPagetoGo=current_page+2;
+                const nextdiv=`<div class="pagination-divs-nextprev" onclick="searchTickets(event, ${nextPagetoGo} )"> Next </div>`;
+                parentDiv.innerHTML +=nextdiv;
+            }
+    
+
+            document.getElementById("admin_ticket_count").innerHTML = "Total tickets found : " + d.totalElements;
             for (var i = 0; i < data.length; i++) {
                 const route_id = data[i].routeId;
                 const ticket_id = data[i].id;
@@ -604,7 +645,10 @@ function searchTickets(event) {
             }
         },
         error: function (e) {
-            console.log(e)
+            console.log(e);
+            const parentDiv = document.querySelector(".admin-ticket-pagination");
+            console.log(parentDiv);
+            parentDiv.innerHTML="";
             return createAlert("Something went wrong. Please try again later!", "failure");
             //return alert("Something went wrong. Please try again later!");
         }
@@ -1224,6 +1268,8 @@ function addRoute(event) {
             createAlert("Route added successfully!", "success");
             //alert("Route added successfully!")
             //refresh the input fields and put the start and end destination name in the search bar.
+            // $(".route_add_div").load(window.location.href+".route_add_div");
+
             
 
 
@@ -1681,7 +1727,7 @@ function getUnResolvedIssues() {
                 obj["is_resolved"] = is_resolved;
                 obj["issue"] = issue;
                 obj["user_id"] = user_id;
-                obj["date"] = date;
+                obj["date"] = moment(date).format('DD MMMM YYYY');;
 
                 $.ajax({
                     url: "http://localhost:8080/api/v1/user/get/" + user_id,
