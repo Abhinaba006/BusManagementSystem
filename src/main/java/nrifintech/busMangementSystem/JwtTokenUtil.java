@@ -32,7 +32,9 @@ public class JwtTokenUtil {
 	   
 	    Map<String, Object> claims = new HashMap<>();
 	    claims.put("type", type);
-	    return createToken(claims, Integer.toString(userId));
+		String createdToken=createToken(claims, Integer.toString(userId));
+		System.out.println("Token is -> "+createdToken);
+	    return createdToken;
 	}
  
 

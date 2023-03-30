@@ -28,6 +28,8 @@
             }
             return "";
         }
+        
+        
 
         console.log(getTokenCookie());
         $.ajax({
@@ -247,18 +249,18 @@
                     "Content-Type": "application/json"
                      },
 					data: JSON.stringify({
-                    issue:$("._profile_textarea").val(),
                     user_id:getIdCookie(),
+                    issue:$("._profile_textarea").val(),
                     is_resolved:0,
-                    date:"13-0302023"
+                    
                 }), 
                     contentType: "application/json",
 					success: function() {
                         createAlert("Feedback/Query submitted successfully","success");
 						//alert("Feedback/Query submitted successfully");
 					},
-					error: function() {
-                        createAlert("Error submitting data","failure");
+					error: function(e) {
+                        createAlert("Error submitting data"+e,"failure");
 						//alert("Error submitting data");
 					}
 				});
@@ -286,6 +288,7 @@ function getIdCookie() {
         for (let i = 0; i < cookies.length; i++) {
             const cookie = cookies[i].trim();
             if (cookie.startsWith('id=')) {
+                console.log("this is ",parseInt(cookie.substring('id='.length, cookie.length)));
                 return parseInt(cookie.substring('id='.length, cookie.length));
             }
         }

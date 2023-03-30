@@ -39,6 +39,12 @@ public class IssueController {
         List<Issue> issues = issueService.getAllunResolvedIssue();
         return new ResponseEntity<>(issues, HttpStatus.OK);
     }
+    
+    @GetMapping("{email}/unresolved")
+    public ResponseEntity<List<Issue>> getUserunResolvedIssue(HttpServletRequest request,@PathVariable String email) { 
+        List<Issue> issues = issueService.getUserunResolvedIssue(email);
+        return new ResponseEntity<>(issues, HttpStatus.OK);
+    }
 
     @GetMapping("/{userId}")
     public ResponseEntity<List<Issue>> getIssuesByUserId(@PathVariable int userId) {

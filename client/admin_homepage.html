@@ -7,6 +7,7 @@
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment.min.js"></script>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +20,9 @@
     <link rel="stylesheet" href="./index.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" />
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"> -->
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    
     <title>Admin</title>
     <script type="text/javascript" language="javascript">
         function getTokenCookie() {
@@ -48,7 +51,9 @@
             }
         });
     </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+        integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -135,14 +140,16 @@
                         <form>
                             <h1>Add an employee</h1>
 
-                            <input type="text" id="add-employee-name" name="name" placeholder="Name" autocomplete="new-password">
+                            <input type="text" id="add-employee-name" name="name" placeholder="Name"
+                                autocomplete="new-password">
 
 
                             <input type="email" id="add-employee-email" name="email" placeholder="Email"
                                 autocomplete="off">
 
 
-                            <input type="password" id="add-employee-password" name="password" placeholder="Password" autocomplete="new-password">
+                            <input type="password" id="add-employee-password" name="password" placeholder="Password"
+                                autocomplete="new-password">
 
                             <input type="text" id="add-employee-id" name="empId" placeholder="Employee id"><br>
                             <input type="submit" value="+ Add Employee" onclick="addEmployee(event)">
@@ -240,12 +247,38 @@
                     <!--fourth div-->
 
                     <div id="fourthdiv" style="display:none;overflow-x: scroll;">
+                        <h1 style="margin-left: 3%;">Analytics and Reports</h1>
+                        <div id="doughnutRow">
+                            
+                            <div id="doughnutChart">
+                              <canvas id="myChart4"></canvas>
+                            </div>
+                            <div id="doughnutChart">
+                                <canvas id="myChart5"></canvas>
+                            </div>
+                            <div id="doughnutChart">
+                                <canvas id="myChart3"></canvas>
+                              </div>
+                          </div>
+                          
+                          
+                          
+
+                        <div id="chart1">
                         <input type="text" id="report-route-id" placeholder="Enter route id" />
                         <button onclick="getReportById(event)" class="generate-report">Search</button>
 
                         <canvas id="myChart">
 
                         </canvas>
+                        </div>
+
+                        <div id="chart1">
+                        <div>
+                            <canvas id="myChart2"></canvas>
+                        </div>
+                        </div>
+
                         <script>
                             var xValues = new Array(31);
                             var yValues = new Array(31);
@@ -265,7 +298,8 @@
                                     legend: { display: false },
                                     title: {
                                         display: true,
-                                        text: "Usage report for month of march"
+                                        text: "Usage report for month of march",
+                                        fontSize:20
                                     }
                                 }
                             });
@@ -319,7 +353,8 @@
                                                 legend: { display: false },
                                                 title: {
                                                     display: true,
-                                                    text: "Usage report for month of march"
+                                                    text: "Usage report for month of march",
+                                                    fontSize:20
                                                 }
                                             }
                                         });
@@ -333,13 +368,400 @@
 
 
                         </script>
-                        <div>
-                            <button class="user-status" onclick="generateReport('user')">User Status</button>
 
-                            <button class="route-status" onclick="generateReport('route')">Route Status</button>
-                        </div>
+                        <script>
+
+                            //fetch the y values from an api.
+                            var benchMark=0;
+                            var xValues2 = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                            var yValues2 = new Array(12);
+
+                            //Create a chart for demo 
+                            new Chart("myChart2", {
+                                type: "line",
+                                data: {
+                                    labels: xValues2,
+                                    datasets: [{
+                                        fill: true,
+                                        lineTension: 0,
+                                        backgroundColor: createGradient(),
+                                        borderColor: "rgba(255, 255, 255, 1.0)",
+                                        borderWidth: 2,
+                                        data: yValues2
+                                    }]
+                                },
+                                options: {
+                                    title: {
+                                                display: true,
+                                                text: 'Active Users Per Month',
+                                                fontSize: 20
+                                                },
+                                                legend: {
+                                                display: false
+                                                },
+                                                scales: {
+                                                    yAxes: [{
+                                                        ticks: {
+                                                        min: 0,
+                                                        max: 5,
+                                                        stepSize: 1
+                                                        },
+                                                        scaleLabel: {
+                                                            display: true,
+                                                            labelString: 'Active Users',
+                                                            fontSize: 16
+                                                        }
+                                                    }],
+                                                    xAxes: [{
+                                                        scaleLabel: {
+                                                            display: true,
+                                                            labelString: 'Months',
+                                                            fontSize: 16
+                                                        }
+                                                    }]
+                                                },
+                                                elements: {
+                                                point: {
+                                                    radius: 5,
+                                                    backgroundColor: 'rgba(255,255,255,1.0)',
+                                            borderColor: 'rgba(255, 255, 255, 1.0)',
+                                            borderWidth: 1
+                                                },
+                                        line: {
+                                            borderColor: 'rgba(255, 255, 255, 0.8)',
+                                            borderWidth: 3
+                                        }
+                                            }
+                                }
+                            });
+                           
+                            var positiveColor = 'rgba(54, 162, 235, 0.2)';
+                            var negativeColor = 'rgba(255, 99, 132, 0.2)';
+
+                            for (let i = 0; i < 12; i++) {
+                                yValues2[i] = 0;
+                            }
+
+                           $.ajax({
+                                    url: "http://localhost:8080/api/v1/report/month-wise-user-usage",
+                                    type: "GET",
+                                    headers: {
+                                        "Authorization": getTokenCookie(),
+                                        "Content-Type": "application/json"
+                                    },
+                                    success: function (data) {
+                                        console.log(data);
+                                        benchMark = data[0];
+                                        for (var i = 1; i < data.length; i++) {
+                                            yValues2[i-1]=data[i];
+                                        }
+                                        console.log(yValues2);
+                                        new Chart("myChart2", {
+                                            type: "line",
+                                            data: {
+                                                labels: xValues2,
+                                                datasets: [{
+                                                    fill: true,
+                                                    lineTension: 0,
+                                                    backgroundColor: createGradient(),
+                                                    borderColor: "rgba(255, 255, 255, 1.0)",
+                                                    borderWidth: 2,
+                                                    data: yValues2
+                                                }]
+                                            },
+                                            options: {
+                                                title: {
+                                                display: true,
+                                                text: 'Active Users Per Month',
+                                                fontSize: 20
+                                                },
+                                                legend: {
+                                                display: false
+                                                },
+                                                scales: {
+                                                    yAxes: [{
+                                                        ticks: {
+                                                        min: 0,
+                                                        max: benchMark,
+                                                        stepSize: benchMark/5
+                                                        },
+                                                        scaleLabel: {
+                                                            display: true,
+                                                            labelString: 'Active Users',
+                                                            fontSize: 16
+                                                        }
+                                                    }],
+                                                    xAxes: [{
+                                                        scaleLabel: {
+                                                            display: true,
+                                                            labelString: 'Months',
+                                                            fontSize: 16
+                                                        }
+                                                    }]
+                                                },
+                                                elements: {
+                                                point: {
+                                                    radius: 5,
+                                                    backgroundColor: 'rgba(255,255,255,1.0)',
+                                            borderColor: 'rgba(255, 255, 255, 1.0)',
+                                            borderWidth: 1
+                                                },
+                                        line: {
+                                            borderColor: 'rgba(255, 255, 255, 0.8)',
+                                            borderWidth: 3
+                                        }
+                                            }
+                                            }
+                                        });
+                                    },
+                                    error: function () {
+                                        return createAlert("Server error. Please try again!", "failure");//alert("Server error! Please try again!")
+                                    }
+                                });
+
+                            
+
+
+                        function createGradient() {
+                        var gradient = document.getElementById("myChart2").getContext("2d").createLinearGradient(0, 0, 0, 400);
+                        gradient.addColorStop(0, "rgba(12, 70, 153, 1.0)");
+                        gradient.addColorStop(1, "rgba(12, 70, 153, 0.1)");
+                        return gradient;
+                        }
+                        </script>
+                        <div>
+                            <table style="width: 80%;margin-left: 5%;">
+                              <tr>
+                                <td style="width: 50%;height:100px;text-align: center;">
+                                  <div id="chart3" style="text-align:center;cursor: pointer;color:grey;" onclick="generateReport('user')">
+                                    <img src="http://127.0.0.1:5500/client/public/download-icon.png" alt="" style="width:70px;height:70px;">
+                                    <p>Download user status report.</p>
+                                    <p>Contains information about users and their total bookings.</p>
+                                  </div>
+                                </td>
+                                <td style="width: 50%;height: 100px;text-align: center;">
+                                  <div id="chart3" style="text-align:center;cursor: pointer;color: grey;" onclick="generateReport('route')">
+                                    <img src="http://127.0.0.1:5500/client/public/download-icon.png" alt="" style="width:70px;height:70px;">
+                                    <p>Download route status report</p>
+                                    <p>Contains information about routes and their underused and overused status.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
+                          
                     </div>
 
+                    
+                        <script>
+                            var xValues3 = ["Resolved", "Pending"];
+                            var yValues3 = [75,25];
+                            var barColors3 = [
+                            "#ffa64d",
+                            "SlateBlue",
+                            ];
+                            
+                            Chart.pluginService.register({
+                            beforeDraw: function(chart) {
+                                var config = chart.config;
+                                         if (config.customOptions && config.customOptions.targetChart === 'myChart3') {
+                                var width = chart.chart.width,
+                                    height = chart.chart.height,
+                                    ctx = chart.chart.ctx;
+                            
+                                ctx.restore();
+                                var fontSize = (height / 114).toFixed(2);
+                                ctx.font = fontSize + "em sans-serif";
+                                ctx.textBaseline = "middle";
+                            
+                                var text = "206",
+                                    textX = Math.round((width - ctx.measureText(text).width) / 2),
+                                    textY = (height / 2)-20;
+                            
+                            
+                            
+                                ctx.fillText(text, textX, textY);
+                            
+                                fontSize = (height / 300).toFixed(2);
+                                ctx.font = fontSize + "em sans-serif";
+                            
+                                var text2 = "Issues",
+                                    textX2 = Math.round((width - ctx.measureText(text2).width) / 2),
+                                    textY2 = (height / 2)+10;
+                                ctx.fillText(text2, textX2, textY2);
+                                ctx.save();
+                                }
+                            }
+                            });
+                            
+                            
+                            new Chart("myChart3", {
+                            type: "doughnut",
+                            data: {
+                                labels: xValues3,
+                                datasets: [{
+                                backgroundColor: barColors3,
+                                data: yValues3
+                                }]
+                            },
+                            customOptions: {
+                                        targetChart: 'myChart3'
+                                    },
+                            options: {
+                                legend:{
+                                display:false
+                                },
+                                title: {
+                                display: true,
+                                text: "",
+                                position:'bottom'
+                                }
+                            }
+                            });
+                            
+                            
+                            
+                            
+                            </script>
+
+                                <script>
+                                    var xValues4 = ["Availed", "Cancelled"];
+                                    var yValues4 = [65,35];
+                                    var barColors4 = [
+                                    "Dodgerblue",
+                                    "Tomato",
+                                    ];
+                                    
+                                    Chart.pluginService.register({
+                                    beforeDraw: function(chart) {
+                                        var config2 = chart.config;
+                                         if (config2.customOptions && config2.customOptions.targetChart === 'myChart4') {
+                                          
+                                             var width = chart.chart.width,
+                                            height = chart.chart.height,
+                                            ctx = chart.chart.ctx;
+                                    
+                                        ctx.restore();
+                                        var fontSize = (height / 114).toFixed(2);
+                                        ctx.font = fontSize + "em sans-serif";
+                                        ctx.textBaseline = "middle";
+                                    
+                                        var myChart4Text = "120",
+                                            myChart4TextX = Math.round((width - ctx.measureText(myChart4Text).width) / 2),
+                                            myChart4TextY = (height / 2)-20;
+                                    
+                                    
+                                    
+                                        ctx.fillText(myChart4Text, myChart4TextX, myChart4TextY);
+                                    
+                                        fontSize = (height / 300).toFixed(2);
+                                        ctx.font = fontSize + "em sans-serif";
+                                    
+                                        var myChart4Text2 = "Tickets",
+                                        myChart4TextX2 = Math.round((width - ctx.measureText(myChart4Text2).width) / 2),
+                                        myChart4TextY2 = (height / 2)+10;
+                                        ctx.fillText(myChart4Text2, myChart4TextX2, myChart4TextY2);
+                                        ctx.save();
+                                    }
+                                    }
+                                    });
+                                    
+                                    
+                                    new Chart("myChart4", {
+                                    type: "doughnut",
+                                    data: {
+                                        labels: xValues4,
+                                        datasets: [{
+                                        backgroundColor: barColors4,
+                                        data: yValues4
+                                        }]
+                                    },
+                                    customOptions: {
+                                        targetChart: 'myChart4'
+                                    },
+                                    options: {
+                                        legend:{
+                                        display:false
+                                        },
+                                        title: {
+                                        display: true,
+                                        text: "",
+                                        position:'bottom'
+                                        }
+                                    }
+                                    });
+                                    
+                                    </script>
+
+                                    <script>
+                                        var xValues5 = ["Confirmed", "Cancelled","Waiting"];
+                                        var yValues5 = [65,25,10];
+                                        var barColors5 = [
+                                        "MediumSeaGreen",
+                                        "#ff6666",
+                                        "Gray"
+                                        ];
+                                        
+                                        Chart.pluginService.register({
+                                        beforeDraw: function(chart) {
+                                            var config2 = chart.config;
+                                            if (config2.customOptions && config2.customOptions.targetChart === 'myChart5') {
+                                            
+                                                var width = chart.chart.width,
+                                                height = chart.chart.height,
+                                                ctx = chart.chart.ctx;
+                                        
+                                            ctx.restore();
+                                            var fontSize = (height / 114).toFixed(2);
+                                            ctx.font = fontSize + "em sans-serif";
+                                            ctx.textBaseline = "middle";
+                                        
+                                            var myChart5Text = "100",
+                                                myChart5TextX = Math.round((width - ctx.measureText(myChart5Text).width) / 2),
+                                                myChart5TextY = (height / 2)-20;
+                                        
+                                        
+                                        
+                                            ctx.fillText(myChart5Text, myChart5TextX, myChart5TextY);
+                                        
+                                            fontSize = (height / 300).toFixed(2);
+                                            ctx.font = fontSize + "em sans-serif";
+                                        
+                                            var myChart5Text2 = "Bookings",
+                                            myChart5TextX2 = Math.round((width - ctx.measureText(myChart5Text2).width) / 2),
+                                            myChart5TextY2 = (height / 2)+10;
+                                            ctx.fillText(myChart5Text2, myChart5TextX2, myChart5TextY2);
+                                            ctx.save();
+                                        }
+                                        }
+                                        });
+                                        
+                                        
+                                        new Chart("myChart5", {
+                                        type: "doughnut",
+                                        data: {
+                                            labels: xValues5,
+                                            datasets: [{
+                                            backgroundColor: barColors5,
+                                            data: yValues5
+                                            }]
+                                        },
+                                        customOptions: {
+                                            targetChart: 'myChart5'
+                                        },
+                                        options: {
+                                            legend:{
+                                            display:false
+                                            },
+                                            title: {
+                                            display: true,
+                                            text: "",
+                                            position:'bottom'
+                                            }
+                                        }
+                                        });
+                                        
+                                        </script>
                     <!--fifth div-->
 
                     <div id="fifthdiv" style="display:none;">
@@ -548,7 +970,7 @@
                                         const ul = document.createElement("ul");
                                         ul.classList.add("results-list"); // add a class for styling
                                         const li = document.createElement("li");
-                                        li.textContent = "No matching places found."           ;
+                                        li.textContent = "No matching places found.";
                                         li.classList.add("results-item");
                                         ul.appendChild(li);
                                         results.appendChild(ul);
@@ -613,6 +1035,12 @@
 
 
                     <div id="sixthdiv" style="display:none" class="issue-manage">
+                        <h1 class="issue-main-heading">Manage Issues</h1>
+                        <input type="text" id="search-issues-admin" placeholder="Search Issues By Employee's Email">
+                        <button id="search-issue-button" onclick="searchIssues(event)">Search</button>
+                        <p style="margin-left:10%;color: goldenrod;" id="admin_issue_count">Total results: 0 </p>
+
+                        <div class="issue-manage-content"></div>
                         <!-- <h2 class="issue-title">Issue Title</h2>
                                     <p class="issue-user">Posted by John Doe</p>
                                     <p class="issue-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed efficitur, lorem ac hendrerit aliquam, mauris nunc ultrices mauris, a tristique mauris nisi ut sapien. Sed ullamcorper nulla sed mi luctus congue. Nullam vel justo euismod, feugiat augue non, dapibus urna. Nam sit amet ligula ac risus bibendum iaculis. Suspendisse vehicula dui sed augue ultrices maximus. Praesent vel nunc lorem. Duis vulputate auctor massa at accumsan.</p>
@@ -622,10 +1050,10 @@
 
                     <!--seventh div-->
                     <div id="seventhdiv" style="display:none">
-                        <h1>Search Tickets</h1>
-                        <input type="text" id="search-tickets-admin" placeholder="Enter Employee's Name">
+                        <h1 class="ticket-main-heading">Search Tickets</h1>
+                        <input type="text" id="search-tickets-admin" placeholder="Enter Employee's Email">
                         <button id="search-ticket-button" onclick="searchTickets(event)">Search</button>
-                        <p style="margin-left:15px;color: goldenrod;" id="admin_ticket_count">Total results: 0 </p>
+                        <p style="margin-left:10%;color: goldenrod;" id="admin_ticket_count">Total results: 0 </p>
                         <div class="admin-ticket-header">
                             <div class="admin-ticket-value">Date</div>
                             <div class="admin-ticket-value">Source</div>
@@ -635,6 +1063,7 @@
                             <div class="admin-ticket-value">Cancel</div>
                         </div>
                         <div class="admin-ticket-content"></div>
+                        <div class="admin-ticket-pagination"></div>
                     </div>
 
 
@@ -782,6 +1211,34 @@
 
     <!-- Destination Search Overlay Ends Here-->
 
+    <!--Route search overlay-->
+    <div class="route-overlay">
+        <div class="search-div">
+
+            <div class="search-overlay-main-div">
+                <div class="close-button" onclick="off4()">x</div>
+                <div class="cancel-text">
+                    <form style="text-align: left;margin: auto;">
+                        <div class="add_route_field" onclick="add_route_field_edit(event)">Add destination</div>
+                            <select class="select_bus_overlay" id="select_bus_overlay" onclick="displayBusIDOverlay(event)">
+                                <option>Select your bus</option>
+                            </select>
+                            <div class="add_field_edit" id="add_field_edit">
+
+                            </div>
+                            <!-- <div class="route_submit" id="route_submit" onclick=" addRoute(event)"
+                                style="cursor: pointer;">SAVE</div> -->
+                    </form>
+                </div>
+                <div class="confirm-cancel-buttons">
+                    <button class="confirm-button" > <img class="confirm-cancel-icon"
+                            src="./public/arrow-right-circle-fill.svg" alt=""> Save</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
     <!--Overlay ends here-->
 
 
@@ -789,7 +1246,10 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+    <script>
 
+    
+    </script>
 </body>
 
 </html>

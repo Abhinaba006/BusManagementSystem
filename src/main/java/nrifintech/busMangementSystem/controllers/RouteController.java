@@ -62,8 +62,8 @@ public class RouteController {
 	    return ResponseEntity.ok(queryRoutes);
 	}
 	//update
-	@PostMapping("/update/{routeId}")
-	ResponseEntity<Route> updateRoute(@RequestBody List<String> destinations, @RequestBody int busId, @PathVariable("routeId") int routeId){
+	@PostMapping("/update/{routeId}/{busId}")
+	ResponseEntity<Route> updateRoute(@RequestBody List<String> destinations, @PathVariable int busId, @PathVariable("routeId") int routeId){
 		Route updatedRoute = routeService.updateRoute(destinations, routeId,busId);
 		return ResponseEntity.ok(updatedRoute);
 	}

@@ -1,13 +1,15 @@
 package nrifintech.busMangementSystem.Service.impl;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
-import java.util.HashMap;
+
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -173,6 +175,51 @@ public class ReportService {
 	    workbook.close();
 //	    outputStream.flush();
 	    outputStream.close();
+	}
+
+	public List<Integer> getMonthWiseNumberOfUsers() {
+		// TODO Auto-generated method stub
+		//create a list of size 13, 1st value is total registered user
+		//rest 12 is number of users using the bus service for each month.
+		List<Integer> data = new ArrayList<Integer>();
+		//fetch total registered user.
+		data.add((int) userRepo.count());
+		//fetch the number of users for each month using tickets table.
+		List<Integer> fetcheddata = new ArrayList<Integer>();
+		fetcheddata = ticketRepo.countUniqueUsersByMonth();
+		data.addAll(fetcheddata);
+		int length = fetcheddata.size();
+		for(int i=0;i<12-length;i++)
+			data.add(0);
+		return data;
+	}
+
+	public List<Integer> getTicketData() {
+		// TODO Auto-generated method stub
+		//pass todays number of confirmed, cancelled, waiting in an array.
+		List<Integer> data = new ArrayList<Integer>();
+		Date now = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd:MM:yyyy");
+        formatter.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
+        String currentDate = formatter.format(now);
+        
+//        int todaysConfirmedTickets = ticketRepo.getCountOfTodaysConfirmedTickets(currentDate);
+//        int todaysCancelledTickets = ticketRepo.getCountOfTodaysCancelledTickets(currentDate);
+//        int todaysWaitingTickets = ticketRepo.getCountOfTodaysWaitingTickets(currentDate);
+		
+		return null;
+	}
+	
+	public List<Integer> getBookingsData() {
+		// TODO Auto-generated method stub
+		//pass total availed tickets and cancelled tickets in an array.
+		return null;
+	}
+	
+	public List<Integer> getIssuesData() {
+		// TODO Auto-generated method stub
+		//pass resolved issues and pending issues in an array.
+		return null;
 	}
 
 }
