@@ -455,7 +455,7 @@ function clikit()
     console.log("click hjua bhaissdsa");
 }
 
-function searchTickets(event,optionalValue) {
+function searchTickets(event,optionalValue=0) {
     event.preventDefault();
     document.querySelector(".admin-ticket-content").innerHTML = "";
     const html = ``;
