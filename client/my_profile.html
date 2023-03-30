@@ -247,10 +247,11 @@
                     "Content-Type": "application/json"
                      },
 					data: JSON.stringify({
-                    issue:$("._profile_textarea").val(),
                     user_id:getIdCookie(),
+                    issue:$("._profile_textarea").val(),
+                    date:new Date(),
                     is_resolved:0,
-                    date:"13-0302023"
+                    
                 }), 
                     contentType: "application/json",
 					success: function() {
@@ -286,6 +287,7 @@ function getIdCookie() {
         for (let i = 0; i < cookies.length; i++) {
             const cookie = cookies[i].trim();
             if (cookie.startsWith('id=')) {
+                console.log("this is ",parseInt(cookie.substring('id='.length, cookie.length)));
                 return parseInt(cookie.substring('id='.length, cookie.length));
             }
         }
