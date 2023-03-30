@@ -2854,8 +2854,9 @@ a {
 }
 
 #myChart{
-    width:calc(100% - 50px)!important;
-    height:70%!important;
+    /* width:calc(100% - 50px)!important;
+    height:70%!important; */
+    height:60%!important;
 }
 
 #myChart2{
@@ -2892,19 +2893,20 @@ a {
     margin: auto;
     margin: -2% 1% 5% 1%;
     display: inline-block;
-    width: auto;
-    padding: 20px;
+    /* width: auto; */
+    padding: 10px;
     align-items: center;
     background-color: #ffffff;
     border-radius: 10px;
     overflow-x: auto;
-    
+    width: 370;
+    height: 370;
   }
 
   /* Create two equal columns that floats next to each other */
 #doughnutCol {
     float: left;
-    width: 40%;
+    width: 400px;
     padding: 10px;
     height: 200px; /* Should be removed. Only for demonstration */
     box-sizing: border-box;
@@ -2926,6 +2928,9 @@ a {
     width:100%;max-width:1200px;height:auto;
   }
   
+  #download-img-icon{
+    width:50px;height:50px;
+  }
 
 /*  ends here*/
 
@@ -3673,13 +3678,20 @@ box-shadow: 2px 2px 2px #ddd;background:white;
         width:90%;
         margin: 0 auto 0 auto;
     }
-    #myChart{
+    #myChart,#myChart2{
         width:98%!important;
-        height:80%!important;
+        height:60%!important;
         overflow-x: auto;
-        min-width: 700px!important;
-        min-height:500px!important;
+        font-size: small;
+        min-width: 500px!important;
+        min-height:300px!important;
+       font-size: xx-small !important;
+        
     }
+    #download-img-icon{
+        width:30px;height:30px;
+        font-size:xx-small !important;
+      }
     #report-route-id{
         margin-right: 0%;
         max-width:90%;

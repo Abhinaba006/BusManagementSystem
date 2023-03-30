@@ -6,7 +6,7 @@
 
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment.min.js"></script>
 <!DOCTYPE html>
 <html lang="en">
@@ -251,13 +251,13 @@
                         <div id="doughnutRow">
                             
                             <div id="doughnutChart">
-                              <canvas id="myChart4"></canvas>
+                              <canvas id="myChart4" style="width:350;height:350;"></canvas>
                             </div>
                             <div id="doughnutChart">
-                                <canvas id="myChart5"></canvas>
+                                <canvas id="myChart5"  style="width:350;height:350;"></canvas>
                             </div>
                             <div id="doughnutChart">
-                                <canvas id="myChart3"></canvas>
+                                <canvas id="myChart3"  style="width:350;height:350;"></canvas>
                               </div>
                           </div>
                           
@@ -534,14 +534,14 @@
                               <tr>
                                 <td style="width: 50%;height:100px;text-align: center;">
                                   <div id="chart3" style="text-align:center;cursor: pointer;color:grey;" onclick="generateReport('user')">
-                                    <img src="http://127.0.0.1:5500/client/public/download-icon.png" alt="" style="width:70px;height:70px;">
+                                    <img src="http://127.0.0.1:5500/client/public/download-icon.png" alt="" id="download-img-icon">
                                     <p>Download user status report.</p>
                                     <p>Contains information about users and their total bookings.</p>
                                   </div>
                                 </td>
                                 <td style="width: 50%;height: 100px;text-align: center;">
                                   <div id="chart3" style="text-align:center;cursor: pointer;color: grey;" onclick="generateReport('route')">
-                                    <img src="http://127.0.0.1:5500/client/public/download-icon.png" alt="" style="width:70px;height:70px;">
+                                    <img src="http://127.0.0.1:5500/client/public/download-icon.png" alt="" id="download-img-icon">
                                     <p>Download route status report</p>
                                     <p>Contains information about routes and their underused and overused status.</p>
                                   </div>
@@ -576,20 +576,20 @@
 
                                     Chart.pluginService.register({
                                     beforeDraw: function(chart) {
-                                        config = chart.config;
+                                        var config = chart.config;
                                                 if (config.customOptions && config.customOptions.targetChart === 'myChart3') {
-                                         width = chart.chart.width,
-                                            height = chart.chart.height,
+                                         var width = chart.chart.width;
+                                            var height = chart.chart.height;
                                             ctx = chart.chart.ctx;
                                     
                                         ctx.restore();
-                                        fontSize = (height / 114).toFixed(2);
+                                        var fontSize = (height / 114).toFixed(2);
                                         ctx.font = fontSize + "em sans-serif";
                                         ctx.textBaseline = "middle";
                                     
-                                        text = data[0]+data[1],
-                                            textX = Math.round((width - ctx.measureText(text).width) / 2),
-                                            textY = (height / 2)-20;
+                                        var text = data[0]+data[1];
+                                        var textX = Math.round((width - ctx.measureText(text).width) / 2);
+                                        var textY = (height / 2)-35;
                                     
                                     
                                     
@@ -598,9 +598,9 @@
                                         fontSize = (height / 300).toFixed(2);
                                         ctx.font = fontSize + "em sans-serif";
                                     
-                                        text2 = "Issues",
-                                            textX2 = Math.round((width - ctx.measureText(text2).width) / 2),
-                                            textY2 = (height / 2)+10;
+                                        var text2 = "Issues";
+                                        var textX2 = Math.round((width - ctx.measureText(text2).width) / 2);
+                                        var textY2 = (height / 2);
                                         ctx.fillText(text2, textX2, textY2);
                                         ctx.save();
                                         }
@@ -613,6 +613,7 @@
                                                 labels: xValues3,
                                                 datasets: [{
                                                 backgroundColor: barColors3,
+                                                hoverBackgroundColor: ["#ff8c1a","#4e3cc3"],
                                                 data: yValues3
                                                 }]
                                             },
@@ -621,7 +622,8 @@
                                                     },
                                             options: {
                                                 legend:{
-                                                display:false
+                                                display:true,
+                                                position:'bottom'
                                                 },
                                                 title: {
                                                 display: true,
@@ -636,18 +638,18 @@
                                     beforeDraw: function(chart) {
                                         var config = chart.config;
                                                 if (config.customOptions && config.customOptions.targetChart === 'myChart3') {
-                                        var width = chart.chart.width,
-                                            height = chart.chart.height,
-                                            ctx = chart.chart.ctx;
+                                        var width = chart.chart.width;
+                                        var height = chart.chart.height;
+                                        var ctx = chart.chart.ctx;
                                     
                                         ctx.restore();
                                         var fontSize = (height / 114).toFixed(2);
                                         ctx.font = fontSize + "em sans-serif";
                                         ctx.textBaseline = "middle";
                                     
-                                        var text = 0,
-                                            textX = Math.round((width - ctx.measureText(text).width) / 2),
-                                            textY = (height / 2)-20;
+                                        var text = 0;
+                                        var textX = Math.round((width - ctx.measureText(text).width) / 2);
+                                        var textY = (height / 2)-35;
                                     
                                     
                                     
@@ -656,9 +658,9 @@
                                         fontSize = (height / 300).toFixed(2);
                                         ctx.font = fontSize + "em sans-serif";
                                     
-                                        var text2 = "Issues",
-                                            textX2 = Math.round((width - ctx.measureText(text2).width) / 2),
-                                            textY2 = (height / 2)+10;
+                                        var text2 = "Issues";
+                                        var textX2 = Math.round((width - ctx.measureText(text2).width) / 2);
+                                        var textY2 = (height / 2)+10;
                                         ctx.fillText(text2, textX2, textY2);
                                         ctx.save();
                                         }
@@ -679,7 +681,8 @@
                                                     },
                                             options: {
                                                 legend:{
-                                                display:false
+                                                display:true,
+                                                position:'bottom'
                                                 },
                                                 title: {
                                                 display: true,
@@ -720,18 +723,18 @@
                                         var config2 = chart.config;
                                          if (config2.customOptions && config2.customOptions.targetChart === 'myChart4') {
                                           
-                                             var width = chart.chart.width,
-                                            height = chart.chart.height,
-                                            ctx = chart.chart.ctx;
+                                             var width = chart.chart.width;
+                                            var height = chart.chart.height;
+                                            var ctx = chart.chart.ctx;
                                     
                                         ctx.restore();
                                         var fontSize = (height / 114).toFixed(2);
                                         ctx.font = fontSize + "em sans-serif";
                                         ctx.textBaseline = "middle";
                                     
-                                        var myChart4Text = data[0]+data[1],
-                                            myChart4TextX = Math.round((width - ctx.measureText(myChart4Text).width) / 2),
-                                            myChart4TextY = (height / 2)-20;
+                                        var myChart4Text = data[0]+data[1];
+                                        var  myChart4TextX = Math.round((width - ctx.measureText(myChart4Text).width) / 2);
+                                        var myChart4TextY = (height / 2)-35;
                                     
                                     
                                     
@@ -740,8 +743,13 @@
                                         fontSize = (height / 300).toFixed(2);
                                         ctx.font = fontSize + "em sans-serif";
                                     
-                                        var myChart4Text2 = "Tickets",
-                                        myChart4TextX2 = Math.round((width - ctx.measureText(myChart4Text2).width) / 2),
+                                        var myChart4Text2 = "Past";
+                                        myChart4TextX2 = Math.round((width - ctx.measureText(myChart4Text2).width) / 2);
+                                        myChart4TextY2 = (height / 2)-5;
+                                        ctx.fillText(myChart4Text2, myChart4TextX2, myChart4TextY2);
+
+                                        var myChart4Text2 = "Bookings",
+                                        myChart4TextX2 = Math.round((width - ctx.measureText(myChart4Text2).width) / 2);
                                         myChart4TextY2 = (height / 2)+10;
                                         ctx.fillText(myChart4Text2, myChart4TextX2, myChart4TextY2);
                                         ctx.save();
@@ -756,6 +764,7 @@
                                         labels: xValues4,
                                         datasets: [{
                                         backgroundColor: barColors4,
+                                        hoverBackgroundColor: ["#0080ff","#ff5233"],
                                         data: yValues4
                                         }]
                                     },
@@ -764,7 +773,8 @@
                                     },
                                     options: {
                                         legend:{
-                                        display:false
+                                        display:true,
+                                        position:'bottom'
                                         },
                                         title: {
                                         display: true,
@@ -781,29 +791,34 @@
                                         var config2 = chart.config;
                                          if (config2.customOptions && config2.customOptions.targetChart === 'myChart4') {
                                           
-                                             var width = chart.chart.width,
-                                            height = chart.chart.height,
-                                            ctx = chart.chart.ctx;
+                                             var width = chart.chart.width;
+                                            var height = chart.chart.height;
+                                            var ctx = chart.chart.ctx;
                                     
                                         ctx.restore();
                                         var fontSize = (height / 114).toFixed(2);
                                         ctx.font = fontSize + "em sans-serif";
                                         ctx.textBaseline = "middle";
                                     
-                                        var myChart4Text = "0",
-                                            myChart4TextX = Math.round((width - ctx.measureText(myChart4Text).width) / 2),
-                                            myChart4TextY = (height / 2)-20;
+                                        var myChart4Text = "0";
+                                        var myChart4TextX = Math.round((width - ctx.measureText(myChart4Text).width) / 2);
+                                        var myChart4TextY = (height / 2)-35;
                                     
                                     
                                     
                                         ctx.fillText(myChart4Text, myChart4TextX, myChart4TextY);
                                     
-                                        fontSize = (height / 300).toFixed(2);
+                                        fontSize = (height / 350).toFixed(2);
                                         ctx.font = fontSize + "em sans-serif";
                                     
-                                        var myChart4Text2 = "Tickets",
-                                        myChart4TextX2 = Math.round((width - ctx.measureText(myChart4Text2).width) / 2),
-                                        myChart4TextY2 = (height / 2)+10;
+                                        var myChart4Text2 = "Past";
+                                        var myChart4TextX2 = Math.round((width - ctx.measureText(myChart4Text2).width) / 2);
+                                        var myChart4TextY2 = (height / 2)-5;
+                                        ctx.fillText(myChart4Text2, myChart4TextX2, myChart4TextY2);
+
+                                        var myChart4Text2 = "Bookings";
+                                        var myChart4TextX2 = Math.round((width - ctx.measureText(myChart4Text2).width) / 2);
+                                        var myChart4TextY2 = (height / 2)+10;
                                         ctx.fillText(myChart4Text2, myChart4TextX2, myChart4TextY2);
                                         ctx.save();
                                     }
@@ -825,7 +840,8 @@
                                     },
                                     options: {
                                         legend:{
-                                        display:false
+                                        display:true,
+                                        position:'bottom'
                                         },
                                         title: {
                                         display: true,
@@ -866,18 +882,18 @@
                                             var config2 = chart.config;
                                             if (config2.customOptions && config2.customOptions.targetChart === 'myChart5') {
                                             
-                                                var width = chart.chart.width,
-                                                height = chart.chart.height,
-                                                ctx = chart.chart.ctx;
+                                                var width = chart.chart.width;
+                                                var height = chart.chart.height;
+                                                var ctx = chart.chart.ctx;
                                         
                                             ctx.restore();
                                             var fontSize = (height / 114).toFixed(2);
                                             ctx.font = fontSize + "em sans-serif";
                                             ctx.textBaseline = "middle";
                                         
-                                            var myChart5Text = data[0]+data[1]+data[2],
-                                                myChart5TextX = Math.round((width - ctx.measureText(myChart5Text).width) / 2),
-                                                myChart5TextY = (height / 2)-20;
+                                            var myChart5Text = data[0]+data[1]+data[2];
+                                            var myChart5TextX = Math.round((width - ctx.measureText(myChart5Text).width) / 2);
+                                            var myChart5TextY = (height / 2)-35;
                                         
                                         
                                         
@@ -886,10 +902,15 @@
                                             fontSize = (height / 300).toFixed(2);
                                             ctx.font = fontSize + "em sans-serif";
                                         
-                                            var myChart5Text2 = "Bookings",
-                                            myChart5TextX2 = Math.round((width - ctx.measureText(myChart5Text2).width) / 2),
-                                            myChart5TextY2 = (height / 2)+10;
+                                            var myChart5Text2 = "Current";
+                                            var myChart5TextX2 = Math.round((width - ctx.measureText(myChart5Text2).width) / 2);
+                                            var myChart5TextY2 = (height / 2)-5;
                                             ctx.fillText(myChart5Text2, myChart5TextX2, myChart5TextY2);
+
+                                            var myChart5Text3 = "Bookings";
+                                            var myChart5TextX3 = Math.round((width - ctx.measureText(myChart5Text3).width) / 2);
+                                            var myChart5TextY3 = (height / 2)+10;
+                                            ctx.fillText(myChart5Text3, myChart5TextX3, myChart5TextY3);
                                             ctx.save();
                                         }
                                         }
@@ -902,6 +923,7 @@
                                             labels: xValues5,
                                             datasets: [{
                                             backgroundColor: barColors5,
+                                            hoverBackgroundColor: ["#39ac6d","#ff3333","#737373"],
                                             data: yValues5
                                             }]
                                         },
@@ -910,7 +932,8 @@
                                         },
                                         options: {
                                             legend:{
-                                            display:false
+                                            display:true,
+                                            position:'bottom'
                                             },
                                             title: {
                                             display: true,
@@ -927,18 +950,18 @@
                                             var config2 = chart.config;
                                             if (config2.customOptions && config2.customOptions.targetChart === 'myChart5') {
                                             
-                                                var width = chart.chart.width,
-                                                height = chart.chart.height,
-                                                ctx = chart.chart.ctx;
+                                                var width = chart.chart.width;
+                                                var height = chart.chart.height;
+                                                var ctx = chart.chart.ctx;
                                         
                                             ctx.restore();
                                             var fontSize = (height / 114).toFixed(2);
                                             ctx.font = fontSize + "em sans-serif";
                                             ctx.textBaseline = "middle";
                                         
-                                            var myChart5Text = "100",
-                                                myChart5TextX = Math.round((width - ctx.measureText(myChart5Text).width) / 2),
-                                                myChart5TextY = (height / 2)-20;
+                                            var myChart5Text = "100";
+                                            var myChart5TextX = Math.round((width - ctx.measureText(myChart5Text).width) / 2);
+                                            var myChart5TextY = (height / 2)-35;
                                         
                                         
                                         
@@ -947,10 +970,15 @@
                                             fontSize = (height / 300).toFixed(2);
                                             ctx.font = fontSize + "em sans-serif";
                                         
-                                            var myChart5Text2 = "Bookings",
-                                            myChart5TextX2 = Math.round((width - ctx.measureText(myChart5Text2).width) / 2),
-                                            myChart5TextY2 = (height / 2)+10;
+                                            var myChart5Text2 = "Current";
+                                            var myChart5TextX2 = Math.round((width - ctx.measureText(myChart5Text2).width) / 2);
+                                            var myChart5TextY2 = (height / 2)-5;
                                             ctx.fillText(myChart5Text2, myChart5TextX2, myChart5TextY2);
+
+                                            var myChart5Text3 = "Bookings";
+                                            var myChart5TextX3 = Math.round((width - ctx.measureText(myChart5Text3).width) / 2);
+                                            var myChart5TextY3 = (height / 2)+10;
+                                            ctx.fillText(myChart5Text3, myChart5TextX3, myChart5TextY3);
                                             ctx.save();
                                         }
                                         }
@@ -971,7 +999,8 @@
                                         },
                                         options: {
                                             legend:{
-                                            display:false
+                                            display:true,
+                                            position:'bottom'
                                             },
                                             title: {
                                             display: true,
