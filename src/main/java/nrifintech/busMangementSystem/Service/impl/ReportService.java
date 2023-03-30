@@ -203,9 +203,9 @@ public class ReportService {
         formatter.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
         String currentDate = formatter.format(now);
         
-        int todaysConfirmedTickets = ticketRepo.getCountOfTodaysConfirmedTickets(currentDate);
-        int todaysCancelledTickets = ticketRepo.getCountOfTodaysCancelledTickets(currentDate);
-        int todaysWaitingTickets = ticketRepo.getCountOfTodaysWaitingTickets(currentDate);
+//        int todaysConfirmedTickets = ticketRepo.getCountOfTodaysConfirmedTickets(currentDate);
+//        int todaysCancelledTickets = ticketRepo.getCountOfTodaysCancelledTickets(currentDate);
+//        int todaysWaitingTickets = ticketRepo.getCountOfTodaysWaitingTickets(currentDate);
 		
 		return null;
 	}

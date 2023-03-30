@@ -28,6 +28,8 @@
             }
             return "";
         }
+        
+        
 
         console.log(getTokenCookie());
         $.ajax({
@@ -249,16 +251,15 @@
 					data: JSON.stringify({
                     issue:$("._profile_textarea").val(),
                     user_id:getIdCookie(),
-                    is_resolved:0,
-                    date:"13-0302023"
+                    is_resolved:0
                 }), 
                     contentType: "application/json",
 					success: function() {
                         createAlert("Feedback/Query submitted successfully","success");
 						//alert("Feedback/Query submitted successfully");
 					},
-					error: function() {
-                        createAlert("Error submitting data","failure");
+					error: function(e) {
+                        createAlert("Error submitting data"+e,"failure");
 						//alert("Error submitting data");
 					}
 				});
