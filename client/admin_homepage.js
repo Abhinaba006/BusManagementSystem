@@ -447,16 +447,18 @@ function searchTickets(event,optionalValue=0) {
     const html = ``;
     const email = document.getElementById("search-tickets-admin").value
     const id = 1; //To be changed the the id that is to be fetched by the email
-
+    const status=document.getElementById('status').value
     console.log(email)
     $.ajax({
-        url: "http://localhost:8080/api/v1/ticket/getByUserEmail/"+email+ "?pageNumber="+optionalValue,
+        url: "http://localhost:8080/api/v1/ticket/getByUserEmail/"+email+ "?pageNumber="+optionalValue+"&status="+status,
         type: "GET",
         headers: {
             "Authorization": getTokenCookie(),
             "Content-Type": "application/json"
         },
         success: function (d) {
+           
+            console.log(status)
             // "id": 28,
             // "routeId": 5,
             // "busId": 4,
@@ -469,7 +471,7 @@ function searchTickets(event,optionalValue=0) {
             // var page_number=d.pageNumber+1;
             const parentDiv = document.querySelector(".admin-ticket-pagination");
             parentDiv.innerHTML="";
-            console.log(current_page);
+            console.log(474, current_page);
             if(d.firstpage==false)
             {
                 
@@ -478,6 +480,7 @@ function searchTickets(event,optionalValue=0) {
             }
             for(var i=current_page+1;i <= current_page+3 && i <= total_pages;i++)
             {
+                console.log('asdasdwdasdfsyfth')
 
                 if(i==current_page+1)
                 {
