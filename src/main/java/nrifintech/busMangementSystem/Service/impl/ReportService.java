@@ -1,8 +1,11 @@
 package nrifintech.busMangementSystem.Service.impl;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -189,6 +192,34 @@ public class ReportService {
 		for(int i=0;i<12-length;i++)
 			data.add(0);
 		return data;
+	}
+
+	public List<Integer> getTicketData() {
+		// TODO Auto-generated method stub
+		//pass todays number of confirmed, cancelled, waiting in an array.
+		List<Integer> data = new ArrayList<Integer>();
+		Date now = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd:MM:yyyy");
+        formatter.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
+        String currentDate = formatter.format(now);
+        
+        int todaysConfirmedTickets = ticketRepo.getCountOfTodaysConfirmedTickets(currentDate);
+        int todaysCancelledTickets = ticketRepo.getCountOfTodaysCancelledTickets(currentDate);
+        int todaysWaitingTickets = ticketRepo.getCountOfTodaysWaitingTickets(currentDate);
+		
+		return null;
+	}
+	
+	public List<Integer> getBookingsData() {
+		// TODO Auto-generated method stub
+		//pass total availed tickets and cancelled tickets in an array.
+		return null;
+	}
+	
+	public List<Integer> getIssuesData() {
+		// TODO Auto-generated method stub
+		//pass resolved issues and pending issues in an array.
+		return null;
 	}
 
 }

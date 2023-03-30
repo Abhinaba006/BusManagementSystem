@@ -46,5 +46,23 @@ public class ReportController {
 	    List<Integer> data= reportService.getMonthWiseNumberOfUsers();
 	    return ResponseEntity.ok(data);
 	}
+	
+	@GetMapping("/ticket-data")
+	public ResponseEntity<List<Integer>> getTicketData() {
+	    List<Integer> data= reportService.getTicketData();
+	    return ResponseEntity.ok(data);
+	}
+	
+	@GetMapping("/bookings-data")
+	public ResponseEntity<List<Integer>> getBookingsData() {
+	    List<Integer> data= reportService.getBookingsData();
+	    return ResponseEntity.ok(data);
+	}
+	
+	@GetMapping("/issues-data")
+	public ResponseEntity<List<Integer>> getIssuesData() {
+	    List<Integer> data= reportService.getIssuesData();
+	    return ResponseEntity.ok(data);
+	}
 
 }

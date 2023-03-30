@@ -43,5 +43,9 @@ public interface TicketRepo extends JpaRepository<Ticket, Integer> {
             + "GROUP BY month_number", nativeQuery = true)
 List<Integer> countUniqueUsersByMonth();
 
+    @Query(value="SELECT COUNT(*) FROM ticket where date = :currentDate and status=:status",nativeQuery = true)
+	int getCountOfTodaysTicketsByStatus(String currentDate,String status);
+
+
 
 }

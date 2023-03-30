@@ -245,6 +245,22 @@
 
                     <div id="fourthdiv" style="display:none;overflow-x: scroll;">
                         <h1 style="margin-left: 3%;">Analytics and Reports</h1>
+                        <div id="doughnutRow">
+                            
+                            <div id="doughnutChart">
+                              <canvas id="myChart4"></canvas>
+                            </div>
+                            <div id="doughnutChart">
+                                <canvas id="myChart5"></canvas>
+                            </div>
+                            <div id="doughnutChart">
+                                <canvas id="myChart3"></canvas>
+                              </div>
+                          </div>
+                          
+                          
+                          
+
                         <div id="chart1">
                         <input type="text" id="report-route-id" placeholder="Enter route id" />
                         <button onclick="getReportById(event)" class="generate-report">Search</button>
@@ -533,6 +549,216 @@
                           
                     </div>
 
+                    
+                        <script>
+                            var xValues3 = ["Resolved", "Pending"];
+                            var yValues3 = [75,25];
+                            var barColors3 = [
+                            "#ffa64d",
+                            "SlateBlue",
+                            ];
+                            
+                            Chart.pluginService.register({
+                            beforeDraw: function(chart) {
+                                var config = chart.config;
+                                         if (config.customOptions && config.customOptions.targetChart === 'myChart3') {
+                                var width = chart.chart.width,
+                                    height = chart.chart.height,
+                                    ctx = chart.chart.ctx;
+                            
+                                ctx.restore();
+                                var fontSize = (height / 114).toFixed(2);
+                                ctx.font = fontSize + "em sans-serif";
+                                ctx.textBaseline = "middle";
+                            
+                                var text = "206",
+                                    textX = Math.round((width - ctx.measureText(text).width) / 2),
+                                    textY = (height / 2)-20;
+                            
+                            
+                            
+                                ctx.fillText(text, textX, textY);
+                            
+                                fontSize = (height / 300).toFixed(2);
+                                ctx.font = fontSize + "em sans-serif";
+                            
+                                var text2 = "Issues",
+                                    textX2 = Math.round((width - ctx.measureText(text2).width) / 2),
+                                    textY2 = (height / 2)+10;
+                                ctx.fillText(text2, textX2, textY2);
+                                ctx.save();
+                                }
+                            }
+                            });
+                            
+                            
+                            new Chart("myChart3", {
+                            type: "doughnut",
+                            data: {
+                                labels: xValues3,
+                                datasets: [{
+                                backgroundColor: barColors3,
+                                data: yValues3
+                                }]
+                            },
+                            customOptions: {
+                                        targetChart: 'myChart3'
+                                    },
+                            options: {
+                                legend:{
+                                display:false
+                                },
+                                title: {
+                                display: true,
+                                text: "",
+                                position:'bottom'
+                                }
+                            }
+                            });
+                            
+                            
+                            
+                            
+                            </script>
+
+                                <script>
+                                    var xValues4 = ["Availed", "Cancelled"];
+                                    var yValues4 = [65,35];
+                                    var barColors4 = [
+                                    "Dodgerblue",
+                                    "Tomato",
+                                    ];
+                                    
+                                    Chart.pluginService.register({
+                                    beforeDraw: function(chart) {
+                                        var config2 = chart.config;
+                                         if (config2.customOptions && config2.customOptions.targetChart === 'myChart4') {
+                                          
+                                             var width = chart.chart.width,
+                                            height = chart.chart.height,
+                                            ctx = chart.chart.ctx;
+                                    
+                                        ctx.restore();
+                                        var fontSize = (height / 114).toFixed(2);
+                                        ctx.font = fontSize + "em sans-serif";
+                                        ctx.textBaseline = "middle";
+                                    
+                                        var myChart4Text = "120",
+                                            myChart4TextX = Math.round((width - ctx.measureText(myChart4Text).width) / 2),
+                                            myChart4TextY = (height / 2)-20;
+                                    
+                                    
+                                    
+                                        ctx.fillText(myChart4Text, myChart4TextX, myChart4TextY);
+                                    
+                                        fontSize = (height / 300).toFixed(2);
+                                        ctx.font = fontSize + "em sans-serif";
+                                    
+                                        var myChart4Text2 = "Tickets",
+                                        myChart4TextX2 = Math.round((width - ctx.measureText(myChart4Text2).width) / 2),
+                                        myChart4TextY2 = (height / 2)+10;
+                                        ctx.fillText(myChart4Text2, myChart4TextX2, myChart4TextY2);
+                                        ctx.save();
+                                    }
+                                    }
+                                    });
+                                    
+                                    
+                                    new Chart("myChart4", {
+                                    type: "doughnut",
+                                    data: {
+                                        labels: xValues4,
+                                        datasets: [{
+                                        backgroundColor: barColors4,
+                                        data: yValues4
+                                        }]
+                                    },
+                                    customOptions: {
+                                        targetChart: 'myChart4'
+                                    },
+                                    options: {
+                                        legend:{
+                                        display:false
+                                        },
+                                        title: {
+                                        display: true,
+                                        text: "",
+                                        position:'bottom'
+                                        }
+                                    }
+                                    });
+                                    
+                                    </script>
+
+                                    <script>
+                                        var xValues5 = ["Confirmed", "Cancelled","Waiting"];
+                                        var yValues5 = [65,25,10];
+                                        var barColors5 = [
+                                        "MediumSeaGreen",
+                                        "#ff6666",
+                                        "Gray"
+                                        ];
+                                        
+                                        Chart.pluginService.register({
+                                        beforeDraw: function(chart) {
+                                            var config2 = chart.config;
+                                            if (config2.customOptions && config2.customOptions.targetChart === 'myChart5') {
+                                            
+                                                var width = chart.chart.width,
+                                                height = chart.chart.height,
+                                                ctx = chart.chart.ctx;
+                                        
+                                            ctx.restore();
+                                            var fontSize = (height / 114).toFixed(2);
+                                            ctx.font = fontSize + "em sans-serif";
+                                            ctx.textBaseline = "middle";
+                                        
+                                            var myChart5Text = "100",
+                                                myChart5TextX = Math.round((width - ctx.measureText(myChart5Text).width) / 2),
+                                                myChart5TextY = (height / 2)-20;
+                                        
+                                        
+                                        
+                                            ctx.fillText(myChart5Text, myChart5TextX, myChart5TextY);
+                                        
+                                            fontSize = (height / 300).toFixed(2);
+                                            ctx.font = fontSize + "em sans-serif";
+                                        
+                                            var myChart5Text2 = "Bookings",
+                                            myChart5TextX2 = Math.round((width - ctx.measureText(myChart5Text2).width) / 2),
+                                            myChart5TextY2 = (height / 2)+10;
+                                            ctx.fillText(myChart5Text2, myChart5TextX2, myChart5TextY2);
+                                            ctx.save();
+                                        }
+                                        }
+                                        });
+                                        
+                                        
+                                        new Chart("myChart5", {
+                                        type: "doughnut",
+                                        data: {
+                                            labels: xValues5,
+                                            datasets: [{
+                                            backgroundColor: barColors5,
+                                            data: yValues5
+                                            }]
+                                        },
+                                        customOptions: {
+                                            targetChart: 'myChart5'
+                                        },
+                                        options: {
+                                            legend:{
+                                            display:false
+                                            },
+                                            title: {
+                                            display: true,
+                                            text: "",
+                                            position:'bottom'
+                                            }
+                                        }
+                                        });
+                                        
+                                        </script>
                     <!--fifth div-->
 
                     <div id="fifthdiv" style="display:none;">

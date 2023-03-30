@@ -2886,7 +2886,47 @@ a {
     background-color: #ffffff;
     border-radius: 10px;
   }
+
+  #doughnutChart {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin: auto;
+    margin: -2% 1% 5% 1%;
+    display: inline-block;
+    width: auto;
+    padding: 20px;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 10px;
+    overflow-x: auto;
+    
+  }
+
+  /* Create two equal columns that floats next to each other */
+#doughnutCol {
+    float: left;
+    width: 40%;
+    padding: 10px;
+    height: 200px; /* Should be removed. Only for demonstration */
+    box-sizing: border-box;
+  }
   
+  /* Clear floats after the columns */
+  #doughnutRow{
+    margin-left: 4%;
+  }
+  #doughnutRow:after {
+    
+    content: "";
+    display: table;
+    clear: both;
+    box-sizing: border-box;
+  }
+
+  #myChart3, #myChart4{
+    width:100%;max-width:1200px;height:auto;
+  }
+  
+
 /*  ends here*/
 
 
@@ -3419,6 +3459,13 @@ a {
         width: 80%;
     }
 }
+
+  @media screen and (max-width: 600px) {
+    .doughnutCol{
+      width: 100%;
+      box-sizing: border-box;
+    }
+  }
 
 
 #seconddiv section{
