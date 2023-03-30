@@ -47,13 +47,13 @@ public class ReportController {
 	    return ResponseEntity.ok(data);
 	}
 	
-	@GetMapping("/ticket-data")
+	@GetMapping("/currentBookings-data")
 	public ResponseEntity<List<Integer>> getTicketData() {
 	    List<Integer> data= reportService.getTicketData();
 	    return ResponseEntity.ok(data);
 	}
 	
-	@GetMapping("/bookings-data")
+	@GetMapping("/PastBookings-data")
 	public ResponseEntity<List<Integer>> getBookingsData() {
 	    List<Integer> data= reportService.getBookingsData();
 	    return ResponseEntity.ok(data);
