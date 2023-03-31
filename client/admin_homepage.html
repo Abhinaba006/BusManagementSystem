@@ -1319,7 +1319,7 @@
 
 
                     <!--seventh div-->
-                    <div id="seventhdiv" style="display:none">
+                    <!-- <div id="seventhdiv" style="display:none">
                         <div>
                             <div class="ticket-main-heading">Search Tickets</div>
                             <div class="my-booking-div-text">Filter By Status</div>
@@ -1345,7 +1345,34 @@
                         <div class="admin-ticket-content"></div>
                         <div class="admin-ticket-pagination"></div>
 
-                    </div>
+                    </div> -->
+
+                    <div id="seventhdiv" style="display:none">
+                            <h1 class="ticket-main-heading">Search Tickets</h1>
+                            <div style="margin-left: 10%;color:grey;" class="my-booking-div-text">Filter By Status</div>
+                            <select name="status" id="status">
+                                <option value="CONFIRMED">Confirmed</option>
+                                <option value="WAITING">Waiting</option>
+                                <option value="AVAILED">Availed</option>
+                                <option value="CANCELLED">Cancelled</option>
+                            </select>
+                            <input type="text" id="search-tickets-admin" placeholder="Enter Employee's Email">
+                            <button id="search-ticket-button" onclick="searchTickets(event)">Search</button>
+                            <p style="margin-left:10%;color: goldenrod;" id="admin_ticket_count">Total results: 0 </p>
+                            <div class="admin-ticket-header">
+                                <div class="admin-ticket-value">Date</div>
+                                <div class="admin-ticket-value">Source</div>
+                                <div class="admin-ticket-value">Destination</div>
+                                <div class="admin-ticket-value">Bus number</div>
+                                <div class="admin-ticket-value">Status</div>
+                                <div class="admin-ticket-value">Cancel</div>
+                            </div>
+                            <div class="admin-ticket-content"></div>
+                            <div class="admin-ticket-pagination">
+                            </div>
+                 </div>
+
+
                 </div>
 
 

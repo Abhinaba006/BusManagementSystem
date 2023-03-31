@@ -3613,7 +3613,7 @@ box-shadow: 2px 2px 2px #ddd;background:white;
     border-radius: 4px;
     cursor: pointer;
   }
-  #search-tickets-admin{
+  #search-tickets-admin,#status{
     margin-left: 10%;
     width:65%!important;
   }
@@ -3772,11 +3772,11 @@ box-shadow: 2px 2px 2px #ddd;background:white;
         margin-left:15px;
     }
     #search-ticket-button,#search-issue-button{
-        margin-left:15px;
+        margin-left:10% !important;
     }
-    #search-tickets-admin{
+    #search-tickets-admin,#status{
         width:90%!important;
-        margin-left: 0%!important;
+        margin-left: 10%!important;
     }
     .admin-ticket-values{
         margin-bottom: 10px;
@@ -3820,9 +3820,10 @@ box-shadow: 2px 2px 2px #ddd;background:white;
       }
 }
 
-#status{
+/* #status{
     width: 20%;
-}
+    margin-left: 10%;
+} */
 
 .my-booking-div-text {
     margin-left: 1%;
