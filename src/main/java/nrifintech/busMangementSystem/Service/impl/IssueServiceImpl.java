@@ -32,6 +32,11 @@ public class IssueServiceImpl implements IssueService {
     public List<Issue> getAllunResolvedIssue() {
        return issueRepo.getAllunResolvedIssue();
     }
+    
+    @Override
+    public List<Issue> getAllResolvedIssue() {
+       return issueRepo.getAllResolvedIssue();
+    }
 
     @Override
     public List<Issue> getIssuesByUserId(int userId) {
@@ -59,6 +64,18 @@ public class IssueServiceImpl implements IssueService {
 		List<Issue> issue = new ArrayList<Issue>();
 		if(user.isPresent())
 			issue =  issueRepo.getUserunResolvedIssue(user.get().getId());
+		else
+			throw new CustomException("user does not exists");
+		return issue;
+	}
+	
+	@Override
+	public List<Issue> getUserResolvedIssue(String email) {
+		// TODO Auto-generated method stub
+		Optional<User> user = userRepo.findByOnlyEmail(email);
+		List<Issue> issue = new ArrayList<Issue>();
+		if(user.isPresent())
+			issue =  issueRepo.getUserResolvedIssue(user.get().getId());
 		else
 			throw new CustomException("user does not exists");
 		return issue;
