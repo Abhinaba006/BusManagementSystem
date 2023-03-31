@@ -1496,10 +1496,14 @@ let fetchUser = (id) => {
 
 }
 
-function getUnResolvedIssues(status="unresolved") {
+function getUnResolvedIssues() {
+    const status = document.getElementById("issueStatus").value;
+    const email = document.getElementById("search-issues-admin").value;
+    const url = email===""?"http://localhost:8080/api/v1/issues/"+status:"http://localhost:8080/api/v1/issues/"+email+"/"+status;
+    console.log(url)
     // Change it the user that is calling
     $.ajax({
-        url: "http://localhost:8080/api/v1/issues/"+status,
+        url,
         headers: {
             "Authorization": getTokenCookie(),
             "Content-Type": "application/json"
@@ -1507,6 +1511,9 @@ function getUnResolvedIssues(status="unresolved") {
         success: function (data) {
             // ... the rest of the function code remains the same
             //console.log(data);
+
+            document.getElementById("admin_issue_count").innerHTML = "Total Results: " + data.length;
+            
             const parentDiv = document.getElementById("issue-container");
             parentDiv.innerHTML = "";
 
@@ -1660,6 +1667,127 @@ function createAlert(message, type) {
     alertContainer.appendChild(alertBox);
 
 }
+
+function searchIssues(event) {
+    const issueSeachField = document.getElementById("search-issues-admin").value;
+    //call getUserUnResolvedIssues function
+    const status = document.getElementById("issueStatus").value
+    console.log(status)
+    if (issueSeachField != "")
+        getUnResolvedIssues(status, issueSeachField);
+    else
+        getUnResolvedIssues(status);
+}
+
+function getUserUnResolvedIssues(email) {
+
+    $.ajax({
+        url: "http://localhost:8080/api/v1/issues/" + email + "/unresolved",
+        headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
+        success: function (data) {
+            // ... the rest of the function code remains the same
+            //console.log(data);
+            const parentDiv = document.querySelector(".issue-manage-content");
+            parentDiv.innerHTML = "";
+
+            document.getElementById("admin_issue_count").innerHTML = "Total Results: " + data.length;
+
+
+            for (var i = 0; i < data.length; i++) {
+                const id = data[i].id;
+                const is_resolved = data[i].is_resolved;
+                const issue = data[i].issue;
+                const user_id = parseInt(data[i].user_id);
+                const date = data[i].date;
+                const obj = {
+                    id: "",
+                    is_resolved: "",
+                    issue: "",
+                    user_id: "",
+                    date: "",
+                };
+                obj["id"] = id;
+                obj["is_resolved"] = is_resolved;
+                obj["issue"] = issue;
+                obj["user_id"] = user_id;
+                obj["date"] = date;
+
+                $.ajax({
+                    url: "http://localhost:8080/api/v1/user/get/" + user_id,
+                    headers: {
+                        "Authorization": getTokenCookie(),
+                        "Content-Type": "application/json"
+                    },
+                    success: function (data2) {
+
+
+                        console.log(data2)
+                        obj["username"] = data2.name;
+                        const issueHTML = `
+                                  <div class = "issue-div">
+                                      <div class = "issue-heading">Issue ${obj.id}</div>
+                                      <div class = "issue-user">${data2.email} <p class = "issue-date">Created at: ${obj.date}</p></div>
+                                      <div class = "issue-text">${obj.issue}
+                                      </div>
+                                      <br/>
+                                      <div class="issue resolve resolve-button" data-id="${obj.id}">Resolve</div>
+                                  </div>
+                                  `;
+                        const parentDiv = document.querySelector(".issue-manage-content");
+                        parentDiv.innerHTML += issueHTML;
+                        // Add a click event handler for the dynamically created buttons
+                        $('.resolve-button').click(function () {
+                            // Get the ID value from the data-id attribute
+                            var id = $(this).data('id');
+                            // Make an AJAX call to post the data to the database
+                            console.log("clicked")
+
+                            $.ajax({
+                                url: 'http://localhost:8080/api/v1/issues/' + id + '/resolve',
+                                headers: {
+                                    "Authorization": getTokenCookie(),
+                                    "Content-Type": "application/json"
+                                },
+                                type: "POST",
+                                success: function (response) {
+                                    // Do something if the POST request is successful
+                                    console.log('Data posted to database');
+                                    createAlert("Issue Number " + id + " resolved", "success");
+                                    //refresh the page if any issue is resolved.
+                                    var link = document.getElementById('text6');
+                                    link.click();
+
+                                },
+                                error: function (error) {
+                                    // Do something if the POST request fails
+                                    console.log(error);
+                                }
+                            });
+
+
+                        });
+
+                    }
+                })
+
+            }
+        }
+        ,
+        error: function (xhr, status, error) {
+            console.log(JSON.parse(xhr.responseText).message);
+            if (JSON.parse(xhr.responseText).message === "user does not exists")
+                return createAlert("user with this email does not exists!", "info");
+            else
+                return createAlert("Something went wrong. Please try again later!", "failure");//alert("Something went wrong. Please try again later!");
+        }
+    });
+}
+
+
+
 
 
 

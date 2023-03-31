@@ -3597,7 +3597,7 @@ box-shadow: 2px 2px 2px #ddd;background:white;
     width:65%!important;
   }
 
-  #search-issues-admin{
+  #search-issues-admin,#issueStatus{
     margin-left: 10%;
     width:65%!important;
   }

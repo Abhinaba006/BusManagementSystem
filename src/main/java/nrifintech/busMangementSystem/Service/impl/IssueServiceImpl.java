@@ -68,6 +68,18 @@ public class IssueServiceImpl implements IssueService {
 			throw new CustomException("user does not exists");
 		return issue;
 	}
+	
+	@Override
+	public List<Issue> getUserResolvedIssue(String email) {
+		// TODO Auto-generated method stub
+		Optional<User> user = userRepo.findByOnlyEmail(email);
+		List<Issue> issue = new ArrayList<Issue>();
+		if(user.isPresent())
+			issue =  issueRepo.getUserResolvedIssue(user.get().getId());
+		else
+			throw new CustomException("user does not exists");
+		return issue;
+	}
 
 	
 

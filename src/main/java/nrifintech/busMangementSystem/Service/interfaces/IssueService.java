@@ -18,4 +18,5 @@ public interface IssueService {
     Issue resolveIssue(int issueId);
 	List<Issue> getUserunResolvedIssue(String email);
 	List<Issue> getAllResolvedIssue();
+	List<Issue> getUserResolvedIssue(String email);
 }

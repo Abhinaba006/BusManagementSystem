@@ -1294,10 +1294,16 @@
                         
                         <div>
                             <h1 class="issue-main-heading">Manage Issues</h1>
-                            <select name="issueStatus" id="issueStatus" onchange="getUnResolvedIssues(this.value)">
+                            
+                            <select name="issueStatus" id="issueStatus" onchange="getUnResolvedIssues()">
                                 <option value="unresolved">Unresolved</option>
                                 <option value="resolved">Resolved</option>
                             </select>
+
+                            <input type="text" id="search-issues-admin" placeholder="Search Issues By Employee's Email">
+                            <button id="search-issue-button" onclick="searchIssues(event)">Search</button>
+                            <p style="margin-left:10%;color: goldenrod;" id="admin_issue_count">Total results: 0 </p>
+    
                         </div>
 
                         <div id="issue-container"></div>
