@@ -531,6 +531,7 @@ function searchTickets(event,optionalValue=0) {
                     date: formattedDate
                 };
                 obj["route_id"] = route_id;
+                console.log("thus",obj.route_id);
                 $.ajax({
                     url: "http://localhost:8080/api/v1/route/getDestinations/" + route_id,
                     type: "GET",
