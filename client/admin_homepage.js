@@ -1549,7 +1549,7 @@ function getUnResolvedIssues(status="unresolved") {
                                     <div class = "issue-text">${obj.issue}
                                     </div>
                                     <br/>
-                                    ${status === 'unresolved' ? '<div class="issue resolve resolve-button" data-id="${obj.id}">Resolve</div>' : ''}
+                                    ${status === 'unresolved' ? '<div class="issue resolve resolve-button" id=issue'+obj.id+'>Resolve</div>' : ''}
                                 </div>
                                 `;
                         // const parentDiv = document.querySelector(".issue-manage");
@@ -1557,9 +1557,9 @@ function getUnResolvedIssues(status="unresolved") {
                         // Add a click event handler for the dynamically created buttons
                         $('.resolve-button').click(function () {
                             // Get the ID value from the data-id attribute
-                            var id = $(this).data('id');
+                            var id = parseInt(this.id.substring(5));
                             // Make an AJAX call to post the data to the database
-                            console.log("clicked")
+                            console.log(parseInt(this.id.substring(5)))
 
                             $.ajax({
                                 url: 'http://localhost:8080/api/v1/issues/' + id + '/resolve',
