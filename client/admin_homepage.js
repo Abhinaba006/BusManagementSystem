@@ -1512,7 +1512,7 @@ function getUnResolvedIssues() {
             // ... the rest of the function code remains the same
             //console.log(data);
 
-            document.getElementById("admin_issue_count").innerHTML = "Total Results: " + data.length;
+    document.getElementById("admin_issue_count").innerHTML = "Total Results: " + data.length;
             
             const parentDiv = document.getElementById("issue-container");
             parentDiv.innerHTML = "";
@@ -1603,6 +1603,7 @@ function getUnResolvedIssues() {
             return createAlert("Something went wrong. Please try again later!", "failure");//alert("Something went wrong. Please try again later!");
         }
     });
+
 }
 
 
