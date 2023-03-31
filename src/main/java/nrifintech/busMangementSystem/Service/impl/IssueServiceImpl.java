@@ -32,6 +32,11 @@ public class IssueServiceImpl implements IssueService {
     public List<Issue> getAllunResolvedIssue() {
        return issueRepo.getAllunResolvedIssue();
     }
+    
+    @Override
+    public List<Issue> getAllResolvedIssue() {
+       return issueRepo.getAllResolvedIssue();
+    }
 
     @Override
     public List<Issue> getIssuesByUserId(int userId) {

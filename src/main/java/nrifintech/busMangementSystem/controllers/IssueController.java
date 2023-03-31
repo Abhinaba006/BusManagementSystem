@@ -30,13 +30,12 @@ public class IssueController {
 
     @GetMapping("/unresolved")
     public ResponseEntity<List<Issue>> getAllunResolvedIssue(HttpServletRequest request) { 
-    	Enumeration<String> headerNames = request.getHeaderNames();
-    	System.out.println("issoe\n");
-        while(headerNames.hasMoreElements()) {
-            String headerName = headerNames.nextElement();
-            System.out.println(headerName + ": " + request.getHeader(headerName));
-        }
         List<Issue> issues = issueService.getAllunResolvedIssue();
+        return new ResponseEntity<>(issues, HttpStatus.OK);
+    }
+    @GetMapping("/resolved")
+    public ResponseEntity<List<Issue>> getAllResolvedIssue(HttpServletRequest request) { 
+        List<Issue> issues = issueService.getAllResolvedIssue();
         return new ResponseEntity<>(issues, HttpStatus.OK);
     }
     

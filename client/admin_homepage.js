@@ -1484,10 +1484,10 @@ let fetchUser = (id) => {
 
 }
 
-function getUnResolvedIssues() {
+function getUnResolvedIssues(status="unresolved") {
     // Change it the user that is calling
     $.ajax({
-        url: "http://localhost:8080/api/v1/issues/unresolved",
+        url: "http://localhost:8080/api/v1/issues/"+status,
         headers: {
             "Authorization": getTokenCookie(),
             "Content-Type": "application/json"
@@ -1495,13 +1495,8 @@ function getUnResolvedIssues() {
         success: function (data) {
             // ... the rest of the function code remains the same
             //console.log(data);
-            const parentDiv = document.querySelector(".issue-manage");
+            const parentDiv = document.getElementById("issue-container");
             parentDiv.innerHTML = "";
-            const h1Element = document.createElement("h1");
-            h1Element.textContent = "Manage Issues";
-            h1Element.classList.add("issue-main-heading");
-            parentDiv.appendChild(h1Element);
-
 
             for (var i = 0; i < data.length; i++) {
                 const id = data[i].id;
@@ -1520,7 +1515,7 @@ function getUnResolvedIssues() {
                 obj["is_resolved"] = is_resolved;
                 obj["issue"] = issue;
                 obj["user_id"] = user_id;
-                obj["date"] = date;
+                obj["date"] = moment(date).format("DD MMMM YYYY");
 
                 $.ajax({
                     url: "http://localhost:8080/api/v1/user/get/" + user_id,
@@ -1534,14 +1529,18 @@ function getUnResolvedIssues() {
                         const issueHTML = `
                                 <div class = "issue-div">
                                     <div class = "issue-heading">Issue ${obj.id}</div>
-                                    <div class = "issue-user">${data2.email} <p class = "issue-date">Created at: ${obj.date}</p></div>
+                                    <div class = "issue-user">${data2.email} 
+                                    <p class = "issue-date">Created at: ${obj.date}</p>
+                                    ${status === 'resolved' ? `<div class="issue-date" data-id="${obj.id}">Resolved at: ${obj.ResolvedDate}</div>` : ''}
+
+                                    </div>
                                     <div class = "issue-text">${obj.issue}
                                     </div>
                                     <br/>
-                                    <div class="issue resolve resolve-button" data-id="${obj.id}">Resolve</div>
+                                    ${status === 'unresolved' ? '<div class="issue resolve resolve-button" data-id="${obj.id}">Resolve</div>' : ''}
                                 </div>
                                 `;
-                        const parentDiv = document.querySelector(".issue-manage");
+                        // const parentDiv = document.querySelector(".issue-manage");
                         parentDiv.innerHTML += issueHTML;
                         // Add a click event handler for the dynamically created buttons
                         $('.resolve-button').click(function () {
@@ -1649,6 +1648,8 @@ function createAlert(message, type) {
     alertContainer.appendChild(alertBox);
 
 }
+
+
 
 
 

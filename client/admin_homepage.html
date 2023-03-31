@@ -1042,25 +1042,31 @@
 
 
                     <div id="sixthdiv" style="display:none" class="issue-manage">
-                        <h1 class="issue-main-heading">Manage Issues</h1>
+                        
+                        <div>
+                            <h1 class="issue-main-heading">Manage Issues</h1>
+                            <select name="issueStatus" id="issueStatus" onchange="getUnResolvedIssues(this.value)">
+                                <option value="unresolved">Unresolved</option>
+                                <option value="resolved">Resolved</option>
+                            </select>
+                        </div>
+
+                        <div id="issue-container"></div>
+
+                        <!-- <h1 class="issue-main-heading">Manage Issusaes</h1>
                         <input type="text" id="search-issues-admin" placeholder="Search Issues By Employee's Email">
                         <button id="search-issue-button" onclick="searchIssues(event)">Search</button>
                         <p style="margin-left:10%;color: goldenrod;" id="admin_issue_count">Total results: 0 </p>
 
-                        <div class="issue-manage-content"></div>
-                        <!-- <h2 class="issue-title">Issue Title</h2>
-                                    <p class="issue-user">Posted by John Doe</p>
-                                    <p class="issue-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed efficitur, lorem ac hendrerit aliquam, mauris nunc ultrices mauris, a tristique mauris nisi ut sapien. Sed ullamcorper nulla sed mi luctus congue. Nullam vel justo euismod, feugiat augue non, dapibus urna. Nam sit amet ligula ac risus bibendum iaculis. Suspendisse vehicula dui sed augue ultrices maximus. Praesent vel nunc lorem. Duis vulputate auctor massa at accumsan.</p>
-                                    <button class="resolve-button">Resolve</button> -->
+                        <div class="issue-manage-content"></div> -->
+                       
                     </div>
 
 
                     <!--seventh div-->
                     <div id="seventhdiv" style="display:none">
-
-
                         <div>
-                            <div class="ticket-main-heading" style="display: ;">Search Tickets</div>
+                            <div class="ticket-main-heading">Search Tickets</div>
                             <div class="my-booking-div-text">Filter By Status</div>
                             <select name="status" id="status">
                                 <option value="CONFIRMED">Confirmed</option>
@@ -1069,20 +1075,21 @@
                                 <option value="CANCELLED">Cancelled</option>
                             </select>
                         </div>
-                    </div>
-                    <input type="text" id="search-tickets-admin" placeholder="Enter Employee's Email">
-                    <button id="search-ticket-button" onclick="searchTickets(event)">Search</button>
-                    <p style="margin-left:10%;color: goldenrod;" id="admin_ticket_count">Total results: 0 </p>
-                    <div class="admin-ticket-header">
-                        <div class="admin-ticket-value">Date</div>
-                        <div class="admin-ticket-value">Source</div>
-                        <div class="admin-ticket-value">Destination</div>
-                        <div class="admin-ticket-value">Bus number</div>
-                        <div class="admin-ticket-value">Status</div>
-                        <div class="admin-ticket-value">Cancel</div>
-                    </div>
-                    <div class="admin-ticket-content"></div>
-                    <div class="admin-ticket-pagination">
+
+                        <input type="text" id="search-tickets-admin" placeholder="Enter Employee's Email">
+                        <button id="search-ticket-button" onclick="searchTickets(event)">Search</button>
+                        <p style="margin-left:10%;color: goldenrod;" id="admin_ticket_count">Total results: 0 </p>
+                        <div class="admin-ticket-header">
+                            <div class="admin-ticket-value">Date</div>
+                            <div class="admin-ticket-value">Source</div>
+                            <div class="admin-ticket-value">Destination</div>
+                            <div class="admin-ticket-value">Bus number</div>
+                            <div class="admin-ticket-value">Status</div>
+                            <div class="admin-ticket-value">Cancel</div>
+                        </div>
+                        <div class="admin-ticket-content"></div>
+                        <div class="admin-ticket-pagination"></div>
+
                     </div>
                 </div>
 
