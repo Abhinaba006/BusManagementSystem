@@ -1268,7 +1268,11 @@ function addRoute(event) {
             createAlert("Route added successfully!", "success");
             //alert("Route added successfully!")
             //refresh the input fields and put the start and end destination name in the search bar.
-            // $(".route_add_div").load(window.location.href+".route_add_div");
+            //refresh the page if any issue is resolved.
+            document.getElementsByClassName("route_add_div").display="none";
+            
+            $("#select_bus").val("");
+            
 
             
 

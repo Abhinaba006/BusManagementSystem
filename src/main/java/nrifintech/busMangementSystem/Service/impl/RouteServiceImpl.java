@@ -184,6 +184,7 @@ public class RouteServiceImpl implements RouteService{
 		//find common of both (return R2)
 		List<Integer> commonroutes = new ArrayList<>(routes1);
 		commonroutes.retainAll(routes2);
+		System.out.println(commonroutes);
 		//check if destination_index of source in R2 < destination_index of destination in R2
 		List<Route> result = new ArrayList<>();
 		
