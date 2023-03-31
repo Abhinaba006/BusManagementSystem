@@ -57,6 +57,11 @@ List<Integer> countUniqueUsersByMonth();
 
     @Query(value = "SELECT * FROM ticket WHERE user_id = :user_id order by id desc", nativeQuery = true)
     Page<Ticket> findByUserId(@Param("user_id") int userId, Pageable pageable);
+    
+    @Query(value = "SELECT * FROM ticket WHERE user_id = :user_id and status=:status order by id desc", nativeQuery = true)
+    List<Ticket> findByUserIdStatus(@Param("user_id") int userId,@Param("status") String status);
+    
+    Page<Ticket> findByUserIdAndStatus(int userId, String status, Pageable pageable);
 
 	
 
