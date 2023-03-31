@@ -1511,7 +1511,8 @@ function getUnResolvedIssues() {
         },
         success: function (data) {
             // ... the rest of the function code remains the same
-            //console.log(data);
+            //Ata te change kor bhai !
+            console.log(data);
 
     document.getElementById("admin_issue_count").innerHTML = "Total Results: " + data.length;
             
