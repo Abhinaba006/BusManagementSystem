@@ -1270,7 +1270,7 @@ function addRoute(event) {
             //refresh the input fields and put the start and end destination name in the search bar.
             //refresh the page if any issue is resolved.
             document.getElementsByClassName("route_add_div").display="none";
-            
+            document.getElementById("add_field").
             $("#select_bus").val("");
             
 
