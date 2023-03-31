@@ -24,6 +24,7 @@ import nrifintech.busMangementSystem.entities.User;
 import nrifintech.busMangementSystem.repositories.BusMapRepo;
 import nrifintech.busMangementSystem.repositories.BusRepo;
 import nrifintech.busMangementSystem.repositories.DestinationRepo;
+import nrifintech.busMangementSystem.repositories.IssueRepo;
 import nrifintech.busMangementSystem.repositories.RouteInfoRepo;
 import nrifintech.busMangementSystem.repositories.RouteRepo;
 import nrifintech.busMangementSystem.repositories.TicketRepo;
@@ -52,6 +53,9 @@ public class ReportService {
 	
 	@Autowired
 	BusRepo busRepo;
+	
+	@Autowired
+	IssueRepo issueRepo;
 	
 	public void generateRouteReport(HttpServletResponse response) throws IOException {
 
@@ -203,23 +207,44 @@ public class ReportService {
         formatter.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
         String currentDate = formatter.format(now);
         
-//        int todaysConfirmedTickets = ticketRepo.getCountOfTodaysConfirmedTickets(currentDate);
-//        int todaysCancelledTickets = ticketRepo.getCountOfTodaysCancelledTickets(currentDate);
-//        int todaysWaitingTickets = ticketRepo.getCountOfTodaysWaitingTickets(currentDate);
+        int todaysConfirmedTickets = ticketRepo.getCountOfTodaysTicketsByStatus(currentDate,"CONFIRMED");
+        int todaysCancelledTickets = ticketRepo.getCountOfTodaysTicketsByStatus(currentDate,"CANCELLED");
+        int todaysWaitingTickets = ticketRepo.getCountOfTodaysTicketsByStatus(currentDate,"WAITING");
+        data.add(todaysConfirmedTickets);
+        data.add(todaysCancelledTickets);
+        data.add(todaysWaitingTickets);
 		
-		return null;
+		return data;
 	}
 	
 	public List<Integer> getBookingsData() {
 		// TODO Auto-generated method stub
 		//pass total availed tickets and cancelled tickets in an array.
-		return null;
+		List<Integer> data = new ArrayList<Integer>();
+		Date now = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd:MM:yyyy");
+        formatter.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
+        String currentDate = formatter.format(now);
+        
+        int AvailedTickets = ticketRepo.getCountOfPastTicketsByStatus(currentDate,"AVAILED");
+        int CancelledTickets = ticketRepo.getCountOfPastTicketsByStatus(currentDate,"CANCELLED");
+        data.add(AvailedTickets);
+        data.add(CancelledTickets);
+   
+		return data;
+		
 	}
 	
 	public List<Integer> getIssuesData() {
 		// TODO Auto-generated method stub
 		//pass resolved issues and pending issues in an array.
-		return null;
+		List<Integer> data = new ArrayList<Integer>();
+		int totalIssues = (int) issueRepo.count();
+		int  pendingIssues =  issueRepo.getAllunResolvedIssue().size();
+		int resolvedIssues = totalIssues - pendingIssues;
+		data.add(resolvedIssues);
+		data.add(pendingIssues);
+		return data;
 	}
 
 }

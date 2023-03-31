@@ -47,10 +47,11 @@ public interface TicketRepo extends JpaRepository<Ticket, Integer> {
             + "GROUP BY month_number", nativeQuery = true)
 List<Integer> countUniqueUsersByMonth();
 
-    @Query(value="SELECT COUNT(*) FROM ticket where date = :currentDate and status=:status",nativeQuery = true)
-	int getCountOfTodaysTicketsByStatus(String currentDate,String status);
+    @Query(value="SELECT COUNT(*) FROM ticket where date = :date and status=:status",nativeQuery = true)
+	Integer getCountOfTodaysTicketsByStatus(String date,String status);
 
-
+    @Query(value="SELECT COUNT(*) FROM ticket where date <= :date and status=:status",nativeQuery = true)
+    Integer getCountOfPastTicketsByStatus(String date, String status);
 
 
 
@@ -61,4 +62,7 @@ List<Integer> countUniqueUsersByMonth();
     List<Ticket> findByUserIdStatus(@Param("user_id") int userId,@Param("status") String status);
     
     Page<Ticket> findByUserIdAndStatus(int userId, String status, Pageable pageable);
+
+	
+
 }

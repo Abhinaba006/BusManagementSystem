@@ -6,7 +6,7 @@
 
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment.min.js"></script>
 <!DOCTYPE html>
 <html lang="en">
@@ -253,18 +253,18 @@
                         <div id="doughnutRow">
 
                             <div id="doughnutChart">
-                                <canvas id="myChart4"></canvas>
+                              <canvas id="myChart4" style="width:350;height:350;"></canvas>
                             </div>
                             <div id="doughnutChart">
-                                <canvas id="myChart5"></canvas>
+                                <canvas id="myChart5"  style="width:350;height:350;"></canvas>
                             </div>
                             <div id="doughnutChart">
-                                <canvas id="myChart3"></canvas>
-                            </div>
-                        </div>
-
-
-
+                                <canvas id="myChart3"  style="width:350;height:350;"></canvas>
+                              </div>
+                          </div>
+                          
+                          
+                          
 
                         <div id="chart1">
                             <input type="text" id="report-route-id" placeholder="Enter route id" />
@@ -533,27 +533,22 @@
                         </script>
                         <div>
                             <table style="width: 80%;margin-left: 5%;">
-                                <tr>
-                                    <td style="width: 50%;height:100px;text-align: center;">
-                                        <div id="chart3" style="text-align:center;cursor: pointer;color:grey;"
-                                            onclick="generateReport('user')">
-                                            <img src="http://127.0.0.1:5500/client/public/download-icon.png" alt=""
-                                                style="width:70px;height:70px;">
-                                            <p>Download user status report.</p>
-                                            <p>Contains information about users and their total bookings.</p>
-                                        </div>
-                                    </td>
-                                    <td style="width: 50%;height: 100px;text-align: center;">
-                                        <div id="chart3" style="text-align:center;cursor: pointer;color: grey;"
-                                            onclick="generateReport('route')">
-                                            <img src="http://127.0.0.1:5500/client/public/download-icon.png" alt=""
-                                                style="width:70px;height:70px;">
-                                            <p>Download route status report</p>
-                                            <p>Contains information about routes and their underused and overused
-                                                status.</p>
-                                        </div>
-                                    </td>
-                                </tr>
+                              <tr>
+                                <td style="width: 50%;height:100px;text-align: center;">
+                                  <div id="chart3" style="text-align:center;cursor: pointer;color:grey;" onclick="generateReport('user')">
+                                    <img src="http://127.0.0.1:5500/client/public/download-icon.png" alt="" id="download-img-icon">
+                                    <p>Download user status report.</p>
+                                    <p>Contains information about users and their total bookings.</p>
+                                  </div>
+                                </td>
+                                <td style="width: 50%;height: 100px;text-align: center;">
+                                  <div id="chart3" style="text-align:center;cursor: pointer;color: grey;" onclick="generateReport('route')">
+                                    <img src="http://127.0.0.1:5500/client/public/download-icon.png" alt="" id="download-img-icon">
+                                    <p>Download route status report</p>
+                                    <p>Contains information about routes and their underused and overused status.</p>
+                                  </div>
+                                </td>
+                              </tr>
                             </table>
                         </div>
 
@@ -566,209 +561,463 @@
                         var barColors3 = [
                             "#ffa64d",
                             "SlateBlue",
-                        ];
+                            ];
+                            
+                            //fetch values from api issues-data
+                            $.ajax({
+                                    url: "http://localhost:8080/api/v1/report/issues-data",
+                                    type: "GET",
+                                    headers: {
+                                        "Authorization": getTokenCookie(),
+                                        "Content-Type": "application/json"
+                                    },
+                                    success: function (data) {
+                                        console.log(data);
+                                        yValues3 = data;
+            
 
-                        Chart.pluginService.register({
-                            beforeDraw: function (chart) {
-                                var config = chart.config;
-                                if (config.customOptions && config.customOptions.targetChart === 'myChart3') {
-                                    var width = chart.chart.width,
-                                        height = chart.chart.height,
-                                        ctx = chart.chart.ctx;
+                                    Chart.pluginService.register({
+                                    beforeDraw: function(chart) {
+                                        var config = chart.config;
+                                                if (config.customOptions && config.customOptions.targetChart === 'myChart3') {
+                                         var width = chart.chart.width;
+                                            var height = chart.chart.height;
+                                            ctx = chart.chart.ctx;
+                                    
+                                        ctx.restore();
+                                        var fontSize = (height / 114).toFixed(2);
+                                        ctx.font = fontSize + "em sans-serif";
+                                        ctx.textBaseline = "middle";
+                                    
+                                        var text = data[0]+data[1];
+                                        var textX = Math.round((width - ctx.measureText(text).width) / 2);
+                                        var textY = (height / 2)-35;
+                                    
+                                    
+                                    
+                                        ctx.fillText(text, textX, textY);
+                                    
+                                        fontSize = (height / 300).toFixed(2);
+                                        ctx.font = fontSize + "em sans-serif";
+                                    
+                                        var text2 = "Issues";
+                                        var textX2 = Math.round((width - ctx.measureText(text2).width) / 2);
+                                        var textY2 = (height / 2);
+                                        ctx.fillText(text2, textX2, textY2);
+                                        ctx.save();
+                                        }
+                                    }
+                                    });
+                                    
+                                        new Chart("myChart3", {
+                                            type: "doughnut",
+                                            data: {
+                                                labels: xValues3,
+                                                datasets: [{
+                                                backgroundColor: barColors3,
+                                                hoverBackgroundColor: ["#ff8c1a","#4e3cc3"],
+                                                data: yValues3
+                                                }]
+                                            },
+                                            customOptions: {
+                                                        targetChart: 'myChart3'
+                                                    },
+                                            options: {
+                                                legend:{
+                                                display:true,
+                                                position:'bottom'
+                                                },
+                                                title: {
+                                                display: true,
+                                                text: "",
+                                                position:'bottom'
+                                                }
+                                            }
+                                            });
+                                    },
+                                    error: function () {
+                                        Chart.pluginService.register({
+                                    beforeDraw: function(chart) {
+                                        var config = chart.config;
+                                                if (config.customOptions && config.customOptions.targetChart === 'myChart3') {
+                                        var width = chart.chart.width;
+                                        var height = chart.chart.height;
+                                        var ctx = chart.chart.ctx;
+                                    
+                                        ctx.restore();
+                                        var fontSize = (height / 114).toFixed(2);
+                                        ctx.font = fontSize + "em sans-serif";
+                                        ctx.textBaseline = "middle";
+                                    
+                                        var text = 0;
+                                        var textX = Math.round((width - ctx.measureText(text).width) / 2);
+                                        var textY = (height / 2)-35;
+                                    
+                                    
+                                    
+                                        ctx.fillText(text, textX, textY);
+                                    
+                                        fontSize = (height / 300).toFixed(2);
+                                        ctx.font = fontSize + "em sans-serif";
+                                    
+                                        var text2 = "Issues";
+                                        var textX2 = Math.round((width - ctx.measureText(text2).width) / 2);
+                                        var textY2 = (height / 2)+10;
+                                        ctx.fillText(text2, textX2, textY2);
+                                        ctx.save();
+                                        }
+                                    }
+                                    });
 
-                                    ctx.restore();
-                                    var fontSize = (height / 114).toFixed(2);
-                                    ctx.font = fontSize + "em sans-serif";
-                                    ctx.textBaseline = "middle";
+                                        new Chart("myChart3", {
+                                            type: "doughnut",
+                                            data: {
+                                                labels: xValues3,
+                                                datasets: [{
+                                                backgroundColor: barColors3,
+                                                data: yValues3
+                                                }]
+                                            },
+                                            customOptions: {
+                                                        targetChart: 'myChart3'
+                                                    },
+                                            options: {
+                                                legend:{
+                                                display:true,
+                                                position:'bottom'
+                                                },
+                                                title: {
+                                                display: true,
+                                                text: "",
+                                                position:'bottom'
+                                                }
+                                            }
+                                            });
+                                        return createAlert("Server error. Please try again!", "failure");//alert("Server error! Please try again!")
+                                    }
+                                });
+                            
+                            
+                            
+                            
+                            </script>
 
-                                    var text = "206",
-                                        textX = Math.round((width - ctx.measureText(text).width) / 2),
-                                        textY = (height / 2) - 20;
+                                <script>
+                                    var xValues4 = ["Availed", "Cancelled"];
+                                    var yValues4 = [1,0];
+                                    var barColors4 = [
+                                    "Dodgerblue",
+                                    "Tomato",
+                                    ];
+                                    
+                                    //fetch values from api PastBookings-data
+                            $.ajax({
+                                    url: "http://localhost:8080/api/v1/report/PastBookings-data",
+                                    type: "GET",
+                                    headers: {
+                                        "Authorization": getTokenCookie(),
+                                        "Content-Type": "application/json"
+                                    },
+                                    success: function (data) {
+                                        yValues4 = data;
+                                        Chart.pluginService.register({
+                                    beforeDraw: function(chart) {
+                                        var config2 = chart.config;
+                                         if (config2.customOptions && config2.customOptions.targetChart === 'myChart4') {
+                                          
+                                             var width = chart.chart.width;
+                                            var height = chart.chart.height;
+                                            var ctx = chart.chart.ctx;
+                                    
+                                        ctx.restore();
+                                        var fontSize = (height / 114).toFixed(2);
+                                        ctx.font = fontSize + "em sans-serif";
+                                        ctx.textBaseline = "middle";
+                                    
+                                        var myChart4Text = data[0]+data[1];
+                                        var  myChart4TextX = Math.round((width - ctx.measureText(myChart4Text).width) / 2);
+                                        var myChart4TextY = (height / 2)-35;
+                                    
+                                    
+                                    
+                                        ctx.fillText(myChart4Text, myChart4TextX, myChart4TextY);
+                                    
+                                        fontSize = (height / 300).toFixed(2);
+                                        ctx.font = fontSize + "em sans-serif";
+                                    
+                                        var myChart4Text2 = "Past";
+                                        myChart4TextX2 = Math.round((width - ctx.measureText(myChart4Text2).width) / 2);
+                                        myChart4TextY2 = (height / 2)-5;
+                                        ctx.fillText(myChart4Text2, myChart4TextX2, myChart4TextY2);
 
+                                        var myChart4Text2 = "Bookings",
+                                        myChart4TextX2 = Math.round((width - ctx.measureText(myChart4Text2).width) / 2);
+                                        myChart4TextY2 = (height / 2)+10;
+                                        ctx.fillText(myChart4Text2, myChart4TextX2, myChart4TextY2);
+                                        ctx.save();
+                                    }
+                                    }
+                                    });
+                                    
+                                    
+                                    new Chart("myChart4", {
+                                    type: "doughnut",
+                                    data: {
+                                        labels: xValues4,
+                                        datasets: [{
+                                        backgroundColor: barColors4,
+                                        hoverBackgroundColor: ["#0080ff","#ff5233"],
+                                        data: yValues4
+                                        }]
+                                    },
+                                    customOptions: {
+                                        targetChart: 'myChart4'
+                                    },
+                                    options: {
+                                        legend:{
+                                        display:true,
+                                        position:'bottom'
+                                        },
+                                        title: {
+                                        display: true,
+                                        text: "",
+                                        position:'bottom'
+                                        }
+                                    }
+                                    });
+                                   
+                                    },
+                                    error: function () {
+                                        Chart.pluginService.register({
+                                    beforeDraw: function(chart) {
+                                        var config2 = chart.config;
+                                         if (config2.customOptions && config2.customOptions.targetChart === 'myChart4') {
+                                          
+                                             var width = chart.chart.width;
+                                            var height = chart.chart.height;
+                                            var ctx = chart.chart.ctx;
+                                    
+                                        ctx.restore();
+                                        var fontSize = (height / 114).toFixed(2);
+                                        ctx.font = fontSize + "em sans-serif";
+                                        ctx.textBaseline = "middle";
+                                    
+                                        var myChart4Text = "0";
+                                        var myChart4TextX = Math.round((width - ctx.measureText(myChart4Text).width) / 2);
+                                        var myChart4TextY = (height / 2)-35;
+                                    
+                                    
+                                    
+                                        ctx.fillText(myChart4Text, myChart4TextX, myChart4TextY);
+                                    
+                                        fontSize = (height / 350).toFixed(2);
+                                        ctx.font = fontSize + "em sans-serif";
+                                    
+                                        var myChart4Text2 = "Past";
+                                        var myChart4TextX2 = Math.round((width - ctx.measureText(myChart4Text2).width) / 2);
+                                        var myChart4TextY2 = (height / 2)-5;
+                                        ctx.fillText(myChart4Text2, myChart4TextX2, myChart4TextY2);
 
+                                        var myChart4Text2 = "Bookings";
+                                        var myChart4TextX2 = Math.round((width - ctx.measureText(myChart4Text2).width) / 2);
+                                        var myChart4TextY2 = (height / 2)+10;
+                                        ctx.fillText(myChart4Text2, myChart4TextX2, myChart4TextY2);
+                                        ctx.save();
+                                    }
+                                    }
+                                    });
+                                    
+                                    
+                                    new Chart("myChart4", {
+                                    type: "doughnut",
+                                    data: {
+                                        labels: xValues4,
+                                        datasets: [{
+                                        backgroundColor: barColors4,
+                                        data: yValues4
+                                        }]
+                                    },
+                                    customOptions: {
+                                        targetChart: 'myChart4'
+                                    },
+                                    options: {
+                                        legend:{
+                                        display:true,
+                                        position:'bottom'
+                                        },
+                                        title: {
+                                        display: true,
+                                        text: "",
+                                        position:'bottom'
+                                        }
+                                    }
+                                    });
+                                   
+                                        return createAlert("Server error. Please try again!", "failure");//alert("Server error! Please try again!")
+                                    }
+                                });
 
-                                    ctx.fillText(text, textX, textY);
+                                    
+                                    </script>
 
-                                    fontSize = (height / 300).toFixed(2);
-                                    ctx.font = fontSize + "em sans-serif";
+                                    <script>
+                                        var xValues5 = ["Confirmed", "Cancelled","Waiting"];
+                                        var yValues5 = [65,25,10];
+                                        var barColors5 = [
+                                        "MediumSeaGreen",
+                                        "#ff6666",
+                                        "Gray"
+                                        ];
+                                        
+                                        //fetch values from api PastBookings-data
+                                        $.ajax({
+                                                url: "http://localhost:8080/api/v1/report/currentBookings-data",
+                                                type: "GET",
+                                                headers: {
+                                                    "Authorization": getTokenCookie(),
+                                                    "Content-Type": "application/json"
+                                                },
+                                                success: function (data) {
+                                                    yValues5 = data;
+                                                    Chart.pluginService.register({
+                                        beforeDraw: function(chart) {
+                                            var config2 = chart.config;
+                                            if (config2.customOptions && config2.customOptions.targetChart === 'myChart5') {
+                                            
+                                                var width = chart.chart.width;
+                                                var height = chart.chart.height;
+                                                var ctx = chart.chart.ctx;
+                                        
+                                            ctx.restore();
+                                            var fontSize = (height / 114).toFixed(2);
+                                            ctx.font = fontSize + "em sans-serif";
+                                            ctx.textBaseline = "middle";
+                                        
+                                            var myChart5Text = data[0]+data[1]+data[2];
+                                            var myChart5TextX = Math.round((width - ctx.measureText(myChart5Text).width) / 2);
+                                            var myChart5TextY = (height / 2)-35;
+                                        
+                                        
+                                        
+                                            ctx.fillText(myChart5Text, myChart5TextX, myChart5TextY);
+                                        
+                                            fontSize = (height / 300).toFixed(2);
+                                            ctx.font = fontSize + "em sans-serif";
+                                        
+                                            var myChart5Text2 = "Current";
+                                            var myChart5TextX2 = Math.round((width - ctx.measureText(myChart5Text2).width) / 2);
+                                            var myChart5TextY2 = (height / 2)-5;
+                                            ctx.fillText(myChart5Text2, myChart5TextX2, myChart5TextY2);
 
-                                    var text2 = "Issues",
-                                        textX2 = Math.round((width - ctx.measureText(text2).width) / 2),
-                                        textY2 = (height / 2) + 10;
-                                    ctx.fillText(text2, textX2, textY2);
-                                    ctx.save();
-                                }
-                            }
-                        });
+                                            var myChart5Text3 = "Bookings";
+                                            var myChart5TextX3 = Math.round((width - ctx.measureText(myChart5Text3).width) / 2);
+                                            var myChart5TextY3 = (height / 2)+10;
+                                            ctx.fillText(myChart5Text3, myChart5TextX3, myChart5TextY3);
+                                            ctx.save();
+                                        }
+                                        }
+                                        });
+                                        
+                                        
+                                        new Chart("myChart5", {
+                                        type: "doughnut",
+                                        data: {
+                                            labels: xValues5,
+                                            datasets: [{
+                                            backgroundColor: barColors5,
+                                            hoverBackgroundColor: ["#39ac6d","#ff3333","#737373"],
+                                            data: yValues5
+                                            }]
+                                        },
+                                        customOptions: {
+                                            targetChart: 'myChart5'
+                                        },
+                                        options: {
+                                            legend:{
+                                            display:true,
+                                            position:'bottom'
+                                            },
+                                            title: {
+                                            display: true,
+                                            text: "",
+                                            position:'bottom'
+                                            }
+                                        }
+                                        });
+                                            
+                                                },
+                                                error: function () {
+                                                    Chart.pluginService.register({
+                                        beforeDraw: function(chart) {
+                                            var config2 = chart.config;
+                                            if (config2.customOptions && config2.customOptions.targetChart === 'myChart5') {
+                                            
+                                                var width = chart.chart.width;
+                                                var height = chart.chart.height;
+                                                var ctx = chart.chart.ctx;
+                                        
+                                            ctx.restore();
+                                            var fontSize = (height / 114).toFixed(2);
+                                            ctx.font = fontSize + "em sans-serif";
+                                            ctx.textBaseline = "middle";
+                                        
+                                            var myChart5Text = "100";
+                                            var myChart5TextX = Math.round((width - ctx.measureText(myChart5Text).width) / 2);
+                                            var myChart5TextY = (height / 2)-35;
+                                        
+                                        
+                                        
+                                            ctx.fillText(myChart5Text, myChart5TextX, myChart5TextY);
+                                        
+                                            fontSize = (height / 300).toFixed(2);
+                                            ctx.font = fontSize + "em sans-serif";
+                                        
+                                            var myChart5Text2 = "Current";
+                                            var myChart5TextX2 = Math.round((width - ctx.measureText(myChart5Text2).width) / 2);
+                                            var myChart5TextY2 = (height / 2)-5;
+                                            ctx.fillText(myChart5Text2, myChart5TextX2, myChart5TextY2);
 
+                                            var myChart5Text3 = "Bookings";
+                                            var myChart5TextX3 = Math.round((width - ctx.measureText(myChart5Text3).width) / 2);
+                                            var myChart5TextY3 = (height / 2)+10;
+                                            ctx.fillText(myChart5Text3, myChart5TextX3, myChart5TextY3);
+                                            ctx.save();
+                                        }
+                                        }
+                                        });
+                                        
+                                        
+                                        new Chart("myChart5", {
+                                        type: "doughnut",
+                                        data: {
+                                            labels: xValues5,
+                                            datasets: [{
+                                            backgroundColor: barColors5,
+                                            data: yValues5
+                                            }]
+                                        },
+                                        customOptions: {
+                                            targetChart: 'myChart5'
+                                        },
+                                        options: {
+                                            legend:{
+                                            display:true,
+                                            position:'bottom'
+                                            },
+                                            title: {
+                                            display: true,
+                                            text: "",
+                                            position:'bottom'
+                                            }
+                                        }
+                                        });
+                                                    return createAlert("Server error. Please try again!", "failure");//alert("Server error! Please try again!")
+                                                }
+                                            });
 
-                        new Chart("myChart3", {
-                            type: "doughnut",
-                            data: {
-                                labels: xValues3,
-                                datasets: [{
-                                    backgroundColor: barColors3,
-                                    data: yValues3
-                                }]
-                            },
-                            customOptions: {
-                                targetChart: 'myChart3'
-                            },
-                            options: {
-                                legend: {
-                                    display: false
-                                },
-                                title: {
-                                    display: true,
-                                    text: "",
-                                    position: 'bottom'
-                                }
-                            }
-                        });
-
-
-
-
-                    </script>
-
-                    <script>
-                        var xValues4 = ["Availed", "Cancelled"];
-                        var yValues4 = [65, 35];
-                        var barColors4 = [
-                            "Dodgerblue",
-                            "Tomato",
-                        ];
-
-                        Chart.pluginService.register({
-                            beforeDraw: function (chart) {
-                                var config2 = chart.config;
-                                if (config2.customOptions && config2.customOptions.targetChart === 'myChart4') {
-
-                                    var width = chart.chart.width,
-                                        height = chart.chart.height,
-                                        ctx = chart.chart.ctx;
-
-                                    ctx.restore();
-                                    var fontSize = (height / 114).toFixed(2);
-                                    ctx.font = fontSize + "em sans-serif";
-                                    ctx.textBaseline = "middle";
-
-                                    var myChart4Text = "120",
-                                        myChart4TextX = Math.round((width - ctx.measureText(myChart4Text).width) / 2),
-                                        myChart4TextY = (height / 2) - 20;
-
-
-
-                                    ctx.fillText(myChart4Text, myChart4TextX, myChart4TextY);
-
-                                    fontSize = (height / 300).toFixed(2);
-                                    ctx.font = fontSize + "em sans-serif";
-
-                                    var myChart4Text2 = "Tickets",
-                                        myChart4TextX2 = Math.round((width - ctx.measureText(myChart4Text2).width) / 2),
-                                        myChart4TextY2 = (height / 2) + 10;
-                                    ctx.fillText(myChart4Text2, myChart4TextX2, myChart4TextY2);
-                                    ctx.save();
-                                }
-                            }
-                        });
-
-
-                        new Chart("myChart4", {
-                            type: "doughnut",
-                            data: {
-                                labels: xValues4,
-                                datasets: [{
-                                    backgroundColor: barColors4,
-                                    data: yValues4
-                                }]
-                            },
-                            customOptions: {
-                                targetChart: 'myChart4'
-                            },
-                            options: {
-                                legend: {
-                                    display: false
-                                },
-                                title: {
-                                    display: true,
-                                    text: "",
-                                    position: 'bottom'
-                                }
-                            }
-                        });
-
-                    </script>
-
-                    <script>
-                        var xValues5 = ["Confirmed", "Cancelled", "Waiting"];
-                        var yValues5 = [65, 25, 10];
-                        var barColors5 = [
-                            "MediumSeaGreen",
-                            "#ff6666",
-                            "Gray"
-                        ];
-
-                        Chart.pluginService.register({
-                            beforeDraw: function (chart) {
-                                var config2 = chart.config;
-                                if (config2.customOptions && config2.customOptions.targetChart === 'myChart5') {
-
-                                    var width = chart.chart.width,
-                                        height = chart.chart.height,
-                                        ctx = chart.chart.ctx;
-
-                                    ctx.restore();
-                                    var fontSize = (height / 114).toFixed(2);
-                                    ctx.font = fontSize + "em sans-serif";
-                                    ctx.textBaseline = "middle";
-
-                                    var myChart5Text = "100",
-                                        myChart5TextX = Math.round((width - ctx.measureText(myChart5Text).width) / 2),
-                                        myChart5TextY = (height / 2) - 20;
-
-
-
-                                    ctx.fillText(myChart5Text, myChart5TextX, myChart5TextY);
-
-                                    fontSize = (height / 300).toFixed(2);
-                                    ctx.font = fontSize + "em sans-serif";
-
-                                    var myChart5Text2 = "Bookings",
-                                        myChart5TextX2 = Math.round((width - ctx.measureText(myChart5Text2).width) / 2),
-                                        myChart5TextY2 = (height / 2) + 10;
-                                    ctx.fillText(myChart5Text2, myChart5TextX2, myChart5TextY2);
-                                    ctx.save();
-                                }
-                            }
-                        });
-
-
-                        new Chart("myChart5", {
-                            type: "doughnut",
-                            data: {
-                                labels: xValues5,
-                                datasets: [{
-                                    backgroundColor: barColors5,
-                                    data: yValues5
-                                }]
-                            },
-                            customOptions: {
-                                targetChart: 'myChart5'
-                            },
-                            options: {
-                                legend: {
-                                    display: false
-                                },
-                                title: {
-                                    display: true,
-                                    text: "",
-                                    position: 'bottom'
-                                }
-                            }
-                        });
-
-                    </script>
+                                       
+                                        
+                                        </script>
                     <!--fifth div-->
 
                     <div id="fifthdiv" style="display:none;">
@@ -1246,19 +1495,19 @@
                 <div class="close-button" onclick="off4()">x</div>
                 <div class="cancel-text">
                     <form style="text-align: left;margin: auto;">
-                        <div class="add_route_field" onclick="add_route_field_edit(event)">Add destination</div>
-                        <select class="select_bus_overlay" id="select_bus_overlay" onclick="displayBusIDOverlay(event)">
-                            <option>Select your bus</option>
-                        </select>
-                        <div class="add_field_edit" id="add_field_edit">
+                        <div class="add_route_field" onclick="add_route_field_edit(event)" style="width:50%;font-size: small;margin-top: 10px;">Add destination</div>
+                            <select class="select_bus_overlay" id="select_bus_overlay" onclick="displayBusIDOverlay(event)" style="width:50%;">
+                                <option>Select your bus</option>
+                            </select>
+                            <div class="add_field_edit" id="add_field_edit">
 
                         </div>
                         <!-- <div class="route_submit" id="route_submit" onclick=" addRoute(event)"
                                 style="cursor: pointer;">SAVE</div> -->
                     </form>
                 </div>
-                <div class="confirm-cancel-buttons">
-                    <button class="confirm-button"> <img class="confirm-cancel-icon"
+                <div class="confirm-cancel-buttons" style="margin-top: 10px;margin-bottom: 10px;">
+                    <button class="confirm-button" > <img class="confirm-cancel-icon"
                             src="./public/arrow-right-circle-fill.svg" alt=""> Save</button>
                 </div>
 

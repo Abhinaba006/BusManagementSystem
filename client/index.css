@@ -458,7 +458,8 @@ a:active {
   font-family: Montserrat;
   font-size: 22px;
   font-weight: 400;
-  text-align: right;
+  text-align: left;
+  padding-left: 50px;
   color: #000000;
   /* margin-left: auto; */
   margin: auto;
