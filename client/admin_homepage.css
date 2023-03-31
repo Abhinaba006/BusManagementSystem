@@ -324,7 +324,7 @@ form {
 
 
 .search-div {
-    width: 500px;
+    width: 800px;
     height: auto;
     position: absolute;
     top: 40%;
@@ -353,9 +353,9 @@ form {
 
 }
 
-.search-overlay-main-div {
+.search-overlay-main-div-routes {
     width: 100%;
-    height: auto;
+    height: 500px;
     background-color: #FFFFFF;
     border: 2px solid whitesmoke;
     border-radius: 5px;
@@ -363,11 +363,31 @@ form {
     color: #000000;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+    /* overflow: hidden;
     max-height: 600px;
     overflow-y: scroll;
-    margin-top:20%;
+    margin-top:20%; */
 
+.search-overlay-main-div {
+    width: 100%;
+    height: auto;
+    /* background-color: #FFFFFF; */
+    background-color: red;
+    border: 2px solid whitesmoke;
+    border-radius: 5px;
+    overflow-y: auto;
+    color: #000000;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.route-overlay-width:select
+{
+    width: 60%;
 }
 
 .bus-overlay-main-div,.destination-overlay-main-div {
@@ -3148,6 +3168,7 @@ a {
 .select_class{
     width:200px;
     color:rgb(44, 40, 40);
+    margin-right: auto;
 }
   
 .select_time{
@@ -3597,7 +3618,7 @@ box-shadow: 2px 2px 2px #ddd;background:white;
     width:65%!important;
   }
 
-  #search-issues-admin{
+  #search-issues-admin,#issueStatus{
     margin-left: 10%;
     width:65%!important;
   }
@@ -3613,7 +3634,9 @@ box-shadow: 2px 2px 2px #ddd;background:white;
   }
   .admin-ticket-content
   {
-    height: 400px;
+    /* height: 200px; */
+    
+    height: 120px;
   }
   .admin-ticket-values{
     display: flex;
@@ -3795,4 +3818,36 @@ box-shadow: 2px 2px 2px #ddd;background:white;
         margin-right:0px;
         text-align: center;
       }
+}
+
+#status{
+    width: 20%;
+}
+
+.my-booking-div-text {
+    margin-left: 1%;
+    font-family: Montserrat;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 43px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: rgba(0, 0, 0, 1);
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 20%;
+}
+.my-booking-div-ticket-filter {
+    font-family: Montserrat;
+    font-size: 15px;
+    font-weight: 200;
+    line-height: 43px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: rgba(0, 0, 0, 1);
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: 3%;
+
 }

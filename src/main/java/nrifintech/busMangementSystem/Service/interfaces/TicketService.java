@@ -16,5 +16,6 @@ public interface TicketService {
     List<Ticket> getAllTicketByPersonId(int userId);
     Integer getTotalTicketsDoneByUser(int userId);
 	// List<Ticket> getAllTicketByPersonEmail(String userEmail);
-    TicketResponse getAllTicketByPersonEmail(String userEmail,Integer pageNumber,Integer pageSize);
+    TicketResponse getAllTicketByPersonEmail(String userEmail,Integer pageNumber,Integer pageSize, String status);
+//	TicketResponse getAllTicketByPersonEmail(String userEmail, Integer pageNumber, Integer pageSize);
 }
