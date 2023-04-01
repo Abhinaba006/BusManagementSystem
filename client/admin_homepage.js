@@ -160,24 +160,31 @@ function add_route_field(event) {
     newDiv.className = "select_content";
     newDiv.innerHTML = `
     <select class="select_class" id="select_dest_${len + 1}" onclick="add_Destination_toselect(event, ${len})">
-        <option>Add destination</option>
+    <option style="color:grey;">Add destination</option>
     </select>
     <input class="select_time" id="select_time_${len + 1}" placeholder="HH:MM (24hr-format)">
 `;
     select_div.appendChild(newDiv);
 
 }
-function add_route_field_edit(event) {
+function add_route_field_edit(event,destinationName,destinationId,time) {
     event.preventDefault();
     const select_div = document.getElementById("add_field_edit");
     const len = select_div.childElementCount;
     console.log(len);
+    if(destinationName===undefined)
+    {
+        destinationName = "Add destination";
+        time = "";
+    }
+
     select_div.innerHTML += `
     <div class = "select_content">
-        <select class = "select_class" id = "select_dest_edit_${len + 1}" onclick = "add_Destination_toselect(event,${len})">
-            <option>Add destination</option>
+    <select class = "select_class" id = "select_dest_${len + 1}" onclick = "add_Destination_toselect(event,${len})">
+    <option value="${destinationId}">${destinationName}</option>
+
         </select>
-        <input class = "select_time" id = "select_time_edit_${len + 1}" placeholder = "HH:MM(24hr-format)"></select>
+        <input class = "select_time" id = "select_time_${len + 1}" placeholder = "HH:MM(24hr-format)" value="${time}"></select>
     </div> 
     `
 }
@@ -223,7 +230,11 @@ function addEmployee(event) {
         },
         error: function (xhr, status, error) {
             console.log(error);
-            createAlert("Oops something went wrong! Please try again", "failure");
+            if (JSON.parse(xhr.responseText).message === "user exists")
+                createAlert("user with this email already exists!", "info");
+            else
+                createAlert("Oops something went wrong! Please try again", "failure");
+
             //alert("Oops something went wrong! Please try again")
         }
     });
@@ -257,6 +268,8 @@ function getRoutesAdmin(event) {
         },
         success: function (data) {
             console.log(data);
+            if (data.length === 0)
+                createAlert("No routes found for the given source and destination!", "info");
 
             for (var i = 0; i < data.length; i++) {
                 const route_id = data[i].id;
@@ -272,7 +285,7 @@ function getRoutesAdmin(event) {
                     source_time: "",
                     userId: 1, //To be changed
                 };
-                obj["routeId"] = route_id;
+                obj["route_id"] = route_id;
                 $.ajax({
                     url: "http://localhost:8080/api/v1/route/getDestinations/" + route_id,
                     type: "GET",
@@ -325,7 +338,7 @@ function getRoutesAdmin(event) {
                                  <div class = "index_route_item" style = "width:80%">
                                  <div class = "index_source">
                                         <div class = "index_heading">Route Id</div>
-                                        <div class = "index_bus_number">${obj.routeId}</div>
+                                        <div class = "index_bus_number">${obj.route_id}</div>
                                     </div>
                                     <div class = "index_source">
                                         <div class = "index_heading">Bus details</div>
@@ -348,8 +361,10 @@ function getRoutesAdmin(event) {
                                        
                                     </div>
                                     <div class = "index_source">
+                                    <div class = "index_book" route_id = ${obj.route_id} bus_id =  ${obj.busId} user_id = ${obj.userId} date =  ${formattedDate} onclick=" editRoute(event,${obj.route_id})" style = "background-color:limegreen;">EDIT</div>
                                         <div class = "index_book" route_id = ${obj.route_id} bus_id =  ${obj.busId} user_id = ${obj.userId} date =  ${formattedDate} onclick=" deleteRoute(event,${obj.route_id})" style = "background-color:orangered;">Delete</div>
-                                    </div>
+                                        
+                                        </div>
                                 </div>
                                                 `;
                                         const parentDiv = document.querySelector(".admin_routes");
@@ -403,8 +418,7 @@ function deleteRoute(event, routeId) {
         type: "DELETE",
         success: function (result) {
             console.log(result);
-            createAlert("Bus deleted successfully", "success");
-            //alert("Bus deleted successfully!")
+            createAlert("Route deleted successfully", "success");
         },
         error: function (xhr, status, error) {
             console.log(error);
@@ -457,7 +471,7 @@ function searchTickets(event,optionalValue=0) {
             "Content-Type": "application/json"
         },
         success: function (d) {
-           
+            
             console.log(status)
             // "id": 28,
             // "routeId": 5,
@@ -503,6 +517,7 @@ function searchTickets(event,optionalValue=0) {
 
             document.getElementById("admin_ticket_count").innerHTML = "Total tickets found : " + d.totalElements;
             for (var i = 0; i < data.length; i++) {
+                
                 const route_id = data[i].routeId;
                 const ticket_id = data[i].id;
                 const formattedDate = data[i].date;
@@ -529,7 +544,8 @@ function searchTickets(event,optionalValue=0) {
                         "Content-Type": "application/json"
                     },
                     success: function (data) {
-                        console.log(data);
+                        console.log("fetching: "+data);
+                        console.log("Route data"+data);
                         obj["source_name"] = data[0].destination.name;
                         obj["source_time"] = data[0].time;
 
@@ -576,6 +592,8 @@ function searchTickets(event,optionalValue=0) {
                                             color = "grey";
                                         }
 
+                                        console.log("dest : ");
+                                        console.log(obj);
                                         if (status === "CONFIRMED" || status === "WAITING") {
                                             const routeHTML = `
                                         
@@ -639,7 +657,7 @@ function searchTickets(event,optionalValue=0) {
             const parentDiv = document.querySelector(".admin-ticket-pagination");
             console.log(parentDiv);
             parentDiv.innerHTML="";
-            return createAlert("Something went wrong. Please try again later!", "failure");
+            return createAlert("User with this email does not exists!", "info");
             //return alert("Something went wrong. Please try again later!");
         }
     });
@@ -859,8 +877,11 @@ function addDestination(event) {
         },
         error: function (xhr, status, error) {
             console.log(error);
-            createAlert("Oops something went wrong! Please try again", "failure");
-            //alert("Oops something went wrong! Please try again")
+            if (JSON.parse(xhr.responseText).message === "destination exists")
+                createAlert("destination with this name already exists!", "info");
+            else
+                createAlert("Oops something went wrong! Please try again", "failure");
+
         }
     });
 }
@@ -1099,8 +1120,11 @@ function addBus(event) {
         },
         error: function (xhr, status, error) {
             console.log(error);
-            createAlert("Oops something went wrong! Please try again", "failure");
-            //alert("Oops something went wrong! Please try again")
+            if (JSON.parse(xhr.responseText).message === "bus exists")
+                createAlert("bus with this bus number already exists!", "info");
+            else
+                createAlert("Oops something went wrong! Please try again", "failure");
+
         }
     });
 
@@ -1113,7 +1137,7 @@ function off3() {
 function displayBusID(event) {
     event.preventDefault();
     $.ajax({
-        url: "http://localhost:8080/api/v1/bus/get",
+        url: "http://localhost:8080/api/v1/bus/get/unalloted",
         type: "GET",
         headers: {
             "Authorization": getTokenCookie(),
@@ -1121,6 +1145,38 @@ function displayBusID(event) {
         },
         success: function (data) {
             var selectElement = document.getElementById('select_bus');
+
+            // Add options from the data array
+            data.forEach(function (item) {
+                var optionElement = document.createElement('option');
+                optionElement.value = item.id;
+                optionElement.textContent = item.bus_number;
+                var flag = 1;
+                for (var i = 0; i < selectElement.options.length; i++) {
+                    if (item.id == selectElement.options[i].value) flag = 0;
+                }
+                if (flag || selectElement.options.length == 1)
+                    selectElement.appendChild(optionElement);
+            });
+        },
+        error: function () {
+            return new createAlert("Server error! Please try again", "failure");//alert("Server error! Please try again!")
+        }
+    });
+}
+
+//For display of the destinations and bus dynamically on overlay
+function displayBusIDOverlay(event) {
+    event.preventDefault();
+    $.ajax({
+        url: "http://localhost:8080/api/v1/bus/get/unalloted",
+        type: "GET",
+        headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
+        success: function (data) {
+            var selectElement = document.getElementById('select_bus_overlay');
 
             // Add options from the data array
             data.forEach(function (item) {
@@ -1239,6 +1295,136 @@ function addRoute(event) {
     });
 
 }
+
+function editRoute(event, routeId) {
+    event.preventDefault();
+
+    // Find out which bus is running on this routeId
+    const divElement = document.querySelector('.index_book'); // select the div element
+    const busId = divElement.getAttribute('bus_id'); // extract the bus_id attribute
+    console.log(busId); // output the bus_id value
+
+    // Call an API to retrieve data for the dropdown
+    $.ajax({
+        url: "http://localhost:8080/api/v1/bus/get/"+busId,
+        type: "GET",
+        headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        },
+        success: function (data) {
+            var selectElement = document.getElementById('select_bus_overlay');
+            // Add option from this data fetched.
+            var optionElement = document.createElement('option');
+            optionElement.value = data.id;
+            optionElement.textContent = data.bus_number;
+            //but first clear all the options inside.
+            selectElement.innerHTML="";
+            selectElement.appendChild(optionElement);
+
+            // Add the select element to the overlay
+            var overlayElement = document.querySelector(".route-overlay");
+            // overlayElement.appendChild(selectElement);
+
+            // Display the overlay
+            overlayElement.style.display = "block";
+        },
+        error: function () {
+            return new createAlert("Server error! Please try again", "failure");//alert("Server error! Please try again!")
+        }
+    });
+
+    //get routes by routeId, and use add_route_field_edit and create dyanmic html content and 
+    //pass the place and time from here.
+    fetch('http://localhost:8080/api/v1/route/getDestinations/'+routeId, {
+		headers: {
+            "Authorization": getTokenCookie(),
+            "Content-Type": "application/json"
+        }
+		// headers: {
+		// 	'Authorization': `{authToken}`
+		// }
+	})
+		.then(response => response.json())
+		.then(data => {
+			// format the data to use it in html
+			data.forEach(d => {
+				d["destinationName"] = d.destination.name
+                d["destinationId"] = d.destination.id
+				delete d.destination
+			})
+			// console.log(data);
+            //first clear the add_field_edit
+            var temp = document.getElementById("add_field_edit");
+            temp.innerHTML=""
+			for (let i = 0; i < data.length; i++) {
+				const time = data[i].time;
+				const destinationName = data[i].destinationName;
+                const destinationId =  data[i].destinationId;
+                //call add_route_field_edit and pass these values ,
+                //it will create a destination and time field with these values in the overlay.
+                
+                add_route_field_edit(event,destinationName,destinationId,time);
+			}
+		})
+		.catch(error => console.error(error));
+
+
+        // Add an event listener to the button in the overlay
+        var overlayElement = document.querySelector(".route-overlay");
+        var button = overlayElement.querySelector('button');
+        button.addEventListener('click', function() {
+        // Do something when the button is clicked
+           //fetch the values from overlay and post it to updateRoute API.
+           
+           var table = document.getElementById("add_field_edit");
+           const data = [];
+           for (var i = 0; i < table.childElementCount; i++) {
+               const destId = $("#select_dest_" + (i + 1)).val();
+               const time = $("#select_time_" + (i + 1)).val();
+               if (destId == "" && time == "") continue;
+               else if (destId == "" || time == "") return createAlert("Please provide valid destination/time combination!", "info");//alert("Please provide valid destination/time combination");
+               data.push(destId + "_" + i + "_" + time);
+           }
+           console.log(data);
+           if (data.length <= 1) {
+               return createAlert("Total number of destinations should be greater than 1!", "info");//alert("Total number of destinations should be greater than 1");
+           }
+           const busId = $("#select_bus_overlay").val();
+           if (busId == "" || busId == undefined) return createAlert("Please provide a bus id for this route!", "info");//alert("Please provide a bus id for this route!");
+           console.log("data: ", data);
+           $.ajax({
+               url: "http://localhost:8080/api/v1/route/update/" + routeId+"/"+busId,
+               headers: {
+                   "Authorization": getTokenCookie(),
+                   "Content-Type": "application/json"
+               },
+               type: "POST",
+               data: JSON.stringify(data),
+               contentType: "application/json",
+               success: function (result) {
+                   console.log(result);
+                   document.querySelector(".route-overlay").style.display = "none";
+                   createAlert("Route updated successfully!", "success");
+                   //alert("Route added successfully!")
+                   //refresh the input fields and put the start and end destination name in the search bar.
+               },
+               error: function (xhr, status, error) {
+                   console.log(error);
+                   createAlert("Oops something went wrong! Please try again", "failure");
+                   //alert("Oops something went wrong! Please try again")
+               }
+           });
+
+        });
+}
+
+
+function off4() {
+    document.querySelector(".route-overlay").style.display = "none";
+}
+
+
 function add_field() {
 
     $.ajax({
@@ -1513,6 +1699,7 @@ function getUnResolvedIssues() {
             // ... the rest of the function code remains the same
             //console.log(data);
 
+            
     document.getElementById("admin_issue_count").innerHTML = "Total Results: " + data.length;
             
             const parentDiv = document.getElementById("issue-container");
@@ -1601,7 +1788,7 @@ function getUnResolvedIssues() {
         }
         ,
         error: function () {
-            return createAlert("Something went wrong. Please try again later!", "failure");//alert("Something went wrong. Please try again later!");
+            return createAlert("User with this email does not exists!", "info");//alert("Something went wrong. Please try again later!");
         }
     });
 
