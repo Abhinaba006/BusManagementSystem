@@ -1295,7 +1295,7 @@
                         <div>
                             <h1 class="issue-main-heading">Manage Issues</h1>
                             
-                            <select name="issueStatus" id="issueStatus" onchange="getUnResolvedIssues()">
+                            <select name="issueStatus" id="issueStatus" onclick="getUnResolvedIssues()">
                                 <option value="unresolved">Unresolved</option>
                                 <option value="resolved">Resolved</option>
                             </select>
@@ -1307,33 +1307,27 @@
                         </div>
 
                         <div id="issue-container"></div>
-
-                        <!-- <h1 class="issue-main-heading">Manage Issusaes</h1>
-                        <input type="text" id="search-issues-admin" placeholder="Search Issues By Employee's Email">
-                        <button id="search-issue-button" onclick="searchIssues(event)">Search</button>
-                        <p style="margin-left:10%;color: goldenrod;" id="admin_issue_count">Total results: 0 </p>
-
-                        <div class="issue-manage-content"></div> -->
-                       
+                        <div class="issue-cotainer-pagination"> </div>
+                        
                     </div>
 
-
                     <!--seventh div-->
-                    <div id="seventhdiv" style="display:none">
+                    <div id="seventhdiv" style="display:none" class="issue-manage">
                         <div>
-                            <div class="ticket-main-heading">Search Tickets</div>
-                            <div class="my-booking-div-text">Filter By Status</div>
-                            <select name="status" id="status">
+                            <h1 class="ticket-main-heading">Search Tickets</h1>
+                            <!-- <div class="my-booking-div-text">Filter By Status</div> -->
+                            <select name="status" id="status" class="ticket-status">
                                 <option value="CONFIRMED">Confirmed</option>
                                 <option value="WAITING">Waiting</option>
                                 <option value="AVAILED">Availed</option>
                                 <option value="CANCELLED">Cancelled</option>
                             </select>
+                            <input type="text" id="search-tickets-admin" placeholder="Enter Employee's Email">
+                            <button id="search-ticket-button" onclick="searchTickets(event)">Search</button>
+                            <p style="margin-left:10%;color: goldenrod;" id="admin_ticket_count">Total results: 0 </p>
+                        
                         </div>
 
-                        <input type="text" id="search-tickets-admin" placeholder="Enter Employee's Email">
-                        <button id="search-ticket-button" onclick="searchTickets(event)">Search</button>
-                        <p style="margin-left:10%;color: goldenrod;" id="admin_ticket_count">Total results: 0 </p>
                         <div class="admin-ticket-header">
                             <div class="admin-ticket-value">Date</div>
                             <div class="admin-ticket-value">Source</div>

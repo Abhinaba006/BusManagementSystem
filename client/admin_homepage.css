@@ -374,8 +374,7 @@ form {
 .search-overlay-main-div {
     width: 100%;
     height: auto;
-    /* background-color: #FFFFFF; */
-    background-color: red;
+    background-color: #FFFFFF;
     border: 2px solid whitesmoke;
     border-radius: 5px;
     overflow-y: auto;
@@ -2574,7 +2573,23 @@ a {
     cursor: pointer;
     display: inline-block;
   }
-  
+  .issue-cotainer-pagination
+  {
+    width: auto;
+    height: 30px;
+    position: fixed;
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: 0.035em;
+    color: black;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    margin-left: 3%;
+    margin-top: 3%;
+  }
   .resolve-button[disabled] {
     font-size: 18px;
     font-weight: 500;
@@ -3621,6 +3636,11 @@ box-shadow: 2px 2px 2px #ddd;background:white;
   #search-issues-admin,#issueStatus{
     margin-left: 10%;
     width:65%!important;
+  }
+  .ticket-status
+  {
+    margin-left: 10%;
+    width:65%!important; 
   }
   .admin-ticket-header{
     display: flex;

@@ -1497,24 +1497,58 @@ let fetchUser = (id) => {
 
 }
 
-function getUnResolvedIssues() {
+function getUnResolvedIssues(event,gmail="",optionalValue=0) {
     const status = document.getElementById("issueStatus").value;
-    const email = document.getElementById("search-issues-admin").value;
-    const url = email===""?"http://localhost:8080/api/v1/issues/"+status:"http://localhost:8080/api/v1/issues/"+email+"/"+status;
+    // const email = document.getElementById("search-issues-admin").value;
+    const url = gmail===""?"http://localhost:8080/api/v1/issues/"+status+ "?pageNumber="+optionalValue : "http://localhost:8080/api/v1/issues/"+gmail+"/"+status+"?pageNumber="+optionalValue;
     console.log(url)
-    // Change it the user that is calling
+    // Change it the user that is calling                                                                   http://localhost:8080/api/v1/issues/asaha@gmail.com/resolved?pageNumber=0
     $.ajax({
         url,
         headers: {
             "Authorization": getTokenCookie(),
             "Content-Type": "application/json"
         },
-        success: function (data) {
+        success: function (d) {
             // ... the rest of the function code remains the same
             //Ata te change kor bhai !
+            var data=d.content;
+            var total_pages=d.totalPages;
+            var current_page=d.pageNumber;
+            const paginationDiv = document.querySelector(".issue-cotainer-pagination");
+            paginationDiv.innerHTML="";
+
+            if(d.firstpage==false)
+            {
+                
+                const prevdiv=`<div class="pagination-divs-nextprev" onclick="getUnResolvedIssues(event,'${gmail}',${current_page}-1 )"> Prev </div>`;
+                paginationDiv.innerHTML +=prevdiv;
+            }
+            for(var i=current_page+1;i <= current_page+3 && i <= total_pages;i++)
+            {
+                console.log('asdasdwdasdfsyfth')
+
+                if(i==current_page+1)
+                {
+                    const pagediv=`<div class="pagination-divs" style="border-bottom: 2px solid blue;" onclick="getUnResolvedIssues(event,'${gmail}', ${i}-1 )"> ${i} </div>`;
+                    paginationDiv.innerHTML +=pagediv;
+                }
+                else{
+                    const pagediv=`<div class="pagination-divs" onclick="getUnResolvedIssues(event,'${gmail}', ${i}-1 )"> ${i} </div>`;
+                    paginationDiv.innerHTML +=pagediv;
+                }
+                
+            }
+            if(d.lastPage==false && d.pageNumber+2 <d.totalPages )
+            {
+                const nextPagetoGo=current_page+2;
+                const nextdiv=`<div class="pagination-divs-nextprev" onclick="getUnResolvedIssues(event,'${gmail}', ${nextPagetoGo} )"> Next </div>`;
+                paginationDiv.innerHTML +=nextdiv;
+            }
+    
             console.log(data);
 
-    document.getElementById("admin_issue_count").innerHTML = "Total Results: " + data.length;
+    document.getElementById("admin_issue_count").innerHTML = "Total Issues found : " + d.totalElements;
             
             const parentDiv = document.getElementById("issue-container");
             parentDiv.innerHTML = "";
