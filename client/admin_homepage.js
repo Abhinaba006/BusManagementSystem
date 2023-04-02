@@ -167,6 +167,20 @@ function add_route_field(event) {
     select_div.appendChild(newDiv);
 
 }
+// function add_route_field_edit(event) {
+//     event.preventDefault();
+//     const select_div = document.getElementById("add_field_edit");
+//     const len = select_div.childElementCount;
+//     console.log(len);
+//     select_div.innerHTML += `
+//     <div class = "select_content">
+//         <select class = "select_class" id = "select_dest_edit_${len + 1}" onclick = "add_Destination_toselect(event,${len})">
+//             <option>Add destination</option>
+//         </select>
+//         <input class = "select_time" id = "select_time_edit_${len + 1}" placeholder = "HH:MM(24hr-format)"></select>
+//     </div> 
+//     `
+// }
 function add_route_field_edit(event,destinationName,destinationId,time) {
     event.preventDefault();
     const select_div = document.getElementById("add_field_edit");
@@ -188,6 +202,10 @@ function add_route_field_edit(event,destinationName,destinationId,time) {
     </div> 
     `
 }
+
+
+
+
 function addEmployee(event) {
     event.preventDefault();
     const name = $("#add-employee-name").val();
@@ -241,6 +259,165 @@ function addEmployee(event) {
 
 
 }
+
+// function getRoutesAdmin(event) {
+//     event.preventDefault();
+//     document.querySelector(".admin_routes").innerHTML = "";
+//     console.log("Hitting");
+//     const source = $("#admin_from").val();
+//     const dest = $("#admin_to").val();
+//     const today = new Date();
+//     const yyyy = today.getFullYear();
+//     let mm = today.getMonth() + 1; // Months start at 0!
+//     let dd = today.getDate();
+
+//     if (dd < 10) dd = '0' + dd;
+//     if (mm < 10) mm = '0' + mm;
+
+//     const formattedDate = dd + ':' + mm + ':' + yyyy;
+
+//     const result = [];
+//     $.ajax({
+//         url: "http://localhost:8080/api/v1/route/getBySrcDest/" + source + "/" + dest,
+//         type: "GET",
+//         headers: {
+//             "Authorization": getTokenCookie(),
+//             "Content-Type": "application/json"
+//         },
+//         success: function (data) {
+//             console.log(data);
+
+//             for (var i = 0; i < data.length; i++) {
+//                 const route_id = data[i].id;
+//                 const obj = {
+//                     busId: "",
+//                     busName: "",
+//                     busNumber: "",
+//                     destination_name: "",
+//                     destination_time: "",
+//                     route_id: "",
+//                     seatsLeft: "",
+//                     source_name: "",
+//                     source_time: "",
+//                     userId: 1, //To be changed
+//                 };
+//                 obj["routeId"] = route_id;
+//                 $.ajax({
+//                     url: "http://localhost:8080/api/v1/route/getDestinations/" + route_id,
+//                     type: "GET",
+//                     headers: {
+//                         "Authorization": getTokenCookie(),
+//                         "Content-Type": "application/json"
+//                     },
+//                     success: function (data) {
+//                         console.log(data);
+//                         obj["source_name"] = data[0].destination.name;
+//                         obj["source_time"] = data[0].time;
+
+//                         obj["destination_name"] = data[data.length - 1].destination.name;
+//                         obj["destination_time"] = data[data.length - 1].time;
+
+//                         $.ajax({
+//                             url: "http://localhost:8080/api/v1/route/getReport/" + route_id + "/" + formattedDate,
+//                             type: "GET",
+//                             headers: {
+//                                 "Authorization": getTokenCookie(),
+//                                 "Content-Type": "application/json"
+//                             },
+//                             success: function (data) {
+//                                 var diff = data.total_seats - data.total_bookings;
+//                                 obj["seatsLeft"] = Math.max(0, diff);
+//                                 $.ajax({
+//                                     url: "http://localhost:8080/api/v1/route/getBus/" + route_id,
+//                                     type: "GET",
+//                                     headers: {
+//                                         "Authorization": getTokenCookie(),
+//                                         "Content-Type": "application/json"
+//                                     },
+//                                     success: function (data) {
+//                                         obj["busName"] = data.name;
+//                                         obj["busId"] = data.id;
+//                                         obj["busNumber"] = data.bus_number;
+                                        
+//                                         //To be changed
+//                                         obj["userId"] = 1;
+//                                         console.log(obj);
+//                                         result.push(obj);
+//                                         // {
+//                                         // 	"routeId":5,
+//                                         // 	"busId":4,
+//                                         // 	"userId":1,
+//                                         // 	"status":"CONFIRMED",
+//                                         // 	"date":"10:03:2023"
+//                                         // }
+//                                         const routeHTML = `
+//                                  <div class = "index_route_item" style = "width:80%">
+//                                  <div class = "index_source">
+//                                         <div class = "index_heading">Route Id</div>
+//                                         <div class = "index_bus_number">${obj.route_id}</div>
+//                                     </div>
+//                                     <div class = "index_source">
+//                                         <div class = "index_heading">Bus details</div>
+//                                         <div class = "index_bus_number">${obj.busName}</div>
+//                                         <div class = "index_bus_name">${obj.busNumber}</div>
+//                                     </div>
+//                                     <div class = "index_source">
+//                                         <div class = "index_heading">Source</div>
+//                                         <div class = "index_value">${obj.source_name}</div>
+//                                         <div class = "index_value">${obj.source_time}</div>
+//                                     </div>
+//                                     <div class = "index_source">
+//                                         <div class = "index_heading">Destination</div>
+//                                         <div class = "index_value">${obj.destination_name}</div>
+//                                         <div class = "index_value">${obj.destination_time}</div>
+//                                     </div>
+//                                     <div class = "index_source">
+//                                         <div class = "index_heading">Seats left</div>
+//                                         <div class = "index_value">${obj.seatsLeft}</div>
+                                       
+//                                     </div>
+//                                     <div class = "index_source">
+//                                     <div class = "index_book" route_id = ${obj.route_id} bus_id =  ${obj.busId} user_id = ${obj.userId} date =  ${formattedDate} onclick=" editRoute(event,${obj.route_id})" style = "background-color:limegreen;">EDIT</div>
+//                                         <div class = "index_book" route_id = ${obj.route_id} bus_id =  ${obj.busId} user_id = ${obj.userId} date =  ${formattedDate} onclick=" deleteRoute(event,${obj.route_id})" style = "background-color:orangered;">Delete</div>
+//                                     </div>
+//                                 </div>
+//                                                 `;
+//                                         const parentDiv = document.querySelector(".admin_routes");
+//                                         parentDiv.innerHTML += routeHTML;
+//                                     },
+//                                     error: function () {
+//                                         return createAlert("Server error! Please try again!", "failure");
+//                                         //return alert("Server error! Please try again!")
+//                                     }
+//                                 });
+//                             },
+//                             error: function () {
+//                                 return createAlert("Server error! Please try again!", "failure");
+//                                 //return alert("Server error! Please try again!");
+//                             }
+//                         });
+//                     },
+//                     error: function () {
+//                         return createAlert("Server error! Please try again!", "failure");
+//                         //return alert("Server error! Please try again!");
+//                     }
+//                 });
+
+
+
+
+//             }
+//         },
+//         error: function () {
+//             createAlert("Server error! Please try again!", "failure");
+//             //alert("Server error! Please try again later.")
+//         }
+//     });
+
+//     console.log(result.length);
+
+
+// }
 
 function getRoutesAdmin(event) {
     event.preventDefault();
@@ -408,6 +585,7 @@ function getRoutesAdmin(event) {
 
 
 }
+
 
 function deleteRoute(event, routeId) {
     console.log(routeId);
@@ -1177,7 +1355,6 @@ function displayBusID(event) {
     });
 }
 
-//For display of the destinations and bus dynamically on overlay
 function displayBusIDOverlay(event) {
     event.preventDefault();
     $.ajax({
@@ -1208,6 +1385,7 @@ function displayBusIDOverlay(event) {
         }
     });
 }
+
 
 //For display of the destinations dynamically in search a route - from
 // function displayDestinationsfrom(event){
@@ -1708,24 +1886,58 @@ let fetchUser = (id) => {
 
 }
 
-function getUnResolvedIssues() {
+function getUnResolvedIssues(event,gmail="",optionalValue=0) {
     const status = document.getElementById("issueStatus").value;
-    const email = document.getElementById("search-issues-admin").value;
-    const url = email===""?"http://localhost:8080/api/v1/issues/"+status:"http://localhost:8080/api/v1/issues/"+email+"/"+status;
+    // const email = document.getElementById("search-issues-admin").value;
+    const url = gmail===""?"http://localhost:8080/api/v1/issues/"+status+ "?pageNumber="+optionalValue : "http://localhost:8080/api/v1/issues/"+gmail+"/"+status+"?pageNumber="+optionalValue;
     console.log(url)
-    // Change it the user that is calling
+    // Change it the user that is calling                                                                   http://localhost:8080/api/v1/issues/asaha@gmail.com/resolved?pageNumber=0
     $.ajax({
         url,
         headers: {
             "Authorization": getTokenCookie(),
             "Content-Type": "application/json"
         },
-        success: function (data) {
+        success: function (d) {
             // ... the rest of the function code remains the same
-            //console.log(data);
+            //Ata te change kor bhai !
+            var data=d.content;
+            var total_pages=d.totalPages;
+            var current_page=d.pageNumber;
+            const paginationDiv = document.querySelector(".issue-cotainer-pagination");
+            paginationDiv.innerHTML="";
 
-            
-    document.getElementById("admin_issue_count").innerHTML = "Total Results: " + data.length;
+            if(d.firstpage==false)
+            {
+                
+                const prevdiv=`<div class="pagination-divs-nextprev" onclick="getUnResolvedIssues(event,'${gmail}',${current_page}-1 )"> Prev </div>`;
+                paginationDiv.innerHTML +=prevdiv;
+            }
+            for(var i=current_page+1;i <= current_page+3 && i <= total_pages;i++)
+            {
+                console.log('asdasdwdasdfsyfth')
+
+                if(i==current_page+1)
+                {
+                    const pagediv=`<div class="pagination-divs" style="border-bottom: 2px solid blue;" onclick="getUnResolvedIssues(event,'${gmail}', ${i}-1 )"> ${i} </div>`;
+                    paginationDiv.innerHTML +=pagediv;
+                }
+                else{
+                    const pagediv=`<div class="pagination-divs" onclick="getUnResolvedIssues(event,'${gmail}', ${i}-1 )"> ${i} </div>`;
+                    paginationDiv.innerHTML +=pagediv;
+                }
+                
+            }
+            if(d.lastPage==false && d.pageNumber+2 <d.totalPages )
+            {
+                const nextPagetoGo=current_page+2;
+                const nextdiv=`<div class="pagination-divs-nextprev" onclick="getUnResolvedIssues(event,'${gmail}', ${nextPagetoGo} )"> Next </div>`;
+                paginationDiv.innerHTML +=nextdiv;
+            }
+    
+            console.log(data);
+
+    document.getElementById("admin_issue_count").innerHTML = "Total Issues found : " + d.totalElements;
             
             const parentDiv = document.getElementById("issue-container");
             parentDiv.innerHTML = "";

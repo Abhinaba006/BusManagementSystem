@@ -14,7 +14,11 @@ import nrifintech.busMangementSystem.entities.User;
 import nrifintech.busMangementSystem.exception.CustomException;
 import nrifintech.busMangementSystem.repositories.IssueRepo;
 import nrifintech.busMangementSystem.repositories.UserRepo;
+import nrifintech.busMangementSystem.payloads.IssueResponse;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class IssueServiceImpl implements IssueService {
@@ -29,18 +33,57 @@ public class IssueServiceImpl implements IssueService {
     MailService mailService;
 
     @Override
-    public List<Issue> getAllunResolvedIssue() {
-       return issueRepo.getAllunResolvedIssue();
+    public IssueResponse getAllunResolvedIssue(Integer pageNumber,Integer pageSize) {
+        Pageable p = PageRequest.of(pageNumber, pageSize);
+        IssueResponse issueResponse=new IssueResponse();
+        Page<Issue> pageissues = this.issueRepo.findAllunResolvedIssue(p);
+        List<Issue> issues = pageissues.getContent();
+            
+        issueResponse.setContent(issues);
+        issueResponse.setPageNumber(pageissues.getNumber());
+        issueResponse.setPageSize(pageissues.getSize());
+        issueResponse.setTotalElements(pageissues.getTotalElements());
+        issueResponse.setTotalPages(pageissues.getTotalPages());
+        issueResponse.setFirstpage(pageissues.isFirst());
+        issueResponse.setLastPage(pageissues.isLast());
+        return issueResponse;
     }
     
     @Override
-    public List<Issue> getAllResolvedIssue() {
-       return issueRepo.getAllResolvedIssue();
+    public IssueResponse getAllResolvedIssue(Integer pageNumber,Integer pageSize) {
+
+        Pageable p = PageRequest.of(pageNumber, pageSize);
+        IssueResponse issueResponse=new IssueResponse();
+        Page<Issue> pageissues = this.issueRepo.findAllResolvedIssue(p);
+
+        List<Issue> issues = pageissues.getContent();
+            
+        issueResponse.setContent(issues);
+        issueResponse.setPageNumber(pageissues.getNumber());
+        issueResponse.setPageSize(pageissues.getSize());
+        issueResponse.setTotalElements(pageissues.getTotalElements());
+        issueResponse.setTotalPages(pageissues.getTotalPages());
+        issueResponse.setFirstpage(pageissues.isFirst());
+        issueResponse.setLastPage(pageissues.isLast());
+        return issueResponse;
     }
 
     @Override
-    public List<Issue> getIssuesByUserId(int userId) {
-        return issueRepo.getIssuesByUserId(userId);
+    public IssueResponse getIssuesByUserId(int userId,Integer pageNumber,Integer pageSize) {
+
+        Pageable p = PageRequest.of(pageNumber, pageSize);
+        IssueResponse issueResponse=new IssueResponse();
+        Page<Issue> pageissues = this.issueRepo.findIssuesByUserId(userId, p);
+			List<Issue> issues = pageissues.getContent();
+            
+            issueResponse.setContent(issues);
+            issueResponse.setPageNumber(pageissues.getNumber());
+			issueResponse.setPageSize(pageissues.getSize());
+			issueResponse.setTotalElements(pageissues.getTotalElements());
+			issueResponse.setTotalPages(pageissues.getTotalPages());
+			issueResponse.setFirstpage(pageissues.isFirst());
+			issueResponse.setLastPage(pageissues.isLast());
+        return issueResponse;
     }
 
     @Override
@@ -59,27 +102,55 @@ public class IssueServiceImpl implements IssueService {
     }
 
 	@Override
-	public List<Issue> getUserunResolvedIssue(String email) {
+	public IssueResponse getUserunResolvedIssue(String email,Integer pageNumber,Integer pageSize) {
 		// TODO Auto-generated method stub
 		Optional<User> user = userRepo.findByOnlyEmail(email);
-		List<Issue> issue = new ArrayList<Issue>();
+        IssueResponse issueResponse=new IssueResponse();
 		if(user.isPresent())
-			issue =  issueRepo.getUserunResolvedIssue(user.get().getId());
+        {
+            int userId =user.get().getId();
+            Pageable p = PageRequest.of(pageNumber, pageSize);
+            Page<Issue> pageissues = this.issueRepo.findUserunResolvedIssue(userId, p);
+			List<Issue> issues = pageissues.getContent();
+            
+            issueResponse.setContent(issues);
+            issueResponse.setPageNumber(pageissues.getNumber());
+			issueResponse.setPageSize(pageissues.getSize());
+			issueResponse.setTotalElements(pageissues.getTotalElements());
+			issueResponse.setTotalPages(pageissues.getTotalPages());
+			issueResponse.setFirstpage(pageissues.isFirst());
+			issueResponse.setLastPage(pageissues.isLast());
+        }
+			
 		else
 			throw new CustomException("user does not exists");
-		return issue;
+		return issueResponse;
 	}
 	
 	@Override
-	public List<Issue> getUserResolvedIssue(String email) {
+	public IssueResponse getUserResolvedIssue(String email,Integer pageNumber,Integer pageSize) {
 		// TODO Auto-generated method stub
 		Optional<User> user = userRepo.findByOnlyEmail(email);
-		List<Issue> issue = new ArrayList<Issue>();
+		IssueResponse issueResponse=new IssueResponse();
 		if(user.isPresent())
-			issue =  issueRepo.getUserResolvedIssue(user.get().getId());
+        {
+            int userId =user.get().getId();
+            Pageable p = PageRequest.of(pageNumber, pageSize);
+            Page<Issue> pageissues = this.issueRepo.findUserResolvedIssue(userId, p);
+            List<Issue> issues = pageissues.getContent();
+            
+            issueResponse.setContent(issues);
+            issueResponse.setPageNumber(pageissues.getNumber());
+			issueResponse.setPageSize(pageissues.getSize());
+			issueResponse.setTotalElements(pageissues.getTotalElements());
+			issueResponse.setTotalPages(pageissues.getTotalPages());
+			issueResponse.setFirstpage(pageissues.isFirst());
+			issueResponse.setLastPage(pageissues.isLast());
+        }
+			
 		else
 			throw new CustomException("user does not exists");
-		return issue;
+        return issueResponse;
 	}
 
 	

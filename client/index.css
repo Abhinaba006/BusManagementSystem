@@ -783,14 +783,23 @@ box-shadow: 2px 2px 2px #ddd;background:white;
   margin-top: 30px;
   color: orangered;
   margin-bottom: 15px;
+  
 }
 
 .index_bus_number,
 .index_bus_name {
+  margin: auto;
   font-weight: 700;
+  font-size: 20px;
   color: #334756
 }
 
+.bus_icon
+{
+  width: 16px;
+  height: 16px;
+  margin: auto;
+}
 .index_route {
   margin-top: 30px;
   color: rgb(211, 173, 67);
@@ -799,6 +808,7 @@ box-shadow: 2px 2px 2px #ddd;background:white;
 
 .index_book {
   color: white;
+  
   background-color: #334756;
   padding: 5px;
   margin-top: 20px;
@@ -807,6 +817,7 @@ box-shadow: 2px 2px 2px #ddd;background:white;
 
 .index_value {
   font-weight: 400;
+  
 }
 
 .index_show_results {
@@ -896,7 +907,7 @@ box-shadow: 2px 2px 2px #ddd;background:white;
   margin-bottom: 20px;
 }
 
-@media only screen and (max-width:850px) {
+@media only screen and (max-width:950px) {
   .index_route_item {
     flex-direction: column;
     height: auto;

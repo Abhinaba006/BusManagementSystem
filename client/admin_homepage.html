@@ -178,11 +178,6 @@
 
                     <div id="seconddiv" style="display:none;">
 
-
-
-
-
-
                         <section>
                             <h1>Add a route</h1><br />
 
@@ -224,20 +219,20 @@
                         <form>
                             <h1>Add a bus</h1>
 
-                            <input type="text" id="bus-number" name="number" placeholder="Bus Number">
+                            <input type="text" id="bus-number" name="number" placeholder="Bus Name">
 
 
                             <input type="number" id="bus-seats" name="seats" placeholder="Total seats">
 
 
-                            <input type="text" id="bus-name" name="name" placeholder="Bus Name"><br>
+                            <input type="text" id="bus-name" name="name" placeholder="Bus Number"><br>
 
 
                             <input type="submit" value="+ Add Bus" onclick="addBus(event)">
 
                             <h1>Search/edit a bus</h1>
 
-                            <input type="text" id="bus-search-name" Bus-number-search" placeholder="Enter bus number">
+                            <input type="text" id="bus-search-name" Bus-number-search" placeholder="Enter bus name">
 
 
 
@@ -1295,7 +1290,7 @@
                         <div>
                             <h1 class="issue-main-heading">Manage Issues</h1>
                             
-                            <select name="issueStatus" id="issueStatus" onchange="getUnResolvedIssues()">
+                            <select name="issueStatus" id="issueStatus" onclick="getUnResolvedIssues()">
                                 <option value="unresolved">Unresolved</option>
                                 <option value="resolved">Resolved</option>
                             </select>
@@ -1307,33 +1302,27 @@
                         </div>
 
                         <div id="issue-container"></div>
-
-                        <!-- <h1 class="issue-main-heading">Manage Issusaes</h1>
-                        <input type="text" id="search-issues-admin" placeholder="Search Issues By Employee's Email">
-                        <button id="search-issue-button" onclick="searchIssues(event)">Search</button>
-                        <p style="margin-left:10%;color: goldenrod;" id="admin_issue_count">Total results: 0 </p>
-
-                        <div class="issue-manage-content"></div> -->
-                       
+                        <div class="issue-cotainer-pagination"> </div>
+                        
                     </div>
 
-
                     <!--seventh div-->
-                    <!-- <div id="seventhdiv" style="display:none">
+                    <div id="seventhdiv" style="display:none" class="issue-manage">
                         <div>
-                            <div class="ticket-main-heading">Search Tickets</div>
-                            <div class="my-booking-div-text">Filter By Status</div>
-                            <select name="status" id="status">
+                            <h1 class="ticket-main-heading">Search Tickets</h1>
+                            <!-- <div class="my-booking-div-text">Filter By Status</div> -->
+                            <select name="status" id="status" class="ticket-status">
                                 <option value="CONFIRMED">Confirmed</option>
                                 <option value="WAITING">Waiting</option>
                                 <option value="AVAILED">Availed</option>
                                 <option value="CANCELLED">Cancelled</option>
                             </select>
+                            <input type="text" id="search-tickets-admin" placeholder="Enter Employee's Email">
+                            <button id="search-ticket-button" onclick="searchTickets(event)">Search</button>
+                            <p style="margin-left:10%;color: goldenrod;" id="admin_ticket_count">Total results: 0 </p>
+                        
                         </div>
 
-                        <input type="text" id="search-tickets-admin" placeholder="Enter Employee's Email">
-                        <button id="search-ticket-button" onclick="searchTickets(event)">Search</button>
-                        <p style="margin-left:10%;color: goldenrod;" id="admin_ticket_count">Total results: 0 </p>
                         <div class="admin-ticket-header">
                             <div class="admin-ticket-value">Date</div>
                             <div class="admin-ticket-value">Source</div>
@@ -1458,10 +1447,10 @@
                 <div class="close-button" onclick="off2()">x</div>
                 <div class="cancel-text">
                     <form style="text-align: left;margin: auto;">
-                        <p class="overlay-label">Bus number</p>
+                        <p class="overlay-label">Bus name</p>
                         <input class="overlay-input" type="text" id="bus-number-o" name="number"
                             placeholder="Bus Number">
-                        <p class="overlay-label">Bus name</p>
+                        <p class="overlay-label">Bus number</p>
                         <input class="overlay-input" type="text" id="bus-name-o" name="name" placeholder="Bus Name">
                         <p class="overlay-label">Total seats</p>
                         <input class="overlay-input" type="text" id="bus-seats-o" name="seats"

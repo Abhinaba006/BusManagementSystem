@@ -221,9 +221,14 @@ function getRoutes(event) {
 									const routeHTML = `
 								 <div class = "index_route_item">
 									<div class = "index_source">
-										<div class = "index_heading">Bus details</div>
+										<div class = "index_heading">
+											
+											Bus details
+										</div>
+										<div class = "index_bus_name">
+										<img src="./public/Busicon.png" class="bus_icon" alt="">
+										${obj.busNumber}</div>
 										<div class = "index_bus_number">${obj.busName}</div>
-										<div class = "index_bus_name">${obj.busNumber}</div>
 									</div>
 									<div class = "index_source">
 										<div class = "index_heading">Source</div>
