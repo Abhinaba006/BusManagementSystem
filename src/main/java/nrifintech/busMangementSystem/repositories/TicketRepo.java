@@ -27,7 +27,7 @@ public interface TicketRepo extends JpaRepository<Ticket, Integer> {
     @Query(value = "SELECT * FROM ticket WHERE user_id = :user_id AND date = :date AND status = 'CONFIRMED' LIMIT 1",nativeQuery = true)
     Ticket findUserByPresentDate(@Param("user_id") int user_id, @Param("date") String date);
 
-    @Query(value = "SELECT * FROM ticket WHERE date < :date",nativeQuery = true)
+    @Query(value = "SELECT * FROM ticket WHERE STR_TO_DATE(date,'%d:%m:%Y') < STR_TO_DATE(:date,'%d:%m:%Y')",nativeQuery = true)
 	List<Ticket> findPastTickets(String date);
     
     //get total ticket done by user u.

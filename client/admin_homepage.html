@@ -189,8 +189,8 @@
                         </section>
                         <div class="route_add_div">
                             <div class="add_route_field" onclick="add_route_field(event)">Add destination</div>
-                            <select class="select_bus" id="select_bus" onclick="displayBusID(event)">
-                                <option>Select your bus</option>
+                            <select class="select_bus" id="select_bus" onclick="displayBusID(event)" aria-placeholder="hello">
+                                <option value="">Select your bus</option>
                             </select>
                             <div class="add_field" id="add_field">
 
@@ -204,15 +204,15 @@
                         </section>
                         <div class="admin_from_to">
                             <select class="admin_from" id="admin_from" onclick="displayDestinations3(event)">
-                                <option>Select source</option>
+                                <option value="">Select source</option>
                             </select>
                             <select class="admin_to" id="admin_to" onclick="displayDestinations4(event)">
-                                <option>Select destination</option>
+                                <option value="">Select destination</option>
                             </select>
                             <div class="admin_search_route" style="cursor: pointer;" onclick="getRoutesAdmin(event)">
                                 Search</div>
                         </div>
-                        <div class="admin_routes"></div>
+                        <div class="admin_routes" id="admin_routes"></div>
 
 
 
@@ -1531,7 +1531,7 @@
                         <div class="add_route_field" onclick="add_route_field_edit(event)">Add destination</div>
                             
                                <select class="select_bus_overlay" id="select_bus_overlay" onclick="displayBusIDOverlay(event)">
-                                    <option>Select your bus</option>
+                                    <option value="">Select your bus</option>
                                 </select>
                                 <div class="add_field_edit" id="add_field_edit">
 

@@ -54,6 +54,7 @@ public class IssueServiceImpl implements IssueService {
         Optional<Issue> _issue = issueRepo.findById(issueId);
         Issue issue = _issue.get();
         issue.setIsResolved(1);
+        issue.setResolvedDate(new Date());
         return issueRepo.save(issue);
     }
 

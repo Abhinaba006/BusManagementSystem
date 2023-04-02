@@ -248,6 +248,11 @@ function getRoutesAdmin(event) {
     console.log("Hitting");
     const source = $("#admin_from").val();
     const dest = $("#admin_to").val();
+    if(source==="" || dest==="")
+    {
+        createAlert("Please provide valid source and destination!","info");
+        return;
+    }
     const today = new Date();
     const yyyy = today.getFullYear();
     let mm = today.getMonth() + 1; // Months start at 0!
@@ -419,11 +424,14 @@ function deleteRoute(event, routeId) {
         success: function (result) {
             console.log(result);
             createAlert("Route deleted successfully", "success");
+            //clear the search-bar results.
+            document.getElementById("admin_routes").innerHTML="";
         },
         error: function (xhr, status, error) {
             console.log(error);
             createAlert("Oops something went wrong! Please try again!", "failure");
             //alert("Oops something went wrong! Please try again")
+            
         }
     });
 
@@ -443,6 +451,10 @@ function cancelTicket(event) {
             console.log("Ticket cancelled successfully");
 
             createAlert("Ticket cancelled successfully", "success");
+            //refresh the results of the search ticket again.
+            var link = document.getElementById('search-ticket-button');
+            link.click();
+            
 
             //alert("Ticket cancelled sucessfully!");
             // Handle success response here
@@ -1247,6 +1259,7 @@ function addRoute(event) {
     event.preventDefault();
     var table = document.getElementById("add_field");
     const data = [];
+    
     for (var i = 0; i < table.childElementCount; i++) {
         const destId = $("#select_dest_" + (i + 1)).val();
         const time = $("#select_time_" + (i + 1)).val();
@@ -1254,6 +1267,10 @@ function addRoute(event) {
         else if (destId == "" || time == "") return createAlert("Please provide valid destination/time combination!", "info");//alert("Please provide valid destination/time combination");
         data.push(destId + "_" + i + "_" + time);
     }
+    const searchbar_src_text = $("#select_dest_" + (1)).find("option:selected").text();
+    const searchbar_src_val = $("#select_dest_" + (1)).find("option:selected").val();
+    const searchbar_dest_text = $("#select_dest_" + (table.childElementCount)).find("option:selected").text();
+    const searchbar_dest_val = $("#select_dest_" + (table.childElementCount)).find("option:selected").val();
     console.log(data);
     if (data.length <= 1) {
         return createAlert("Total number of destinations should be greater than 1!", "info");//alert("Total number of destinations should be greater than 1");
@@ -1273,12 +1290,20 @@ function addRoute(event) {
         success: function (result) {
             console.log(result);
             createAlert("Route added successfully!", "success");
-            //alert("Route added successfully!")
             //refresh the input fields and put the start and end destination name in the search bar.
-            //refresh the page if any issue is resolved.
-            document.getElementsByClassName("route_add_div").display="none";
-            document.getElementById("add_field").
-            $("#select_bus").val("");
+            document.getElementById("add_field").innerHTML="";
+            //refresh results of bus
+            document.getElementById("select_bus").innerHTML="<option value=''>Select your bus</option>";
+            //add this source and destination in search bar.
+            // document.getElementById("admin_from").innerHTML="<option value='${searchbar_src}'>${searchbar_src}</option>";
+            document.getElementById("admin_from").innerHTML=`<option value="${searchbar_src_val}">${searchbar_src_text}</option>`;
+            document.getElementById("admin_to").innerHTML=`<option value="${searchbar_dest_val}">${searchbar_dest_text}</option>`;
+
+
+            // $("#admin_to").val(searchbar_dest);
+
+
+
             
 
             
@@ -1711,18 +1736,24 @@ function getUnResolvedIssues() {
                 const issue = data[i].issue;
                 const user_id = parseInt(data[i].user_id);
                 const date = data[i].date;
+                const resolved_date = data[i].resolved_date;
+                console.log(data);
                 const obj = {
                     id: "",
                     is_resolved: "",
                     issue: "",
                     user_id: "",
                     date: "",
+                    resolved_date:"",
                 };
                 obj["id"] = id;
                 obj["is_resolved"] = is_resolved;
                 obj["issue"] = issue;
                 obj["user_id"] = user_id;
                 obj["date"] = moment(date).format("DD MMMM YYYY");
+                obj["resolved_date"] = moment(resolved_date).format("DD MMMM YYYY");
+                // alert(obj.resolved_date);
+                console.log(obj.resolved_date);
 
                 $.ajax({
                     url: "http://localhost:8080/api/v1/user/get/" + user_id,
@@ -1731,14 +1762,14 @@ function getUnResolvedIssues() {
                         "Content-Type": "application/json"
                     },
                     success: function (data2) {
-                        console.log(data2)
+                        // console.log(data2)
                         obj["username"] = data2.name;
                         const issueHTML = `
                                 <div class = "issue-div">
                                     <div class = "issue-heading">Issue ${obj.id}</div>
                                     <div class = "issue-user">${data2.email} 
                                     <p class = "issue-date">Created at: ${obj.date}</p>
-                                    ${status === 'resolved' ? `<div class="issue-date" data-id="${obj.id}">Resolved at: ${obj.ResolvedDate}</div>` : ''}
+                                    ${status === 'resolved' ? `<div class="issue-date" data-id="${obj.id}">Resolved at: ${obj.resolved_date}</div>` : ''}
 
                                     </div>
                                     <div class = "issue-text">${obj.issue}

@@ -563,7 +563,7 @@ a:active {
 
 .confirm-button {
   height: 43px;
-  width: 30%;
+  width: auto;
   background-color: #FF4C29;
   color: #FFFFFF;
   margin: auto;

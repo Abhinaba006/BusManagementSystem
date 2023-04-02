@@ -374,8 +374,7 @@ form {
 .search-overlay-main-div {
     width: 100%;
     height: auto;
-    /* background-color: #FFFFFF; */
-    background-color: red;
+    background-color: #FFFFFF;
     border: 2px solid whitesmoke;
     border-radius: 5px;
     overflow-y: auto;
@@ -383,6 +382,10 @@ form {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    max-height: 600px;
+    overflow-y: auto;
+    margin-top:20%;
+
 }
 
 .route-overlay-width:select
