@@ -66,9 +66,10 @@ public class IssueController {
 
     @GetMapping("/{userId}")
     public ResponseEntity<IssueResponse> getIssuesByUserId(@PathVariable int userId,
+	@RequestParam(value="is_resolved",defaultValue = "0",required=false) int is_resolved,
     @RequestParam(value="pageNumber",defaultValue = "0",required=false) Integer pno,
-	@RequestParam(value="pageSize",defaultValue = "1",required=false) Integer psize) {
-        IssueResponse issueResponse = issueService.getIssuesByUserId(userId,pno,psize);
+	@RequestParam(value="pageSize",defaultValue = "2",required=false) Integer psize) {
+        IssueResponse issueResponse = issueService.getIssuesByUserId(userId,is_resolved,pno,psize);
         return new ResponseEntity<>(issueResponse, HttpStatus.OK);
     }
 
