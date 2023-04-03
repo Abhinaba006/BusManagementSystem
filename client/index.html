@@ -165,10 +165,10 @@
                     </div>
                     <div class="index_form">
 
-                        <select name="" id="user-from" class="index-from-id" onclick=" displayDestinations(event)">
+                        <select name="" id="user-from" class="index-from-id" onclick=" displayDestinations(event), fixuserto()">
                             <option value="-1">Source</option>
                         </select>
-                        <select name="" id="user-to" class="index-to-id" onclick=" displayDestinations1(event)">
+                        <select name="" id="user-to" class="index-to-id" onclick=" displayDestinations1(event), fixuserfrom()">
                             <option value="-1">Destination</option>
                         </select>
                         <input type="text" id="datepicker" readonly placeholder="Date">
@@ -176,6 +176,14 @@
                         </button>
                     </div>
                     <script>
+                        // function fixuserto(){
+                        //     const userto = document.getElementById("user-to")
+                        //     userto.value = 1
+                        // }
+                        // function fixuserfrom(){
+                        //     const userto = document.getElementById("user-from")
+                        //     userto.value = 1
+                        // }
                         $(function () {
                             $("#datepicker").datepicker({
                                 minDate: new Date(),
