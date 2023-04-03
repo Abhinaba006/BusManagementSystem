@@ -174,7 +174,7 @@ a:link {
     font-family: var(--font-montserrat);
     font-weight: 500;
     margin-right: auto;
-    margin-left: 20%;
+    margin-left: 36%;
     margin-top: 2%;
 }
 .header-end {
@@ -299,7 +299,13 @@ a:link {
 {
     height: 320px;
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none; 
+}
+.issue-scroll-div::-webkit-scrollbar
+{
+    display: none;
 }
 .footer-element-smallerscreen{
     display: none;
