@@ -118,19 +118,18 @@ a:link {
     text-decoration: none;
   }
 
-  .main
-  {
-      height: 100%;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      
-      overflow-x: hidden;
-      
+  .main {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  
+    overflow-x: hidden;
+  
   }
 
-.header{
-    height: 89px;
+.header {
+    height: 60px;
     width: 100%;
     background-color: var(--color-gray-200);
     display: flex;
@@ -140,61 +139,68 @@ a:link {
     justify-content: center;
     color: #fff;
 }
-
-.header-div{
+.header-div {
     height: 100%;
     width: 90%;
     margin-left: 20px;
     display: inline-flex;
-    margin-right:  4px ;
-    margin-top:  4px ;
-    margin-bottom:  4px ;
+    margin-right: 4px;
+    margin-top: 4px;
+    margin-bottom: 4px;
     --tw-space-x-reverse: 0;
     margin-right: calc(1.25rem * var(--tw-space-x-reverse));
     margin-left: calc(1.25rem * calc(1 - var(--tw-space-x-reverse)));
     font-size: var(--font-size-2xl);
     color: #fff;
-}
+  }
 
-.nrifintech{
+
+.nrifintech {
     margin-top: auto;
     margin-bottom: auto;
-    font-size: 35px;
+    font-size: 27px;
+    /* font-style: Montserrat;  */
     font-family: Montserrat;
     font-weight: 400;
     line-height: 43px;
     letter-spacing: 0em;
     cursor: pointer;
     color: rgba(255, 255, 255, 1);
-
+  
+  }
+.manage-text
+{
+    font-size: 35px;
+    font-family: var(--font-montserrat);
+    font-weight: 500;
+    margin-right: auto;
+    margin-left: 20%;
+    margin-top: 2%;
 }
-
-.header-end{
+.header-end {
     display: flex;
     flex: 1 1 0%;
     align-items: center;
     text-align: right;
-    padding-right: 8px ;
-}
-
-.header-end-items
-{
+    padding-right: 8px;
+  }
+  
+  .header-end-items {
     margin-left: auto;
-    margin-top:  4px ;
-    margin-bottom:  4px ;
+    margin-top: 4px;
+    margin-bottom: 4px;
     margin-right: 38px;
     height: 80%;
-    width:max-content;
-    font-size: 25px;
+    width: max-content;
+    font-size: 18px !important;
+    font-weight: 300 !important;
     display: flex;
     justify-content: space-between;
-
-}
-
-.vector-icon{
+  
+  }
+  .vector-icon {
     margin-right: 10px;
-}
-
+  }
 .profile{
     font-family: Montserrat;
     font-size: 25px;
@@ -223,7 +229,29 @@ a:link {
     cursor: pointer;
     color: rgba(255, 255, 255, 1);
 }
-
+.my-issues-page{
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+ 
+}
+.get-issue
+{
+  margin: auto;
+  margin-top: 2%;
+  margin-left: 20%;
+}
+.issue-text-div{
+    font-family: Montserrat;
+    font-size: 35px;
+    font-weight: 400;
+    line-height: 43px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: rgba(0, 0, 0, 1);
+    font-style: var(--font-montserrat);
+    margin-bottom: 5%;
+}
 .footer
 {
     height: 49px;
@@ -249,6 +277,30 @@ a:link {
 
 
 }
+.issue-cotainer-pagination-myprofile
+{
+  width: auto;
+  height: 30px;
+  position: fixed;
+  font-family: Montserrat;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 22px;
+  letter-spacing: 0.035em;
+  color: black;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  margin-left: 21%;
+  /* margin-right: 50%; */
+}
+
+.issue-scroll-div
+{
+    height: 320px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
 .footer-element-smallerscreen{
     display: none;
 }
@@ -261,9 +313,15 @@ a:link {
     
 }
 
-@media(max-width:750px)
+@media(max-width:750px) {
+    .header-end-items-text {
+      display: none;
+    }
+  }
+  
+@media(max-width:560px)
 {
-    .header-end-items-text{display: none;}
+    .issue-text-div{font-size: 20px;}
 }
 
 

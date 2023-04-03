@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="./home.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" />
     <link rel="stylesheet" href="./admin_homepage.css" />
-    <!-- <link rel="stylesheet" href="./index.css" /> -->
+    <link rel="stylesheet" href="./my_profile.css"/>
+    <link rel="stylesheet" href="./index.css" />
     <script src="https://kit.fontawesome.com/c01e8f4e5e.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment.min.js"></script>
@@ -95,20 +96,30 @@
         </div>
     </div>
     
-    <div class="_profile_label">Feel free to reach us!</div>
-    <textarea class="_profile_data _profile_textarea" placeholder="Enter your query here!"></textarea>
-    <div class="_profile_submit">Submit</div>
+    <div class ="my-issues-page">
+        <div class="get-issue">
+            <div class="issue-text-div">Feel free to reach us!</div>
+            <textarea class="_profile_data _profile_textarea" placeholder="Enter your query here!"></textarea>
+            <div class="_profile_submit">Submit</div>
+        </div>
+        
+    </div>
+    
     <div class="_profile issue-manage">
-        <h2 class="_profile_header">Issues</h2>
-        <select name="issueStatus" id="issueStatus" onclick="getUnResolvedIssues()">
+        <div class="manage-text">Manage Issues</div>
+        <select name="issueStatus" id="issueStatus" onchange="getUnResolvedIssues()">
             <option value="unresolved">Unresolved</option>
             <option value="resolved">Resolved</option>
         </select>
 
         <p style="margin-left:10%;color: goldenrod;" id="admin_issue_count">Total results: 0 </p>
-        <div id="issue-container"></div>
-        <div class="issue-cotainer-pagination"> </div>
+        <div class="issue-scroll-div">
+            <div id="issue-container"></div>
+        </div>
+        
+        
     </div>
+    <div class="issue-cotainer-pagination-myprofile"> </div>
     <div class="footer">
 
         <div class="footer-element">
@@ -192,8 +203,9 @@
             else status = 0
             // const email = document.getElementById("search-issues-admin").value;
             //const url = gmail === "" ? "http://localhost:8080/api/v1/issues/" + status + "?pageNumber=" + optionalValue : "http://localhost:8080/api/v1/issues/" + gmail + "/" + status + "?pageNumber=" + optionalValue;
-            const user_id = getIdCookie()
-            const url = 'http://localhost:8080/api/v1/issues/' + user_id + '?is_resolved=' + status
+            const user_id = getIdCookie();
+            // const url = 'http://localhost:8080/api/v1/issues/' + user_id + '?is_resolved=' + status+ "?pageNumber=" + optionalValue;
+            const url='http://localhost:8080/api/v1/issues/'+user_id+'?pageNumber='+optionalValue+'&is_resolved='+status;
             console.log(url)
             // Change it the user that is calling                                                                   http://localhost:8080/api/v1/issues/asaha@gmail.com/resolved?pageNumber=0
             $.ajax({
@@ -208,7 +220,7 @@
                     var data = d.content;
                     var total_pages = d.totalPages;
                     var current_page = d.pageNumber;
-                    const paginationDiv = document.querySelector(".issue-cotainer-pagination");
+                    const paginationDiv = document.querySelector(".issue-cotainer-pagination-myprofile");
                     paginationDiv.innerHTML = "";
 
                     if (d.firstpage == false) {
@@ -240,7 +252,7 @@
                     document.getElementById("admin_issue_count").innerHTML = "Total Issues found : " + d.totalElements;
 
                     const parentDiv = document.getElementById("issue-container");
-                    parentDiv.innerHTML = "";
+                     parentDiv.innerHTML = "";
 
                     for (var i = 0; i < data.length; i++) {
                         const id = data[i].id;
@@ -308,6 +320,13 @@
         }
 
         $("._profile_submit").click(function () {
+            const issue=$("._profile_textarea").val();
+            //console.log("this us usdasd ",$("._profile_textarea").val());
+            if(issue==="")
+            {
+                createAlert("Cannot submit empty query !","failure");
+                return;
+            }
             $.ajax({
                 type: "POST",
                 url: "http://localhost:8080/api/v1/issues/add",
@@ -317,7 +336,7 @@
                 },
                 data: JSON.stringify({
                     user_id: getIdCookie(),
-                    issue: $("._profile_textarea").val(),
+                    issue,
                     is_resolved: 0,
 
                 }),

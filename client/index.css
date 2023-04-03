@@ -853,6 +853,7 @@ box-shadow: 2px 2px 2px #ddd;background:white;
   margin-top: 10px;
 }
 
+
 ._profile {
   width: 80%;
   height: auto;
@@ -886,9 +887,9 @@ box-shadow: 2px 2px 2px #ddd;background:white;
 }
 
 ._profile_textarea {
-  width: 61% !important;
-  ;
-  height: 200px;
+  /* width: 100% !important; */
+  width: 500px;
+  height: 100px;
   border: none !important;
   outline: none !important;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
@@ -909,6 +910,7 @@ box-shadow: 2px 2px 2px #ddd;background:white;
   padding: 10px;
   margin-top: 20px;
   margin-bottom: 20px;
+  border-radius: 7px;
 }
 
 @media only screen and (max-width:950px) {
