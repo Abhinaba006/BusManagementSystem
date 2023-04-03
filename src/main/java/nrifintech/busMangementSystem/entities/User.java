@@ -14,9 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.UniqueElements;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,7 +37,7 @@ public class User {
 	String name;
 	@NotEmpty
 	@Email(message = "enter a valid mail")
-	
+	@Pattern(regexp = "^[a-zA-Z0-9._%+-]+@nrifintech\\.com$",message="enter company email")
 	String email;
 	@Size(min=4,message="password should be of atleast 4 characaters")
 	@NotEmpty(message="password cant be empty")

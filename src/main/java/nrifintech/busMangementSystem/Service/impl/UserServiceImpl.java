@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		//same user can't be created multiple times for each role type.
 		//System.out.println("Hello helo"+userRepo.findByOnlyEmail(user.getEmail()));
-		if(userRepo.findByOnlyEmail(user.getEmail()).isPresent())
+		if(userRepo.findByOnlyEmail(user.getEmail()).isPresent() || userRepo.findByOnlyEmployeeId(user.getEmployeeId()).isPresent())
 			throw new CustomException("user exists");
 			
 		try {

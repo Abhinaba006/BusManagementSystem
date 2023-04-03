@@ -147,7 +147,7 @@
 
 
                             <input type="email" id="add-employee-email" name="email" placeholder="Email"
-                                autocomplete="off">
+                                autocomplete="off" pattern="[A-Za-z0-9._%+-]+@(nrifintech|trainee.nrifintech)\.com$" title="Enter company email">
 
 
                             <input type="password" id="add-employee-password" name="password" placeholder="Password"
@@ -1307,11 +1307,11 @@
                     </div>
 
                     <!--seventh div-->
-                    <div id="seventhdiv" style="display:none" class="issue-manage">
+                    <!-- <div id="seventhdiv" style="display:none" class="issue-manage">
                         <div>
                             <h1 class="ticket-main-heading">Search Tickets</h1>
-                            <!-- <div class="my-booking-div-text">Filter By Status</div> -->
-                            <select name="status" id="status" class="ticket-status">
+                             <div class="my-booking-div-text">Filter By Status</div> -->
+                            <!-- <select name="status" id="status" class="ticket-status">
                                 <option value="CONFIRMED">Confirmed</option>
                                 <option value="WAITING">Waiting</option>
                                 <option value="AVAILED">Availed</option>
@@ -1334,9 +1334,9 @@
                         <div class="admin-ticket-content"></div>
                         <div class="admin-ticket-pagination"></div>
 
-                    </div> -->
+                    </div>  -->
 
-                    <div id="seventhdiv" style="display:none">
+                    <div id="seventhdiv" style="display:none" class="issue-manage">
                             <h1 class="ticket-main-heading">Search Tickets</h1>
                             <div style="margin-left: 10%;color:grey;" class="my-booking-div-text">Filter By Status</div>
                             <select name="status" id="status">

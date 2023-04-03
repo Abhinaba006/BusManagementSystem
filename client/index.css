@@ -786,12 +786,16 @@ box-shadow: 2px 2px 2px #ddd;background:white;
   
 }
 
-.index_bus_number,
+.index_bus_number
 .index_bus_name {
   margin: auto;
-  font-weight: 700;
-  font-size: 20px;
+  /* font-weight: 700; */
+  font-size: 16px;
   color: #334756
+}
+
+.index_route_number{
+  font-weight: 700;
 }
 
 .bus_icon

@@ -248,8 +248,12 @@ function addEmployee(event) {
         },
         error: function (xhr, status, error) {
             console.log(error);
-            if (JSON.parse(xhr.responseText).message === "user exists")
-                createAlert("user with this email already exists!", "info");
+            if(JSON.parse(xhr.responseText).password)
+                createAlert("password should be of atleast 4 characaters!", "info");
+            else if(JSON.parse(xhr.responseText).email) 
+                createAlert(JSON.parse(xhr.responseText).email, "info");
+            else if (JSON.parse(xhr.responseText).message === "user exists")
+                createAlert("user with this email or Id already exists!", "info");
             else
                 createAlert("Oops something went wrong! Please try again", "failure");
 
@@ -259,6 +263,7 @@ function addEmployee(event) {
 
 
 }
+
 
 // function getRoutesAdmin(event) {
 //     event.preventDefault();
@@ -520,7 +525,7 @@ function getRoutesAdmin(event) {
                                  <div class = "index_route_item" style = "width:80%">
                                  <div class = "index_source">
                                         <div class = "index_heading">Route Id</div>
-                                        <div class = "index_bus_number">${obj.route_id}</div>
+                                        <div class = "index_bus_number index_route_number">${obj.route_id}</div>
                                     </div>
                                     <div class = "index_source">
                                         <div class = "index_heading">Bus details</div>

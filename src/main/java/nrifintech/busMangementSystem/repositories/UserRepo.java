@@ -20,4 +20,7 @@ public interface UserRepo extends  JpaRepository<User, Integer>{
 	@Query(value = "SELECT * FROM user WHERE email = ?1", nativeQuery = true)
 	Optional<User> findByOnlyEmail(String email);
 
+	@Query(value = "SELECT * FROM user WHERE employee_id = ?1", nativeQuery = true)
+	Optional<User> findByOnlyEmployeeId(String employeeId);
+
 }
