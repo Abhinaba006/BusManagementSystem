@@ -98,19 +98,23 @@
         <div class="body-part">
 
             <div class="_profile">
-                <h2 class="_profile_header">My Profile</h2>
-                <div class="_profile_label">Name</div>
-                <input class="_profile_data _profile_name" disabled=true />
-                <div class="_profile_label">Email</div>
-                <input class="_profile_data _profile_email" disabled=true />
-                <div class="_profile_label">Employee id</div>
-                <input class="_profile_data _profile_employee_id" disabled=true />
-                <div class="_profile_label">Total seats booked</div>
-                <input class="_profile_data _profile_total_seats" disabled=true />
+                    <div class="profile-main-div">
+                        <h2 class="_profile_header">My Profile</h2>
+                        <div class="_profile_label">Name</div>
+                        <input class="_profile_data _profile_name" id="profile-name" />
+                        <div class="_profile_label">Email</div>
+                        <input class="_profile_data _profile_email" disabled=true />
+                        <div class="_profile_label">Employee id</div>
+                        <input class="_profile_data _profile_employee_id" disabled=true />
+                        <div class="_profile_label">Total seats booked</div>
+                        <input class="_profile_data _profile_total_seats" disabled=true /> 
+
+                        <div class="_profile_label">Update Password</div>
+                        <input class="_profile_data" id="password-text" placeholder="Type New PassWord"/>     
+                        <div class="_profile_submit" id="password_submit">Submit</div>
+                    </div>
                 
             </div>
-
-           
 
         </div>
 
@@ -255,30 +259,35 @@
 
 <script>
     $(document).ready(function () {
-        $("._profile_submit").click(function () {
+        $("#password_submit").click(function () {
+            const userId = parseInt(getIdCookie());
+            const name = document.getElementById("profile-name").value
+            const password = document.getElementById('password-text').value
+            const url = "http://localhost:8080/api/v1/user/update/"+userId
+            // add validation
+            const data = {
+                name,
+                password
+            }
+
+            console.log(data)
             $.ajax({
                 type: "POST",
-                url: "http://localhost:8080/api/v1/issues/add",
+                url,
                 headers: {
                     "Authorization": getTokenCookie(),
                     "Content-Type": "application/json"
                 },
-                data: JSON.stringify({
-                    user_id: getIdCookie(),
-                    issue: $("._profile_textarea").val(),
-                    is_resolved: 0,
-
-                }),
+                data: JSON.stringify(data),
                 contentType: "application/json",
                 success: function () {
-                    createAlert("Feedback/Query submitted successfully", "success");
-                    //alert("Feedback/Query submitted successfully");
+                    createAlert("Profile updated successfully", "success");
                 },
                 error: function (e) {
                     createAlert("Error submitting data" + e, "failure");
-                    //alert("Error submitting data");
                 }
             });
+        
         });
     });
 
