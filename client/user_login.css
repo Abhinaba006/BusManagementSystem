@@ -8,7 +8,9 @@
 
 --> */
 
-
+*{
+    font-family: Montserrat, sans-serif;
+}
 
 body {
     margin: 0;
@@ -148,6 +150,8 @@ input::-ms-reveal {
 
 input {
     height: 60px;
+    font-weight: 500;
+    font-size: 25px;
     width: 463.00433349609375px;
     margin-bottom: 70px;
 
@@ -156,6 +160,7 @@ input {
 .hidden-eye {
     height: 30px;
     width: 30px;
+    cursor: pointer;
 }
 
 .submit-div {
@@ -219,7 +224,7 @@ input {
     border-radius: 10px;
     background: rgba(44, 57, 75, 1);
     display: flex;
-
+    
 }
 
 @media(max-width:680px) {
