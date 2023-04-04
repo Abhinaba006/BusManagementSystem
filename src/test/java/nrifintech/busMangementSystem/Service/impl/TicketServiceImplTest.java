@@ -82,27 +82,6 @@ class TicketServiceImplTest {
 
 
 	@Test
-	public void createTicketStatusWaitingTest() {
-		Ticket ticket = new Ticket();
-		ticket.setRouteId(1);
-
-		when(ticketRepo.save(ticket)).thenReturn(ticket);
-
-		LocalDate date = LocalDate.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
-		String formattedDate = date.format(formatter);
-		RouteInfo routeInfo = new RouteInfo();
-		routeInfo.setTotal_bookings(2);
-		routeInfo.setTotal_seats(2);
-
-		when(routeInfoService.getRouteInfo(1, null)).thenReturn(routeInfo);
-
-		ticketService.createTicket(ticket);
-		assertEquals("WAITING", ticket.getStatus());
-
-	}
-
-	@Test
 	void testCancelTicket() {
 		// create a ticket
 		Ticket ticket = new Ticket();

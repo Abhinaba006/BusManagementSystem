@@ -248,10 +248,10 @@ function addEmployee(event) {
         },
         error: function (xhr, status, error) {
             console.log(error);
-            if(JSON.parse(xhr.responseText).password)
-                createAlert("password should be of atleast 4 characaters!", "info");
-            else if(JSON.parse(xhr.responseText).email) 
+            if(JSON.parse(xhr.responseText).email) 
                 createAlert(JSON.parse(xhr.responseText).email, "info");
+            else if(JSON.parse(xhr.responseText).password)
+                createAlert(JSON.parse(xhr.responseText).password, "info");
             else if (JSON.parse(xhr.responseText).message === "user exists")
                 createAlert("user with this email or Id already exists!", "info");
             else
@@ -346,7 +346,6 @@ function addEmployee(event) {
                                         
 //                                         //To be changed
 //                                         obj["userId"] = 1;
-//                                         console.log(obj);
 //                                         result.push(obj);
 //                                         // {
 //                                         // 	"routeId":5,
@@ -419,7 +418,6 @@ function addEmployee(event) {
 //         }
 //     });
 
-//     console.log(result.length);
 
 
 // }
@@ -427,7 +425,6 @@ function addEmployee(event) {
 function getRoutesAdmin(event) {
     event.preventDefault();
     document.querySelector(".admin_routes").innerHTML = "";
-    console.log("Hitting");
     const source = $("#admin_from").val();
     const dest = $("#admin_to").val();
     if(source==="" || dest==="")
@@ -435,6 +432,14 @@ function getRoutesAdmin(event) {
         createAlert("Please provide valid source and destination!","info");
         return;
     }
+	if(source===dest){
+		createAlert("Source and destination can not be same", "failure")
+		return;
+	}
+	if(source!=1 && dest!=1){
+		createAlert("Either source or destination should be NRI FinTech", "failure")
+		return;
+	}
     const today = new Date();
     const yyyy = today.getFullYear();
     let mm = today.getMonth() + 1; // Months start at 0!
@@ -454,7 +459,6 @@ function getRoutesAdmin(event) {
             "Content-Type": "application/json"
         },
         success: function (data) {
-            console.log(data);
             if (data.length === 0)
                 createAlert("No routes found for the given source and destination!", "info");
 
@@ -481,7 +485,7 @@ function getRoutesAdmin(event) {
                         "Content-Type": "application/json"
                     },
                     success: function (data) {
-                        console.log(data);
+                        // console.log(data);
                         obj["source_name"] = data[0].destination.name;
                         obj["source_time"] = data[0].time;
 
@@ -512,7 +516,7 @@ function getRoutesAdmin(event) {
                                         
                                         //To be changed
                                         obj["userId"] = 1;
-                                        console.log(obj);
+                                        // console.log(obj);
                                         result.push(obj);
                                         // {
                                         // 	"routeId":5,
@@ -586,15 +590,15 @@ function getRoutesAdmin(event) {
         }
     });
 
-    console.log(result.length);
+    // console.log(result.length);
 
 
 }
 
 
 function deleteRoute(event, routeId) {
-    console.log(routeId);
-    console.log("Hitting");
+    // console.log(routeId);
+    // console.log("Hitting");
     event.preventDefault();
     const id = $("#bus-id-o").val();
     $.ajax({
@@ -1442,10 +1446,12 @@ function addRoute(event) {
     event.preventDefault();
     var table = document.getElementById("add_field");
     const data = [];
-    
+    let arr=[];
     for (var i = 0; i < table.childElementCount; i++) {
         const destId = $("#select_dest_" + (i + 1)).val();
+        arr.push(destId)
         const time = $("#select_time_" + (i + 1)).val();
+        if(i>0 && $("#select_time_" + (i)).val()>=$("#select_time_" + (i + 1)).val()) return createAlert("Please insert timings correctly", "info")
         if (destId == "" && time == "") continue;
         else if (destId == "" || time == "") return createAlert("Please provide valid destination/time combination!", "info");//alert("Please provide valid destination/time combination");
         data.push(destId + "_" + i + "_" + time);
@@ -1454,10 +1460,18 @@ function addRoute(event) {
     const searchbar_src_val = $("#select_dest_" + (1)).find("option:selected").val();
     const searchbar_dest_text = $("#select_dest_" + (table.childElementCount)).find("option:selected").text();
     const searchbar_dest_val = $("#select_dest_" + (table.childElementCount)).find("option:selected").val();
-    console.log(data);
+    console.log(arr);
+    if(new Set(arr).size<arr.length) return createAlert("Every destinaation should be unique", "info")
     if (data.length <= 1) {
         return createAlert("Total number of destinations should be greater than 1!", "info");//alert("Total number of destinations should be greater than 1");
     }
+    if(searchbar_src_text.toLowerCase()!="nri fintech" && searchbar_dest_text.toLowerCase()!="nri fintech"){
+        return createAlert("Either Source or Destinationtion must be NRI FinTech", "failure");
+    }
+    console.log(table)
+    // if(new Set(data).size === arr.length)
+
+
     const busId = $("#select_bus").val();
     if (busId == "" || busId == undefined) return createAlert("Please provide a bus id for this route!", "info");//alert("Please provide a bus id for this route!");
     console.log("data: ", data);

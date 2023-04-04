@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./index.css" />
+    <link rel="stylesheet" href="./home.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" />
+        <!-- <link rel="stylesheet" href="./admin_homepage.css" /> -->
+    <!-- <link rel="stylesheet" href="./my_profile.css"/> -->
+    <link rel="stylesheet" href="./my_issues.css"/>
+
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" />
+    <script src="https://kit.fontawesome.com/c01e8f4e5e.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+    <title>Document</title>
+    <script type="text/javascript" language="javascript">
+        function getTokenCookie() {
+            const cookieName = "token=";
+            const cookies = document.cookie.split("; ");
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i];
+                if (cookie.indexOf(cookieName) === 0) {
+                    return cookie.substring(cookieName.length, cookie.length);
+                }
+            }
+            return "";
+        }
+
+
+
+        $.ajax({
+            url: "http://localhost:8080/api/v1/user/get/",
+            type: "GET",
+            headers: {
+                "Authorization": getTokenCookie(),
+                "Content-Type": "application/json"
+            },
+            error: function () {
+                //alert("wrong cookie")
+                window.location.replace("user_login.html");
+            }
+        });
+    </script>
+</head>
+
+<body>
+
+    <div id="alert-container"></div>    
+    <div class="header">
+
+        <div class="header-div">
+            <a href="index.html" class="nrifintech">
+                <div> NRI TRAVEL</div>
+            </a>
+        </div>
+        <div class="header-end">
+
+            <div class="header-end-items">
+                <img class="vector-icon" alt="" src="public/abstract-user-flat-4.svg"
+                    style="height: 25px; margin: auto;margin-right: 10px;"
+                    onclick="window.location.href='/client/my_profile.html';" />
+                <p class="header-end-items-text">
+                    <a href="my_profile.html" class="my-profile-heading-div"> My Profile </a>
+                </p>
+            </div>
+            <div class="header-end-items">
+                <img class="vector-icon" alt="" src="public/issues.svg"
+                    style="height: 25px; margin: auto;margin-right: 10px;"
+                    onclick="window.location.href='/client/my_profile.html';" />
+                <p class="header-end-items-text">
+                    <a href="my_issues.html" class="profile"> My Issues </a>
+                </p>
+            </div>
+
+            <div class="header-end-items">
+                <img class="vector-icon" alt="" src="public/vector2.svg"
+                    onclick="window.location.href='/client/my_bookings.html';" />
+                <p class="header-end-items-text">
+                    <a href="my_bookings.html" class="booking"> Booking </a>
+                </p>
+            </div>
+
+            <div class="header-end-items">
+                <img class="vector-icon" alt="" src="public/vector1.svg" onclick="logOut()" />
+                <p class="header-end-items-text">
+                    <a href="#" onclick="logOut()" class="logout"> Logout </a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+    
+    <div style="overflow-y: auto;">
+    
+        <div class ="my-issues-page">
+            <div class="get-issue">
+                <div class="issue-text-div">Feel free to reach us!</div>
+                <textarea class="_profile_data _profile_textarea" placeholder="Enter your query here!"></textarea>
+                <div class="_profile_submit">Submit</div>
+            </div>
+        </div>
+        
+        <div class="_profile issue-manage">
+            <div class="manage-text">Manage Issues</div>
+            <select name="issueStatus" id="issueStatus" onchange="getUnResolvedIssues()">
+                <option value="unresolved">Unresolved</option>
+                <option value="resolved">Resolved</option>
+            </select>
+    
+            <p style="margin-left:10%;color: goldenrod;" id="admin_issue_count">Total results: 0 </p>
+            <div class="issue-scroll-div">
+                <div id="issue-container"></div>
+            </div>
+            
+            
+        </div>
+        <div class="issue-cotainer-pagination-myprofile"> </div>
+    
+    </div>
+    <div class="footer">
+
+        <div class="footer-element">
+            NRI includes a copyright notice that reserves all rights for itself,
+            and has protected material
+        </div>
+        <div class="footer-element-smallerscreen">
+            All rights reserved by NRI
+        </div>
+    </div>
+
+    </div>
+    <script>
+        function getTokenCookie() {
+            const cookieName = "token=";
+            const cookies = document.cookie.split("; ");
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i];
+                if (cookie.indexOf(cookieName) === 0) {
+                    return cookie.substring(cookieName.length, cookie.length);
+                }
+            }
+            return "";
+        }
+
+        function getIdCookie() {
+            const cookieString = document.cookie;
+            if (cookieString) {
+                const cookies = cookieString.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.startsWith('id=')) {
+                        return parseInt(cookie.substring('id='.length, cookie.length));
+                    }
+                }
+            }
+            return null;
+        }
+        $(document).ready(function () {
+            getUnResolvedIssues(null)
+            $.when(
+                $.ajax({
+                    //fetch user data
+                    url: "http://localhost:8080/api/v1/user/get/" + getIdCookie(),
+                    headers: {
+                        "Authorization": getTokenCookie(),
+                        "Content-Type": "application/json"
+                    },
+                    dataType: "json"
+                }),
+                $.ajax({
+                    //fetch corresponding user data from tickets 
+                    url: "http://localhost:8080/api/v1/ticket/get/" + getIdCookie() + "/totalTickets",
+                    headers: {
+                        "Authorization": getTokenCookie(),
+                        "Content-Type": "application/json"
+                    },
+                    dataType: "json"
+                })
+            ).done(function (data1, data2) {
+                var name = data1[0].name;
+                var email = data1[0].email;
+                var employee_id = data1[0].employeeId;
+                var total_seats = data2[0];
+
+                $("._profile_name").val(name);
+                $("._profile_email").val(email);
+                $("._profile_employee_id").val(employee_id);
+                $("._profile_total_seats").val(total_seats);
+
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                // Handle errors here
+            });
+        });
+        function getUnResolvedIssues(event, optionalValue = 0) {
+            let status = document.getElementById("issueStatus").value === "resolved";
+            if (status) status = 1
+            else status = 0
+            const user_id = getIdCookie();
+            const url='http://localhost:8080/api/v1/issues/'+user_id+'?pageNumber='+optionalValue+'&is_resolved='+status;
+            // Change it the user that is calling                                                                   http://localhost:8080/api/v1/issues/asaha@gmail.com/resolved?pageNumber=0
+            $.ajax({
+                url,
+                headers: {
+                    "Authorization": getTokenCookie(),
+                    "Content-Type": "application/json"
+                },
+                success: function (d) {
+                    // ... the rest of the function code remains the same
+                    //Ata te change kor bhai !
+                    var data = d.content;
+                    var total_pages = d.totalPages;
+                    var current_page = d.pageNumber;
+                    const paginationDiv = document.querySelector(".issue-cotainer-pagination-myprofile");
+                    paginationDiv.innerHTML = "";
+
+                    if (d.firstpage == false) {
+
+                        const prevdiv = `<div class="pagination-divs-nextprev" onclick="getUnResolvedIssues(event,${current_page}-1 )"> Prev </div>`;
+                        paginationDiv.innerHTML += prevdiv;
+                    }
+                    for (var i = current_page + 1; i <= current_page + 3 && i <= total_pages; i++) {
+
+                        if (i == current_page + 1) {
+                            const pagediv = `<div class="pagination-divs" style="border-bottom: 2px solid blue;" onclick="getUnResolvedIssues(event, ${i}-1 )"> ${i} </div>`;
+                            paginationDiv.innerHTML += pagediv;
+                        }
+                        else {
+                            const pagediv = `<div class="pagination-divs" onclick="getUnResolvedIssues(event, ${i}-1 )"> ${i} </div>`;
+                            paginationDiv.innerHTML += pagediv;
+                        }
+
+                    }
+                    if (d.lastPage == false && d.pageNumber + 2 < d.totalPages) {
+                        const nextPagetoGo = current_page + 2;
+                        const nextdiv = `<div class="pagination-divs-nextprev" onclick="getUnResolvedIssues(event, ${nextPagetoGo} )"> Next </div>`;
+                        paginationDiv.innerHTML += nextdiv;
+                    }
+
+                    document.getElementById("admin_issue_count").innerHTML = "Total Issues found : " + d.totalElements;
+
+                    const parentDiv = document.getElementById("issue-container");
+                     parentDiv.innerHTML = "";
+
+                    for (var i = 0; i < data.length; i++) {
+                        const id = data[i].id;
+                        const is_resolved = data[i].is_resolved;
+                        const issue = data[i].issue;
+                        const user_id = parseInt(data[i].user_id);
+                        const date = data[i].date;
+                        const resolved_date = data[i].resolvedDate;
+                        const obj = {
+                            id: "",
+                            is_resolved: "",
+                            issue: "",
+                            user_id: "",
+                            date: "",
+                            resolved_date: "",
+                        };
+                        obj["id"] = id;
+                        obj["is_resolved"] = is_resolved;
+                        obj["issue"] = issue;
+                        obj["user_id"] = user_id;
+                        obj["date"] = moment(date).format("DD MMMM YYYY");
+                        obj["resolved_date"] = resolved_date?moment(resolved_date).format("DD MMMM YYYY"):undefined;
+
+                        $.ajax({
+                            url: "http://localhost:8080/api/v1/user/get/" + user_id,
+                            headers: {
+                                "Authorization": getTokenCookie(),
+                                "Content-Type": "application/json"
+                            },
+                            success: function (data2) {
+                                obj["username"] = data2.name;
+                                const issueHTML = `
+                                <div class = "issue-div">
+                                    <div class = "issue-heading">Issue ${obj.id}</div>
+                                    <div class = "issue-user">${data2.email} 
+                                    <p class = "issue-date">Created at: ${obj.date}</p>
+                                    ${obj.resolved_date ? `<div class="issue-date" data-id="${obj.id}">Resolved at: ${obj.resolved_date}</div>` : ''}
+
+                                    </div>
+                                    <div class = "issue-text">${obj.issue}
+                                    </div>
+                                    <br/>
+                                </div>
+                                `;
+                                // const parentDiv = document.querySelector(".issue-manage");
+                                parentDiv.innerHTML += issueHTML;
+                                // Add a click event handler for the dynamically created buttons
+
+                            }
+                        })
+
+                    }
+                }
+                ,
+                error: function () {
+                    return createAlert("User with this email does not exists!", "info");//alert("Something went wrong. Please try again later!");
+                }
+            });
+
+        }
+
+        $("._profile_submit").click(function () {
+            const issue=$("._profile_textarea").val();
+            if(issue==="")
+            {
+                createAlert("Cannot submit empty query !","failure");
+                return;
+            }
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8080/api/v1/issues/add",
+                headers: {
+                    "Authorization": getTokenCookie(),
+                    "Content-Type": "application/json"
+                },
+                data: JSON.stringify({
+                    user_id: getIdCookie(),
+                    issue,
+                    is_resolved: 0,
+
+                }),
+                contentType: "application/json",
+                success: function () {
+                    createAlert("Feedback/Query submitted successfully", "success");
+                    //alert("Feedback/Query submitted successfully");
+                },
+                error: function (e) {
+                    createAlert("Error submitting data" + e, "failure");
+                    //alert("Error submitting data");
+                }
+            });
+        });
+
+        function createAlert(message, type) {
+            var alertContainer = document.getElementById("alert-container");
+            var alertBox = document.createElement("div");
+            var closeButton = document.createElement("span");
+
+            alertBox.textContent = message;
+            closeButton.textContent = "×";
+            closeButton.className = "closebtn";
+            closeButton.onclick = function () {
+                alertContainer.removeChild(alertBox);
+                location.reload();
+            };
+
+            alertBox.className = "alert " + type;
+            alertBox.appendChild(closeButton);
+            alertContainer.appendChild(alertBox);
+        }
+    </script>
+</body>
+
+</html>

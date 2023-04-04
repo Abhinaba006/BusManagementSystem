@@ -5,10 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
@@ -17,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import nrifintech.busMangementSystem.Service.impl.MailService;
 import nrifintech.busMangementSystem.entities.Bus;
 import nrifintech.busMangementSystem.entities.Ticket;
 import nrifintech.busMangementSystem.entities.User;
@@ -28,6 +26,9 @@ class TicketRepoTest {
 	private User user2;
 	private Bus bus;
 	private Ticket ticket;
+	
+	@Autowired
+	private MailService mailservice;
 
 	@Autowired
 	private TicketRepo ticketRepo;
@@ -50,7 +51,7 @@ class TicketRepoTest {
 		
 		//creating user instance.
 		user1 = new User();
-		user1.setEmail("demo123@gmail.com");
+		user1.setEmail("demo@trainee.nrifintech.com");
 		user1.setName("demoUser");
 		user1.setPassword("demo123");
 		userRepo.save(user1);
@@ -94,7 +95,7 @@ class TicketRepoTest {
 	public void testFindAll() {
 		// adding one more data, for another user in the same bus
 		user2 = new User();
-		user2.setEmail("temp123@gmail.com");
+		user2.setEmail("tempUser@trainee.nrifintech.com");
 		user2.setName("tempUser");
 		user2.setPassword("temp123");
 		userRepo.save(user2);
@@ -135,7 +136,7 @@ class TicketRepoTest {
         
         
 		User user1 = new User();
-		user1.setEmail("temp123@gmail.com");
+		user1.setEmail("keshabhk@trainee.nrifintech.com");
 		user1.setName("tempUser");
 		user1.setPassword("temp123");
 		userRepo.save(user1);

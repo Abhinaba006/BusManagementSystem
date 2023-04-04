@@ -17,6 +17,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,6 +26,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+@Data
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User {
 	@Id
@@ -37,7 +39,7 @@ public class User {
 	String name;
 	@NotEmpty
 	@Email(message = "enter a valid mail")
-	@Pattern(regexp = "^[a-zA-Z0-9._%+-]+@nrifintech\\.com$",message="enter company email")
+	@Pattern(regexp = "^[a-zA-Z0-9._%+-]+@(nrifintech|trainee.nrifintech)\\.com$",message="enter company email")
 	String email;
 	@Size(min=4,message="password should be of atleast 4 characaters")
 	@NotEmpty(message="password cant be empty")

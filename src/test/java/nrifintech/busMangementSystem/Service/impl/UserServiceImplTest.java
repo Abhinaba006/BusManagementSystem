@@ -3,11 +3,13 @@ package nrifintech.busMangementSystem.Service.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,8 +24,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import nrifintech.busMangementSystem.entities.Issue;
+import nrifintech.busMangementSystem.entities.Ticket;
 import nrifintech.busMangementSystem.entities.User;
 import nrifintech.busMangementSystem.payloads.UserDto;
+import nrifintech.busMangementSystem.repositories.IssueRepo;
+import nrifintech.busMangementSystem.repositories.TicketRepo;
 import nrifintech.busMangementSystem.repositories.UserRepo;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,6 +40,15 @@ class UserServiceImplTest {
 	
 	@Mock
     private UserRepo userRepo;
+	
+	@Mock
+	private IssueRepo issueRepo;
+	
+	@Mock
+	private TicketRepo ticketRepo;
+	
+	@Mock
+	private MailService mailService;
 
 	@InjectMocks
     private UserServiceImpl userService;
@@ -64,6 +79,8 @@ class UserServiceImplTest {
         assertEquals("Demo user", result.getName());
         assertEquals("demo12@gmail.com", result.getEmail());
 	}
+    
+  
 
 	@Test
 	void testUpdateUser() {
@@ -128,12 +145,28 @@ class UserServiceImplTest {
 	}
 
 	@Test
-	void testDeleteUser() {
-		when(userRepo.findById(user.getId())).thenReturn(Optional.of(user));		
-		userService.deleteUser(user.getId());
-		verify(userRepo, times(1)).delete(user);
-		
+	public void testDeleteUser() {
+	    // Arrange
+	    int userId = 1;
+	    User user = new User();
+	    user.setId(userId);
+
+	    List<Issue> issues = Arrays.asList(new Issue(), new Issue());
+	    List<Ticket> tickets = Arrays.asList(new Ticket(), new Ticket());
+
+	    when(userRepo.findById(userId)).thenReturn(Optional.of(user));
+	    when(issueRepo.getIssuesByUserId(userId)).thenReturn(issues);
+	    when(ticketRepo.findByUserId(userId)).thenReturn(tickets);
+
+	    // Act
+	    userService.deleteUser(userId);
+
+	    // Assert
+	    verify(issueRepo, times(issues.size())).delete(any(Issue.class));
+	    verify(ticketRepo, times(tickets.size())).delete(any(Ticket.class));
+	    verify(userRepo, times(1)).delete(any(User.class));
 	}
+
 
 	@Test
 	void testCheckUser() {

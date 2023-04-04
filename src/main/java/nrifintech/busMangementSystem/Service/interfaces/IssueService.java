@@ -27,7 +27,7 @@ public interface IssueService {
 	//After Pagination
 	IssueResponse getAllResolvedIssue(Integer pageNumber,Integer pageSize);
 	IssueResponse getAllunResolvedIssue(Integer pageNumber,Integer pageSize);
-    IssueResponse getIssuesByUserId(int userId,Integer pageNumber,Integer pageSize);
+    IssueResponse getIssuesByUserId(int userId,Integer is_resolved, Integer pageNumber,Integer pageSize);
 
 	IssueResponse getUserunResolvedIssue(String email,Integer pageNumber,Integer pageSize);
 	IssueResponse getUserResolvedIssue(String email,Integer pageNumber,Integer pageSize);

@@ -8,6 +8,9 @@
 
 --> */
 
+*{
+    font-family: Montserrat, sans-serif;
+}
 
 body {
     margin: 0;
@@ -142,6 +145,8 @@ input::-ms-reveal {
 
 input {
     height: 60px;
+    font-size: 25px;
+    font-weight: 500;
     width: 463.00433349609375px;
     margin-bottom: 70px;
 
@@ -155,6 +160,7 @@ input:focus {
 .hidden-eye {
     height: 30px;
     width: 30px;
+    cursor: pointer;
 }
 
 .submit-div {

@@ -38,6 +38,7 @@ public class BusServiceImpl implements BusService {
 	@Autowired
 	private TicketRepo ticketRepo;
 
+
 	@Override
 	public Bus createBus(Bus bus) {
 		if(busRepo.findByBusNumber(bus.getBus_number()).isPresent())
@@ -101,6 +102,7 @@ public class BusServiceImpl implements BusService {
 		}
 		busRepo.delete(bus);
 	}
+
 
 	@Override
 	public List<Bus> getUnAllotedBus() {

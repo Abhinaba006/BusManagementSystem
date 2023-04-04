@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -16,13 +17,23 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import nrifintech.busMangementSystem.entities.Bus;
+import nrifintech.busMangementSystem.entities.BusMap;
+import nrifintech.busMangementSystem.entities.RouteInfo;
+import nrifintech.busMangementSystem.repositories.BusMapRepo;
 import nrifintech.busMangementSystem.repositories.BusRepo;
+import nrifintech.busMangementSystem.repositories.RouteInfoRepo;
 
 @ExtendWith(MockitoExtension.class)
 class BusServiceImplTest {
 
 	@Mock
 	private BusRepo busRepo;
+	
+	@Mock
+	private BusMapRepo busMapRepo;
+	
+	@Mock
+	private RouteInfoRepo routeInfoRepo;
 	
 	@InjectMocks
 	BusServiceImpl busServiceImpl;
@@ -46,16 +57,34 @@ class BusServiceImplTest {
 	@Test
 	void testUpdateBus() {
 		Bus existingBus = new Bus();
+		existingBus.setId(1);
 		existingBus.setBus_number("24wb");
 		existingBus.setName("dnb");
 		existingBus.setName("uerhjhsdbf");
 		existingBus.setTotalNumberOfseats(45);
 		
+		BusMap busMap = new BusMap();
+		busMap.setBus_id(existingBus.getId());
+		busMap.setId(1);
+		busMap.setRoute_id(11);
+		
+		List<RouteInfo> routeInfoData = new ArrayList<RouteInfo>();
+		RouteInfo ri1  = new RouteInfo();
+		ri1.setDate("03:04:2023");
+		ri1.setId(1);
+		ri1.setOverall_bookings(12);
+		ri1.setTotal_bookings(10);
+		ri1.setTotal_seats(45);
+		routeInfoData.add(ri1);
+		
 		Bus updatedBus = existingBus;
 		updatedBus.setTotalNumberOfseats(2);
-		
+		System.out.println(existingBus.getId());
 		when(busRepo.findById(existingBus.getId())).thenReturn(Optional.of(existingBus));
 		when(busRepo.save(existingBus)).thenReturn(updatedBus);
+		when(busMapRepo.findByBusId(existingBus.getId())).thenReturn(busMap);
+		when(routeInfoRepo.getAllUpcomingRouteInfo(busMap.getRoute_id(), "03:04:2023")).thenReturn(routeInfoData);
+		when(routeInfoRepo.save(ri1)).thenReturn(ri1);
 		
 		Bus result = busServiceImpl.updateBus(updatedBus, existingBus.getId());
 		assertEquals(result, updatedBus);

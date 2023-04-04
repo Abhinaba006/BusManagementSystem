@@ -198,10 +198,10 @@ public class RouteServiceImpl implements RouteService{
 				//find routeObject from routeMap where route_id = route_id and destination_id = source
 				System.out.println();
 				if(routeMapRepo.getByRouteIdAndDestinationId(route_id, source).get().getDestination_index()<routeMapRepo.getByRouteIdAndDestinationId(route_id, destination).get().getDestination_index())
-					System.out.println("error genera rote id "+route_id);
 					result.add(this.getRoute(route_id));		
 			}
 		}
+		System.out.println("checking: "+result);
 	    return  result;	
 	}
 	

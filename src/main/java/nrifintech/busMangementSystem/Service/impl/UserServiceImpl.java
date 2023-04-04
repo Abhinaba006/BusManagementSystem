@@ -56,13 +56,15 @@ public class UserServiceImpl implements UserService{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(userRepo.findByOnlyEmail(user.getEmail()).isEmpty())
+		finally{
+			if(userRepo.findByOnlyEmail(user.getEmail()).isEmpty())
 		{
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
 			return userRepo.save(user);
 		}
 		else 
 			throw new UnauthorizedAction("similiar user created","Admin");
+		}
 //		return userRepo.save(user);
 	}
 
@@ -78,14 +80,17 @@ public class UserServiceImpl implements UserService{
 		if(newUser.getEmployeeId()!=null) user.setEmployeeId(newUser.getEmployeeId());
 		
 		//mail user their updated credentials.
+		System.out.println(user);
 		try {
 			mailService.sendCredentials(user.getEmail(), user.getName(), newPassword, "updated");
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			return this.userRepo.save(user);
 		}
 		
-		return this.userRepo.save(user);
+		
 	}
 
 	@Override

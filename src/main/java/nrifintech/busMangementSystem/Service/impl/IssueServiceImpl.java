@@ -69,11 +69,11 @@ public class IssueServiceImpl implements IssueService {
     }
 
     @Override
-    public IssueResponse getIssuesByUserId(int userId,Integer pageNumber,Integer pageSize) {
+    public IssueResponse getIssuesByUserId(int userId,Integer is_resolved, Integer pageNumber,Integer pageSize) {
 
         Pageable p = PageRequest.of(pageNumber, pageSize);
         IssueResponse issueResponse=new IssueResponse();
-        Page<Issue> pageissues = this.issueRepo.findIssuesByUserId(userId, p);
+        Page<Issue> pageissues = this.issueRepo.findIssuesByUserId(userId, is_resolved, p);
 			List<Issue> issues = pageissues.getContent();
             
             issueResponse.setContent(issues);

@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./index.css" />
     <link rel="stylesheet" href="./home.css" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap"
-    />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" />
     <script src="https://kit.fontawesome.com/c01e8f4e5e.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
@@ -28,8 +27,8 @@
             }
             return "";
         }
-        
-        
+
+
 
         console.log(getTokenCookie());
         $.ajax({
@@ -46,13 +45,14 @@
         });
     </script>
 </head>
+
 <body>
     <div id="alert-container"></div>
     <div class="main">
         <!-- Header -->
         <div class="header">
 
-           <div class="header-div">
+            <div class="header-div">
                 <a href="index.html" class="nrifintech">
                     <div> NRI TRAVEL</div>
                 </a>
@@ -60,52 +60,67 @@
             <div class="header-end">
 
                 <div class="header-end-items">
-                    <img class="vector-icon" alt="" src="public/abstract-user-flat-4.svg" style="height: 25px; margin: auto;margin-right: 10px;" onclick="window.location.href='/client/my_profile.html';"/>
-                    <p class="header-end-items-text"> 
-                        <a href="my_profile.html" class="profile">  My Profile  </a>
-                    </p>     
+                    <img class="vector-icon" alt="" src="public/abstract-user-flat-4.svg"
+                        style="height: 25px; margin: auto;margin-right: 10px;"
+                        onclick="window.location.href='/client/my_profile.html';" />
+                    <p class="header-end-items-text">
+                        <a href="my_profile.html" class="profile"> My Profile </a>
+                    </p>
+                </div>
+                <div class="header-end-items">
+                    <img class="vector-icon" alt="" src="public/issues.svg"
+                        style="height: 25px; margin: auto;margin-right: 10px;"
+                        onclick="window.location.href='/client/my_profile.html';" />
+                    <p class="header-end-items-text">
+                        <a href="my_issues.html" class="profile"> My Issues </a>
+                    </p>
                 </div>
 
-                        <div class="header-end-items">
-                            <img class="vector-icon" alt="" src="public/vector2.svg" onclick="window.location.href='/client/my_bookings.html';"/>
-                            <p class="header-end-items-text"> 
-                                <a href="my_bookings.html" class="booking">  Booking  </a>
-                            </p>     
-                        </div>
+                <div class="header-end-items">
+                    <img class="vector-icon" alt="" src="public/vector2.svg"
+                        onclick="window.location.href='/client/my_bookings.html';" />
+                    <p class="header-end-items-text">
+                        <a href="my_bookings.html" class="booking"> Booking </a>
+                    </p>
+                </div>
 
-                        <div class="header-end-items">
-                                <img class="vector-icon" alt="" src="public/vector1.svg" onclick="logOut()"/>
-                                <p class="header-end-items-text"> 
-                                     <a href="#" class="logout" onclick="logOut()"> Logout  </a>  
-                                </p>
-                        </div>
-                
+                <div class="header-end-items">
+                    <img class="vector-icon" alt="" src="public/vector1.svg" onclick="logOut()" />
+                    <p class="header-end-items-text">
+                        <a href="#" onclick="logOut()" class="logout"> Logout </a>
+                    </p>
+                </div>
+
             </div>
         </div>
 
         <!-- Body -->
         <div class="body-part">
-            
-            <div class = "_profile">
-                <h2 class="_profile_header">My Profile</h2>
-                <div class = "_profile_label">Name</div>
-                <input class = "_profile_data _profile_name" disabled = true/>
-                <div class = "_profile_label">Email</div>
-                <input class = "_profile_data _profile_email" disabled = true/>
-                <div class = "_profile_label">Employee id</div>
-                <input class = "_profile_data _profile_employee_id" disabled = true/>
-                <div class = "_profile_label">Total seats booked</div>
-                <input class = "_profile_data _profile_total_seats" disabled = true/>
-                <div class = "_profile_label">Feel free to reach us!</div>
-                <textarea class = "_profile_data _profile_textarea" placeholder="Enter your query here!"></textarea>
-                <div class = "_profile_submit">Submit</div>
+
+            <div class="_profile">
+                    <div class="profile-main-div">
+                        <h2 class="_profile_header">My Profile</h2>
+                        <div class="_profile_label">Name</div>
+                        <input class="_profile_data _profile_name" id="profile-name" disabled=true/>
+                        <div class="_profile_label">Email</div>
+                        <input class="_profile_data _profile_email" disabled=true />
+                        <div class="_profile_label">Employee id</div>
+                        <input class="_profile_data _profile_employee_id" disabled=true />
+                        <div class="_profile_label">Total seats booked</div>
+                        <input class="_profile_data _profile_total_seats" disabled=true /> 
+
+                        <div class="_profile_label">Update Password</div>
+                        <input class="_profile_data" id="password-text" placeholder="Type New Password"/>     
+                        <div class="_profile_submit" id="password_submit">Submit</div>
+                    </div>
+                
             </div>
 
         </div>
-            
-           
-                        
-            
+
+
+
+
 
         <!-- Footer -->
         <div class="footer">
@@ -114,14 +129,14 @@
                 NRI includes a copyright notice that reserves all rights for itself,
                 and has protected material
             </div>
-            <div class="footer-element-smallerscreen" >
+            <div class="footer-element-smallerscreen">
                 All rights reserved by NRI
             </div>
         </div>
-    
+
     </div>
 
-    
+
     <!-- 
         *****   OverLays   ****** 
     -->
@@ -130,13 +145,15 @@
 
     <div class="booking-cancel-overlay" onclick="offbooking()">
         <div class="cancel-div">
-            
+
             <div class="cancel-overlay-main-div">
 
                 <div class="cancel-text">Are you sure you want to cancel your booking ?</div>
                 <div class="confirm-cancel-buttons">
-                    <button type="submit" class="confirm-button" onclick="location.reload()"> <img class="confirm-cancel-icon" src="./public/confirm-icon.svg" alt=""> Confirm</button>
-                    <button type="submit" class="cancel-button"> <img class="confirm-cancel-icon" src="./public/cancel-icon.svg" alt=""> Cancel</button>
+                    <button type="submit" class="confirm-button" onclick="location.reload()"> <img
+                            class="confirm-cancel-icon" src="./public/confirm-icon.svg" alt=""> Confirm</button>
+                    <button type="submit" class="cancel-button"> <img class="confirm-cancel-icon"
+                            src="./public/cancel-icon.svg" alt=""> Cancel</button>
                 </div>
 
             </div>
@@ -148,7 +165,7 @@
 
 
     <div class="home-route-overlay" onclick="homeoffroute()">
-        <div class="route-div"> 
+        <div class="route-div">
             <div class="route-overlay-main-div">
 
                 <!-- Cross div -->
@@ -156,34 +173,34 @@
                     <img class="route-cross-icon" src="./public/route-overlay-cancel-icon.svg" alt="">
                 </div>
                 <!-- Cross div ends here -->
-                
+
                 <div class="route-overlay-main-div-elements-div">
-                    <div class="route-overlay-time">8:00 am </div> 
-                    <img class="route-overlay-icon" src="./public/route-overlay-icon.svg" alt=""> 
+                    <div class="route-overlay-time">8:00 am </div>
+                    <img class="route-overlay-icon" src="./public/route-overlay-icon.svg" alt="">
                     <div class="route-overlay-place">Ultodanga</div>
                 </div>
 
                 <div class="route-overlay-main-div-elements-div">
-                    <div class="route-overlay-time">8:15 am </div> 
-                    <img class="route-overlay-icon" src="./public/route-overlay-icon.svg" alt=""> 
+                    <div class="route-overlay-time">8:15 am </div>
+                    <img class="route-overlay-icon" src="./public/route-overlay-icon.svg" alt="">
                     <div class="route-overlay-place">Sapoorji</div>
                 </div>
 
                 <div class="route-overlay-main-div-elements-div">
-                    <div class="route-overlay-time">8:30 am </div> 
-                    <img class="route-overlay-icon" src="./public/route-overlay-icon.svg" alt=""> 
+                    <div class="route-overlay-time">8:30 am </div>
+                    <img class="route-overlay-icon" src="./public/route-overlay-icon.svg" alt="">
                     <div class="route-overlay-place">Saltlake</div>
                 </div>
 
                 <div class="route-overlay-main-div-elements-div">
-                    <div class="route-overlay-time">8:45 am </div> 
-                    <img class="route-overlay-icon" src="./public/route-overlay-icon.svg" alt=""> 
+                    <div class="route-overlay-time">8:45 am </div>
+                    <img class="route-overlay-icon" src="./public/route-overlay-icon.svg" alt="">
                     <div class="route-overlay-place">Chingrighata</div>
                 </div>
 
                 <div class="route-overlay-main-div-elements-div">
-                    <div class="route-overlay-time">9:00 am </div> 
-                    <img class="route-overlay-icon" src="./public/route-overlay-icon.svg" alt=""> 
+                    <div class="route-overlay-time">9:00 am </div>
+                    <img class="route-overlay-icon" src="./public/route-overlay-icon.svg" alt="">
                     <div class="route-overlay-place">Nri Fintech</div>
                 </div>
 
@@ -195,124 +212,135 @@
     <script src="./index.js">
     </script>
 </body>
+
 </html>
 
 <script>
-    $(document).ready(function() {
-  $.when(
-    $.ajax({
-        //fetch user data
-      url: "http://localhost:8080/api/v1/user/get/"+getIdCookie(),
-      headers: {
-            "Authorization": getTokenCookie(),
-            "Content-Type": "application/json"
-        },
-      dataType: "json"
-    }),
-    $.ajax({
-        //fetch corresponding user data from tickets 
-      url: "http://localhost:8080/api/v1/ticket/get/"+getIdCookie()+"/totalTickets",
-      headers: {
-            "Authorization": getTokenCookie(),
-            "Content-Type": "application/json"
-        },
-      dataType: "json"
-    })
-  ).done(function(data1, data2) {
-     var name = data1[0].name;
-     var email = data1[0].email;
-     var employee_id = data1[0].employeeId;
-     var total_seats = data2[0];
-    
-    console.log(data1);
-    $("._profile_name").val(name);
-    $("._profile_email").val(email);
-    $("._profile_employee_id").val(employee_id);
-    $("._profile_total_seats").val(total_seats);
+    $(document).ready(function () {
+        $.when(
+            $.ajax({
+                //fetch user data
+                url: "http://localhost:8080/api/v1/user/get/" + getIdCookie(),
+                headers: {
+                    "Authorization": getTokenCookie(),
+                    "Content-Type": "application/json"
+                },
+                dataType: "json"
+            }),
+            $.ajax({
+                //fetch corresponding user data from tickets 
+                url: "http://localhost:8080/api/v1/ticket/get/" + getIdCookie() + "/totalTickets",
+                headers: {
+                    "Authorization": getTokenCookie(),
+                    "Content-Type": "application/json"
+                },
+                dataType: "json"
+            })
+        ).done(function (data1, data2) {
+            var name = data1[0].name;
+            var email = data1[0].email;
+            var employee_id = data1[0].employeeId;
+            var total_seats = data2[0];
 
-  }).fail(function(jqXHR, textStatus, errorThrown) {
-    // Handle errors here
-  });
-});
+            console.log(data1);
+            $("._profile_name").val(name);
+            $("._profile_email").val(email);
+            $("._profile_employee_id").val(employee_id);
+            $("._profile_total_seats").val(total_seats);
+
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            // Handle errors here
+        });
+    });
+
 
 </script>
 
 
 <script>
-    $(document).ready(function() {
-			$("._profile_submit").click(function() {
-				$.ajax({
-					type: "POST",
-					url: "http://localhost:8080/api/v1/issues/add",
-                    headers: {
+    $(document).ready(function () {
+        $("#password_submit").click(function () {
+            const userId = parseInt(getIdCookie());
+            const name = document.getElementById("profile-name").value
+            const password = document.getElementById('password-text').value
+            const url = "http://localhost:8080/api/v1/user/update/"+userId
+            // add validation
+            if(password==="")
+            {
+              return createAlert("Password can't be empty","failure");
+            }
+            const data = {
+                name,
+                password
+            }
+
+            console.log(data)
+            $.ajax({
+                type: "POST",
+                url,
+                headers: {
                     "Authorization": getTokenCookie(),
                     "Content-Type": "application/json"
-                     },
-					data: JSON.stringify({
-                    user_id:getIdCookie(),
-                    issue:$("._profile_textarea").val(),
-                    is_resolved:0,
-                    
-                }), 
-                    contentType: "application/json",
-					success: function() {
-                        createAlert("Feedback/Query submitted successfully","success");
-						//alert("Feedback/Query submitted successfully");
-					},
-					error: function(e) {
-                        createAlert("Error submitting data"+e,"failure");
-						//alert("Error submitting data");
-					}
-				});
-			});
-		});
+                },
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                success: function () {
+                    createAlert("Profile updated successfully", "success");
+                },
+                error: function (e) {
+                    createAlert("Error submitting data" + e, "failure");
+                }
+            });
+        
+        });
+    });
 
 
 
-        function getTokenCookie() {
-	const cookieName = "token=";
-	const cookies = document.cookie.split("; ");
-	for (let i = 0; i < cookies.length; i++) {
-		const cookie = cookies[i];
-		if (cookie.indexOf(cookieName) === 0) {
-			return cookie.substring(cookieName.length, cookie.length);
-		}
-	}
-	return "";
-}
-
-function getIdCookie() {
-    const cookieString = document.cookie;
-    if (cookieString) {
-        const cookies = cookieString.split(';');
+    function getTokenCookie() {
+        const cookieName = "token=";
+        const cookies = document.cookie.split("; ");
         for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.startsWith('id=')) {
-                console.log("this is ",parseInt(cookie.substring('id='.length, cookie.length)));
-                return parseInt(cookie.substring('id='.length, cookie.length));
+            const cookie = cookies[i];
+            if (cookie.indexOf(cookieName) === 0) {
+                return cookie.substring(cookieName.length, cookie.length);
             }
         }
+        return "";
     }
-    return null;
-}
+
+    function getIdCookie() {
+        const cookieString = document.cookie;
+        if (cookieString) {
+            const cookies = cookieString.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.startsWith('id=')) {
+                    console.log("this is ", parseInt(cookie.substring('id='.length, cookie.length)));
+                    return parseInt(cookie.substring('id='.length, cookie.length));
+                }
+            }
+        }
+        return null;
+    }
 
 
 
-function createAlert(message, type) {
-    var alertContainer = document.getElementById("alert-container");
-    var alertBox = document.createElement("div");
-    var closeButton = document.createElement("span");
+    function createAlert(message, type) {
+        var alertContainer = document.getElementById("alert-container");
+        var alertBox = document.createElement("div");
+        var closeButton = document.createElement("span");
 
-    alertBox.textContent = message;
-    closeButton.textContent = "×";
-    closeButton.className = "closebtn";
-    closeButton.onclick = function() {
-      alertContainer.removeChild(alertBox);
-      location.reload();
-    };
+        alertBox.textContent = message;
+        closeButton.textContent = "×";
+        closeButton.className = "closebtn";
+        closeButton.onclick = function () {
+            alertContainer.removeChild(alertBox);
+            location.reload();
+        };
 
-    alertBox.className = "alert " + type;
-    alertBox.appendChild(closeButton);
-    alertContainer.appendChild(alertBox);
-  }
+        alertBox.className = "alert " + type;
+        alertBox.appendChild(closeButton);
+        alertContainer.appendChild(alertBox);
+    }
 </script>
