@@ -101,7 +101,7 @@
                     <div class="profile-main-div">
                         <h2 class="_profile_header">My Profile</h2>
                         <div class="_profile_label">Name</div>
-                        <input class="_profile_data _profile_name" id="profile-name" />
+                        <input class="_profile_data _profile_name" id="profile-name" disabled=true/>
                         <div class="_profile_label">Email</div>
                         <input class="_profile_data _profile_email" disabled=true />
                         <div class="_profile_label">Employee id</div>
@@ -110,7 +110,7 @@
                         <input class="_profile_data _profile_total_seats" disabled=true /> 
 
                         <div class="_profile_label">Update Password</div>
-                        <input class="_profile_data" id="password-text" placeholder="Type New PassWord"/>     
+                        <input class="_profile_data" id="password-text" placeholder="Type New Password"/>     
                         <div class="_profile_submit" id="password_submit">Submit</div>
                     </div>
                 
@@ -265,6 +265,10 @@
             const password = document.getElementById('password-text').value
             const url = "http://localhost:8080/api/v1/user/update/"+userId
             // add validation
+            if(password==="")
+            {
+              return createAlert("Password can't be empty","failure");
+            }
             const data = {
                 name,
                 password

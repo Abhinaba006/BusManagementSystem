@@ -26,6 +26,9 @@ public interface TicketRepo extends JpaRepository<Ticket, Integer> {
     
     @Query(value = "SELECT * FROM ticket WHERE user_id = :user_id AND date = :date AND status = 'CONFIRMED' LIMIT 1",nativeQuery = true)
     Ticket findUserByPresentDate(@Param("user_id") int user_id, @Param("date") String date);
+    
+    @Query(value = "SELECT * FROM ticket WHERE user_id = :user_id AND date = :date AND status = 'CONFIRMED'  and route_id = :route_id LIMIT 1",nativeQuery = true)
+    Ticket findUserByPresentDateAndRouteId(@Param("user_id") int user_id, @Param("date") String date,@Param("route_id") int route_id);
 
     @Query(value = "SELECT * FROM ticket WHERE STR_TO_DATE(date,'%d:%m:%Y') < STR_TO_DATE(:date,'%d:%m:%Y')",nativeQuery = true)
 	List<Ticket> findPastTickets(String date);

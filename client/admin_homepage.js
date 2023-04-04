@@ -1465,7 +1465,7 @@ function addRoute(event) {
     if (data.length <= 1) {
         return createAlert("Total number of destinations should be greater than 1!", "info");//alert("Total number of destinations should be greater than 1");
     }
-    if(searchbar_src_text.toLowerCase()!="nrifintech" && searchbar_dest_text.toLowerCase()!="nrifintech"){
+    if(searchbar_src_text.toLowerCase()!="nri fintech" && searchbar_dest_text.toLowerCase()!="nri fintech"){
         return createAlert("Either Source or Destinationtion must be NRI FinTech", "failure");
     }
     console.log(table)

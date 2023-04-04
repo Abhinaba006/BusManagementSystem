@@ -48,8 +48,8 @@ public class TicketServiceImpl implements TicketService {
 	public void createTicket(Ticket ticket) {
 		boolean waiting = false;
 		// dont allow user to book a ticket if their ticket is already booked.
-		// check from db if user data is present for today or not.
-		if (ticketRepo.findUserByPresentDate(ticket.getUserId(), ticket.getDate()) != null)
+		// check from db if user data is present for this route and present date.
+		if (ticketRepo.findUserByPresentDateAndRouteId(ticket.getUserId(), ticket.getDate(),ticket.getRouteId()) != null)
 			throw new CustomException("Ticket already booked");
 
 		// change the status of the past ticket.
