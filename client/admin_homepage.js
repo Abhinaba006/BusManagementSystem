@@ -346,7 +346,6 @@ function addEmployee(event) {
                                         
 //                                         //To be changed
 //                                         obj["userId"] = 1;
-//                                         console.log(obj);
 //                                         result.push(obj);
 //                                         // {
 //                                         // 	"routeId":5,
@@ -419,7 +418,6 @@ function addEmployee(event) {
 //         }
 //     });
 
-//     console.log(result.length);
 
 
 // }
@@ -427,7 +425,6 @@ function addEmployee(event) {
 function getRoutesAdmin(event) {
     event.preventDefault();
     document.querySelector(".admin_routes").innerHTML = "";
-    console.log("Hitting");
     const source = $("#admin_from").val();
     const dest = $("#admin_to").val();
     if(source==="" || dest==="")
@@ -462,7 +459,6 @@ function getRoutesAdmin(event) {
             "Content-Type": "application/json"
         },
         success: function (data) {
-            console.log(data);
             if (data.length === 0)
                 createAlert("No routes found for the given source and destination!", "info");
 
@@ -489,7 +485,7 @@ function getRoutesAdmin(event) {
                         "Content-Type": "application/json"
                     },
                     success: function (data) {
-                        console.log(data);
+                        // console.log(data);
                         obj["source_name"] = data[0].destination.name;
                         obj["source_time"] = data[0].time;
 
@@ -520,7 +516,7 @@ function getRoutesAdmin(event) {
                                         
                                         //To be changed
                                         obj["userId"] = 1;
-                                        console.log(obj);
+                                        // console.log(obj);
                                         result.push(obj);
                                         // {
                                         // 	"routeId":5,
@@ -594,15 +590,15 @@ function getRoutesAdmin(event) {
         }
     });
 
-    console.log(result.length);
+    // console.log(result.length);
 
 
 }
 
 
 function deleteRoute(event, routeId) {
-    console.log(routeId);
-    console.log("Hitting");
+    // console.log(routeId);
+    // console.log("Hitting");
     event.preventDefault();
     const id = $("#bus-id-o").val();
     $.ajax({

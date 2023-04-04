@@ -34,7 +34,6 @@
 
 
 
-        console.log(getTokenCookie());
         $.ajax({
             url: "http://localhost:8080/api/v1/user/get/",
             type: "GET",
@@ -152,7 +151,6 @@
                 for (let i = 0; i < cookies.length; i++) {
                     const cookie = cookies[i].trim();
                     if (cookie.startsWith('id=')) {
-                        console.log("this is ", parseInt(cookie.substring('id='.length, cookie.length)));
                         return parseInt(cookie.substring('id='.length, cookie.length));
                     }
                 }
@@ -186,7 +184,6 @@
                 var employee_id = data1[0].employeeId;
                 var total_seats = data2[0];
 
-                console.log(data1);
                 $("._profile_name").val(name);
                 $("._profile_email").val(email);
                 $("._profile_employee_id").val(employee_id);
@@ -197,16 +194,11 @@
             });
         });
         function getUnResolvedIssues(event, optionalValue = 0) {
-            console.log("hola")
             let status = document.getElementById("issueStatus").value === "resolved";
             if (status) status = 1
             else status = 0
-            // const email = document.getElementById("search-issues-admin").value;
-            //const url = gmail === "" ? "http://localhost:8080/api/v1/issues/" + status + "?pageNumber=" + optionalValue : "http://localhost:8080/api/v1/issues/" + gmail + "/" + status + "?pageNumber=" + optionalValue;
             const user_id = getIdCookie();
-            // const url = 'http://localhost:8080/api/v1/issues/' + user_id + '?is_resolved=' + status+ "?pageNumber=" + optionalValue;
             const url='http://localhost:8080/api/v1/issues/'+user_id+'?pageNumber='+optionalValue+'&is_resolved='+status;
-            console.log(url)
             // Change it the user that is calling                                                                   http://localhost:8080/api/v1/issues/asaha@gmail.com/resolved?pageNumber=0
             $.ajax({
                 url,
@@ -229,7 +221,6 @@
                         paginationDiv.innerHTML += prevdiv;
                     }
                     for (var i = current_page + 1; i <= current_page + 3 && i <= total_pages; i++) {
-                        console.log('asdasdwdasdfsyfth')
 
                         if (i == current_page + 1) {
                             const pagediv = `<div class="pagination-divs" style="border-bottom: 2px solid blue;" onclick="getUnResolvedIssues(event, ${i}-1 )"> ${i} </div>`;
@@ -247,23 +238,18 @@
                         paginationDiv.innerHTML += nextdiv;
                     }
 
-                    console.log(data);
-
                     document.getElementById("admin_issue_count").innerHTML = "Total Issues found : " + d.totalElements;
 
                     const parentDiv = document.getElementById("issue-container");
                      parentDiv.innerHTML = "";
 
                     for (var i = 0; i < data.length; i++) {
-                        console.log("printing issue ,", data[i])
                         const id = data[i].id;
                         const is_resolved = data[i].is_resolved;
                         const issue = data[i].issue;
                         const user_id = parseInt(data[i].user_id);
                         const date = data[i].date;
-                        console.log("317 date is ", date)
                         const resolved_date = data[i].resolvedDate;
-                        // console.log(data);
                         const obj = {
                             id: "",
                             is_resolved: "",
@@ -278,8 +264,6 @@
                         obj["user_id"] = user_id;
                         obj["date"] = moment(date).format("DD MMMM YYYY");
                         obj["resolved_date"] = resolved_date?moment(resolved_date).format("DD MMMM YYYY"):undefined;
-                        // alert(obj.resolved_date);
-                        console.log(281, resolved_date);
 
                         $.ajax({
                             url: "http://localhost:8080/api/v1/user/get/" + user_id,
@@ -288,7 +272,6 @@
                                 "Content-Type": "application/json"
                             },
                             success: function (data2) {
-                                // console.log(290, obj)
                                 obj["username"] = data2.name;
                                 const issueHTML = `
                                 <div class = "issue-div">
@@ -322,7 +305,6 @@
 
         $("._profile_submit").click(function () {
             const issue=$("._profile_textarea").val();
-            //console.log("this us usdasd ",$("._profile_textarea").val());
             if(issue==="")
             {
                 createAlert("Cannot submit empty query !","failure");
