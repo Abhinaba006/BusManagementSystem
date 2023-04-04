@@ -20,6 +20,7 @@ public class AppConfig {
         return new ModelMapper();
     }
     
+
 //    @Bean
 //    public JavaMailSender javaMailSender()
 //    {
@@ -74,5 +75,6 @@ public class AppConfig {
 //			}
 //		};
 //    }
+
 
 }

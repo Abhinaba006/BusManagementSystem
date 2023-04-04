@@ -435,6 +435,14 @@ function getRoutesAdmin(event) {
         createAlert("Please provide valid source and destination!","info");
         return;
     }
+	if(source===dest){
+		createAlert("Source and destination can not be same", "failure")
+		return;
+	}
+	if(source!=1 && dest!=1){
+		createAlert("Either source or destination should be NRI FinTech", "failure")
+		return;
+	}
     const today = new Date();
     const yyyy = today.getFullYear();
     let mm = today.getMonth() + 1; // Months start at 0!
@@ -1442,10 +1450,12 @@ function addRoute(event) {
     event.preventDefault();
     var table = document.getElementById("add_field");
     const data = [];
-    
+    let arr=[];
     for (var i = 0; i < table.childElementCount; i++) {
         const destId = $("#select_dest_" + (i + 1)).val();
+        arr.push(destId)
         const time = $("#select_time_" + (i + 1)).val();
+        if(i>0 && $("#select_time_" + (i)).val()>=$("#select_time_" + (i + 1)).val()) return createAlert("Please insert timings correctly", "info")
         if (destId == "" && time == "") continue;
         else if (destId == "" || time == "") return createAlert("Please provide valid destination/time combination!", "info");//alert("Please provide valid destination/time combination");
         data.push(destId + "_" + i + "_" + time);
@@ -1454,10 +1464,18 @@ function addRoute(event) {
     const searchbar_src_val = $("#select_dest_" + (1)).find("option:selected").val();
     const searchbar_dest_text = $("#select_dest_" + (table.childElementCount)).find("option:selected").text();
     const searchbar_dest_val = $("#select_dest_" + (table.childElementCount)).find("option:selected").val();
-    console.log(data);
+    console.log(arr);
+    if(new Set(arr).size<arr.length) return createAlert("Every destinaation should be unique", "info")
     if (data.length <= 1) {
         return createAlert("Total number of destinations should be greater than 1!", "info");//alert("Total number of destinations should be greater than 1");
     }
+    if(searchbar_src_text.toLowerCase()!="nrifintech" && searchbar_dest_text.toLowerCase()!="nrifintech"){
+        return createAlert("Either Source or Destinationtion must be NRI FinTech", "failure");
+    }
+    console.log(table)
+    // if(new Set(data).size === arr.length)
+
+
     const busId = $("#select_bus").val();
     if (busId == "" || busId == undefined) return createAlert("Please provide a bus id for this route!", "info");//alert("Please provide a bus id for this route!");
     console.log("data: ", data);

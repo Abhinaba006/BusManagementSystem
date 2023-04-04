@@ -5,16 +5,16 @@
     } */
     
     
-    #text1,#text2,#text3,#text4,#text5, #text6, #text7{
+#text1,#text2,#text3,#text4,#text5, #text6, #text7{
         padding: 12% 5%;
-    }
+}
     
-    body {
+body {
       position: relative;
       margin: 0;
       padding: 0;
       min-height: 100%;
-    }
+}
     
 
 
@@ -2577,6 +2577,12 @@ a {
     cursor: pointer;
     display: inline-block;
   }
+  .issue-admin
+  {
+    height: 400px;
+    overflow-y: auto;
+    overflow-x: auto;
+  }
   .issue-cotainer-pagination
   {
     width: auto;
@@ -3686,7 +3692,7 @@ box-shadow: 2px 2px 2px #ddd;background:white;
     flex-direction: row;
     justify-content: left;
     margin-left: 3%;
-    margin-top: 3%;
+    margin-top: 14%;
   }
 
   .pagination-divs
@@ -3695,8 +3701,6 @@ box-shadow: 2px 2px 2px #ddd;background:white;
     margin-right: 10px ;
     width: 25px;
     text-align: center;
-    
- 
     cursor: pointer;
   }
   .pagination-divs:hover

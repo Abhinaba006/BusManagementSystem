@@ -131,6 +131,16 @@ function getRoutes(event) {
 	console.log("Hitting");
 	const source = $("#user-from").val();
 	const dest = $("#user-to").val();
+	if(source===dest){
+		createAlert("Source and destination can not be same", "failure")
+		return;
+	}
+	console.log(source, dest)
+	if(source!=1 && dest!=1){
+		createAlert("Either source or destination should be NRI FinTech", "failure")
+		return;
+	}
+	console.log("i no run")
 	const date = $("#datepicker").val();
 
 	const d = date.split('/');
@@ -500,10 +510,11 @@ function createAlert(message, type) {
     alertBox.textContent = message;
     closeButton.textContent = "×";
     closeButton.className = "closebtn";
+	
     closeButton.onclick = function() {
       alertContainer.removeChild(alertBox);
-	  //location.reload();
-	  window.location = '/client/my_bookings.html';
+	  location.reload();
+	//   window.location = '/client/my_bookings.html';
     };
 
     alertBox.className = "alert " + type;
