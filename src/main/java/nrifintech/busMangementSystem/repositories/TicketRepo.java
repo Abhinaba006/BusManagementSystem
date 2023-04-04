@@ -41,11 +41,10 @@ public interface TicketRepo extends JpaRepository<Ticket, Integer> {
     void DeleteUpcomingTicketsByRouteId(int route_id,String currentDate);
 
     
-    @Query(value = "SELECT COUNT(DISTINCT user_id) AS unique_users, "
-            + "MONTH(STR_TO_DATE(date, '%d:%m:%Y')) AS month_number "
+    @Query(value = "SELECT COUNT(DISTINCT user_id) AS unique_users "
             + "FROM ticket "
-            + "GROUP BY month_number", nativeQuery = true)
-List<Integer> countUniqueUsersByMonth();
+            + "GROUP BY MONTH(STR_TO_DATE(date, '%d:%m:%Y'))", nativeQuery = true)
+    List<Integer> countUniqueUsersByMonth();
 
     @Query(value="SELECT COUNT(*) FROM ticket where date = :date and status=:status",nativeQuery = true)
 	Integer getCountOfTodaysTicketsByStatus(String date,String status);
