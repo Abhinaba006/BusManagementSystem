@@ -69,8 +69,8 @@
         $(".submit-div-register").on("click", function (event) {
             event.preventDefault();
             const email = $("#email").val();
-            
-            if(email==undefined || email==""){
+
+            if (email == undefined || email == "") {
                 createAlert("Please fill email", "info");
                 //alert("please fill email")
                 return
@@ -78,7 +78,7 @@
 
             const password = $("#mypassword").val();
 
-            if(password==undefined || password==""){
+            if (password == undefined || password == "") {
                 createAlert("Please fill password!", "info");
                 //alert("please fill password")
                 return
@@ -86,7 +86,7 @@
 
             const name = $("#name").val();
 
-            if(name==undefined || name==""){
+            if (name == undefined || name == "") {
                 //createAlert("Please fill name!", "info");
                 //alert("please fill name")
                 return createAlert("Please fill name!", "info");
@@ -95,12 +95,12 @@
             const employeeId = $("#employeeId").val();
 
 
-            if(employeeId==undefined || employeeId==""){
+            if (employeeId == undefined || employeeId == "") {
                 createAlert("Please fill employeeId!", "info");
                 //alert("please fill employeeId")
                 return
             }
-            
+
 
             const data = {
                 name,
@@ -120,36 +120,43 @@
                 success: function (data, status) {
                     window.location.replace("admin_login.html")
                 },
-                error: function (e) {
-                    console.log(e);
+                error:  function (xhr, status, error){
+                    if (JSON.parse(xhr.responseText).email)
+                        createAlert(JSON.parse(xhr.responseText).email, "info");
+                    else if (JSON.parse(xhr.responseText).password)
+                        createAlert(JSON.parse(xhr.responseText).password, "info");
+                    else if (JSON.parse(xhr.responseText).message === "user exists")
+                        createAlert("user with this email or Id already exists!", "info");
+                    else
+                        createAlert("Oops something went wrong! Please try again", "failure");
                 }
             });
 
         })
-        
+
     </script>
 
 
-<script>
+    <script>
 
-    function createAlert(message, type) {
-    var alertContainer = document.getElementById("alert-container");
-    var alertBox = document.createElement("div");
-    var closeButton = document.createElement("span");
+        function createAlert(message, type) {
+            var alertContainer = document.getElementById("alert-container");
+            var alertBox = document.createElement("div");
+            var closeButton = document.createElement("span");
 
-    alertBox.textContent = message;
-    closeButton.textContent = "×";
-    closeButton.className = "closebtn";
-    closeButton.onclick = function() {
-      alertContainer.removeChild(alertBox);
-    };
+            alertBox.textContent = message;
+            closeButton.textContent = "×";
+            closeButton.className = "closebtn";
+            closeButton.onclick = function () {
+                alertContainer.removeChild(alertBox);
+            };
 
-    alertBox.className = "alert " + type;
-    alertBox.appendChild(closeButton);
-    alertContainer.appendChild(alertBox);
-  }
-</script>
-</script>
+            alertBox.className = "alert " + type;
+            alertBox.appendChild(closeButton);
+            alertContainer.appendChild(alertBox);
+        }
+    </script>
+    </script>
 
 </body>
 
