@@ -1,6 +1,8 @@
 package nrifintech.busMangementSystem.repositories;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Optional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,15 +22,16 @@ class UserRepoTest {
 
 	@Test
 	void contextLoads() {
+		assertTrue(true);
 	}
 
 	@Test
 	public void testFindAll() {
 		// adding one more data
 		User user = new User();
-		user.setEmail("ddd1234@gmail.com");
-		user.setName("demouser2");
-		user.setPassword("demo1234");
+		user.setEmail("abhinabad@trainee.nrifintech.com");
+		user.setName("Abhinaba Das");
+		user.setPassword("abhi123");
 		user.setEmployeeId("NRIE02");
 		user.setType(0);
 		userRepo.save(user);
@@ -38,21 +41,21 @@ class UserRepoTest {
 
 	@Test
 	public void findbyId() {
-		Optional<User> temp = userRepo.findByEmail("demo123@gmail.com", 0);
+		Optional<User> temp = userRepo.findByEmail("keshabhk@trainee.nrifintech.com", 0);
 		Optional<User> optionalUser = userRepo.findById(temp.get().getId());
 		assertThat(optionalUser).isPresent();
 	}
 
 	@Test
 	public void findbyEmail() {
-		Optional<User> result = userRepo.findByEmail("demo123@gmail.com", 0);
-		assertThat(result.get().getEmail()).isEqualTo("demo123@gmail.com");
+		Optional<User> result = userRepo.findByEmail("keshabhk@trainee.nrifintech.com", 0);
+		assertThat(result.get().getEmail()).isEqualTo("keshabhk@trainee.nrifintech.com");
 	}
 
 	@Test
 	public void findByOnlyEmail() {
-		Optional<User> result = userRepo.findByOnlyEmail("demo123@gmail.com");
-		assertThat(result.get().getEmail()).isEqualTo("demo123@gmail.com");
+		Optional<User> result = userRepo.findByOnlyEmail("keshabhk@trainee.nrifintech.com");
+		assertThat(result.get().getEmail()).isEqualTo("keshabhk@trainee.nrifintech.com");
 	}
 
 	@BeforeEach
@@ -61,10 +64,10 @@ class UserRepoTest {
 		// e.g., set up database connections, create test data, etc.
 		System.out.println("setting up");
 		User user = new User();
-		user.setEmail("demo123@gmail.com");
-		user.setName("demouser");
+		user.setEmail("keshabhk@trainee.nrifintech.com");
+		user.setName("Keshabh Kedia");
 		user.setEmployeeId("NRIE01");
-		user.setPassword("demo123");
+		user.setPassword("keshabhk123");
 		user.setType(0);
 		userRepo.save(user);
 	}

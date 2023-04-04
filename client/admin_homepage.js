@@ -248,10 +248,10 @@ function addEmployee(event) {
         },
         error: function (xhr, status, error) {
             console.log(error);
-            if(JSON.parse(xhr.responseText).password)
-                createAlert("password should be of atleast 4 characaters!", "info");
-            else if(JSON.parse(xhr.responseText).email) 
+            if(JSON.parse(xhr.responseText).email) 
                 createAlert(JSON.parse(xhr.responseText).email, "info");
+            else if(JSON.parse(xhr.responseText).password)
+                createAlert(JSON.parse(xhr.responseText).password, "info");
             else if (JSON.parse(xhr.responseText).message === "user exists")
                 createAlert("user with this email or Id already exists!", "info");
             else
