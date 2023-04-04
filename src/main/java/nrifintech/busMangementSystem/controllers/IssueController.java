@@ -34,14 +34,14 @@ public class IssueController {
     @GetMapping("/unresolved")
     public ResponseEntity<IssueResponse> getAllunResolvedIssue(HttpServletRequest request,
     @RequestParam(value="pageNumber",defaultValue = "0",required=false) Integer pno,
-	@RequestParam(value="pageSize",defaultValue = "1",required=false) Integer psize) { 
+	@RequestParam(value="pageSize",defaultValue = "2",required=false) Integer psize) { 
         IssueResponse issueResponse = issueService.getAllunResolvedIssue(pno,psize);
         return new ResponseEntity<>(issueResponse, HttpStatus.OK);
     }
     @GetMapping("/resolved")
     public ResponseEntity<IssueResponse> getAllResolvedIssue(HttpServletRequest request,
     @RequestParam(value="pageNumber",defaultValue = "0",required=false) Integer pno,
-	@RequestParam(value="pageSize",defaultValue = "1",required=false) Integer psize) { 
+	@RequestParam(value="pageSize",defaultValue = "2",required=false) Integer psize) { 
         IssueResponse issueResponse = issueService.getAllResolvedIssue(pno,psize);
         return new ResponseEntity<>(issueResponse, HttpStatus.OK);
     }
@@ -50,7 +50,7 @@ public class IssueController {
     public ResponseEntity<IssueResponse> getUserunResolvedIssue(HttpServletRequest request,
     @PathVariable String email,
     @RequestParam(value="pageNumber",defaultValue = "0",required=false) Integer pno,
-	@RequestParam(value="pageSize",defaultValue = "1",required=false) Integer psize) { 
+	@RequestParam(value="pageSize",defaultValue = "2",required=false) Integer psize) { 
         IssueResponse issueResponse = issueService.getUserunResolvedIssue(email,pno,psize);
         return new ResponseEntity<>(issueResponse, HttpStatus.OK);
     }
@@ -59,7 +59,7 @@ public class IssueController {
     public ResponseEntity<IssueResponse> getUserResolvedIssue(HttpServletRequest request,
     @PathVariable String email,
     @RequestParam(value="pageNumber",defaultValue = "0",required=false) Integer pno,
-	@RequestParam(value="pageSize",defaultValue = "1",required=false) Integer psize) { 
+	@RequestParam(value="pageSize",defaultValue = "2",required=false) Integer psize) { 
         IssueResponse issueResponse = issueService.getUserResolvedIssue(email,pno,psize);
         return new ResponseEntity<>(issueResponse, HttpStatus.OK);
     }
