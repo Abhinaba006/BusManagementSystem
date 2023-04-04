@@ -8,8 +8,10 @@
     <link rel="stylesheet" href="./index.css" />
     <link rel="stylesheet" href="./home.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" />
-        <link rel="stylesheet" href="./admin_homepage.css" />
-    <link rel="stylesheet" href="./my_profile.css"/>
+        <!-- <link rel="stylesheet" href="./admin_homepage.css" /> -->
+    <!-- <link rel="stylesheet" href="./my_profile.css"/> -->
+    <link rel="stylesheet" href="./my_issues.css"/>
+
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" />
     <script src="https://kit.fontawesome.com/c01e8f4e5e.js" crossorigin="anonymous"></script>
@@ -96,29 +98,33 @@
         </div>
     </div>
     
-    <div class ="my-issues-page">
-        <div class="get-issue">
-            <div class="issue-text-div">Feel free to reach us!</div>
-            <textarea class="_profile_data _profile_textarea" placeholder="Enter your query here!"></textarea>
-            <div class="_profile_submit">Submit</div>
-        </div>
-    </div>
+    <div style="overflow-y: auto;">
     
-    <div class="_profile issue-manage">
-        <div class="manage-text">Manage Issues</div>
-        <select name="issueStatus" id="issueStatus" onchange="getUnResolvedIssues()">
-            <option value="unresolved">Unresolved</option>
-            <option value="resolved">Resolved</option>
-        </select>
-
-        <p style="margin-left:10%;color: goldenrod;" id="admin_issue_count">Total results: 0 </p>
-        <div class="issue-scroll-div">
-            <div id="issue-container"></div>
+        <div class ="my-issues-page">
+            <div class="get-issue">
+                <div class="issue-text-div">Feel free to reach us!</div>
+                <textarea class="_profile_data _profile_textarea" placeholder="Enter your query here!"></textarea>
+                <div class="_profile_submit">Submit</div>
+            </div>
         </div>
         
-        
+        <div class="_profile issue-manage">
+            <div class="manage-text">Manage Issues</div>
+            <select name="issueStatus" id="issueStatus" onchange="getUnResolvedIssues()">
+                <option value="unresolved">Unresolved</option>
+                <option value="resolved">Resolved</option>
+            </select>
+    
+            <p style="margin-left:10%;color: goldenrod;" id="admin_issue_count">Total results: 0 </p>
+            <div class="issue-scroll-div">
+                <div id="issue-container"></div>
+            </div>
+            
+            
+        </div>
+        <div class="issue-cotainer-pagination-myprofile"> </div>
+    
     </div>
-    <div class="issue-cotainer-pagination-myprofile"> </div>
     <div class="footer">
 
         <div class="footer-element">
