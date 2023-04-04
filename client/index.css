@@ -133,6 +133,7 @@ a:active {
 
 .vector-icon {
   margin-right: 10px;
+  cursor: pointer;
 }
 
 .profile {
@@ -142,7 +143,14 @@ a:active {
   cursor: pointer;
   color: rgba(255, 255, 255, 1);
 }
-
+.my-profile-heading-div
+{
+  font-family: Montserrat !important;
+  line-height: 30px !important;
+  letter-spacing: 0em !important;
+  cursor: pointer !important;
+  color: rgba(255, 255, 255, 1) !important;
+}
 .search-btn {
   font-family: Montserrat;
   font-size: 18px;
@@ -1013,6 +1021,3 @@ box-shadow: 2px 2px 2px #ddd;background:white;
   color: black;
 }
 
-.vector-icon {
-  cursor: pointer;
-}

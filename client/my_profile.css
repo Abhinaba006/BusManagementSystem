@@ -106,9 +106,7 @@ a:link {
     text-decoration: none;
   }
   
-  a:visited {
-    text-decoration: none;
-  }
+
   
   a:hover {
     text-decoration: none;
@@ -198,10 +196,10 @@ a:link {
     justify-content: space-between;
   
   }
-  .vector-icon {
+  /* .vector-icon {
     margin-right: 10px;
-  }
-.profile{
+  } */
+/* .profile{
     font-family: Montserrat;
     font-size: 25px;
     font-weight: 400;
@@ -210,7 +208,7 @@ a:link {
     cursor: pointer;
     color: rgba(255, 255, 255, 1);
     
-}
+} */
 
 .booking{
     font-family: Montserrat;
